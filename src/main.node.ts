@@ -27,7 +27,7 @@ export function ngApp(req, res) {
       App
     ],
     platformProviders: [
-      {provide: ORIGIN_URL, useValue: 'http://localhost:3000'},
+      {provide: ORIGIN_URL, useValue: 'http://localhost:3001'},
       {provide: APP_BASE_HREF, useValue: baseUrl},
     ],
     providers: [

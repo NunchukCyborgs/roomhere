@@ -1,23 +1,37 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-  <title>Angular 2 Universal Starter</title>
-  <meta charset="UTF-8">
-  <meta name="description" content="Angular 2 Universal">
-  <meta name="keywords" content="Angular 2,Universal">
-  <meta name="author" content="PatrickJS">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+    <title><%= content_for?(:title) ? yield(:title) : "Untitled" %></title>
 
-  <base href="/">
+    <%= stylesheet_link_tag    "application" %>
+    <%= javascript_include_tag "application", 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+    <%= yield(:meta) %>
 
-</head>
-<body>
+    <base href="/">
+    <script src="https://use.fontawesome.com/5c43c2d776.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:700|Neuton:400,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/foundation/6.2.3/foundation.min.css">    
+    <style>
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+
+  <body>
 
   <app>
     Loading Universal ...
   </app>
 
   <script src="/index.js"></script>
+  <script   src="https://code.jquery.com/jquery-2.2.4.min.js"   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/foundation/6.2.3/foundation.min.js"></script>
 </body>
 </html>

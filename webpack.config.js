@@ -7,18 +7,15 @@ var commonConfig = {
   },
   module: {
     loaders: [
-      // TypeScript
       { test: /\.ts$/, loaders: ['ts-loader', 'angular2-template-loader'] },
       { test: /\.html$/, loader: 'raw-loader' },
       { test: /\.css$/, loader: 'raw-loader' },
-      { test: /\.json$/, loader: 'raw-loader' }
+      { test: /\.json$/, loader: 'raw-loader' },
     ],
   },
   plugins: [
   ]
-
 };
-
 
 var clientConfig = {
   target: 'web',
@@ -34,7 +31,6 @@ var clientConfig = {
     Buffer: false
   }
 };
-
 
 var serverConfig = {
   target: 'node',
@@ -53,8 +49,6 @@ var serverConfig = {
   }
 };
 
-
-
 // Default config
 var defaultConfig = {
   context: __dirname,
@@ -66,8 +60,6 @@ var defaultConfig = {
     filename: 'index.js'
   }
 }
-
-
 
 var webpackMerge = require('webpack-merge');
 module.exports = [
