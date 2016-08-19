@@ -109,7 +109,9 @@
             </div>
             </section>
         </div>
-        <div class="large-5 columns" id="map"></div>
+        <div class="large-5 columns">
+          <property-map [properties]="properties$ | async"></property-map>
+        </div>
 
     </div>
 </section>
