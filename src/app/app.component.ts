@@ -8,8 +8,7 @@ import { PropertyService } from './properties/property.service';
 @Component({
   selector: 'app',
   directives: [
-    ...ROUTER_DIRECTIVES,
-    XLarge
+    ...ROUTER_DIRECTIVES
   ],
   providers: [PropertyService],
   styleUrls: [`app/app.component.css`],
