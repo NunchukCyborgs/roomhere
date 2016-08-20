@@ -165,7 +165,7 @@ import { PropertyService } from './property.service';
   template: `
       <div class="large-6 columns">
         <div class="image-wrapper overlay-fade-in">
-          <a href="#"></a><img class="js-property-image" [src]="property.image_url" alt="Give me an alt">
+          <a href="#"></a><img class="js-property-image" [src]="BASE_URL + property.image_url" alt="Give me an alt">
             <div class="image-overlay-content">
                 <h2 class="js-description">{{property.bedrooms}} Bedroom {{property.bathrooms}} Bath</h2>
                 <p class="js-price price">{{property.price}}</p><a class="js-property-link button large" target="_blank" href="/properties/318-north-middle-street-1">View Now</a>
@@ -178,4 +178,6 @@ import { PropertyService } from './property.service';
 })
 export class PropertyPreview {
   @Input() property: Property;
+
+  public BASE_URL: string = 'https://semorental.com/';
 }
