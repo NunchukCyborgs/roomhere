@@ -39,39 +39,41 @@ export class PropertyMap {
 
       let markers = [];
 
-      this.properties.map(property => {
-        if (markers.map(marker => <number>marker.propertyid).indexOf(property.id) === -1) {
-          let marker = new RichMarker({
-            map: this.map,
-            position:  new google.maps.LatLng(property.latitude, property.longitude),
-            anchor: new google.maps.Size(-20, -30),
-            content: `<span class="map-marker tooltip top" title="">$${property.price}</span>`,
-            propertyid: property.id
-          });
-          
-          marker.addListener('click', function() {
-            let link = `/properties/${property.id}`;
-            let win = window.open(link, '_blank');
-            win.focus();
-          });
+      if (this.properties) {
+        this.properties.map(property => {
+          if (markers.map(marker => <number>marker.propertyid).indexOf(property.id) === -1) {
+            let marker = new RichMarker({
+              map: this.map,
+              position:  new google.maps.LatLng(property.latitude, property.longitude),
+              anchor: new google.maps.Size(-20, -30),
+              content: `<span class="map-marker tooltip top" title="">$${property.price}</span>`,
+              propertyid: property.id
+            });
+            
+            marker.addListener('click', function() {
+              let link = `/properties/${property.id}`;
+              let win = window.open(link, '_blank');
+              win.focus();
+            });
 
-          markers.push(marker);
+            markers.push(marker);
 
-            // markers.push(new google.maps.Marker({
-            //   position: new google.maps.LatLng(property.latitude, property.longitude),
-            //   map: this.map,
-            //   title: house.address,
-            //   houseId: house.id
-            // }));
+              // markers.push(new google.maps.Marker({
+              //   position: new google.maps.LatLng(property.latitude, property.longitude),
+              //   map: this.map,
+              //   title: house.address,
+              //   houseId: house.id
+              // }));
 
-            // markers.map(i => {
-            //   i.addListener('click', () => {
-            //     window['mapbtn'].attributes['propertyid'] = i.propertyid;
-            //     window['mapbtn'].click();
-            //   });
-            // });
-        }
-      });
+              // markers.map(i => {
+              //   i.addListener('click', () => {
+              //     window['mapbtn'].attributes['propertyid'] = i.propertyid;
+              //     window['mapbtn'].click();
+              //   });
+              // });
+          }
+        });
+      }
     });
   }
 

@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Http, Headers } from '@angular/http';
+import { Http } from '@angular/http';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 // import { Observable } from 'rxjs/Observable';
 
@@ -18,15 +18,15 @@ export class PropertyService {
     this.collection$.subscribe();
 
     this.http.get(`${BASE_URL}properties/filtered_results`)
-        .subscribe(res => {
-            this._collection = this._collection || [];
-            let json = res.json();
+      .subscribe(res => {
+          this._collection = this._collection || [];
+          let json = res.json();
 
-            for (let property in json) {
-                this._collection.push(json[property]);
-                this.collection$.next(this.collection);
-            }
-        });
+          for (let property in json) {
+              this._collection.push(json[property]);
+              this.collection$.next(this.collection);
+          }
+      });
   }
     
   get collection(): Property[] {
@@ -34,14 +34,8 @@ export class PropertyService {
   }
 
   public getFilteredProperties$(facet: PropertyFacet) {
-    console.log('filtering with facet: ', facet.formattedFacet);
-
-    let headers = new Headers();
-    headers.append('Content-Type', 'multipart/form-data');
-
-    return this.http.post(`${BASE_URL}properties/filtered_results`, facet.formattedFacet)
+    return this.http.post(`${BASE_URL}properties/filtered_results`, {facets: facet})
       .map(i => {
-        console.log('hh>>', i.json());
         return i.json();
       });
       // .do(properties => {
