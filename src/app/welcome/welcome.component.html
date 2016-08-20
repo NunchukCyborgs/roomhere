@@ -21,7 +21,7 @@
                     <input type="number" id="sliderOutput2">
                 </div>
                 <div class="large-12 columns">
-                    <property-filters [facet]="facet" (apply)="test($event)"></property-filters>
+                    <property-filters [facet]="facet" (applyFacet)="applyFacet($event)"></property-filters>
                 </div>
             </div>
 
@@ -47,7 +47,6 @@
         <div class="large-5 columns">
           <property-map [properties]="properties$ | async"></property-map>
         </div>
-
     </div>
 </section>
 

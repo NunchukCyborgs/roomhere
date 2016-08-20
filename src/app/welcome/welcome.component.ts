@@ -19,14 +19,10 @@ export class Welcome {
   constructor(private propertyService: PropertyService) { ; }
 
   ngOnInit() {
-    this.properties$ = this.propertyService.collection$;
+    this.applyFacet(this.facet);
   }
 
   public applyFacet(facet: PropertyFacet) {
-    console.log(facet);
-  }
-
-  public test() {
-    console.log('testing here', arguments);
+    this.properties$ = this.propertyService.getFilteredProperties$(this.facet);
   }
 }

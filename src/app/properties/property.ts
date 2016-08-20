@@ -24,7 +24,7 @@ export class PropertyFacet {
    get formattedFacet() {
      let formatted = {};
      for (let key of Object.keys(this)) {
-          formatted = this[key];
+          formatted[`facets[${key}]`] = this[key];
      }
      
      return formatted;
