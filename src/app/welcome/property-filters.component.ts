@@ -25,7 +25,7 @@ export class PropertyFilters {
   public locations$: Observable<Location[]>;
   public amenities$: Observable<Amenity[]>;
   @Input() facet: PropertyFacet;
-  @Output() apply: EventEmitter<any> = new EventEmitter();
+  @Output() applyFacet: EventEmitter<any> = new EventEmitter();
 
   constructor(private facetsService: FacetsService) {
 
@@ -58,7 +58,7 @@ export class PropertyFilters {
     }
   }
 
-  public test() {
-    console.log('testing');
+  public apply() {
+    this.applyFacet.emit(this.facet);
   }
 }
