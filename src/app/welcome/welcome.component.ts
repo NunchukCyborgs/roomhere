@@ -1,22 +1,32 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { PropertyService, Property } from '../properties/property.service';
+import { PropertyService, Property, PropertyFacet } from '../properties/property.service';
 import { PropertyPreview } from '../properties/property-preview.component';
-import { PropertyMap } from './property-map.component'
+import { PropertyMap } from './property-map.component';
+import { PropertyFilters } from './property-filters.component';
 
 @Component({
   moduleId: __filename,
   selector: 'welcome',
-  directives: [PropertyPreview, PropertyMap],
+  directives: [PropertyPreview, PropertyMap, PropertyFilters],
   styles: [`
   `],
   templateUrl: 'welcome.component.html'
 })
 export class Welcome {
   public properties$: Observable<Property[]>;
+  public facet: PropertyFacet = new PropertyFacet();
   constructor(private propertyService: PropertyService) { ; }
 
   ngOnInit() {
-    this.properties$ = this.propertyService.collection$
+    this.properties$ = this.propertyService.collection$;
+  }
+
+  public applyFacet(facet: PropertyFacet) {
+    console.log(facet);
+  }
+
+  public test() {
+    console.log('testing here', arguments);
   }
 }

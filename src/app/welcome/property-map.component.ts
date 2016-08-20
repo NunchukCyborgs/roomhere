@@ -40,7 +40,7 @@ export class PropertyMap {
       let markers = [];
 
       this.properties.map(property => {
-        if (!markers.map(marker => marker.propertyid).includes(property.id)) {
+        if (markers.map(marker => <number>marker.propertyid).indexOf(property.id) === -1) {
           let marker = new RichMarker({
             map: this.map,
             position:  new google.maps.LatLng(property.latitude, property.longitude),

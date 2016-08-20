@@ -1,16 +1,34 @@
-export interface Amenity {
-  name: String;
-}
+import { Location, Amenity } from '../services/facets.service';
 
-export interface Location {
-  id: number;
-  full_name: string;
-  facet_name: string;
-  data_name: string;
-  latitude: number;
-  longitude: number;
-  created_at: Date;
-  updated_at: Date;
+export class PropertyFacet {
+   public min_price: number;
+   public max_price: number;
+   public min_bedrooms: number;
+   public min_bathrooms: number;
+   public max_lease_length: number;
+   public locations: Location[];
+   public amenities: Amenity[];
+   public types: string[];
+
+   constructor() {
+     this.min_price = 0;
+     this.max_price = 25000;
+     this.min_bedrooms = 0;
+     this.min_bathrooms = .5;
+     this.max_lease_length = null;
+     this.locations = [];
+     this.amenities = [];
+     this.types = [];
+   }
+
+   get formattedFacet() {
+     let formatted = {};
+     for (let key of Object.keys(this)) {
+          formatted = this[key];
+     }
+     
+     return formatted;
+   }
 }
 
 export class Property {
@@ -32,7 +50,7 @@ export class Property {
   public owner_id: number;
   public slug: string;
   public square_footage: number;
-  public types: any[]; // what type?
+  public types: string[];
   public updated_at: Date;
   public zipcode: string;
   public price: number;

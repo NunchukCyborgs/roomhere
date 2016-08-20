@@ -21,72 +21,7 @@
                     <input type="number" id="sliderOutput2">
                 </div>
                 <div class="large-12 columns">
-                    <button class="button hollow" type="button" data-toggle="example-dropdown">Filters</button>
-                    <div class="dropdown-pane large" id="example-dropdown" data-dropdown data-auto-focus="true">
-                      <form>
-                          <div class="row">
-                            <div class="large-2 columns">
-                              <p class="lead">Rental Type:</p>
-                            </div>
-                            <div class="large-10 columns">
-                            <div class="input-group button-group secondary expanded js-types-facet">
-                                  <a class="button">Apartment</a>
-                                  <a class="button">Home</a>
-                                  <a class="button">Duplex</a>
-                                  <a class="button">Townhouse</a>
-                            </div>
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="large-2 columns">
-                              <p class="lead">Bedrooms:</p>
-                            </div>
-                            <div class="large-10 columns">
-                              <div class="input-group button-group secondary expanded js-bedrooms-facet">
-                                  <a class="button" data-value='1'>One Bedroom +</a>
-                                  <a class="button" data-value='2'>Two Bedroom + </a>
-                                  <a class="button" data-value='3'>Three Bedroom +</a>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="large-2 columns">
-                              <p class="lead">Rentals Near:</p>
-                            </div>
-                            <div class="large-10 columns">
-                              <div class="row small-up-2 medium-up-3 js-locations-facet">
-                                <% Location.all.each do |location| %>
-                                  <div class="column">
-                                    <input id="<%=location.data_name%>" value="<%= location.facet_name %>" type="checkbox">
-                                    <label for="<%=location.data_name%>"><%= location.facet_name %></label>
-                                  </div>
-                                <% end %>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="large-2 columns">
-                              <p class="lead">Amenities:</p>
-                            </div>
-                            <div class="large-10 columns">
-                              <div class="row small-up-2 medium-up-3 js-amenities-facet">
-                                <% Amenity.all.each do |amenity| %>
-                                  <div class="column">
-                                    <input id="<%= amenity.name.downcase.underscore %>" value="<%= amenity.name %>"  type="checkbox">
-                                    <label for="<%= amenity.name %>"><%= amenity.name %></label>
-                                  </div>
-                                <% end %>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="row">
-                              <div class="large-4 large-offset-4 columns">
-                                  <input type="submit" class="button expanded js-apply-facets" value="Apply">
-                              </div>
-                          </div>
-
-                      </form>
-                  </div>
+                    <property-filters [facet]="facet" (apply)="test($event)"></property-filters>
                 </div>
             </div>
 
