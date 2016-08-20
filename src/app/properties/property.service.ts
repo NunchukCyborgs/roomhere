@@ -5,7 +5,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Property, PropertyFacet } from './property';
 export { Property, PropertyFacet } from './property';
 
-const BASE_URL = 'http://localhost:3000/api/';
+const BASE_URL = 'https://semorental.com/api/';
 
 @Injectable()
 export class PropertyService {

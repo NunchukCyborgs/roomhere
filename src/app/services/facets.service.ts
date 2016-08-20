@@ -16,7 +16,7 @@ export interface Location {
   created_at: Date;
   updated_at: Date;
 }
-const BASE_URL = 'http://localhost:3000/api/';
+const BASE_URL = 'https://semorental.com/api/';
 
 @Injectable()
 export class FacetsService {

@@ -16,7 +16,7 @@ import { PropertyService } from './properties/property.service';
   <div>
     <div class="top-bar" id="top-menu">
       <div class="top-bar-title">
-        <img src="/assets/images/logo_text_only.png" alt="Roomhere"/>
+        <img src="/assets/images/logo_hor_dpPurp_205x58.png" alt="Roomhere"/>
       </div>
       <div class="top-bar-right">
         <ul class="menu">
@@ -27,14 +27,11 @@ import { PropertyService } from './properties/property.service';
       </div>
     </div>
 
-    <div class="row collapse full-height">
-      <div class="small-12 columns full-height">
+    <div class="row left-margin-fix full-width">
         <main>
           <router-outlet></router-outlet>
         </main>
-      </div>
     </div>
-  <div>
   `
 })
 export class App {
