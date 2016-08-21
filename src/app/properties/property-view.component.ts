@@ -6,13 +6,29 @@ import { PropertyService, Property } from './property.service';
 import { PropertyImages } from './property-images.component';
 import { PropertyReviews } from './property-reviews.component';
 import { SimilarProperties } from './similar-properties.component';
+import { PropertyMap } from '../welcome/property-map.component';
 
 @Component({
   moduleId: __filename,
   selector: 'property-view',
   directives: [PropertyReviews, SimilarProperties, PropertyImages],
   styles: [`
+    .property-view-container {
+      position: relative;
+    }
 
+    .call-to-actions--top {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      border-radius: 5%;
+      z-index: 10;
+      box-shadow: inset 1px 1px 3px #999;
+    }
+
+    .call-to-actions--top .rent-now {
+      margin-bottom: 10px;
+    }
   `],
   templateUrl: './property-view.component.html'
 })
