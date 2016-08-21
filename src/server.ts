@@ -39,6 +39,7 @@ import { ngApp } from './main.node';
 // ensure routes match client-side-app
 app.get('/', ngApp);
 app.get('/properties/:slug', ngApp);
+app.get('/properties/:slug/edit', ngApp);
 
 // use indexFile over ngApp only when there is too much load on the server
 function indexFile(req, res) {
