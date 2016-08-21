@@ -1,6 +1,5 @@
 <div>
   <button class="button hollow" type="button" (click)="showFilters = !showFilters">Filters</button>
-  {{facet | json}}
   <div *ngIf="showFilters" class="dropdown-pane large" id="example-dropdown" data-dropdown data-auto-focus="true">
     <form>
       <div class="row">

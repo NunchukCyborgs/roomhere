@@ -57,20 +57,6 @@ export class PropertyMap {
             });
 
             markers.push(marker);
-
-              // markers.push(new google.maps.Marker({
-              //   position: new google.maps.LatLng(property.latitude, property.longitude),
-              //   map: this.map,
-              //   title: house.address,
-              //   houseId: house.id
-              // }));
-
-              // markers.map(i => {
-              //   i.addListener('click', () => {
-              //     window['mapbtn'].attributes['propertyid'] = i.propertyid;
-              //     window['mapbtn'].click();
-              //   });
-              // });
           }
         });
       }
