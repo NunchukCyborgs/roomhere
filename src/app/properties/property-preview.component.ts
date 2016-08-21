@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Property } from './property';
 import { PropertyService } from './property.service';
-
+import { BASE_URL } from '../config';
 @Component({
   moduleId: __filename,
   selector: 'property-preview',
@@ -178,4 +178,5 @@ import { PropertyService } from './property.service';
 })
 export class PropertyPreview {
   @Input() property: Property;
+  public BASE_URL: string = BASE_URL;
 }

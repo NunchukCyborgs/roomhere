@@ -3,20 +3,14 @@
 <meta property="og:description" content="<%= truncate(@property.description, length: 160) %>" />
 <meta property="og:url" content="<%= property_url(@property) %>" />-->
 <!--<meta property="og:image" content="<%= @property.main_image.url %>" />-->
-<style>
-  .rental {
-    height: 0px;
-  }
-</style>
 
 <div class="row">
+  <property-images [images]="property?.images" *ngIf="property?.images"></property-images>
   <div class="small-12 medium-9 columns small-centered">
-    <div class="section rental"></div>
     <div class="row">
-      <div class="medium-6 columns">
-        <property-images [images]="property?.images" *ngIf="property?.images"></property-images>
+      <div class="medium-12 columns">
       </div>
-      <div class="medium-6 large-5 columns" id="firstdesc">
+      <div class="medium-12 columns" id="firstdesc">
         <h3>
           {{property?.address1}}
         </h3>
