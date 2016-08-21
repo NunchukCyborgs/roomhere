@@ -41,7 +41,7 @@ export class Property {
   public created_at: Date;
   public description: string;
   public id: number;
-  public image_url: string;
+  public images: {id: number, url: string};
   public latitude: number;
   public longitude: number;
   public locations: Location[];
