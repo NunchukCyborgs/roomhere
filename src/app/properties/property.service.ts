@@ -1,7 +1,8 @@
 import { Injectable } from "@angular/core";
 import { Http } from '@angular/http';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-// import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/Rx';
 
 import { Property, PropertyFacet } from './property';
 export { Property, PropertyFacet } from './property';
@@ -33,7 +34,7 @@ export class PropertyService {
     return Object.assign([], this._collection);
   }
 
-  public getFilteredProperties$(facet: PropertyFacet) {
+  public getFilteredProperties$(facet: PropertyFacet): Observable<Property[]> {
     return this.http.post(`${BASE_URL}properties/filtered_results`, {facets: facet})
       .map(i => {
         return i.json();
@@ -47,5 +48,20 @@ export class PropertyService {
 
       //   this.collection$.next(this._collection);
       // });
+  }
+
+  public getPropertyBySlug$(slug: string): Observable<Property> {
+    let property$ = new Observable()
+    const index = this._collection.map(i => i.slug).indexOf(slug);
+    if (index !== -1) {
+      return Observable.of(this._collection[index]);
+    } else {
+      return this.http.get(`${BASE_URL}properties/${slug}`).map(i => {
+        const property = i.json();
+        this._collection.push(property);
+        debugger;
+        return property;
+      });
+    }
   }
 }
