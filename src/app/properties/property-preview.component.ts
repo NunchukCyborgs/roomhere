@@ -178,6 +178,4 @@ import { PropertyService } from './property.service';
 })
 export class PropertyPreview {
   @Input() property: Property;
-
-  public BASE_URL: string = 'https://semorental.com/';
 }

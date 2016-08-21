@@ -10,7 +10,7 @@ import { SimilarProperties } from './similar-properties.component';
 @Component({
   moduleId: __filename,
   selector: 'property-view',
-  directives: [PropertyReviews, SimilarProperties],
+  directives: [PropertyReviews, SimilarProperties, PropertyImages],
   styles: [`
 
   `],
