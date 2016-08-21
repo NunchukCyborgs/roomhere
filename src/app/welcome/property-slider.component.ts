@@ -29,12 +29,14 @@ export class PropertySlider implements AfterViewInit {
   @Output() applyFacet: EventEmitter<any> = new EventEmitter();
 
   ngAfterViewInit() {
-    $(document).foundation();
+    if ($) {
+      $(document).foundation();
 
-    $('body').on("changed.zf.slider", () => {
-      this.facet.min_price = Number($('input#sliderOutput1').val());
-      this.facet.max_price = Number($('input#sliderOutput2').val());
-      this.applyFacet.emit(this.facet);
-    });
+      $('body').on("changed.zf.slider", () => {
+        this.facet.min_price = Number($('input#sliderOutput1').val());
+        this.facet.max_price = Number($('input#sliderOutput2').val());
+        this.applyFacet.emit(this.facet);
+      });
+    }
   }
 }
