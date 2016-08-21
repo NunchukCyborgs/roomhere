@@ -2,11 +2,7 @@ import { Component, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
-import { PropertyService, Property } from './property.service';
-import { PropertyImages } from './property-images.component';
-import { PropertyReviews } from './property-reviews.component';
-import { SimilarProperties } from './similar-properties.component';
-import { PropertyMap } from '../welcome/property-map.component';
+import { PropertyService, Property, PropertyImages, PropertyReviews, SimilarProperties, PropertyMap} from './index';
 
 @Component({
   moduleId: __filename,

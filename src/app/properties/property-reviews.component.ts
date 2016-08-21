@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { PropertyService, Property } from './property.service';
+import { PropertyService, Property } from './index';
 
 @Component({
   moduleId: __filename,

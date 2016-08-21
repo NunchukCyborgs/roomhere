@@ -3,9 +3,7 @@ import { Http } from '@angular/http';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/Rx';
-
-import { Property, PropertyFacet } from './property';
-export { Property, PropertyFacet } from './property';
+import { Property, PropertyFacet } from './index';
 
 import { BASE_API_URL } from '../config';
 

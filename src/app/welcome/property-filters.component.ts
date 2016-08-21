@@ -1,9 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { NgClass } from '@angular/common';
 import { Observable } from 'rxjs/Observable';
-import { PropertyService, Property, PropertyFacet } from '../properties/property.service';
-import { PropertyPreview } from '../properties/property-preview.component';
-import { PropertyMap } from './property-map.component'
+import { PropertyPreview, PropertyService, Property, PropertyFacet, PropertyMap } from '../properties/index';
 import { FacetsService, Location, Amenity } from '../services/facets.service';
 @Component({
   moduleId: __filename,

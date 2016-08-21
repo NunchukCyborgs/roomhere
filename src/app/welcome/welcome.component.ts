@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { PropertyService, Property, PropertyFacet } from '../properties/property.service';
-import { PropertyPreview } from '../properties/property-preview.component';
-import { PropertyMap } from './property-map.component';
+import { PropertyService, Property, PropertyFacet, PropertyPreview, PropertyMap } from '../properties/index';
 import { PropertyFilters } from './property-filters.component';
 import { PropertySlider } from './property-slider.component';
 

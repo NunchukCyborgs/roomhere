@@ -1,5 +1,5 @@
 import { Component, AfterViewInit, Input, Output, EventEmitter } from '@angular/core';
-import { PropertyFacet } from '../properties/property.service';
+import { PropertyFacet } from '../properties/index';
 
 declare let $: any;
 

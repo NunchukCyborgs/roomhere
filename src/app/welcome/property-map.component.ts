@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
-import { Property } from '../properties/property.service';
+import { Property } from '../properties/index';
 import { GoogleApiService } from '../services/google-api.service';
 
 declare let google: any;
