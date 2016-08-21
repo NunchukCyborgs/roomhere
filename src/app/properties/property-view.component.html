@@ -1,0 +1,127 @@
+<!--<meta property="og:title" content="<%= @property.address1 %>" />
+<meta property="og:type" content="website" />
+<meta property="og:description" content="<%= truncate(@property.description, length: 160) %>" />
+<meta property="og:url" content="<%= property_url(@property) %>" />-->
+<!--<meta property="og:image" content="<%= @property.main_image.url %>" />-->
+<style>
+  .rental {
+    height: 0px;
+  }
+</style>
+
+<div class="row">
+  <div class="small-12 medium-9 columns small-centered">
+    <div class="section rental"></div>
+    <div class="row">
+      <div class="medium-6 columns">
+        <property-images [images]="property?.images" *ngIf="property?.images"></property-images>
+      </div>
+      <div class="medium-6 large-5 columns" id="firstdesc">
+        <h3>
+          {{property?.address1}}
+        </h3>
+        <p>
+          {{property?.description}}
+        </p>
+
+        <label>{{property?.bedrooms}} Bedrooms</label><br>
+        <label>{{property?.bathrooms}} Bath</label><br>
+        <h5>{{property?.price}} Monthly Rent</h5><br> Claim/Rent/Whatever Stuff
+
+        <!--<% if @property.unclaimed? %>
+          <%= link_to "Claim Property", claim_property_path(@property), class: "button large expanded" %>
+        <% elsif @property.owner == current_user %>
+          <%= link_to "Edit Property", edit_property_path(@property), class: "button large expanded" %>
+        <% else %>
+          <a class="button large expanded" href="#">Rent Now</a>
+        <% end %>-->
+
+        <a class="button large expanded" href="#">Rent Now</a>
+        <div class="small secondary expanded button-group">
+          <a class="button">Facebook</a> <a class="button">Twitter</a>
+          <a class="button">Instagram</a>
+        </div>
+      </div>
+    </div>
+    <div class="row column">
+      <hr>
+    </div>
+    <div class="row column">
+      <h3>About This Listing</h3>
+    </div>
+    <div class="row">
+      <div class="large-4 columns">
+        <h5>
+          This Space
+        </h5>
+        <hr>
+        <br>
+        <label>
+            Bathrooms: {{property?.bathrooms}}
+        </label>
+        <br>
+        <label>
+            Bedrooms: {{property?.bedrooms}}
+        </label>
+        <br>
+        <label>
+            Property Type: {{property?.types | json}}
+            <!--Do something about this here-->
+        </label>
+        <br>
+        <label>
+            Owner Email: {{property?.contact_email}}
+        </label>
+        <br>
+        <label>
+            School District
+        </label>
+        <br>
+        <label>
+            Nearby: {{property?.locations}}
+        </label>
+        <br>
+      </div>
+      <div class="large-8 columns">
+        <h5>
+          Amenenities
+        </h5>
+        <hr>
+        <div class="row small-up-2">
+          <div class="js-amenities">
+            <div *ngFor="let amenity of amenities$ | async">
+              <div *ngIf="property?.amenities.indexOf(amenity) === -1" class="column">
+                <label>
+                    <i *ngIf="amenity.icon" class="fa {{amenity.icon}}" aria-hidden="true"></i>
+                    {{amenity.name}}
+                  </label>
+              </div>
+              <div *ngIf="property?.amenities.indexOf(amenity) !== -1" class="column">
+                <label><del><{{amenity.name}}</del></label>
+              </div>
+            </div>
+
+            <div class="column">
+              <a href="#" class="toggle-more">+ more</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="column row">
+        <hr>
+        <ul class="tabs" data-tabs="" id="example-tabs">
+          <li class="tabs-title is-active">
+            <a aria-selected="true" href="#panel1">Reviews</a>
+          </li>
+          <li class="tabs-title">
+            <a href="#panel2">Similar Rentals</a>
+          </li>
+        </ul>
+        <div class="tabs-content" data-tabs-content="example-tabs">
+          <div class="tabs-panel is-active" id="panel1">
+            <property-reviews [property]="property"></property-reviews>
+            <div class="tabs-panel" id="panel2">
+              <div class="row medium-up-3 large-up-5">
+                <similar-properties [property]="property"></similar-properties>
+              </div>
+            </div>

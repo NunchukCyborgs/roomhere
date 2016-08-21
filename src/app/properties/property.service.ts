@@ -59,7 +59,6 @@ export class PropertyService {
       return this.http.get(`${BASE_URL}properties/${slug}`).map(i => {
         const property = i.json();
         this._collection.push(property);
-        debugger;
         return property;
       });
     }
