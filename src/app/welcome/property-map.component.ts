@@ -18,6 +18,9 @@ export interface MapOptions {
   selector: 'property-map',
   providers: [ GoogleApiService ],
   styles: [`
+    #map{
+    height: 100vh;
+    }
   `],
   template: `
     <div>
