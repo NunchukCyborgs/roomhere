@@ -2,7 +2,8 @@
     <div class="row full-width left-margin-fix">
         <div class="large-7 medium-7 columns">
           <section id="scrolldiv">
-            <div class="row marg40top">
+            <div class="row marg20top">
+              
                 <div class="large-12 columns">
                     <p>Price Range</p>
                 </div>
@@ -12,6 +13,7 @@
                 <div class="large-12 columns">
                     <property-filters [facet]="facet" (applyFacet)="applyFacet($event)"></property-filters>
                 </div>
+                
             </div>
 
               <div class="row">
@@ -25,11 +27,16 @@
                   </div>
                 </div>
               </div>
-            <div class="row head-room">
-              <div class="large-12 text-center columns">
-                <div class="js-pagination" role="navigation" aria-label="Pagination">
-                </div>
-              </div>
+            <div class="pag">
+            <ul class="pagination text-center" role="navigation" aria-label="Pagination">
+              <li class="pagination-previous disabled">Previous</li>
+              <li class="current"><span class="show-for-sr">You're on page</span> 1</li>
+              <li><a href="#" aria-label="Page 2">2</a></li>
+              <li><a href="#" aria-label="Page 3">3</a></li>
+              <li><a href="#" aria-label="Page 4">4</a></li>
+              <li class="ellipsis"></li>
+              <li class="pagination-next"><a href="#" aria-label="Next page">Next</a></li>
+            </ul>
             </div>
             </section>
         </div>
