@@ -1,15 +1,17 @@
-import { Component, Directive, ElementRef, Renderer } from '@angular/core';
+import { Component, Directive, AfterViewInit } from '@angular/core';
 import { ROUTER_DIRECTIVES } from '@angular/router';
 import { Http } from '@angular/http';
 import { PropertyService } from './properties/property.service';
 import { GoogleApiService } from './services/google-api.service';
+import { Login } from './users/login.component';
 
-/////////////////////////
-// ** MAIN APP COMPONENT **
+declare let $: any;
+
 @Component({
   selector: 'app',
   directives: [
-    ...ROUTER_DIRECTIVES
+    ...ROUTER_DIRECTIVES,
+    Login
   ],
   providers: [PropertyService, GoogleApiService],
   styleUrls: [`app/app.component.css`],
@@ -23,7 +25,10 @@ import { GoogleApiService } from './services/google-api.service';
         <ul class="menu">
           <li><a [routerLinkActive]="['active', 'router-link-active']" [routerLink]=" ['./home'] ">Home</a></li>
           <li><a [routerLinkActive]="['active', 'router-link-active']" [routerLink]=" ['./home'] ">Create an Account</a></li>
-          <li><a [routerLinkActive]="['active', 'router-link-active']" [routerLink]=" ['./home'] ">Login</a></li>
+          <li><a data-open="LoginModal">
+          Login
+          <login class="reveal" id="LoginModal" data-reveal></login>
+          </a></li>
         </ul>
       </div>
     </div>
@@ -35,23 +40,8 @@ import { GoogleApiService } from './services/google-api.service';
     </div>
   `
 })
-export class App {
-  data = {};
-  server: string;
-
-  constructor(public http: Http) { }
-
-  ngOnInit() {
-    // limit the use of setTimeouts
-    setTimeout(() => {
-      this.server = 'This was rendered from the server!';
-    }, 10);
-
-    // use services for http calls
-    this.http.get('/data.json')
-      .subscribe(res => {
-        this.data = res.json();
-      });
+export class App implements AfterViewInit {
+  ngAfterViewInit() {
+    $('.top-bar-right .menu').foundation();
   }
-
 }
