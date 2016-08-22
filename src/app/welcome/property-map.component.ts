@@ -68,7 +68,11 @@ export class PropertyMap {
   }
 
   ngAfterViewInit() {
-    window['mapbtn'].click(); // Trigger change detection and shit
+    try {
+      window['mapbtn'].click(); // Trigger change detection and shit
+    } catch(e) {
+      console.log('ReferenceError: window is not defined? ', e.toString().substr(0, 40));
+    }
   }
 
   private noop() {

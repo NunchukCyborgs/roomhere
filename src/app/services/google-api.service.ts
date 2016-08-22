@@ -16,19 +16,23 @@ export class GoogleApiService {
 
   constructor(private http:Http) {
     this.loadMap = new Promise((resolve) => {
-      window[GOOGLE_MAP_CALLBACK] = () => {
-        window[GOOGLE_MAP_CALLBACK] = undefined;
-        this.loadScript(RICHMARKER_URL);
-      }
-      window[RICHMARKER_CALLBACK] = () => {
-        window[RICHMARKER_CALLBACK] = undefined;
-        resolve();
-      }
+      try {
+        window[GOOGLE_MAP_CALLBACK] = () => {
+          window[GOOGLE_MAP_CALLBACK] = undefined;
+          this.loadScript(RICHMARKER_URL);
+        }
+        window[RICHMARKER_CALLBACK] = () => {
+          window[RICHMARKER_CALLBACK] = undefined;
+          resolve();
+        }
 
-      if (window[GOOGLE_MAP_CALLBACK]) {
-          this.loadScript(GOOGLE_MAP_URL);
-      } else {
-        resolve();
+        if (window[GOOGLE_MAP_CALLBACK]) {
+            this.loadScript(GOOGLE_MAP_URL);
+        } else {
+          resolve();
+        }
+      } catch(e) {
+        console.log('ReferenceError: window is not defined? ', e.toString().substr(0, 40));
       }
     });
   }

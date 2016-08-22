@@ -6,7 +6,7 @@ import { PropertySlider } from './property-slider.component';
 import { CAPE_GIRARDEU_CENTER } from '../config';
 
 declare let $: any;
-const MAP_HEIGHT = '100VA';
+const MAP_HEIGHT = '100vh';
 const MAP_ZOOM_LEVEL = 13;
 
 @Component({
@@ -36,7 +36,7 @@ export class Welcome implements OnInit {
 
   private updateMapOptions(properties: Property[]) {
     this.mapOptions = {
-      height: '100vh',
+      height: MAP_HEIGHT,
       center: CAPE_GIRARDEU_CENTER,
       zoomLevel: MAP_ZOOM_LEVEL
     }

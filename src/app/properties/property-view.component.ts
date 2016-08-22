@@ -10,7 +10,7 @@ const HEIGHT: string = '100px';
 @Component({
   moduleId: __filename,
   selector: 'property-view',
-  directives: [PropertyReviews, SimilarProperties, PropertyImages, PropertyMap],
+  directives: [PropertyReviews, SimilarProperties, PropertyMap, PropertyImages],
   styles: [`
     .property-view-container {
       position: relative;
@@ -37,8 +37,8 @@ export class PropertyView implements OnDestroy {
   private sub: Subscription;
 
   constructor(
-    private router: Router, 
-    private route: ActivatedRoute, 
+    private router: Router,
+    private route: ActivatedRoute,
     private propertyService: PropertyService
     ) {
 
@@ -57,9 +57,9 @@ export class PropertyView implements OnDestroy {
 
   ngOnInit() {
     this.sub = this.route.params
-      .flatMap(params => this.propertyService.getPropertyBySlug$(params['slug']))
+      .flatMap(params =>this.propertyService.getPropertyBySlug$(params['slug']))
       .do((property: Property) => this.updateMapOptions(property))
-      .subscribe((property: Property) => this.property = property)
+      .subscribe((property: Property) => this.property = property);
   }
 
   ngOnDestroy() {
