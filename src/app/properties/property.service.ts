@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/Rx';
 import { Property, PropertyFacet } from './index';
 
-import { BASE_API_URL } from '../config';
+import { BASE_URL } from '../config';
 
 @Injectable()
 export class PropertyService {
@@ -16,7 +16,7 @@ export class PropertyService {
     this.collection$ = new BehaviorSubject(this._collection);
     this.collection$.subscribe();
 
-    this.http.get(`${BASE_API_URL}properties/filtered_results`)
+    this.http.get(`${BASE_URL}/properties/filtered_results`)
       .subscribe(res => {
           this._collection = this._collection || [];
           let json = res.json();
@@ -33,7 +33,7 @@ export class PropertyService {
   }
 
   public getFilteredProperties$(facet: PropertyFacet): Observable<Property[]> {
-    return this.http.post(`${BASE_API_URL}properties/filtered_results`, {facets: facet})
+    return this.http.post(`${BASE_URL}/properties/filtered_results`, {facets: facet})
       .map(i => {
         return i.json();
       });
@@ -54,7 +54,7 @@ export class PropertyService {
     if (index !== -1) {
       return Observable.of(this._collection[index]);
     } else {
-      return this.http.get(`${BASE_API_URL}properties/${slug}`).map(i => {
+      return this.http.get(`${BASE_URL}/properties/${slug}`).map(i => {
         const property = i.json();
         this._collection.push(property);
         return property;

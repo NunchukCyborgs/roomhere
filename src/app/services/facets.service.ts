@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Http } from '@angular/http';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { BASE_API_URL } from '../config';
+import { BASE_URL } from '../config';
 
 export interface Amenity {
   name: string;
@@ -31,7 +31,7 @@ export class FacetsService {
     this.locations$ = new BehaviorSubject(this._locations);
     this.locations$.subscribe();
 
-    this.http.get(`${BASE_API_URL}properties/facets`)
+    this.http.get(`${BASE_URL}/properties/facets`)
       .subscribe(res => {
         this._amenities = this._amenities || [];
         this._locations = this._locations || [];
