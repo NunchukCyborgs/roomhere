@@ -20,6 +20,9 @@ export interface MapOptions {
   selector: 'property-map',
   providers: [ ],
   styles: [`
+    #map{
+    height: 100vh;
+    }
   `],
   template: `
     <div>

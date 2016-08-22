@@ -12,9 +12,13 @@ import { FacetsService, Location, Amenity } from '../services/facets.service';
     .dropdown-pane {
       visibility: visible;
     }
+.dropdown-pane.large {
+    width: 900px !important;
+}
     .button-group a.button.selected {
       opacity: .5;
     }
+
   `],
   templateUrl: './property-filters.component.html'
 })
