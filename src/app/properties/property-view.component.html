@@ -25,6 +25,16 @@
         <div class="callout column small-6 medium-3">${{property?.price}}, Lease: {{property?.lease_length}} months</div>
       </div>
       <div class="row">
+        <div class="column medium-6">
+          <h3>{{property?.address1}}</h3>
+          <h3 *ngIf="property?.address2">{{property?.address2}}</h3>
+
+          <p>{{property?.description}}</p>
+        </div>
+        <div class="column medium-6">
+          Amenities
+          {{property?.amenities | json}}
+        </div>
         <!--<div class="column">
           <hr>
           <ul class="tabs" data-tabs="" id="example-tabs">
