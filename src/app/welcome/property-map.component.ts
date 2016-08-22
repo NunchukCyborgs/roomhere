@@ -1,8 +1,10 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
 import { Property } from '../properties/index';
 import { GoogleApiService } from '../services/google-api.service';
+import { generateGUID } from '../config';
 
 declare let google: any;
 declare let RichMarker: any;
@@ -16,7 +18,7 @@ export interface MapOptions {
 @Component({
   moduleId: __filename,
   selector: 'property-map',
-  providers: [ GoogleApiService ],
+  providers: [ ],
   styles: [`
     #map{
     height: 100vh;
@@ -24,8 +26,8 @@ export interface MapOptions {
   `],
   template: `
     <div>
-      <div class="map" id="map" [style.height]="mapOptions.height"></div>
-      <button id="mapbtn" type="button" (click)="noop()" style="display: none;" ></button>
+      <div class="map" [id]="id" [style.height]="mapOptions.height"></div>
+      <button id="mapbtn{{id}}" type="button" (click)="noop()" style="display: none;" ></button>
     </div>
   `
 })
@@ -33,13 +35,15 @@ export class PropertyMap {
   @Input() properties: Property[];
   @Input() mapOptions: MapOptions;
   private map: any;
+  public id: string = `map${generateGUID()}`;
+  private sub: Subscription;
 
   constructor(private router: Router, private googleApi: GoogleApiService) {
   }
 
   ngOnInit() {
-    this.googleApi.initMap().then(() => {
-      this.map = new google.maps.Map(document.getElementById('map'), {
+    this.sub = this.googleApi.initMap().then(() => {
+      this.map = new google.maps.Map(document.getElementById(this.id), {
         center: new google.maps.LatLng(this.mapOptions.center.latitude, this.mapOptions.center.longitude),
         zoom: this.mapOptions.zoomLevel,
       });
@@ -72,7 +76,7 @@ export class PropertyMap {
 
   ngAfterViewInit() {
     try {
-      window['mapbtn'].click(); // Trigger change detection and shit
+      window['mapbtn' + this.id].click(); // Trigger change detection and shit
     } catch(e) {
       console.log('ReferenceError: window is not defined? ', e.toString().substr(0, 40));
     }

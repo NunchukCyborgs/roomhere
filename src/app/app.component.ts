@@ -2,6 +2,7 @@ import { Component, Directive, ElementRef, Renderer } from '@angular/core';
 import { ROUTER_DIRECTIVES } from '@angular/router';
 import { Http } from '@angular/http';
 import { PropertyService } from './properties/property.service';
+import { GoogleApiService } from './services/google-api.service';
 
 /////////////////////////
 // ** MAIN APP COMPONENT **
@@ -10,27 +11,8 @@ import { PropertyService } from './properties/property.service';
   directives: [
     ...ROUTER_DIRECTIVES
   ],
-  providers: [PropertyService],
-  styles: [`
-    .top-bar, .top-bar ul {
-    background-color: #fff !important;
-}
-.top-bar a:visited {
-    color: #2199e8 !important;
-}
-body{
-    margin: 0px;
-    height: 100%;
-    overflow: hidden;
-}
-.left-margin-fix {
-  margin-left: auto !important;
-}
-.full-width{
-        max-width: none !important;
-    padding-left:10px;
-    }
-`],
+  providers: [PropertyService, GoogleApiService],
+  styleUrls: [`app/app.component.css`],
   template: `
   <div>
     <div class="top-bar" id="top-menu">
