@@ -2,6 +2,7 @@ import { Component, Directive, ElementRef, Renderer } from '@angular/core';
 import { ROUTER_DIRECTIVES } from '@angular/router';
 import { Http } from '@angular/http';
 import { PropertyService } from './properties/property.service';
+import { GoogleApiService } from './services/google-api.service';
 
 /////////////////////////
 // ** MAIN APP COMPONENT **
@@ -10,7 +11,7 @@ import { PropertyService } from './properties/property.service';
   directives: [
     ...ROUTER_DIRECTIVES
   ],
-  providers: [PropertyService],
+  providers: [PropertyService, GoogleApiService],
   styleUrls: [`app/app.component.css`],
   template: `
   <div>

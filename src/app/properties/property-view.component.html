@@ -16,20 +16,16 @@
   <property-images [images]="property?.images" *ngIf="property?.images"></property-images>
   <div class="row">
     <section class="small-11 medium-9 columns small-centered">
-      <div class="row">
-        <div class="medium-6 column callout">
+      <div class="row flex-row">
+        <div class="medium-5 column callout show-for-medium">
           <property-map *ngIf="mapOptions" [properties]="[property]" [mapOptions]="mapOptions"></property-map>
         </div>
-        <div class="medium-6 column">
-          <div class="row">
-            <div class="callout column small-3">{{property?.bedrooms}} <i class="fa fa-bed"></i></div>
-            <div class="callout column small-3">{{property?.bathrooms}} <i class="fa fa-paw"></i></div>
-            <div class="callout column small-6">${{property?.price}}, Lease: {{property?.lease_length}} months</div>
-          </div>
-        </div>
+        <div class="callout column small-3 medium-2">{{property?.bedrooms}} <i class="fa fa-bed"></i></div>
+        <div class="callout column small-3 medium-2">{{property?.bathrooms}} <i class="fa fa-paw"></i></div>
+        <div class="callout column small-6 medium-3">${{property?.price}}, Lease: {{property?.lease_length}} months</div>
       </div>
       <div class="row">
-        <div class="column">
+        <!--<div class="column">
           <hr>
           <ul class="tabs" data-tabs="" id="example-tabs">
             <li class="tabs-title is-active">
@@ -49,6 +45,9 @@
               </div>
             </div>
           </div>
+        </div>-->
+        <div class="column hide-for-medium">
+          <property-map *ngIf="mapOptions" [properties]="[property]" [mapOptions]="mapOptions"></property-map>
         </div>
       </div>
     </section>
