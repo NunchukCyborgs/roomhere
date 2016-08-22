@@ -34,7 +34,7 @@
             </section>
         </div>
         <div class="large-5 columns">
-          <property-map [properties]="properties$ | async"></property-map>
+          <property-map *ngIf="mapOptions" [properties]="properties$ | async" [mapOptions]="mapOptions"></property-map>
         </div>
     </div>
 </section>

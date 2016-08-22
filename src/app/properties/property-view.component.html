@@ -18,7 +18,7 @@
     <section class="small-11 medium-9 columns small-centered">
       <div class="row">
         <div class="medium-6 column callout">
-          <property-map [properties]="[property]"></property-map>
+          <property-map *ngIf="mapOptions" [properties]="[property]" [mapOptions]="mapOptions"></property-map>
         </div>
         <div class="medium-6 column">
           <div class="row">

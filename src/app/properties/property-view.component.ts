@@ -2,12 +2,15 @@ import { Component, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
-import { PropertyService, Property, PropertyImages, PropertyReviews, SimilarProperties, PropertyMap} from './index';
+import { PropertyService, Property, PropertyImages, PropertyReviews, SimilarProperties, PropertyMap, MapOptions } from './index';
+
+const ZOOM_LEVEL: number = 16;
+const HEIGHT: string = '100px';
 
 @Component({
   moduleId: __filename,
   selector: 'property-view',
-  directives: [PropertyReviews, SimilarProperties, PropertyImages],
+  directives: [PropertyReviews, SimilarProperties, PropertyImages, PropertyMap],
   styles: [`
     .property-view-container {
       position: relative;
@@ -30,7 +33,9 @@ import { PropertyService, Property, PropertyImages, PropertyReviews, SimilarProp
 })
 export class PropertyView implements OnDestroy {
   public property: Property;
+  public mapOptions: MapOptions;
   private sub: Subscription;
+
   constructor(
     private router: Router, 
     private route: ActivatedRoute, 
@@ -39,9 +44,21 @@ export class PropertyView implements OnDestroy {
 
   }
 
+  private updateMapOptions(property: Property) {
+    this.mapOptions = {
+      height: HEIGHT,
+      zoomLevel: ZOOM_LEVEL,
+      center: {
+        latitude: property.latitude,
+        longitude: property.longitude
+      },
+    }
+  }
+
   ngOnInit() {
     this.sub = this.route.params
       .flatMap(params => this.propertyService.getPropertyBySlug$(params['slug']))
+      .do((property: Property) => this.updateMapOptions(property))
       .subscribe((property: Property) => this.property = property)
   }
 
