@@ -8,9 +8,6 @@ import { Amenity } from './index';
     .strike {
       text-decoration: line-through;
     }
-    .fa.large {
-      font-size: 1.5em;
-    }
   `],
   template: `
     <div class="row">

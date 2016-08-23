@@ -16,6 +16,10 @@ const HEIGHT: string = '100px';
       position: relative;
     }
 
+    .call-to-actions--top .rent-now {
+      margin-bottom: 10px;
+    }
+
     .call-to-actions--top {
       position: absolute;
       top: 10px;
@@ -23,13 +27,26 @@ const HEIGHT: string = '100px';
       border-radius: 5%;
       z-index: 10;
       box-shadow: inset 1px 1px 3px #999;
+      width: 350px;
     }
 
-    .call-to-actions--top .rent-now {
-      margin-bottom: 10px;
+    @media (max-width: 1024px) {
+      .call-to-actions--top {
+        width: 300px;
+      }
     }
 
-    .call-to-actions--top
+    @media (max-width: 640px) {
+      .call-to-actions--top {
+        width: 200px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .call-to-actions--top {
+        /* Change to something else here */
+      }
+    }
   `],
   templateUrl: './property-view.component.html'
 })

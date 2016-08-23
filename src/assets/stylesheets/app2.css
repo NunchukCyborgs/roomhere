@@ -12,6 +12,10 @@
   text-align: initial;
 }
 
+.fa.large {
+  font-size: 1.5em;
+}
+
 /* Hot fix */
 body {
   overflow: initial;
