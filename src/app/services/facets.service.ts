@@ -4,7 +4,10 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { BASE_URL } from '../config';
 
 export interface Amenity {
+  id: number;
   name: string;
+  icon: string;
+  active: boolean;
 }
 
 export interface Location {

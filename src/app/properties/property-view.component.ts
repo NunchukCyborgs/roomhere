@@ -2,7 +2,7 @@ import { Component, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
-import { PropertyService, Property, PropertyImages, PropertyReviews, SimilarProperties, PropertyMap, MapOptions } from './index';
+import { PropertyService, Property, PropertyImages, PropertyReviews, SimilarProperties, PropertyMap, MapOptions, PropertyAmenities } from './index';
 
 const ZOOM_LEVEL: number = 16;
 const HEIGHT: string = '100px';
@@ -10,7 +10,7 @@ const HEIGHT: string = '100px';
 @Component({
   moduleId: __filename,
   selector: 'property-view',
-  directives: [PropertyReviews, SimilarProperties, PropertyMap, PropertyImages],
+  directives: [PropertyReviews, SimilarProperties, PropertyMap, PropertyImages, PropertyAmenities],
   styles: [`
     .property-view-container {
       position: relative;
@@ -28,6 +28,8 @@ const HEIGHT: string = '100px';
     .call-to-actions--top .rent-now {
       margin-bottom: 10px;
     }
+
+    .call-to-actions--top
   `],
   templateUrl: './property-view.component.html'
 })

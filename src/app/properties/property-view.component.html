@@ -20,9 +20,18 @@
         <div class="medium-5 column callout show-for-medium">
           <property-map *ngIf="mapOptions" [properties]="[property]" [mapOptions]="mapOptions"></property-map>
         </div>
-        <div class="callout column small-3 medium-2">{{property?.bedrooms}} <i class="fa fa-bed"></i></div>
-        <div class="callout column small-3 medium-2">{{property?.bathrooms}} <i class="fa fa-paw"></i></div>
-        <div class="callout column small-6 medium-3">${{property?.price}}, Lease: {{property?.lease_length}} months</div>
+        <div class="callout column small-3 medium-2 stat text-center">
+          <div><i class="fa fa-bed"></i></div>
+          <div>{{property?.bedrooms}}</div>
+        </div>
+        <div class="callout column small-3 medium-2 stat text-center">
+          <div><i class="fa fa-paw"></i></div>
+          <div>{{property?.bathrooms}}</div>
+        </div>
+        <div class="callout column small-6 medium-3 text-center">
+          <div><span class="stat">{{property?.price | currency:'USD':true}}</span><small>/month</small></div>
+          <small *ngIf="property?.lease_length">Lease: {{property?.lease_length}} months</small>
+        </div>
       </div>
       <div class="row">
         <div class="column medium-6">
@@ -32,8 +41,7 @@
           <p>{{property?.description}}</p>
         </div>
         <div class="column medium-6">
-          Amenities
-          {{property?.amenities | json}}
+          <property-amenities *ngIf="property?.amenities" [amenities]="property.amenities"></property-amenities>
         </div>
         <!--<div class="column">
           <hr>
