@@ -1,0 +1,13 @@
+/* Resets and Global Helpers */
+.flex-row {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.reveal-overlay {
+  text-align: center;
+}
+
+.reveal {
+  text-align: initial;
+}
