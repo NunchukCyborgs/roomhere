@@ -57,13 +57,11 @@ export class Login {
 
   private closeModal(res: Response) {
     if (res.ok) {
-      console.log('closed modal');
       $('.login-modal__close-button').click();
     }
   }
 
   private showErrors(err: Response, caught: Observable<any>): Observable<Response> {
-    console.log(err);
     this.errors = err.json().errors;
     return Observable.of(err);
   }

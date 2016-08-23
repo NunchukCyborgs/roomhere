@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Response } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
 import { User, UserService } from './index'; 
 
 declare let $: any;
@@ -11,11 +13,11 @@ declare let $: any;
   `],
   template: `
   <div>
-    <button class="register-modal__close-button close-button" data-close aria-label="Close modal" type="button">
+    <button class="close-button" data-close aria-label="Close modal" type="button">
       <span aria-hidden="true">&times;</span>
     </button>
 
-    <form (ngSubmit)="onSubmit()" #registerForm="ngForm">
+    <form [hidden]="success" (ngSubmit)="onSubmit()" #registerForm="ngForm">
       <div class="form-group">
         <label for="email">Email</label>
         <input type="email" class="form-control" id="email" required [(ngModel)]="user.email" name="email" #email="ngModel">
@@ -38,21 +40,40 @@ declare let $: any;
         </div>
       </div>
       <button type="submit" class="btn btn-default" [disabled]="!registerForm.form.valid">Create Account</button>
-    </form>  
+    </form>
+
+    <div [hidden]="!success">
+      <h5>Success!</h5>
+
+      <p>
+        Alright, there's one last step to create an account. 
+        Please check your email for a magic activation link and click to confirm you are as human as we think you are.
+      </p>
+    </div>
+
+    <div [hidden]="!errors.length || success">
+      <h6>Uh oh! We had a problem logging you in with those credentials.</h6>
+
+      <span *ngFor="let error of errors">{{error}}. </span>
+    </div>
   </div>
   `
 })
 export class Register {
   public user: User = new User();
+  public success: boolean = false;
+  public errors: string[] = [];
 
   constructor(private userService: UserService) { }
 
   public onSubmit() {
     this.userService.register(this.user)
-      .subscribe(i => this.closeModal());
+      .catch((err: Response, caught: Observable<any>) => this.showErrors(err, caught))
+      .subscribe((res: Response) => this.success = res.ok);
   }
 
-  private closeModal() {
-    $('.register-modal__close-button').click();
+  private showErrors(err: Response, caught: Observable<any>): Observable<Response> {
+    this.errors = err.json().errors.full_messages;
+    return Observable.of(err);
   }
 }
