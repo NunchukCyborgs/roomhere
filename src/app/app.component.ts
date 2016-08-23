@@ -28,8 +28,8 @@ declare let $: any;
       <div class="top-bar-right">
         <ul class="menu">
           <li><a [routerLinkActive]="['active', 'router-link-active']" [routerLink]=" ['./home'] ">Home</a></li>
-          <li *ngIf="!(hasAuth$ | async)"><a data-open="RegisterModal">Create an Account<register class="reveal" id="RegisterModal" data-reveal></register></a></li>
-          <li *ngIf="!(hasAuth$ | async)"><a data-open="LoginModal">Login<login class="reveal" id="LoginModal" data-reveal></login></a></li>
+          <li *ngIf="!(hasAuth$ | async)"><a data-open="RegisterModal">Create an Account<register class="reveal small" id="RegisterModal" data-reveal></register></a></li>
+          <li *ngIf="!(hasAuth$ | async)"><a data-open="LoginModal">Login<login class="reveal small" id="LoginModal" data-reveal></login></a></li>
           <li *ngIf="hasAuth$ | async"><a (click)="logout()">Log Out</a></li>
         </ul>
       </div>

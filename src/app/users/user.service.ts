@@ -21,7 +21,8 @@ export class UserService {
     this.hasAuth$ = new BehaviorSubject(false);
     this.hasAuth$.subscribe();
 
-    this.checkForQueryAuth()
+    this.checkForSessionAuth();
+    this.checkForQueryAuth();
   }
 
   get user(): User {
@@ -31,8 +32,7 @@ export class UserService {
   public login(user: User) {
     return this.http.post(`${BASE_URL}/auth/sign_in`, user)
       .do((i: Response) => this.setAuthHeaders(i.headers.get('access-token'), i.headers.get('client'), i.headers.get('uid')))
-      .map(i => i.json())
-      .do((i: User) => this.user$.next(this._user = user))
+      .do(i => this.user$.next(this._user = i.json()))
       .do(() => this.hasAuth$.next(true))
   }
 
@@ -58,10 +58,22 @@ export class UserService {
       });
   }
 
+  private checkForSessionAuth() {
+    if (sessionStorage.getItem('access-token')) {
+      this.setAuthHeaders(sessionStorage.getItem('access-token'), sessionStorage.getItem('client'), sessionStorage.getItem('uid'));
+      this.hasAuth$.next(true);
+    }
+  }
+
   private setAuthHeaders(token?: string, client?: string, uid?: string): void {
     this.http.headers.set('access-token', token);
     this.http.headers.set('client', client);
     this.http.headers.set('uid', uid);
     this.http.headers.set('token-type', 'Bearer');
+
+    sessionStorage.setItem('access-token', token || '');
+    sessionStorage.setItem('client', client || '');
+    sessionStorage.setItem('uid', uid || '');
+    sessionStorage.setItem('token-type', 'Bearer');
   }
 }

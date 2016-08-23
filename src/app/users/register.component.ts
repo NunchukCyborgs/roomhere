@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { User, UserService } from './index'; 
 
+declare let $: any;
+
 @Component({
   selector: 'register',
   directives: [],
@@ -9,6 +11,10 @@ import { User, UserService } from './index';
   `],
   template: `
   <div>
+    <button class="register-modal__close-button close-button" data-close aria-label="Close modal" type="button">
+      <span aria-hidden="true">&times;</span>
+    </button>
+
     <form (ngSubmit)="onSubmit()" #registerForm="ngForm">
       <div class="form-group">
         <label for="email">Email</label>
@@ -39,12 +45,14 @@ import { User, UserService } from './index';
 export class Register {
   public user: User = new User();
 
-  constructor(private userService: UserService) {
-
-  }
+  constructor(private userService: UserService) { }
 
   public onSubmit() {
     this.userService.register(this.user)
-      .subscribe(i => console.log('register, annnnd?'))
+      .subscribe(i => this.closeModal());
+  }
+
+  private closeModal() {
+    $('.register-modal__close-button').click();
   }
 }
