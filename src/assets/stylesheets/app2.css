@@ -11,3 +11,8 @@
 .reveal {
   text-align: initial;
 }
+
+/* Hot fix */
+body {
+  overflow: initial;
+}

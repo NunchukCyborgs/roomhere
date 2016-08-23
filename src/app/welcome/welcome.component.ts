@@ -14,37 +14,32 @@ const MAP_ZOOM_LEVEL = 13;
   selector: 'welcome',
   directives: [PropertyPreview, PropertyMap, PropertyFilters, PropertySlider],
   styles: [`
-    
-#scrolldiv{
-      overflow: scroll;
-      overflow-x: hidden;
-      height: 100vh;
-      border-top:solid 1px grey;
-      max-width: none !important;
+    #scrolldiv{
+          overflow: scroll;
+          overflow-x: hidden;
+          height: 100vh;
+          border-top:solid 1px grey;
+          max-width: none !important;
+        }
+    #one{
+        overflow: hidden;
     }
-#one{
-    overflow: hidden;
-}
-#map{
-    height: 100vh;
-}
-body{
-    margin: 0px;
-    height: 100%;
-    overflow: hidden;
-}
-.rental{
-    margin-bottom: 50px;
-}
-.fieldmargbtm{
-    margin-bottom: 10px;
-}
-.marg40top{
-    margin-top: 40px;
-}
-
-
-
+    #map{
+        height: 100vh;
+    }
+    body{
+        margin: 0px;
+        height: 100%;
+    }
+    .rental{
+        margin-bottom: 50px;
+    }
+    .fieldmargbtm{
+        margin-bottom: 10px;
+    }
+    .marg40top{
+        margin-top: 40px;
+    }
   `],
   templateUrl: 'welcome.component.html'
 })
