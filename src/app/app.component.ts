@@ -1,9 +1,12 @@
 import { Component, Directive, AfterViewInit } from '@angular/core';
 import { ROUTER_DIRECTIVES } from '@angular/router';
 import { Http } from '@angular/http';
-import { PropertyService } from './properties/property.service';
+import { Observable } from 'rxjs/Observable';
+
+import { PropertyService } from './properties/index';
 import { GoogleApiService } from './services/google-api.service';
-import { Login } from './users/login.component';
+import { HttpService } from './services/http.service';
+import { Login, Register, UserService } from './users/index';
 
 declare let $: any;
 
@@ -11,9 +14,10 @@ declare let $: any;
   selector: 'app',
   directives: [
     ...ROUTER_DIRECTIVES,
-    Login
+    Login,
+    Register
   ],
-  providers: [PropertyService, GoogleApiService],
+  providers: [PropertyService, GoogleApiService, UserService, HttpService],
   styleUrls: [`app/app.component.css`],
   template: `
   <div>
@@ -24,11 +28,9 @@ declare let $: any;
       <div class="top-bar-right">
         <ul class="menu">
           <li><a [routerLinkActive]="['active', 'router-link-active']" [routerLink]=" ['./home'] ">Home</a></li>
-          <li><a [routerLinkActive]="['active', 'router-link-active']" [routerLink]=" ['./home'] ">Create an Account</a></li>
-          <li><a data-open="LoginModal">
-          Login
-          <login class="reveal" id="LoginModal" data-reveal></login>
-          </a></li>
+          <li *ngIf="!(hasAuth$ | async)"><a data-open="RegisterModal">Create an Account<register class="reveal" id="RegisterModal" data-reveal></register></a></li>
+          <li *ngIf="!(hasAuth$ | async)"><a data-open="LoginModal">Login<login class="reveal" id="LoginModal" data-reveal></login></a></li>
+          <li *ngIf="hasAuth$ | async"><a (click)="logout()">Log Out</a></li>
         </ul>
       </div>
     </div>
@@ -41,7 +43,16 @@ declare let $: any;
   `
 })
 export class App implements AfterViewInit {
+  public hasAuth$: Observable<boolean>;
+  constructor(private userService: UserService) {
+    this.hasAuth$ = this.userService.hasAuth$;
+  }
+  
   ngAfterViewInit() {
     $('.top-bar-right .menu').foundation();
+  }
+
+  logout() {
+    this.userService.logout();
   }
 }
