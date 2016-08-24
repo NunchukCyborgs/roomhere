@@ -7,7 +7,13 @@
           <p class="lead">Rental Type:</p>
         </div>
         <div class="large-10 columns">
-          <div class="input-group button-group secondary expanded js-types-facet">
+          <div class="input-group button-group secondary show-for-small-only stacked-for-small js-types-facet">
+            <a class="button" [ngClass]="{selected: facet.types.indexOf('apartment') !== -1}" (click)="toggleType('apartment')">Apartment</a>
+            <a class="button" [ngClass]="{selected: facet.types.indexOf('home') !== -1}" (click)="toggleType('home')">Home</a>
+            <a class="button" [ngClass]="{selected: facet.types.indexOf('duplex') !== -1}" (click)="toggleType('duplex')">Duplex</a>
+            <a class="button" [ngClass]="{selected: facet.types.indexOf('townhouse') !== -1}" (click)="toggleType('townhouse')">Townhouse</a>
+          </div>
+          <div class="input-group button-group secondary hide-for-small-only expanded js-types-facet">
             <a class="button" [ngClass]="{selected: facet.types.indexOf('apartment') !== -1}" (click)="toggleType('apartment')">Apartment</a>
             <a class="button" [ngClass]="{selected: facet.types.indexOf('home') !== -1}" (click)="toggleType('home')">Home</a>
             <a class="button" [ngClass]="{selected: facet.types.indexOf('duplex') !== -1}" (click)="toggleType('duplex')">Duplex</a>
