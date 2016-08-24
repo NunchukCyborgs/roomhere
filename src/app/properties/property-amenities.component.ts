@@ -12,13 +12,13 @@ import { Amenity } from './index';
   template: `
     <div class="row">
       <div [hidden]="showMore" *ngFor="let amen of featuredAmenities" class="column small-6">
-        <span><i class="large fa {{amen?.icon || 'fa-paw'}}"></i> {{amen?.name}}</span>
+        <span><i class="large {{amen.icon}}"></i> {{amen?.name}}</span>
       </div>
 
       <div class="column small-6" [hidden]="showMore"><a (click)="showMore = true">more +</a></div>
 
       <div [hidden]="!showMore" *ngFor="let amen of amenities" class="column small-6">
-        <span [class.strike]="!amen?.active" ><i class="large fa {{amen?.icon || 'fa-paw'}}"></i> {{amen?.name}}</span>
+        <span [class.strike]="!amen?.active" ><i class="large {{amen.icon}}"></i> {{amen?.name}}</span>
       </div>
     </div>
   `
