@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Http } from '@angular/http';
+import { HttpService } from '../services/http.service';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/Rx';
@@ -12,7 +12,7 @@ export class PropertyService {
   public collection$: BehaviorSubject<Property[]>;
   public _collection: Property[] = [];
 
-  constructor(private http: Http) {
+  constructor(private http: HttpService) {
     this.collection$ = new BehaviorSubject(this._collection);
     this.collection$.subscribe();
 
@@ -34,18 +34,7 @@ export class PropertyService {
 
   public getFilteredProperties$(facet: PropertyFacet): Observable<Property[]> {
     return this.http.post(`${BASE_URL}/properties/filtered_results`, {facets: facet})
-      .map(i => {
-        return i.json();
-      });
-      // .do(properties => {
-      //   for(let property of properties) {
-      //     if (this._collection.map(i => i.id).indexOf(property.id) === -1) {
-      //       this._collection.push(property)
-      //     }
-      //   }
-
-      //   this.collection$.next(this._collection);
-      // });
+      .map(i => i.json());
   }
 
   public getPropertyBySlug$(slug: string): Observable<Property> {
@@ -60,5 +49,10 @@ export class PropertyService {
         return property;
       });
     }
+  }
+
+  public update(property: Property): Observable<Property> {
+    return this.http.patch(`${BASE_URL}/properties/${property.id}`, property)
+      .map(i => i.json());
   }
 }

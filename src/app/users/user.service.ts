@@ -23,6 +23,8 @@ export class UserService {
 
     this.checkForSessionAuth();
     this.checkForQueryAuth();
+    this.checkForUser();
+    this.storeUser();
   }
 
   get user(): User {
@@ -32,7 +34,7 @@ export class UserService {
   public login(user: User) {
     return this.http.post(`${BASE_URL}/auth/sign_in`, user)
       .do((i: Response) => this.setAuthHeaders(i.headers.get('access-token'), i.headers.get('client'), i.headers.get('uid')))
-      .do(i => this.user$.next(this._user = i.json()))
+      .do(i => this.user$.next(this._user = i.json().data))
       .do(() => this.hasAuth$.next(true))
   }
 
@@ -75,5 +77,16 @@ export class UserService {
     sessionStorage.setItem('client', client || '');
     sessionStorage.setItem('uid', uid || '');
     sessionStorage.setItem('token-type', 'Bearer');
+  }
+
+  private checkForUser() {
+    const user = JSON.parse(sessionStorage.getItem('user'));
+    if (user && user.id) {
+      this.user$.next(user);
+    }
+  }
+
+  private storeUser() {
+    this.user$.subscribe(i => sessionStorage.setItem('user', JSON.stringify(i)));
   }
 }

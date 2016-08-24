@@ -6,7 +6,7 @@
 
 <div class="property-view-container">
   <div class="callout call-to-actions--top">
-    <a class="button expanded large rent-now" href="#">Rent Now</a>
+    <a class="button expanded large rent-now" (click)="doPropertyAction(propertyActionState.state)">{{isEditing ? 'Update Property' : propertyActionState?.text}}</a>
     <div class="secondary expanded button-group">
       <a class="button"><i class="fa large fa-facebook"></i></a>
       <a class="button"><i class="fa large fa-twitter"></i></a>
@@ -22,15 +22,27 @@
         </div>
         <div class="callout column small-3 medium-2 stat text-center">
           <div><i class="fa fa-bed"></i></div>
-          <div>{{property?.bedrooms}}</div>
+          <div *ngIf="!isEditing">{{property?.bedrooms}}</div>
+          <div *ngIf="isEditing"><number-ticker [(number)]="property.bedrooms" [min]="1" [max]="16"></number-ticker></div>
         </div>
         <div class="callout column small-3 medium-2 stat text-center">
           <div><i class="fa fa-paw"></i></div>
-          <div>{{property?.bathrooms}}</div>
+          <div *ngIf="!isEditing">{{property?.bathrooms}}</div>
+          <div *ngIf="isEditing"><number-ticker [(number)]="property.bathrooms" [min]="1" [max]="12"></number-ticker></div>
         </div>
         <div class="callout column small-6 medium-3 text-center">
-          <div><span class="stat">{{property?.price | currency:'USD':true}}</span><small>/month</small></div>
-          <small *ngIf="property?.lease_length">Lease: {{property?.lease_length}} months</small>
+          <div *ngIf="!isEditing">
+            <div><span class="stat">{{property?.price | currency:'USD':true}}</span><small>/month</small></div>
+            <small *ngIf="property?.lease_length">Lease: {{property?.lease_length}} months</small>
+          </div>
+          <div *ngIf="isEditing">
+            Price
+            <div class="input-group">
+              <span class="input-group-label">$</span>
+              <input class="input-group-field" type="number" [(ngModel)]="property.price" />
+            </div>
+            <div> Lease Length: <number-ticker [(number)]="property.lease_length" [min]="0" [max]="120"></number-ticker> (months)</div>
+          </div>
         </div>
       </div>
       <div class="row">
@@ -38,7 +50,14 @@
           <h3>{{property?.address1}}</h3>
           <h3 *ngIf="property?.address2">{{property?.address2}}</h3>
 
-          <p>{{property?.description}}</p>
+          <div *ngIf="!isEditing">
+            <p>{{property?.description}}</p>
+          </div>
+
+          <div *ngIf="isEditing">
+            Description:
+            <textarea [(ngModel)]="property.description"></textarea>
+          </div>
         </div>
         <div class="column medium-6">
           <property-amenities *ngIf="property?.amenities" [amenities]="property.amenities"></property-amenities>

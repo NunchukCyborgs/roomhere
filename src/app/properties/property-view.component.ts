@@ -2,7 +2,10 @@ import { Component, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
-import { PropertyService, Property, PropertyImages, PropertyReviews, SimilarProperties, PropertyMap, MapOptions, PropertyAmenities } from './index';
+import { UserService } from '../users/index';
+import { NumberTicker } from '../number-ticker.component';
+import { PropertyService, Property, PropertyImages, PropertyReviews, SimilarProperties,
+  PropertyMap, MapOptions, PropertyAmenities, PropertyAction, PropertyActionState, PropertyActionStates } from './index';
 
 const ZOOM_LEVEL: number = 16;
 const HEIGHT: string = '100px';
@@ -10,7 +13,7 @@ const HEIGHT: string = '100px';
 @Component({
   moduleId: __filename,
   selector: 'property-view',
-  directives: [PropertyReviews, SimilarProperties, PropertyMap, PropertyImages, PropertyAmenities],
+  directives: [PropertyReviews, SimilarProperties, PropertyMap, PropertyImages, PropertyAmenities, NumberTicker],
   styles: [`
     .property-view-container {
       position: relative;
@@ -53,13 +56,35 @@ const HEIGHT: string = '100px';
 export class PropertyView implements OnDestroy {
   public property: Property;
   public mapOptions: MapOptions;
+  public propertyActionState: PropertyActionState;
+  public isEditing: boolean = false;
+
+  public doPropertyAction(state: PropertyActionStates) {
+    switch (state) {
+      case PropertyActionStates.Edit:
+        if (this.isEditing) {
+          this.propertyService.update(this.property).subscribe(() => this.isEditing = false);
+        } else {
+          this.isEditing = true;
+        }
+        break;
+      case PropertyActionStates.Claim:
+        console.log('claim');
+        break;
+      case PropertyActionStates.Rent:
+        console.log('rent');
+        break;
+    }
+  }
+
   private sub: Subscription;
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private propertyService: PropertyService
-    ) {
+    private propertyService: PropertyService,
+    private userService: UserService
+  ) {
 
   }
 
@@ -76,9 +101,10 @@ export class PropertyView implements OnDestroy {
 
   ngOnInit() {
     this.sub = this.route.params
-      .flatMap(params =>this.propertyService.getPropertyBySlug$(params['slug']))
+      .flatMap(params => this.propertyService.getPropertyBySlug$(params['slug']))
       .do((property: Property) => this.updateMapOptions(property))
-      .subscribe((property: Property) => this.property = property);
+      .do((property: Property) => this.property = property)
+      .subscribe((i) => this.userService.user$.subscribe(i => this.propertyActionState = PropertyAction.getState(this.property, i)));
   }
 
   ngOnDestroy() {

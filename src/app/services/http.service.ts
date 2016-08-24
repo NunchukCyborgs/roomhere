@@ -19,4 +19,8 @@ export class HttpService {
   public post(url: string, obj: any): Observable<any> {
     return this.http.post(url, obj, this.headers);
   }
+
+  public patch(url: string, obj: any): Observable<any> {
+    return this.http.patch(url, obj, this.headers);
+  }
 }
