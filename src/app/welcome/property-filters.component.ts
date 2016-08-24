@@ -20,7 +20,8 @@ import { FacetsService, Location, Amenity } from '../services/facets.service';
     }
 @media screen and (min-width: 40em) and (max-width: 63.9375em) {
 .dropdown-pane.large {
-    width: 95% !important;
+    position:static;
+    overflow-y:scroll!important;
 }
 }
 @media screen and (max-width: 39.9375em) {
