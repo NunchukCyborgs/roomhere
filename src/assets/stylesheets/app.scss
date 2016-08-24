@@ -1,165 +1,54 @@
-.button-group a.button.selected {
-  opacity: .5;
-}
+@charset 'utf-8';
 
-/* Variables */
+@import 'settings';
+@import 'custom';
+@import 'rental';
+@import 'index';
+@import 'login';
+@import 'foundation';
+@import 'motion-ui';
 
-// Adjust width accordingly (use even #'s)
-// $logo-width: 118px;
-// // Reduce px value to increase space between logo and menu text
-// $logo-padding: $logo-width - 32px;
-// // Leave alone
-// $logo-margin: - ($logo-width / 2);
+@include foundation-global-styles;
+@include foundation-grid;
+// @include foundation-flex-grid;
+@include foundation-typography;
+@include foundation-button;
+@include foundation-forms;
+// @include foundation-range-input;
+@include foundation-accordion;
+@include foundation-accordion-menu;
+@include foundation-badge;
+@include foundation-breadcrumbs;
+@include foundation-button-group;
+@include foundation-callout;
+@include foundation-close-button;
+@include foundation-menu;
+@include foundation-menu-icon;
+@include foundation-drilldown-menu;
+@include foundation-dropdown;
+@include foundation-dropdown-menu;
+@include foundation-flex-video;
+@include foundation-label;
+@include foundation-media-object;
+@include foundation-off-canvas;
+@include foundation-orbit;
+@include foundation-pagination;
+@include foundation-progress-bar;
+// @include foundation-progress-element;
+// @include foundation-meter-element;
+@include foundation-slider;
+@include foundation-sticky;
+@include foundation-reveal;
+@include foundation-switch;
+@include foundation-table;
+@include foundation-tabs;
+@include foundation-thumbnail;
+@include foundation-title-bar;
+@include foundation-tooltip;
+@include foundation-top-bar;
+@include foundation-visibility-classes;
+@include foundation-float-classes;
+// @include foundation-flex-classes;
 
-.left-margin-fix {
-  margin-left: auto !important;
-}
-
-.head-room {
-  margin-top: 1em !important;
-}
-
-.ext-head-room {
-  margin-top: 2em !important;
-}
-
-.menu > li > a:hover {
-  background-color: #2199e8;
-  color: white !important;
-}
-
-/* Small Navigation */
-.logo-small {
-  float: right;
-}
-
-.title-bar {
-  padding: 0 .5rem;
-}
-
-.menu-icon,
-.title-bar-title {
-  position: relative;
-  top: 10px;
-}
-body h1,h2,h3,h4,h5{
-    font-family: 'Montserrat', sans-serif !important;
-}
-.top-bar, .top-bar ul {
-    background-color: #fff !important;
-}
-.top-bar a {
-    color: #2199e8 !important;
-}
-
-
-/* Medium-Up Navigation */
-@media only screen and (min-width: 40rem) {
-    //firstdesc
-    #firstdesc{
-        h3{
-        margin-bottom:35px;
-            }
-    }
-    // a:visited {
-    // // color: #fff !important;
-    // }
-
-    //labels
-    label{
-        font-size: 1rem !important;
-    }
-    .full-width{
-        max-width: none !important;
-    }
-    .js-amenities-facet label, .js-locations-facet label {
-      font-size: .95rem !important;
-    }
-  .logo-wrapper {
-    position: relative;
-
-    .logo {
-      width: $logo-width;
-      height:  92px;
-      position: absolute;
-      left: 50%;
-      right: 50%;
-      top: -6px;
-      margin-left: $logo-margin;
-    }
-  }
-
-  // Right part
-  .top-bar-right {
-    width: 50%;
-    padding-left: $logo-padding;
-
-    ul {
-      float: left;
-    }
-  }
-
-  // Left part
-  .top-bar-left {
-    width:  50%;
-    padding-right: $logo-padding;
-
-    ul {
-      float: right;
-    }
-  }
-    #one{
-
-    }
-    #map{
-        height:1000px;
-    }
-
-    //cirlce pagination
-    // Color used for medium gray UI items within Foundation.
-$medium-gray: #cacaca;
-
-.pagination li {
-  border: 1px solid $medium-gray;
-  border-radius: 50%;
-}
-
-.pagination a {
-  border-radius: 50%;
-}
-}
-
-.map-marker {
-  background-color: #fe5a5f !important;
-  border-bottom: none !important;
-  padding: .25rem !important;
-  border-radius: 4px !important;
-  color: #fefefe;
-  font-size: 80%;
-  position: absolute;
-  z-index: 10;
-  top: calc(100% + 0.6495rem);
-  max-width: 10rem !important;
-  cursor: pointer !important;
-  font-weight: bold;
-  height: 25px;
-  width: 40px;
-  text-align: center;
-}
-
-.map-marker:before {
-  border-color: #fe5a5f transparent transparent !important;
-  content: '';
-  display: block;
-  width: 0;
-  height: 0;
-  border: inset 0.35rem;
-  border-top-style: solid;
-  border-bottom-width: 0;
-  top: 100%;
-  bottom: auto;
-}
-
-.top-bar-title img {
-  height: 50px;
-}
+@include motion-ui-transitions;
+@include motion-ui-animations;

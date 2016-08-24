@@ -23,6 +23,7 @@ const MAP_ZOOM_LEVEL = 13;
         }
     #one{
         overflow: hidden;
+        position: relative;
     }
     #map{
         height: 100vh;
