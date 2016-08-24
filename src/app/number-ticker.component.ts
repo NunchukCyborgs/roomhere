@@ -13,7 +13,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
       }
 
       .fa {
-        font-size: .5em;
+        font-size: .8em;
       }
 
       input {
@@ -22,24 +22,37 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
         border: none;
         box-shadow: none;
         background: #f5f5f5;
-        margin-bottom: 10px;
+        margin-bottom: 0;
         text-align: center;
       }
 
       .number-ticker {
+        display: inline-block;
         border: 2px solid #EEE;
+      }
+
+      .number-ticker__wrapper {
+        display: block
       }
 
       button:focus, input:focus {
         outline: none;
       }
+
+      button {
+        padding: 1px 3px 2px;
+        border: 1px solid #666;
+        border-radius: 100%;
+      }
     `],
     template: `
-    <div class="number-ticker">
-      <button type="button" (click)="increment(-1)"><i class="fa fa-minus"></i></button>
-      <input type="number" [min]="min" [max]="max" [value]="number" pattern="[0-9]*" inputmode="numeric"
-      (change)="number = $event.target.value; increment(0)" />
-      <button type="button" (click)="increment(1)"><i class="fa fa-plus"></i></button>
+    <div class="number-ticker__wrapper">
+      <div class="number-ticker">
+        <button type="button" (click)="increment(-1)"><i class="fa fa-minus"></i></button>
+        <input type="number" [min]="min" [max]="max" [value]="number" pattern="[0-9]*" inputmode="numeric"
+        (change)="number = $event.target.value; increment(0)" />
+        <button type="button" (click)="increment(1)"><i class="fa fa-plus"></i></button>
+      </div>
     </div>
   `
 })
