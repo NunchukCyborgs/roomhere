@@ -8,9 +8,9 @@
   <div class="callout call-to-actions--top">
     <a class="button expanded large rent-now" (click)="doPropertyAction(propertyActionState.state)">{{isEditing ? 'Update Property' : propertyActionState?.text}}</a>
     <div class="secondary expanded button-group">
-      <a class="button"><i class="fa large fa-facebook"></i></a>
-      <a class="button"><i class="fa large fa-twitter"></i></a>
-      <a class="button"><i class="fa large fa-instagram"></i></a>
+      <a class="button"><i class="large icon-facebook"></i></a>
+      <a class="button"><i class="large icon-twitter"></i></a>
+      <a class="button"><i class="large icon-instagram"></i></a>
     </div>
   </div>
   <property-images [images]="property?.images" *ngIf="property?.images"></property-images>
@@ -22,11 +22,11 @@
             <property-map *ngIf="mapOptions" [properties]="[property]" [mapOptions]="mapOptions"></property-map>
           </div>
           <div class="callout column small-3 medium-2 stat text-center">
-            <div><i class="fa fa-bed"></i></div>
+            <div><i class="icon-bed"></i></div>
             {{property?.bedrooms}}
           </div>
           <div class="callout column small-3 medium-2 stat text-center">
-            <div><i class="fa fa-paw"></i></div>
+            <div><i class="icon-paw"></i></div>
             {{property?.bathrooms}}
           </div>
           <div class="callout column small-6 medium-3 text-center">
@@ -39,7 +39,7 @@
             <div class="column small-6">
               <div class="row flex-row">
                 <div class="small-3 columns">
-                  <label for="bedrooms" class="text-right middle"><i class="fa fa-bed"></i></label>
+                  <label for="bedrooms" class="text-right middle"><i class="icon-bed"></i></label>
                 </div>
                 <div class="small-9 columns">
                   <label><small>Bedrooms</small>
@@ -47,7 +47,7 @@
               </label>
                 </div>
                 <div class="small-3 columns">
-                  <label for="bathrooms" class="text-right middle"><i class="fa fa-bed"></i></label>
+                  <label for="bathrooms" class="text-right middle"><i class="icon-bed"></i></label>
                 </div>
                 <div class="small-9 columns">
                   <label><small>bathrooms</small>

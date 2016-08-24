@@ -12,7 +12,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
           -moz-appearance: textfield;
       }
 
-      .fa {
+      .icon-minus, .icon-plus {
         font-size: .8em;
       }
 
@@ -48,10 +48,10 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
     template: `
     <div class="number-ticker__wrapper">
       <div class="number-ticker">
-        <button type="button" (click)="increment(-1)"><i class="fa fa-minus"></i></button>
+        <button type="button" (click)="increment(-1)"><i class="icon-minus"></i></button>
         <input type="number" [min]="min" [max]="max" [value]="number" pattern="[0-9]*" inputmode="numeric"
         (change)="number = $event.target.value; increment(0)" />
-        <button type="button" (click)="increment(1)"><i class="fa fa-plus"></i></button>
+        <button type="button" (click)="increment(1)"><i class="icon-plus"></i></button>
       </div>
     </div>
   `
