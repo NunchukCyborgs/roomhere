@@ -9,15 +9,28 @@ import { FacetsService, Location, Amenity } from '../services/facets.service';
   directives: [NgClass],
   providers: [FacetsService],
   styles: [`
-    .dropdown-pane {
-      visibility: visible;
+.button-group a.button.selected {
+      opacity: .5;
     }
 .dropdown-pane.large {
     width: 900px !important;
 }
-    .button-group a.button.selected {
-      opacity: .5;
+.dropdown-pane {
+      visibility: visible;
     }
+@media screen and (min-width: 40em) and (max-width: 63.9375em) {
+.dropdown-pane.large {
+    position:static;
+    overflow-y:scroll!important;
+}
+}
+@media screen and (max-width: 39.9375em) {
+.dropdown-pane.large {
+    width: 95% !important;
+    position:static;
+    overflow-y:scroll!important;
+}
+}
 
   `],
   templateUrl: './property-filters.component.html'
