@@ -18,7 +18,12 @@ const HEIGHT: string = '100px';
     .property-view-container {
       position: relative;
     }
-
+    .flex-row {
+    display: block !important;
+    }
+    em, i {
+    font-size: x-large;
+    }
     .call-to-actions--top .rent-now {
       margin-bottom: 10px;
     }
@@ -32,23 +37,40 @@ const HEIGHT: string = '100px';
       box-shadow: inset 1px 1px 3px #999;
       width: 350px;
     }
-
+    @media (min-width: 1025px) {
+        .marg-top{
+            margin-top:40px;
+        }
+        .marg-btm{
+            margin-bottom:40px;
+        }
+    }
     @media (max-width: 1024px) {
       .call-to-actions--top {
         width: 300px;
       }
+    .marg-top{
+            margin-top:20px;
+        }
+    .marg-btm{
+            margin-bottom:20px;
+        }
     }
-
     @media (max-width: 640px) {
-      .call-to-actions--top {
-        width: 200px;
-      }
+    .callout-bottom {
+      border-radius: 5%;
+      box-shadow: inset 1px 1px 3px #999;
+    }
+    .flex-row {
+    display: flex !important;
+    flex-flow: row wrap;
+    }
     }
 
     @media (max-width: 480px) {
-      .call-to-actions--top {
-        /* Change to something else here */
-      }
+    .marg-top{
+        margin-top:40px;
+    }
     }
   `],
   templateUrl: './property-view.component.html'
