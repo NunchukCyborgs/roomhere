@@ -5,7 +5,7 @@
 <!--<meta property="og:image" content="<%= @property.main_image.url %>" />-->
 
 <div class="property-view-container">
-  <div class="callout call-to-actions--top">
+  <div class="callout hide-for-small-only call-to-actions--top">
     <a class="button expanded large rent-now" (click)="doPropertyAction(propertyActionState.state)">{{isEditing ? 'Update Property' : propertyActionState?.text}}</a>
     <div class="secondary expanded button-group">
       <a class="button"><i class="large icon-facebook"></i></a>
@@ -15,8 +15,8 @@
   </div>
   <property-images [images]="property?.images" *ngIf="property?.images"></property-images>
   <div class="row">
-    <section class="small-11 medium-9 columns small-centered">
-      <div class="row flex-row">
+    <section class="small-11 medium-10 columns small-centered">
+      <div class="row flex-row marg-top">
         <div *ngIf="!isEditing">
           <div class="medium-5 column callout show-for-medium">
             <property-map *ngIf="mapOptions" [properties]="[property]" [mapOptions]="mapOptions"></property-map>
@@ -67,7 +67,7 @@
           </div>
         </div>
       </div>
-      <div class="row">
+      <div class="row marg-top marg-btm">
         <div class="column medium-6">
           <h3>{{property?.address1}}</h3>
           <h3 *ngIf="property?.address2">{{property?.address2}}</h3>
@@ -105,10 +105,20 @@
             </div>
           </div>
         </div>-->
-        <div class="column hide-for-medium">
+        <div class="column hide-for-medium marg-top">
           <property-map *ngIf="mapOptions" [properties]="[property]" [mapOptions]="mapOptions"></property-map>
         </div>
       </div>
     </section>
   </div>
+<div class="row show-for-small-only callout-bottom marg-top">
+  <div class="small-12 columns">
+    <a class="button expanded large rent-now" (click)="doPropertyAction(propertyActionState.state)">{{isEditing ? 'Update Property' : propertyActionState?.text}}</a>
+    <div class="secondary expanded button-group">
+      <a class="button"><i class="large icon-facebook"></i></a>
+      <a class="button"><i class="large icon-twitter"></i></a>
+      <a class="button"><i class="large icon-instagram"></i></a>
+    </div>
+  </div>
+</div>
 </div>
