@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
 import { Http, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { BASE_URL } from '../config';
 import 'rxjs';
+import { BASE_URL } from '../config';
 
 @Injectable()
 export class HttpService {
@@ -28,10 +28,23 @@ export class HttpService {
       .do(i => this.updateHeaders(i.headers));
   }
 
+  public setAuthHeaders(token?: string, client?: string, uid?: string): void {
+    this.headers.set('access-token', token);
+    this.headers.set('client', client);
+    this.headers.set('uid', uid);
+    this.headers.set('token-type', 'Bearer');
+
+    sessionStorage.setItem('access-token', token || '');
+    sessionStorage.setItem('client', client || '');
+    sessionStorage.setItem('uid', uid || '');
+    sessionStorage.setItem('token-type', 'Bearer');
+  }
+
   private updateHeaders(headers: Headers) {
     headers.forEach((values: string[], name: string) => {
       if (this.headers.keys().indexOf(name) !== -1) {
-        this.headers.set(name, values);
+        this.headers.set(name, values[0]);
+        sessionStorage.setItem(name, values[0]);
       }
     });
   }

@@ -33,13 +33,13 @@ export class UserService {
 
   public login(user: User) {
     return this.http.post(`${BASE_URL}/auth/sign_in`, user)
-      .do((i: Response) => this.setAuthHeaders(i.headers.get('access-token'), i.headers.get('client'), i.headers.get('uid')))
+      .do((i: Response) => this.http.setAuthHeaders(i.headers.get('access-token'), i.headers.get('client'), i.headers.get('uid')))
       .do(i => this.user$.next(this._user = i.json().data))
       .do(() => this.hasAuth$.next(true))
   }
 
   public logout() {
-    this.setAuthHeaders();
+    this.http.setAuthHeaders();
     this.hasAuth$.next(false);
   }
 
@@ -54,29 +54,10 @@ export class UserService {
       .queryParams
       .subscribe(params => {
         if (params['account_confirmation_success'] === 'true') {
-          this.setAuthHeaders(params['token'], params['client_id'], params['uid'])
+          this.http.setAuthHeaders(params['token'], params['client_id'], params['uid'])
           this.hasAuth$.next(true);
         }
       });
-  }
-
-  private checkForSessionAuth() {
-    if (sessionStorage.getItem('access-token')) {
-      this.setAuthHeaders(sessionStorage.getItem('access-token'), sessionStorage.getItem('client'), sessionStorage.getItem('uid'));
-      this.hasAuth$.next(true);
-    }
-  }
-
-  private setAuthHeaders(token?: string, client?: string, uid?: string): void {
-    this.http.headers.set('access-token', token);
-    this.http.headers.set('client', client);
-    this.http.headers.set('uid', uid);
-    this.http.headers.set('token-type', 'Bearer');
-
-    sessionStorage.setItem('access-token', token || '');
-    sessionStorage.setItem('client', client || '');
-    sessionStorage.setItem('uid', uid || '');
-    sessionStorage.setItem('token-type', 'Bearer');
   }
 
   private checkForUser() {
@@ -88,5 +69,12 @@ export class UserService {
 
   private storeUser() {
     this.user$.subscribe(i => sessionStorage.setItem('user', JSON.stringify(i)));
+  }
+
+  private checkForSessionAuth() {
+    if (sessionStorage.getItem('access-token')) {
+      this.http.setAuthHeaders(sessionStorage.getItem('access-token'), sessionStorage.getItem('client'), sessionStorage.getItem('uid'));
+      this.hasAuth$.next(true);
+    }
   }
 }
