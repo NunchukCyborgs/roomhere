@@ -7,20 +7,20 @@ import { BASE_URL } from '../config';
 export class HttpService {
   public headers: Headers;
 
-  constructor(private http: Http) { 
+  constructor(private http: Http) {
     this.headers = new Headers();
     this.headers.append('Content-Type', 'application/json');
   }
 
   public get(url: string): Observable<any> {
-    return this.http.get(url, this.headers);
+    return this.http.get(url, { headers: this.headers });
   }
 
   public post(url: string, obj: any): Observable<any> {
-    return this.http.post(url, obj, this.headers);
+    return this.http.post(url, obj, { headers: this.headers });
   }
 
   public patch(url: string, obj: any): Observable<any> {
-    return this.http.patch(url, obj, this.headers);
+    return this.http.patch(url, obj, { headers: this.headers });
   }
 }

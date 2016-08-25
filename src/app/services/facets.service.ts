@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Http } from '@angular/http';
+import { HttpService } from '../services/http.service';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { BASE_URL } from '../config';
 
@@ -28,7 +28,7 @@ export class FacetsService {
   public locations$: BehaviorSubject<Location[]>;
   public _locations: Location[] = [];
 
-  constructor(private http: Http) {
+  constructor(private http: HttpService) {
     this.amenities$ = new BehaviorSubject(this._amenities);
     this.amenities$.subscribe();
     this.locations$ = new BehaviorSubject(this._locations);
