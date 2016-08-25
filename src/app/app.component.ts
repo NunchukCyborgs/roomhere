@@ -1,6 +1,5 @@
 import { Component, Directive, AfterViewInit } from '@angular/core';
 import { ROUTER_DIRECTIVES } from '@angular/router';
-import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
 import { PropertyService } from './properties/index';

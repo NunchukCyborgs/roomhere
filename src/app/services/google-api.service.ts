@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { HttpService } from '../services/http.service';
 import { Observable } from 'rxjs/Observable';
 
 declare let google: any;
@@ -15,7 +15,7 @@ const RICHMARKER_URL = '/assets/javascript/richmarker.min.js';
 export class GoogleApiService {
   private loadMap;
 
-  constructor(private http: Http) {
+  constructor(private http: HttpService) {
     try {
       let resolve;
       this.loadMap = new Promise(i => resolve = i);
