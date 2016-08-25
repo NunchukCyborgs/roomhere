@@ -6,6 +6,7 @@
 npm-debug.log
 
 /dist/
+log/capistrano.log
 
 .idea
 .DS_Store
