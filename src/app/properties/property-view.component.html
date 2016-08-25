@@ -82,7 +82,7 @@
           </div>
         </div>
         <div class="column medium-6">
-          <property-amenities *ngIf="property?.amenities" [amenities]="property.amenities"></property-amenities>
+          <property-amenities *ngIf="property?.amenities" [(amenities)]="property.amenities" [isEditing]="isEditing"></property-amenities>
         </div>
         <!--<div class="column">
           <hr>

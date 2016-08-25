@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Amenity } from './index';
 
 @Component({
@@ -11,20 +11,25 @@ import { Amenity } from './index';
   `],
   template: `
     <div class="row">
-      <div [hidden]="showMore" *ngFor="let amen of featuredAmenities" class="column small-6">
-        <span><i class="large {{amen.icon}}"></i> {{amen?.name}}</span>
+      <div [hidden]="showMore || isEditing" *ngFor="let amen of featuredAmenities" class="column small-6">
+        <span><i class="large {{amen.icon}}"></i> {{amen.name}}</span>
       </div>
 
       <div class="column small-6" [hidden]="showMore"><a (click)="showMore = true">more +</a></div>
 
-      <div [hidden]="!showMore" *ngFor="let amen of amenities" class="column small-6">
-        <span [class.strike]="!amen?.active" ><i class="large {{amen.icon}}"></i> {{amen?.name}}</span>
+      <div [hidden]="!showMore && !isEditing" *ngFor="let amen of amenities" class="column small-6">
+        <span *ngIf="!isEditing" [class.strike]="!amen.active" ><i *ngIf="amen.active" class="large {{amen.icon}}"></i> {{amen.name}}</span>
+        <span *ngIf="isEditing">
+          <input type="checkbox" [checked]="amen.active" (change)="update(amen, $event)" />
+        {{amen.name}}</span>
       </div>
     </div>
   `
 })
 export class PropertyAmenities {
+  @Input() isEditing: boolean;
   @Input() amenities: Amenity[];
+  @Output() amenitiesChange: EventEmitter<any> = new EventEmitter();
   public featuredAmenities: Amenity[];
   public showMore: boolean;
 
@@ -34,5 +39,9 @@ export class PropertyAmenities {
       .slice(1, 4);
 
     this.showMore = this.featuredAmenities.length === 0;
+  }
+
+  public update(amen: Amenity, $event: any) {
+    amen.active = $event.target.value === 'on';
   }
 }
