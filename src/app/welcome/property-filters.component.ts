@@ -79,4 +79,9 @@ export class PropertyFilters {
   public apply() {
     this.applyFacet.emit(this.facet);
   }
+
+  public toggleShowFilters() {
+    this.showFilters = !this.showFilters;
+    this.showFiltersChange.emit(this.showFilters);
+  }
 }

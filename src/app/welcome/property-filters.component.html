@@ -1,7 +1,10 @@
 <div>
-  <div class="backdrop"></div>
-  <button class="button hollow" type="button" (click)="showFilters = !showFilters; showFiltersChange.emit(showFilters)">Filters</button>
+  <button class="button hollow" type="button" (click)="toggleShowFilters()">Filters</button>
+  <div *ngIf="showFilters" class="backdrop" (click)="toggleShowFilters()"></div>
   <div *ngIf="showFilters" class="dropdown-pane large">
+    <button class="close-button" aria-label="Close" type="button" (click)="toggleShowFilters()">
+      <span aria-hidden="true">&times;</span>
+    </button>
     <form>
       <div class="row">
         <div class="large-2 columns">
@@ -62,7 +65,10 @@
       </div>
       <div class="row">
         <div class="large-4 large-offset-4 columns">
-          <button type="button" class="button expanded" (click)="apply()">Apply</button>
+          <div class="input-group button-group">
+            <button type="button" class="button expanded" (click)="apply()">Apply</button>
+            <button type="button" class="button expanded" (click)="toggleShowFilters()">Cancel</button>
+          </div>
         </div>
       </div>
     </form>
