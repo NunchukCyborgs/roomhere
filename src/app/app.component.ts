@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import { PropertyService } from './properties/index';
 import { GoogleApiService } from './services/google-api.service';
 import { HttpService } from './services/http.service';
+import { ServerUnsafeService } from './services/server-unsafe.service';
 import { Login, Register, UserService } from './users/index';
 
 declare let $: any;
@@ -16,7 +17,7 @@ declare let $: any;
     Login,
     Register
   ],
-  providers: [PropertyService, GoogleApiService, UserService, HttpService],
+  providers: [PropertyService, GoogleApiService, UserService, HttpService, ServerUnsafeService],
   styleUrls: [`app/app.component.css`],
   template: `
   <div>
@@ -43,12 +44,12 @@ declare let $: any;
 })
 export class App implements AfterViewInit {
   public hasAuth$: Observable<boolean>;
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private unsafe: ServerUnsafeService) {
     this.hasAuth$ = this.userService.hasAuth$;
   }
   
   ngAfterViewInit() {
-    $('.top-bar-right .menu').foundation();
+    this.unsafe.tryUnsafeCode(() => $('.top-bar-right .menu').foundation(), '$ not defined');
   }
 
   logout() {

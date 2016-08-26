@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { User, UserService } from './index';
+import { ServerUnsafeService } from '../services/server-unsafe.service';
 
 declare let $: any;
 
@@ -21,21 +22,21 @@ declare let $: any;
       <div class="form-group">
         <label for="email">Email</label>
         <input type="email" class="form-control" id="email" required [(ngModel)]="user.email" name="email" >
-        <div [hidden]="loginForm.controls.email?.valid || loginForm.controls.email?.pristine" class="alert alert-danger">
+        <div [attr.hidden]="loginForm.controls.email?.valid || loginForm.controls.email?.pristine" class="alert alert-danger">
           Email is required
         </div>
       </div>
       <div class="form-group">
         <label for="password">Password</label>
         <input type="password" class="form-control" id="password" required [(ngModel)]="user.password" name="password">
-        <div [hidden]="loginForm.controls.password?.valid || loginForm.controls.password?.pristine" class="alert alert-danger">
+        <div [attr.hidden]="loginForm.controls.password?.valid || loginForm.controls.password?.pristine" class="alert alert-danger">
           Password is required
         </div>
       </div>
-      <button type="submit" class="btn btn-default" [disabled]="!loginForm.form.valid">Login</button>
+      <button type="submit" class="btn btn-default" [attr.disabled]="!loginForm.form.valid">Login</button>
     </form>
 
-    <div [hidden]="!errors.length">
+    <div [attr.hidden]="!errors.length">
       <h6>Uh oh! We had a problem logging you in with those credentials.</h6>
 
       <span *ngFor="let error of errors">{{error}} </span>
@@ -47,7 +48,7 @@ export class Login {
   public user: User = new User();
   public errors: string[] = [];
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private unsafe: ServerUnsafeService) { }
 
   public onSubmit(f) {
     this.userService.login(this.user)
@@ -57,7 +58,7 @@ export class Login {
 
   private closeModal(res: Response) {
     if (res.ok) {
-      $('.login-modal__close-button').click();
+      this.unsafe.tryUnsafeCode(() => $('.login-modal__close-button').click(), '$ is undefined');
     }
   }
 
