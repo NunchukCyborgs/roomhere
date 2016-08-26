@@ -8,6 +8,7 @@ set :deploy_to, '/var/www/roomhere'
 
 set :linked_dirs, %w{node_modules app/bower_components}
 set :npm_flags, '--production'
+set :passenger_restart_with_touch, true
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
@@ -46,9 +47,12 @@ namespace :deploy do
   desc 'Restart application'
   task :restart do
     on roles(:app) do 
-      execute "cd #{release_path}; pwd; npm cache clean; npm start &"
+      execute "cd #{release_path}; pwd; npm cache clean; npm run build;"
     end
   end
 
   after :publishing, :restart
+  #after :publishing, :build_static
 end
+
+
