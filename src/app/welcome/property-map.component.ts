@@ -60,9 +60,9 @@ export class PropertyMap {
               content: `<span class="map-marker tooltip top" title="">$${property.price}</span>`,
               propertyid: property.id
             });
-            
+
             marker.addListener('click', function() {
-              let link = `/properties/${property.id}`;
+              let link = `/properties/${property.slug}`;
               let win = window.open(link, '_blank');
               win.focus();
             });
