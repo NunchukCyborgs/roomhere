@@ -20,22 +20,22 @@ declare let $: any;
     <form [hidden]="success" (ngSubmit)="onSubmit()" #registerForm="ngForm">
       <div class="form-group">
         <label for="email">Email</label>
-        <input type="email" class="form-control" id="email" required [(ngModel)]="user.email" name="email" #email="ngModel">
-        <div [hidden]="email.valid || email.pristine" class="alert alert-danger">
+        <input type="email" class="form-control" id="email" required [(ngModel)]="user.email" name="email">
+        <div [hidden]="registerForm.controls.email?.valid || registerForm.controls.email?.pristine" class="alert alert-danger">
           Email is required
         </div>
       </div>
       <div class="form-group">
         <label for="password">Password</label>
-        <input type="password" class="form-control" id="password" required [(ngModel)]="user.password" name="password" #password="ngModel">
-        <div [hidden]="password.valid || password.pristine" class="alert alert-danger">
+        <input type="password" class="form-control" id="password" required [(ngModel)]="user.password" name="password">
+        <div [hidden]="registerForm.controls.password?.valid || registerForm.controls.password?.pristine" class="alert alert-danger">
           Password is required
         </div>
       </div>
       <div class="form-group">
         <label for="confirmPassword">Confirm Password</label>
-        <input type="password" class="form-control" id="confirmPassword" required [(ngModel)]="user.password_confirmation" name="confirmPassword" #confirmPassword="ngModel">
-        <div [hidden]="confirmPassword.valid || confirmPassword.pristine" class="alert alert-danger">
+        <input type="password" class="form-control" id="confirmPassword" required [(ngModel)]="user.password_confirmation" name="confirmPassword">
+        <div [hidden]="registerForm.controls.confirmPassword?.valid || registerForm.controls.confirmPassword?.pristine" class="alert alert-danger">
           Password is required
         </div>
       </div>

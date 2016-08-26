@@ -17,18 +17,18 @@ declare let $: any;
       <span aria-hidden="true">&times;</span>
     </button>
 
-    <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+    <form (ngSubmit)="onSubmit(loginForm)" #loginForm="ngForm">
       <div class="form-group">
         <label for="email">Email</label>
-        <input type="email" class="form-control" id="email" required [(ngModel)]="user.email" name="email" #email="ngModel">
-        <div [hidden]="email.valid || email.pristine" class="alert alert-danger">
+        <input type="email" class="form-control" id="email" required [(ngModel)]="user.email" name="email" >
+        <div [hidden]="loginForm.controls.email?.valid || loginForm.controls.email?.pristine" class="alert alert-danger">
           Email is required
         </div>
       </div>
       <div class="form-group">
         <label for="password">Password</label>
-        <input type="password" class="form-control" id="password" required [(ngModel)]="user.password" name="password" #password="ngModel">
-        <div [hidden]="password.valid || password.pristine" class="alert alert-danger">
+        <input type="password" class="form-control" id="password" required [(ngModel)]="user.password" name="password">
+        <div [hidden]="loginForm.controls.password?.valid || loginForm.controls.password?.pristine" class="alert alert-danger">
           Password is required
         </div>
       </div>
@@ -46,10 +46,10 @@ declare let $: any;
 export class Login {
   public user: User = new User();
   public errors: string[] = [];
-  
+
   constructor(private userService: UserService) { }
 
-  public onSubmit() {
+  public onSubmit(f) {
     this.userService.login(this.user)
       .catch((err: Response, caught: Observable<any>) => this.showErrors(err, caught))
       .subscribe((res: Response) => this.closeModal(res));
