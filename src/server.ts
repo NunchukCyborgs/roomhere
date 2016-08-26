@@ -21,6 +21,12 @@ const ROOT = path.join(path.resolve(__dirname, '..'));
 app.engine('.html', expressEngine);
 app.set('views', __dirname);
 app.set('view engine', 'html');
+app.set('forceSSLOptions', {
+  enable301Redirects: true,
+  trustXFPHeader: false,
+  httpsPort: 443,
+  sslRequiredMessage: 'SSL Required.'
+});
 
 app.use(cookieParser('Angular 2 Universal'));
 app.use(bodyParser.json());
