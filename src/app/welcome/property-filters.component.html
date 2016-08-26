@@ -1,23 +1,22 @@
 <div>
-  <button class="button hollow" type="button" (click)="showFilters = !showFilters">Filters</button>
-  <div *ngIf="showFilters" class="dropdown-pane large" id="example-dropdown" data-dropdown data-auto-focus="true">
+  <div class="backdrop"></div>
+  <button class="button hollow" type="button" (click)="showFilters = !showFilters; showFiltersChange.emit(showFilters)">Filters</button>
+  <div *ngIf="showFilters" class="dropdown-pane large">
     <form>
       <div class="row">
         <div class="large-2 columns">
           <p class="lead">Rental Type:</p>
         </div>
         <div class="large-10 columns">
-          <div class="input-group button-group secondary show-for-small-only stacked-for-small js-types-facet">
-            <a class="button" [ngClass]="{selected: facet.types.indexOf('apartment') !== -1}" (click)="toggleType('apartment')">Apartment</a>
-            <a class="button" [ngClass]="{selected: facet.types.indexOf('home') !== -1}" (click)="toggleType('home')">Home</a>
-            <a class="button" [ngClass]="{selected: facet.types.indexOf('duplex') !== -1}" (click)="toggleType('duplex')">Duplex</a>
-            <a class="button" [ngClass]="{selected: facet.types.indexOf('townhouse') !== -1}" (click)="toggleType('townhouse')">Townhouse</a>
-          </div>
-          <div class="input-group button-group secondary hide-for-small-only expanded js-types-facet">
-            <a class="button" [ngClass]="{selected: facet.types.indexOf('apartment') !== -1}" (click)="toggleType('apartment')">Apartment</a>
-            <a class="button" [ngClass]="{selected: facet.types.indexOf('home') !== -1}" (click)="toggleType('home')">Home</a>
-            <a class="button" [ngClass]="{selected: facet.types.indexOf('duplex') !== -1}" (click)="toggleType('duplex')">Duplex</a>
-            <a class="button" [ngClass]="{selected: facet.types.indexOf('townhouse') !== -1}" (click)="toggleType('townhouse')">Townhouse</a>
+          <div class="input-group button-group secondary">
+            <div class="row">
+              <div class="column">
+                <div class="filter-buttons column large-3 small-6"><a class="button expanded" [ngClass]="{selected: facet.types.indexOf('apartment') !== -1}" (click)="toggleType('apartment')">Apartment</a></div>
+                <div class="filter-buttons column large-3 small-6"><a class="button expanded" [ngClass]="{selected: facet.types.indexOf('home') !== -1}" (click)="toggleType('home')">Home</a></div>
+                <div class="filter-buttons column large-3 small-6"><a class="button expanded" [ngClass]="{selected: facet.types.indexOf('duplex') !== -1}" (click)="toggleType('duplex')">Duplex</a></div>
+                <div class="filter-buttons column large-3 small-6"><a class="button expanded" [ngClass]="{selected: facet.types.indexOf('townhouse') !== -1}" (click)="toggleType('townhouse')">Townhouse</a></div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -39,10 +38,11 @@
         </div>
         <div class="large-10 columns">
           <div class="row small-up-2 medium-up-3 js-locations-facet">
-              <div *ngFor="let location of locations$ | async" class="column">
-                <input [id]="location" type="checkbox" (change)="toggleLocation(location)" [checked]="facet.locations.indexOf(location) !== -1"/>
-                <label [attr.for]="location">{{location}}</label>
-              </div>
+            <div *ngFor="let location of locations$ | async" class="column">
+              <input [id]="location" type="checkbox" (change)="toggleLocation(location)" [checked]="facet.locations.indexOf(location) !== -1"
+              />
+              <label [attr.for]="location">{{location}}</label>
+            </div>
           </div>
         </div>
       </div>
@@ -52,10 +52,11 @@
         </div>
         <div class="large-10 columns">
           <div class="row small-up-2 medium-up-3 js-locations-facet">
-              <div *ngFor="let amenity of amenities$ | async" class="column">
-                <input [id]="amenity" type="checkbox" (change)="toggleAmenity(amenity)" [checked]="facet.amenities.indexOf(amenity) !== -1"/>
-                <label [attr.for]="amenity">{{amenity}}</label>
-              </div>
+            <div *ngFor="let amenity of amenities$ | async" class="column">
+              <input [id]="amenity" type="checkbox" (change)="toggleAmenity(amenity)" [checked]="facet.amenities.indexOf(amenity) !== -1"
+              />
+              <label [attr.for]="amenity">{{amenity}}</label>
+            </div>
           </div>
         </div>
       </div>

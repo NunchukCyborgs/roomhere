@@ -1,33 +1,34 @@
 <section id="one">
-    <div class="row full-width left-margin-fix">
-        <div class="medium-7 small-12 columns">
-          <section id="scrolldiv">
-            <div class="row marg20top">
-              
-                <div class="large-12 columns">
-                    <p>Price Range</p>
-                </div>
+  <div class="row full-width left-margin-fix">
+    <div class="medium-7 small-12 columns">
+      <section id="scrolldiv">
+        <div class="row marg20top">
 
-                <property-slider [facet]="facet" (applyFacet)="applyFacet($event)"></property-slider>
-                
-                <div class="large-12 columns">
-                    <property-filters [facet]="facet" (applyFacet)="applyFacet($event)"></property-filters>
-                </div>
-                
-            </div>
+          <div class="large-12 columns">
+            <p>Price Range</p>
+          </div>
 
+          <property-slider [facet]="facet" (applyFacet)="applyFacet($event)"></property-slider>
+
+          <div class="large-12 columns">
+            <property-filters [(showFilters)]="showFilters" [facet]="facet" (applyFacet)="applyFacet($event)"></property-filters>
+          </div>
+
+        </div>
+
+        <section [hidden]="showFilters">
+          <div class="row">
+            <div class="small-12 columns">
               <div class="row">
-                <div class="small-12 columns">
-                  <div class="row">
-                    <div id="properties-list" class=" small-up-1 medium-up-2">
-                      <div *ngFor="let property of properties$ | async">
-                        <property-preview [property]="property"></property-preview>
-                      </div>
-                    </div>
+                <div id="properties-list" class=" small-up-1 medium-up-2">
+                  <div *ngFor="let property of properties$ | async">
+                    <property-preview [property]="property"></property-preview>
                   </div>
                 </div>
               </div>
-            <div class="pag">
+            </div>
+          </div>
+          <div class="pag">
             <ul class="pagination text-center" role="navigation" aria-label="Pagination">
               <li class="pagination-previous disabled">Previous</li>
               <li class="current"><span class="show-for-sr">You're on page</span> 1</li>
@@ -39,11 +40,12 @@
             </ul>
             </div>
             </section>
-        </div>
-        <div class="large-5 medium-5 hide-for-small-only columns">
-          <property-map *ngIf="mapOptions" [properties]="properties$ | async" [mapOptions]="mapOptions"></property-map>
-        </div>
-    </div>
+            </section>
+          </div>
+          <div [hidden]="showFilters" class="large-5 medium-5 hide-for-small-only columns">
+            <property-map *ngIf="mapOptions" [properties]="properties$ | async" [mapOptions]="mapOptions"></property-map>
+          </div>
+  </div>
 </section>
 
 <!--<script

@@ -192,6 +192,7 @@ export class Welcome implements OnInit {
   public properties$: Observable<Property[]>;
   public facet: PropertyFacet = new PropertyFacet();
   public mapOptions: MapOptions;
+  public showFilters: boolean = false;
 
   constructor(private propertyService: PropertyService) { }
 
