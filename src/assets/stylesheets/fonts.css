@@ -1,11 +1,11 @@
 @font-face {
-  font-family: 'roomhere';
-  src: url('../font/roomhere.eot?79134004');
-  src: url('../font/roomhere.eot?79134004#iefix') format('embedded-opentype'),
-       url('../font/roomhere.woff2?79134004') format('woff2'),
-       url('../font/roomhere.woff?79134004') format('woff'),
-       url('../font/roomhere.ttf?79134004') format('truetype'),
-       url('../font/roomhere.svg?79134004#roomhere') format('svg');
+  font-family: 'fonts';
+  src: url('../font/fonts.eot?54433610');
+  src: url('../font/fonts.eot?54433610#iefix') format('embedded-opentype'),
+       url('../font/fonts.woff2?54433610') format('woff2'),
+       url('../font/fonts.woff?54433610') format('woff'),
+       url('../font/fonts.ttf?54433610') format('truetype'),
+       url('../font/fonts.svg?54433610#fonts') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -14,14 +14,14 @@
 /*
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
-    font-family: 'roomhere';
-    src: url('../font/roomhere.svg?79134004#roomhere') format('svg');
+    font-family: 'fonts';
+    src: url('../font/fonts.svg?54433610#fonts') format('svg');
   }
 }
 */
  
  [class^="icon-"]:before, [class*=" icon-"]:before {
-  font-family: "roomhere";
+  font-family: "fonts";
   font-style: normal;
   font-weight: normal;
   speak: none;
@@ -55,11 +55,11 @@
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
 }
  
-.icon-electricity_icon:before { content: '\e800'; } /* '' */
-.icon-fa-central-air-alt:before { content: '\e801'; } /* '' */
-.icon-fa-gas:before { content: '\e802'; } /* '' */
-.icon-fa-smoking-allowed:before { content: '\e803'; } /* '' */
-.icon-fa-washer-dryer-2:before { content: '\e804'; } /* '' */
+.icon-electricity:before { content: '\e800'; } /* '' */
+.icon-washer-dryer-2:before { content: '\e801'; } /* '' */
+.icon-smoking-allowed:before { content: '\e802'; } /* '' */
+.icon-gas:before { content: '\e803'; } /* '' */
+.icon-central-air-alt:before { content: '\e804'; } /* '' */
 .icon-video:before { content: '\e805'; } /* '' */
 .icon-videocam:before { content: '\e806'; } /* '' */
 .icon-picture:before { content: '\e807'; } /* '' */
@@ -220,6 +220,7 @@
 .icon-truck:before { content: '\e8a2'; } /* '' */
 .icon-hammer:before { content: '\e8a3'; } /* '' */
 .icon-lemon:before { content: '\e8a4'; } /* '' */
+.icon-shower:before { content: '\e8a5'; } /* '' */
 .icon-move:before { content: '\f047'; } /* '' */
 .icon-link-ext:before { content: '\f08e'; } /* '' */
 .icon-check-empty:before { content: '\f096'; } /* '' */

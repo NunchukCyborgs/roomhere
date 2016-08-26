@@ -9,14 +9,8 @@ import { FacetsService, Location, Amenity } from '../services/facets.service';
   directives: [NgClass],
   providers: [FacetsService],
   styles: [`
-    .backdrop {
-      position: fixed;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      opacity: 0.4;
-      background-color: #000;
+    .wrapper {
+      position: relative;
     }
     .button-group a.button.selected {
       opacity: .5;
@@ -26,14 +20,12 @@ import { FacetsService, Location, Amenity } from '../services/facets.service';
     }
     .dropdown-pane {
       visibility: visible;
+      overflow-y: scroll!important;
       position: absolute;
       top: 0;
-      width: 90%;
-      left: 5%;
-      overflow-y: scroll!important;
-      right: 5%;
-
-      overflow-y:scroll!important;
+      left: 0;
+      right: 0;
+      width: 100%;
     }
   `],
   templateUrl: './property-filters.component.html'
