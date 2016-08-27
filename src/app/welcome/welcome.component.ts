@@ -198,15 +198,15 @@ export class Welcome implements OnInit {
   ngOnInit() {
     this.applyFacet(this.facet);
     this.lastPage$ = this.propertyService.lastPage$;
+    this.updateMapOptions();
   }
 
   public applyFacet(facet: PropertyFacet) {
     this.properties$ = this.propertyService
       .getFilteredProperties$(this.facet, this.pageNumber)
-      .do((properties: Property[]) => this.updateMapOptions(properties));
   }
 
-  private updateMapOptions(properties: Property[]) {
+  private updateMapOptions() {
     this.mapOptions = {
       height: MAP_HEIGHT,
       center: CAPE_GIRARDEU_CENTER,
