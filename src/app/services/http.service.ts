@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Http, Headers } from '@angular/http';
+import { Http, Headers, Response, ResponseOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs';
 import { BASE_URL } from '../config';
@@ -11,25 +11,26 @@ export class HttpService {
 
   constructor(private http: Http, private unsafe: ServerUnsafeService) {
     this.headers = new Headers();
-    this.headers.append('Content-Type', 'application/json');
+    this.headers.set('Content-Type', 'application/json');
+    this.headers.set('Accept', 'application/json');
   }
 
   public get(url: string): Observable<any> {
     return this.http.get(url, { headers: this.headers })
       .do(i => this.updateHeaders(i.headers))
-      .catch((err, caught) => Observable.of(console.log(`>> ERROR IN GET TO ${url}`)));
+      .catch((err, caught) => this.handleError(err, url));
   }
 
   public post(url: string, obj: any): Observable<any> {
-    return this.http.post(url, obj, { headers: this.headers })
+    return this.http.post(url, JSON.stringify(obj), { headers: this.headers })
       .do(i => this.updateHeaders(i.headers))
-      .catch((err, caught) => Observable.of(console.log(`>> ERROR IN POST TO ${url} with ${JSON.stringify(obj)}`)));
+      .catch((err, caught) => this.handleError(err, url));
   }
 
   public patch(url: string, obj: any): Observable<any> {
-    return this.http.patch(url, obj, { headers: this.headers })
+    return this.http.patch(url, JSON.stringify(obj), { headers: this.headers })
       .do(i => this.updateHeaders(i.headers))
-      .catch((err, caught) => Observable.of(console.log(`>> ERROR IN PATCH TO ${url} with ${JSON.stringify(obj)}`)));
+      .catch((err, caught) => this.handleError(err, url));
   }
 
   public setAuthHeaders(token?: string, client?: string, uid?: string): void {
@@ -54,5 +55,10 @@ export class HttpService {
         ;
       }
     });
+  }
+
+  private handleError(err, url): Observable<Response> {
+    console.log(`caught http error of ${err.toString().substr(0, 50)} going to ${url}`);
+    return Observable.of(new Response(new ResponseOptions({url: url})));
   }
 }

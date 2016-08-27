@@ -22,21 +22,21 @@ declare let $: any;
       <div class="form-group">
         <label for="email">Email</label>
         <input type="email" class="form-control" id="email" required [(ngModel)]="user.email" name="email" >
-        <div [attr.hidden]="loginForm.controls.email?.valid || loginForm.controls.email?.pristine" class="alert alert-danger">
+        <div [class.hide]="loginForm.controls.email?.valid || loginForm.controls.email?.pristine" class="alert alert-danger">
           Email is required
         </div>
       </div>
       <div class="form-group">
         <label for="password">Password</label>
         <input type="password" class="form-control" id="password" required [(ngModel)]="user.password" name="password">
-        <div [attr.hidden]="loginForm.controls.password?.valid || loginForm.controls.password?.pristine" class="alert alert-danger">
+        <div [class.hide]="loginForm.controls.password?.valid || loginForm.controls.password?.pristine" class="alert alert-danger">
           Password is required
         </div>
       </div>
-      <button type="submit" class="btn btn-default" [attr.disabled]="!loginForm.form.valid">Login</button>
+      <button type="submit" class="btn btn-default" [attr.disabled]="!loginForm.form.valid ? true : null">Login</button>
     </form>
 
-    <div [attr.hidden]="!errors.length">
+    <div [class.hide]="!errors.length">
       <h6>Uh oh! We had a problem logging you in with those credentials.</h6>
 
       <span *ngFor="let error of errors">{{error}} </span>
