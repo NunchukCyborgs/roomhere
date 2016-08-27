@@ -12,6 +12,8 @@ export class PropertyService {
   public collection$: BehaviorSubject<Property[]>;
   public _collection: Property[] = [];
 
+  public lastPage$: BehaviorSubject<number> = new BehaviorSubject(Number.MAX_SAFE_INTEGER)
+
   constructor(private http: HttpService) {
     this.collection$ = new BehaviorSubject(this._collection);
     this.collection$.subscribe();
@@ -32,9 +34,17 @@ export class PropertyService {
     return Object.assign([], this._collection);
   }
 
-  public getFilteredProperties$(facet: PropertyFacet): Observable<Property[]> {
-    return this.http.post(`${BASE_URL}/properties/filtered_results`, {facets: facet})
-      .map(i => i.json());
+  public getFilteredProperties$(facet: PropertyFacet, pageNumber: number = 1, perPage: number = 10): Observable<Property[]> {
+    return this.http.post(`${BASE_URL}/properties/filtered_results`, {facets: facet, page: pageNumber, per_page: perPage})
+      .map(i => i.json())
+      .do(() => this.updateLastPage(facet, pageNumber, perPage));
+  }
+
+  private updateLastPage(facet: PropertyFacet, pageNumber: number, perPage: number) {
+    // This was a best effort attempt. Really needs to just come back from the API
+    this.http.post(`${BASE_URL}/properties/filtered_results`, {facets: facet, page: pageNumber, per_page: perPage})
+      .map(i => i.json())
+      .subscribe(i => { if (i.length === 0) { this.lastPage$.next(pageNumber - 1);} });
   }
 
   public getPropertyBySlug$(slug: string): Observable<Property> {

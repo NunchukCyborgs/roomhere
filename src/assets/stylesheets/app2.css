@@ -20,3 +20,8 @@
 body {
   overflow: initial;
 }
+
+button[disabled], button[disabled]:hover {
+  opacity: 0.65;
+  background-color: #fff;
+}

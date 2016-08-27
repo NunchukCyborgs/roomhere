@@ -167,7 +167,7 @@ import { BASE_URL } from '../config';
         <div class="image-wrapper overlay-fade-in">
           <a href="#"></a>
           <a target="_blank" [href]="'/properties/' + property.slug">
-            <img class="js-property-image" [src]="BASE_URL + property?.images[0].url" alt="Give me an alt">
+            <img *ngIf="property?.images[0]?.url" class="js-property-image" [src]="BASE_URL + property.images[0].url">
 
             <div class="image-overlay-content">
                 <h2 class="js-description">{{property.bedrooms}} Bedroom {{property.bathrooms}} Bath</h2>
