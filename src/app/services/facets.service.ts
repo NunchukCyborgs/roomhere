@@ -38,16 +38,14 @@ export class FacetsService {
       .subscribe(res => {
         this._amenities = this._amenities || [];
         this._locations = this._locations || [];
-        let json = res && res.json();
-        if (json) {
-          for (let amenity of json.amenities) {
-            this._amenities.push(amenity);
-            this.amenities$.next(this._amenities);
-          }
-          for (let location of json.locations) {
-            this._locations.push(location);
-            this.locations$.next(this._locations);
-          }
+        let json = res.json();
+        for (let amenity of json.amenities) {
+          this._amenities.push(amenity);
+          this.amenities$.next(this._amenities);
+        }
+        for (let location of json.locations) {
+          this._locations.push(location);
+          this.locations$.next(this._locations);
         }
       });
   }

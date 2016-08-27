@@ -19,7 +19,7 @@ export class PropertyService {
     this.http.get(`${BASE_URL}/properties/filtered_results`)
       .subscribe(res => {
           this._collection = this._collection || [];
-          let json = res && res.json();
+          let json = res.json();
 
           for (let property in json) {
               this._collection.push(json[property]);
@@ -34,7 +34,7 @@ export class PropertyService {
 
   public getFilteredProperties$(facet: PropertyFacet): Observable<Property[]> {
     return this.http.post(`${BASE_URL}/properties/filtered_results`, {facets: facet})
-      .map(i => i && i.json());
+      .map(i => i.json());
   }
 
   public getPropertyBySlug$(slug: string): Observable<Property> {
@@ -44,7 +44,7 @@ export class PropertyService {
       return Observable.of(this._collection[index]);
     } else {
       return this.http.get(`${BASE_URL}/properties/${slug}`).map(i => {
-        let property = i && i.json();
+        let property = i.json();
         this._collection.push(property);
         return property;
       });
@@ -53,6 +53,6 @@ export class PropertyService {
 
   public update(property: Property): Observable<Property> {
     return this.http.patch(`${BASE_URL}/properties/${property.id}`, property)
-      .map(i => i && i.json());
+      .map(i => i.json());
   }
 }

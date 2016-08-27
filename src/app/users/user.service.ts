@@ -35,7 +35,7 @@ export class UserService {
   public login(user: User) {
     return this.http.post(`${BASE_URL}/auth/sign_in`, user)
       .do((i: Response) => this.http.setAuthHeaders(i.headers.get('access-token'), i.headers.get('client'), i.headers.get('uid')))
-      .do(i => this.user$.next(this._user = i && i.json().data))
+      .do(i => this.user$.next(this._user = i.json().data))
       .do(() => this.hasAuth$.next(true))
   }
 
