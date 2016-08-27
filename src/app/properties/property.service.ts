@@ -44,7 +44,7 @@ export class PropertyService {
       return Observable.of(this._collection[index]);
     } else {
       return this.http.get(`${BASE_URL}/properties/${slug}`).map(i => {
-        const property = i.json();
+        let property = i.json();
         this._collection.push(property);
         return property;
       });

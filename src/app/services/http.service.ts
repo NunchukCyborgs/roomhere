@@ -1,31 +1,36 @@
 import { Injectable } from "@angular/core";
-import { Http, Headers } from '@angular/http';
+import { Http, Headers, Response, ResponseOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs';
 import { BASE_URL } from '../config';
+import { ServerUnsafeService } from './server-unsafe.service';
 
 @Injectable()
 export class HttpService {
   public headers: Headers;
 
-  constructor(private http: Http) {
+  constructor(private http: Http, private unsafe: ServerUnsafeService) {
     this.headers = new Headers();
-    this.headers.append('Content-Type', 'application/json');
+    this.headers.set('Content-Type', 'application/json');
+    this.headers.set('Accept', 'application/json');
   }
 
   public get(url: string): Observable<any> {
     return this.http.get(url, { headers: this.headers })
-      .do(i => this.updateHeaders(i.headers));
+      .do(i => this.updateHeaders(i.headers))
+      .catch((err, caught) => this.handleError(err, url));
   }
 
   public post(url: string, obj: any): Observable<any> {
-    return this.http.post(url, obj, { headers: this.headers })
-      .do(i => this.updateHeaders(i.headers));
+    return this.http.post(url, JSON.stringify(obj), { headers: this.headers })
+      .do(i => this.updateHeaders(i.headers))
+      .catch((err, caught) => this.handleError(err, url));
   }
 
   public patch(url: string, obj: any): Observable<any> {
-    return this.http.patch(url, obj, { headers: this.headers })
-      .do(i => this.updateHeaders(i.headers));
+    return this.http.patch(url, JSON.stringify(obj), { headers: this.headers })
+      .do(i => this.updateHeaders(i.headers))
+      .catch((err, caught) => this.handleError(err, url));
   }
 
   public setAuthHeaders(token?: string, client?: string, uid?: string): void {
@@ -34,18 +39,26 @@ export class HttpService {
     this.headers.set('uid', uid);
     this.headers.set('token-type', 'Bearer');
 
-    sessionStorage.setItem('access-token', token || '');
-    sessionStorage.setItem('client', client || '');
-    sessionStorage.setItem('uid', uid || '');
-    sessionStorage.setItem('token-type', 'Bearer');
+    this.unsafe.tryUnsafeCode(() => {
+      sessionStorage.setItem('access-token', token || '');
+      sessionStorage.setItem('client', client || '');
+      sessionStorage.setItem('uid', uid || '');
+      sessionStorage.setItem('token-type', 'Bearer');
+    }, 'sessionStorage undefined');
   }
 
   private updateHeaders(headers: Headers) {
     headers.forEach((values: string[], name: string) => {
       if (this.headers.keys().indexOf(name) !== -1) {
         this.headers.set(name, values[0]);
-        sessionStorage.setItem(name, values[0]);
+        this.unsafe.tryUnsafeCode(() => sessionStorage.setItem(name, values[0]), 'sessionStore undefined');
+        ;
       }
     });
+  }
+
+  private handleError(err, url): Observable<Response> {
+    console.log(`caught http error of ${err.toString().substr(0, 50)} going to ${url}`);
+    return Observable.of(new Response(new ResponseOptions({url: url})));
   }
 }

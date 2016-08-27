@@ -17,32 +17,32 @@ declare let $: any;
       <span aria-hidden="true">&times;</span>
     </button>
 
-    <form [hidden]="success" (ngSubmit)="onSubmit()" #registerForm="ngForm">
+    <form [class.hide]="success" (ngSubmit)="onSubmit()" #registerForm="ngForm">
       <div class="form-group">
         <label for="email">Email</label>
-        <input type="email" class="form-control" id="email" required [(ngModel)]="user.email" name="email" #email="ngModel">
-        <div [hidden]="email.valid || email.pristine" class="alert alert-danger">
+        <input type="email" class="form-control" id="email" required [(ngModel)]="user.email" name="email">
+        <div [class.hide]="registerForm.controls.email?.valid || registerForm.controls.email?.pristine" class="alert alert-danger">
           Email is required
         </div>
       </div>
       <div class="form-group">
         <label for="password">Password</label>
-        <input type="password" class="form-control" id="password" required [(ngModel)]="user.password" name="password" #password="ngModel">
-        <div [hidden]="password.valid || password.pristine" class="alert alert-danger">
+        <input type="password" class="form-control" id="password" required [(ngModel)]="user.password" name="password">
+        <div [class.hide]="registerForm.controls.password?.valid || registerForm.controls.password?.pristine" class="alert alert-danger">
           Password is required
         </div>
       </div>
       <div class="form-group">
         <label for="confirmPassword">Confirm Password</label>
-        <input type="password" class="form-control" id="confirmPassword" required [(ngModel)]="user.password_confirmation" name="confirmPassword" #confirmPassword="ngModel">
-        <div [hidden]="confirmPassword.valid || confirmPassword.pristine" class="alert alert-danger">
+        <input type="password" class="form-control" id="confirmPassword" required [(ngModel)]="user.password_confirmation" name="confirmPassword">
+        <div [class.hide]="registerForm.controls.confirmPassword?.valid || registerForm.controls.confirmPassword?.pristine" class="alert alert-danger">
           Password is required
         </div>
       </div>
-      <button type="submit" class="btn btn-default" [disabled]="!registerForm.form.valid">Create Account</button>
+      <button type="submit" class="btn btn-default" [attr.disabled]="!registerForm.form.valid ? true : null">Create Account</button>
     </form>
 
-    <div [hidden]="!success">
+    <div [class.hide]="!success">
       <h5>Success!</h5>
 
       <p>
@@ -51,7 +51,7 @@ declare let $: any;
       </p>
     </div>
 
-    <div [hidden]="!errors.length || success">
+    <div [class.hide]="!errors.length || success">
       <h6>Uh oh! We had a problem logging you in with those credentials.</h6>
 
       <span *ngFor="let error of errors">{{error}}. </span>

@@ -1,5 +1,6 @@
 import { Component, AfterViewInit, Input, Output, EventEmitter } from '@angular/core';
 import { PropertyFacet } from '../properties/index';
+import { ServerUnsafeService } from '../services/server-unsafe.service';
 
 declare let $: any;
 
@@ -28,8 +29,11 @@ export class PropertySlider implements AfterViewInit {
   @Input() facet: PropertyFacet;
   @Output() applyFacet: EventEmitter<any> = new EventEmitter();
 
+  constructor(private unsafe: ServerUnsafeService) { }
+
   ngAfterViewInit() {
-    if ($) {
+    this.unsafe.tryUnsafeCode(() => {
+
       $(document).foundation();
 
       $('body').on("changed.zf.slider", () => {
@@ -37,6 +41,6 @@ export class PropertySlider implements AfterViewInit {
         this.facet.max_price = Number($('input#sliderOutput2').val());
         this.applyFacet.emit(this.facet);
       });
-    }
+    }, '$ is undefined');
   }
 }

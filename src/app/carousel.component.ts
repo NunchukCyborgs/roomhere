@@ -8,14 +8,14 @@ export enum Direction {UNKNOWN, NEXT, PREV}
     directives: [],
     template: `
     <div (mouseenter)="pause()" (mouseleave)="play()" class="carousel slide">
-      <ol class="carousel-indicators" [hidden]="slides.length <= 1">
+      <ol class="carousel-indicators" [class.hide]="slides.length <= 1">
          <li *ngFor="let slidez of slides" [class.active]="slidez.active === true" (click)="select(slidez)"></li>
       </ol>
       <div class="carousel-inner"><ng-content></ng-content></div>
-        <a class="left carousel-control" (click)="prev()" [hidden]="!slides.length">
+        <a class="left carousel-control" (click)="prev()" [class.hide]="!slides.length">
         <span class="glyphicon glyphicon-chevron-left"></span>
         </a>
-        <a class="right carousel-control" (click)="next()" [hidden]="!slides.length">
+        <a class="right carousel-control" (click)="next()" [class.hide]="!slides.length">
         <span class="glyphicon glyphicon-chevron-right"></span>
         </a>
     </div>

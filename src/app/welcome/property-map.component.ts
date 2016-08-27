@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { Property } from '../properties/index';
 import { GoogleApiService } from '../services/google-api.service';
 import { generateGUID } from '../config';
+import { ServerUnsafeService } from '../services/server-unsafe.service';
 
 declare let google: any;
 declare let RichMarker: any;
@@ -12,13 +13,13 @@ declare let RichMarker: any;
 export interface MapOptions {
   zoomLevel: number;
   height: string;
-  center: {latitude: number, longitude: number};
+  center: { latitude: number, longitude: number };
 }
 
 @Component({
   moduleId: __filename,
   selector: 'property-map',
-  providers: [ ],
+  providers: [],
   styles: [`
     #map{
     height: 100vh;
@@ -38,7 +39,7 @@ export class PropertyMap {
   public id: string = `map${generateGUID()}`;
   private sub: Subscription;
 
-  constructor(private router: Router, private googleApi: GoogleApiService) {
+  constructor(private router: Router, private googleApi: GoogleApiService, private unsafe: ServerUnsafeService) {
   }
 
   ngOnInit() {
@@ -55,15 +56,15 @@ export class PropertyMap {
           if (markers.map(marker => <number>marker.propertyid).indexOf(property.id) === -1) {
             let marker = new RichMarker({
               map: this.map,
-              position:  new google.maps.LatLng(property.latitude, property.longitude),
+              position: new google.maps.LatLng(property.latitude, property.longitude),
               anchor: new google.maps.Size(-20, -30),
               content: `<span class="map-marker tooltip top" title="">$${property.price}</span>`,
               propertyid: property.id
             });
 
-            marker.addListener('click', function() {
+            marker.addListener('click', function () {
               let link = `/properties/${property.slug}`;
-              let win = window.open(link, '_blank');
+              let win = this.unsafe.tryUnsafeCode(() => window.open(link, '_blank'), 'window is not defined');
               win.focus();
             });
 
@@ -75,14 +76,10 @@ export class PropertyMap {
   }
 
   ngAfterViewInit() {
-    try {
+    this.unsafe.tryUnsafeCode(() => {
       window['mapbtn' + this.id].click(); // Trigger change detection and shit
-    } catch(e) {
-      console.log('ReferenceError: window is not defined? ', e.toString().substr(0, 40));
-    }
+    }, 'window is not defined');
   }
 
-  private noop() {
-
-  }
+  private noop() { }
 }

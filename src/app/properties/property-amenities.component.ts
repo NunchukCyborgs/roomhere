@@ -11,13 +11,13 @@ import { Amenity } from './index';
   `],
   template: `
     <div class="row">
-      <div [hidden]="showMore || isEditing" *ngFor="let amen of featuredAmenities" class="column small-6">
+      <div [class.hide]="showMore || isEditing" *ngFor="let amen of featuredAmenities" class="column small-6">
         <span><i class="large {{amen.icon}}"></i> {{amen.name}}</span>
       </div>
 
-      <div class="column small-6" [hidden]="showMore"><a (click)="showMore = true">more +</a></div>
+      <div class="column small-6" [class.hide]="showMore"><a (click)="showMore = true">more +</a></div>
 
-      <div [hidden]="!showMore && !isEditing" *ngFor="let amen of amenities" class="column small-6">
+      <div [class.hide]="!showMore && !isEditing" *ngFor="let amen of amenities" class="column small-6">
         <span *ngIf="!isEditing" [class.strike]="!amen.active" ><i *ngIf="amen.active" class="large {{amen.icon}}"></i> {{amen.name}}</span>
         <span *ngIf="isEditing">
           <input type="checkbox" [checked]="amen.active" (change)="update(amen, $event)" />

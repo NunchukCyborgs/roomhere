@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from '../services/http.service';
 import { Observable } from 'rxjs/Observable';
+import { ServerUnsafeService } from './server-unsafe.service';
 
 declare let google: any;
 
@@ -15,8 +16,8 @@ const RICHMARKER_URL = '/assets/javascript/richmarker.min.js';
 export class GoogleApiService {
   private loadMap;
 
-  constructor(private http: HttpService) {
-    try {
+  constructor(private http: HttpService, private unsafe: ServerUnsafeService) {
+    this.unsafe.tryUnsafeCode(() => {
       let resolve;
       this.loadMap = new Promise(i => resolve = i);
 
@@ -32,10 +33,7 @@ export class GoogleApiService {
       if (window[GOOGLE_MAP_CALLBACK]) {
         this.loadScript(GOOGLE_MAP_URL);
       }
-
-    } catch (e) {
-      console.log('ReferenceError: window is not defined? ', e.toString().substr(0, 40));
-    }
+    }, 'window is not defined');
   }
 
   public initMap() {
