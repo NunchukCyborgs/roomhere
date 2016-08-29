@@ -52,6 +52,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
     
     .number-ticker{
             border: 1px solid #EEE !important;
+            /* Make sure this works */
 }
     }
     `],

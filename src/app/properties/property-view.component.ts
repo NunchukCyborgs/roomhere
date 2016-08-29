@@ -61,19 +61,12 @@ const HEIGHT: string = '100px';
       border-radius: 5%;
       box-shadow: inset 1px 1px 3px #999;
     }
-    .flex-row {
-    display: flex !important;
-    flex-flow: row wrap;
-    }
     }
 
     @media (max-width: 480px) {
     .marg-top{
         margin-top:40px;
     }
-    .number-ticker{
-            border: 1px solid #EEE !important;
-}
     }
   `],
   templateUrl: './property-view.component.html'

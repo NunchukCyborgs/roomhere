@@ -67,7 +67,7 @@ declare let $: any;
 })
 export class PropertyImages {
   @Input() images: Array<{id: number, url: string}>;
-  @Input() interval: number; // get defaults somehow
+  @Input() interval: number;
   @Input() noLoop: boolean;
   public BASE_URL: string = BASE_URL;
   public slides: Array<{image: string, text: string}>
@@ -78,34 +78,3 @@ export class PropertyImages {
       });
   }
 }
-
-/*
-
-<div class="carousel-caption">
-          <h3 style="background-color: transparent;color: white;">Slide {{i + 1}}</h3>
-          <p style="background-color: transparent;color: white;">{{slidez.text}}</p>
-        </div>
-
-
- <ul class="orbit-container">
-        <button class="orbit-previous"><span class="show-for-sr">Previous Slide</span>&#9664;&#xFE0E;</button>
-        <button class="orbit-next"><span class="show-for-sr">Next Slide</span>&#9654;&#xFE0E;</button>
-        <li *ngFor="let image of images" class="orbit-slide" >
-          <div [style.background-image]="'url(' + BASE_URL + image.url + ')'" class="orbit-image2"></div>
-          <figcaption class="orbit-caption2"></figcaption>
-        </li>
-      </ul>
-
-
-      <carousel [interval]="NextPhotoInterval" [noWrap]="noLoopSlides">
-       <slide *ngFor="let slidez of slides; let i=index" [active]="slidez.active">
-        <img [src]="slidez.image" style="margin:auto;">
-        <div class="carousel-caption">
-          <h3 style="background-color: transparent;color: white;">Slide {{i + 1}}</h3>
-          <p style="background-color: transparent;color: white;">{{slidez.text}}</p>
-        </div>
-      </slide>
-    </carousel>
-
-
-*/

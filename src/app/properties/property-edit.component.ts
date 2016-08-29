@@ -5,7 +5,6 @@ import { PropertyService, Property } from './index';
   moduleId: __filename,
   selector: 'property-edit',
   styles: [`
-
   `],
   templateUrl: './property-edit.component.html'
 })
