@@ -1,4 +1,32 @@
+/* Resets and Global Helpers */
+.flex-row {
+  display: flex;
+  flex-flow: row wrap;
+}
 
+.reveal-overlay {
+  text-align: center;
+}
+
+.reveal {
+  text-align: initial;
+}
+
+.fa.large {
+  font-size: 1.5em;
+}
+
+/* Hot fix */
+body {
+  overflow: initial;
+}
+
+button[disabled], button[disabled]:hover {
+  opacity: 0.65;
+  background-color: #fff;
+}
+
+/* Move to property-map component */
 .map-marker {
   background-color: #fe5a5f !important;
   border-bottom: none !important;
