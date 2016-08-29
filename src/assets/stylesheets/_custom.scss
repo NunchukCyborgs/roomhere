@@ -1,0 +1,31 @@
+
+.map-marker {
+  background-color: #fe5a5f !important;
+  border-bottom: none !important;
+  padding: .25rem !important;
+  border-radius: 4px !important;
+  color: #fefefe;
+  font-size: 80%;
+  position: absolute;
+  z-index: 10;
+  top: calc(100% + 0.6495rem);
+  max-width: 10rem !important;
+  cursor: pointer !important;
+  font-weight: bold;
+  height: 25px;
+  width: 40px;
+  text-align: center;
+}
+
+.map-marker:before {
+  border-color: #fe5a5f transparent transparent !important;
+  content: '';
+  display: block;
+  width: 0;
+  height: 0;
+  border: inset 0.35rem;
+  border-top-style: solid;
+  border-bottom-width: 0;
+  top: 100%;
+  bottom: auto;
+}
