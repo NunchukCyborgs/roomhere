@@ -44,7 +44,7 @@ const MAP_ZOOM_LEVEL = 13;
     .marg40top{
         margin-top: 40px;
     }
-    
+
     //Product_Divs
     .image-wrapper {
       width: 100%;
@@ -53,7 +53,7 @@ const MAP_ZOOM_LEVEL = 13;
       overflow: hidden;
       position: relative;
       text-align: center;
-      border-radius: 4px; 
+      border-radius: 4px;
       margin-bottom: 50px;
     }
 
