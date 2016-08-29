@@ -1,4 +1,4 @@
-import { Component, Directive, AfterViewInit } from '@angular/core';
+import { Component, Directive, AfterViewInit, ViewEncapsulation } from '@angular/core';
 import { ROUTER_DIRECTIVES } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 
@@ -9,6 +9,7 @@ import { ServerUnsafeService } from './services/server-unsafe.service';
 import { Login, Register, UserService } from './users/index';
 
 declare let $: any;
+declare let require: (string) => string;
 
 @Component({
   selector: 'app',
@@ -18,8 +19,9 @@ declare let $: any;
     Register
   ],
   providers: [PropertyService, GoogleApiService, UserService, HttpService, ServerUnsafeService],
-  styles: [`
-  `],
+  encapsulation: ViewEncapsulation.None,
+  styles: [require('../assets/stylesheets/app.scss').toString()],
+  // Styles here are global, be careful
   template: `
   <div>
     <div class="top-bar" id="top-menu">
