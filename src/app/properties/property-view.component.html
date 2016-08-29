@@ -18,6 +18,8 @@
     <section class="small-11 medium-10 columns small-centered">
       <div class="row flex-row marg-top">
         <div *ngIf="!isEditing">
+          <h3>{{property?.address1}}</h3>
+          <h3 *ngIf="property?.address2">{{property?.address2}}</h3>
           <div class="medium-5 column callout show-for-medium">
             <property-map *ngIf="mapOptions" [properties]="[property]" [mapOptions]="mapOptions"></property-map>
           </div>
@@ -36,53 +38,61 @@
         </div>
         <div *ngIf="isEditing" class="column small-12">
           <div class="row">
-            <div class="column small-6">
-              <div class="row flex-row">
-                <div class="small-3 columns">
+            <div class="column small-12 large-6 marg-btm">
+             <h3>{{property?.address1}}</h3>
+          <h3 *ngIf="property?.address2">{{property?.address2}}</h3>
+              <div class="row">
+                <div class="small-2 large-2 columns">
                   <label for="bedrooms" class="text-right middle"><i class="icon-bed"></i></label>
                 </div>
-                <div class="small-9 columns">
+                <div class="small-4 large-3 text-left columns">
                   <label><small>Bedrooms</small>
                 <number-ticker name="bedrooms" [(number)]="property.bedrooms" [min]="1" [max]="16"></number-ticker>
               </label>
                 </div>
-                <div class="small-3 columns">
-                  <label for="bathrooms" class="text-right middle"><i class="icon-bed"></i></label>
+                <div class="small-2 large-2 columns">
+                  <label for="bathrooms" class="text-right middle"><i class="icon-shower"></i></label>
                 </div>
-                <div class="small-9 columns">
-                  <label><small>bathrooms</small>
+                <div class="small-4 large-3 end text-left columns">
+                  <label><small>Bathrooms</small>
                 <number-ticker name="bathrooms" [(number)]="property.bathrooms" [min]="1" [max]="16"></number-ticker>
               </label>
                 </div>
               </div>
-            </div>
-            <div class="column small-6">
-              <div class="input-group">
-                <span class="input-group-label">$</span>
-                <input class="input-group-field" type="number" [(ngModel)]="property.price" />
+              <div class="row">
+                  <div class="small-2 large-2 columns text-right-middle">
+                      <label for="LeasePrice" class="text-right middle"><i class="icon-dollar"></i></label> 
+                  </div>
+                  <div class="small-4 large-3 text-left columns">Lease Price: <number-ticker [(number)]="property.price" [min]="0" [max]="120"></number-ticker>( $ )
+                  </div>
+                  <div class="small-2 large-2 columns">
+                     <label for="LeaseLength" class="text-right middle"><i class="icon-calendar-check-o"></i></label> 
+                  </div>
+                  <div class="small-4 large-3 text-left end columns"> Lease Length:
+                    <number-ticker [(number)]="property.lease_length" [min]="0" [max]="120"></number-ticker> (months)
+                  </div>
               </div>
-              <div> Lease Length:
-                <number-ticker [(number)]="property.lease_length" [min]="0" [max]="120"></number-ticker> (months)</div>
+            </div>
+            <div class="column small-12 large-6">
+              <div *ngIf="isEditing">
+                Description:
+                <textarea [(ngModel)]="property.description"></textarea>
+              </div>
             </div>
           </div>
         </div>
       </div>
       <div class="row marg-top marg-btm">
+        <div class="small-12 large-6 columns">
+          <property-amenities *ngIf="property?.amenities && isEditing" [(amenities)]="property.amenities" [isEditing]="isEditing"></property-amenities>
+        </div>
         <div class="column medium-6">
-          <h3>{{property?.address1}}</h3>
-          <h3 *ngIf="property?.address2">{{property?.address2}}</h3>
-
           <div *ngIf="!isEditing">
             <p>{{property?.description}}</p>
           </div>
-
-          <div *ngIf="isEditing">
-            Description:
-            <textarea [(ngModel)]="property.description"></textarea>
-          </div>
         </div>
         <div class="column medium-6">
-          <property-amenities *ngIf="property?.amenities" [(amenities)]="property.amenities" [isEditing]="isEditing"></property-amenities>
+          <property-amenities *ngIf="property?.amenities && !isEditing" [(amenities)]="property.amenities" [isEditing]="isEditing"></property-amenities>
         </div>
         <!--<div class="column">
           <hr>
@@ -105,6 +115,11 @@
             </div>
           </div>
         </div>-->
+        <div *ngIf="isEditing">
+            <div class="column marg-top hide-for-small-only marg-btm">
+                <property-map *ngIf="mapOptions" [properties]="[property]" [mapOptions]="mapOptions"></property-map>
+            </div>
+        </div>
         <div class="column hide-for-medium marg-top">
           <property-map *ngIf="mapOptions" [properties]="[property]" [mapOptions]="mapOptions"></property-map>
         </div>
