@@ -22,7 +22,7 @@ const HEIGHT: string = '100px';
     display: block !important;
     }
     em, i {
-    font-size: x-large;
+    font-size: 1.8rem;
     }
     .call-to-actions--top .rent-now {
       margin-bottom: 10px;
@@ -71,6 +71,9 @@ const HEIGHT: string = '100px';
     .marg-top{
         margin-top:40px;
     }
+    .number-ticker{
+            border: 1px solid #EEE !important;
+}
     }
   `],
   templateUrl: './property-view.component.html'

@@ -15,6 +15,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
       .icon-minus, .icon-plus {
         font-size: .8em;
       }
+      
 
       input {
         width: 35px;
@@ -24,11 +25,14 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
         background: #f5f5f5;
         margin-bottom: 0;
         text-align: center;
+        font-size:1.5rem;
+        font-weight:700;
       }
 
       .number-ticker {
         display: inline-block;
         border: 2px solid #EEE;
+        
       }
 
       .number-ticker__wrapper {
@@ -44,6 +48,12 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
         border: 1px solid #666;
         border-radius: 100%;
       }
+    @media (max-width: 480px) {
+    
+    .number-ticker{
+            border: 1px solid #EEE !important;
+}
+    }
     `],
     template: `
     <div class="number-ticker__wrapper">
