@@ -18,7 +18,8 @@ declare let $: any;
     Register
   ],
   providers: [PropertyService, GoogleApiService, UserService, HttpService, ServerUnsafeService],
-  styleUrls: [`app/app.component.css`],
+  styles: [`
+  `],
   template: `
   <div>
     <div class="top-bar" id="top-menu">
