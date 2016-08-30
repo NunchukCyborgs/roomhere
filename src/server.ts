@@ -15,6 +15,7 @@ import { expressEngine } from 'angular2-universal';
 enableProdMode();
 
 const app = express();
+app.use(require('serve-favicon')(__dirname + '/assets/images/favicon.ico'));
 const ROOT = path.join(path.resolve(__dirname, '..'));
 
 // Express View
