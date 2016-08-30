@@ -186,7 +186,7 @@ import { BASE_URL } from '../config';
 
       <div class="image-overlay-content">
           <h2 class="js-description">{{property.bedrooms}} Bedroom {{property.bathrooms}} Bath</h2>
-          <p class="js-price price">{{property.price}}</p><a class="js-property-link button large" >View Now</a>
+          <p class="js-price price">${{property.price}}</p><a class="js-property-link button large" >View Now</a>
       </div>
     <h5 class="js-address-line-1">{{property.address1}}</h5>
     <h5 class="js-address-line-2" *ngIf="property.address2">{{property.address2}}</h5>
