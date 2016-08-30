@@ -6,4 +6,12 @@ export class User {
   public password_confirmation: string;
   public confirm_success_url: string;
   public licenser_id: string;
+
+  constructor(
+    {email = '', password = '', password_confirmation = ''}: 
+    {email?: string, password?: string, password_confirmation?: string} = {}) {
+      this.email = email;
+      this.password = password;
+      this.password_confirmation = password_confirmation;
+  }
 }

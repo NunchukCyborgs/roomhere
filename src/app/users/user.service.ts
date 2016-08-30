@@ -34,9 +34,7 @@ export class UserService {
 
   public login(user: User) {
     return this.http.post(`${BASE_URL}/auth/sign_in`, user)
-      .do((i: Response) => this.http.setAuthHeaders(i.headers.get('access-token'), i.headers.get('client'), i.headers.get('uid')))
-      .do(i => this.user$.next(this._user = i.json().data))
-      .do(() => this.hasAuth$.next(true))
+      .do((i: Response) => this.handleLogin(i));
   }
 
   public logout() {
@@ -79,6 +77,14 @@ export class UserService {
 
     if (headers && headers.token && headers.client && headers.uid) {
       this.http.setAuthHeaders(headers.token, headers.client, headers.uid);
+      this.hasAuth$.next(true);
+    }
+  }
+
+  private handleLogin(res: Response) {
+    if (res.ok) {
+      this.http.setAuthHeaders(res.headers.get('access-token'), res.headers.get('client'), res.headers.get('uid'));
+      this.user$.next(this._user = res.json().data);
       this.hasAuth$.next(true);
     }
   }
