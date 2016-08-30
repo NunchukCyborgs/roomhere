@@ -27,6 +27,26 @@ import { FacetsService, Location, Amenity } from '../services/facets.service';
       right: 0;
       width: 100%;
     }
+    .amenity-checkbox {
+      cursor: pointer;
+      display: table;
+      width: 100%;
+    }
+    .amenity-checkbox>div {
+      display: table-cell;
+      vertical-align: top;
+    }
+    .amenity-checkbox input {
+      margin-right: 15px;
+    }
+    .amenity-checkbox>div:last-child {
+      width: 99%;
+      text-align: left;
+    }
+    .amenity-type {
+      line-height: 1.6;
+      font-size: 90%;
+    }
   `],
   templateUrl: './property-filters.component.html'
 })

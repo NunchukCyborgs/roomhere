@@ -4,12 +4,12 @@
     <button class="close-button" aria-label="Close" type="button" (click)="toggleShowFilters()">
       <span aria-hidden="true">&times;</span>
     </button>
-    <form>
+    <form class="ext-head-room">
       <div class="row">
-        <div class="large-2 columns">
-          <p class="lead">Rental Type:</p>
+        <div class="small-12 large-2 columns">
+          <p class="amenity-type">Rental Type:</p>
         </div>
-        <div class="large-10 columns">
+        <div class="small-12 large-10 columns">
           <div class="input-group button-group secondary">
             <div class="row">
               <div class="column">
@@ -23,10 +23,10 @@
         </div>
       </div>
       <div class="row">
-        <div class="large-2 columns">
-          <p class="lead">Bedrooms:</p>
+        <div class="small-12 large-2 columns">
+          <p class="amenity-type">Bedrooms:</p>
         </div>
-        <div class="large-10 columns">
+        <div class="small-12 large-10 columns">
           <div class="input-group button-group secondary expanded js-bedrooms-facet">
             <a class="button" [ngClass]="{selected: facet.min_bedrooms === 1}" (click)="facet.min_bedrooms = 1">One Bedroom +</a>
             <a class="button" [ngClass]="{selected: facet.min_bedrooms === 2}" (click)="facet.min_bedrooms = 2">Two Bedroom + </a>
@@ -35,29 +35,39 @@
         </div>
       </div>
       <div class="row">
-        <div class="large-2 columns">
-          <p class="lead">Rentals Near:</p>
+        <div class="small-12 large-2 columns">
+          <p class="amenity-type">Rentals Near:</p>
         </div>
-        <div class="large-10 columns">
-          <div class="row small-up-2 medium-up-3 js-locations-facet">
+        <div class="small-12 large-10 columns">
+          <div class="row small-up-1 medium-up-2 large-up-3 js-locations-facet">
             <div *ngFor="let location of locations$ | async" class="column">
-              <input [id]="location" type="checkbox" (change)="toggleLocation(location)" [checked]="facet.locations.indexOf(location) !== -1"
-              />
-              <label [attr.for]="location">{{location}}</label>
+              <label class="amenity-checkbox" [title]="location">
+                <div>
+                  <input [id]="location" type="checkbox" (change)="toggleLocation(location)" [checked]="facet.locations.indexOf(location) !== -1"/>
+                </div>
+                <div>
+                  <span>{{location}}</span>
+                </div>
+              </label>
             </div>
           </div>
         </div>
       </div>
       <div class="row">
-        <div class="large-2 columns">
-          <p class="lead">Amenities:</p>
+        <div class="small-12 large-2 columns">
+          <p class="amenity-type">Amenities:</p>
         </div>
-        <div class="large-10 columns">
-          <div class="row small-up-2 medium-up-3 js-locations-facet">
+        <div class="small-12 large-10 columns">
+          <div class="row small-up-1 medium-up-2 large-up-3 js-locations-facet">
             <div *ngFor="let amenity of amenities$ | async" class="column">
-              <input [id]="amenity" type="checkbox" (change)="toggleAmenity(amenity)" [checked]="facet.amenities.indexOf(amenity) !== -1"
-              />
-              <label [attr.for]="amenity">{{amenity}}</label>
+              <label class="amenity-checkbox" [title]="amenity">
+                <div>
+                  <input [id]="amenity" type="checkbox" (change)="toggleAmenity(amenity)" [checked]="facet.amenities.indexOf(amenity) !== -1"/>
+                </div>
+                <div>
+                  <span>{{amenity}}</span>
+                </div>
+              </label>
             </div>
           </div>
         </div>
