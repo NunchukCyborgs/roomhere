@@ -58,11 +58,7 @@ button[disabled], button[disabled]:hover {
   bottom: auto;
 }
 
-#scrolldiv {
-  @include breakpoint(small only) {
-    border-top: solid 1px grey;
-  }
-}
+
 
 .top-bar-right {
   margin-top: 8px;
@@ -79,9 +75,59 @@ button[disabled], button[disabled]:hover {
 .input-group > :first-child {
   border-radius: 0;
 }
+
 /* Hover css */
 .menu>li>a:hover {
     background-color: #391940;
     color: white !important;
     border-radius: 4px;
+
+.dropdown-pane {
+    visibility: visible;
+    overflow-y: hidden !important;
+    position: fixed;
+    top: 74px;
+    left: 15px;
+    width: 58% !important;
+    @include breakpoint(small only) {
+      width: 97% !important;
+      top: 145px;
+      left: 9px;
+      overflow-y: scroll !important;
+    }
+    bottom: 15px;
+}
+
+#scrolldiv {
+  overflow: scroll;
+  overflow-x: hidden;
+  position: fixed;
+  top: 74px;
+  left: 0;
+  width: 60%;
+  padding-left: 30px;
+  padding-right: 30px;
+  bottom: 0;
+  max-width: none !important;
+  @include breakpoint(small only) {
+    width: 100% !important;
+    top: 145px;
+    padding-left: 20px;
+    padding-right: 20px;
+    overflow-y: scroll !important;
+  }
+}
+
+#welcome-map {
+  position: fixed !important;
+  right: 0;
+  top: 74px;
+  bottom: 0;
+  width: 40%;
+  overflow: hidden;
+  background-color: rgb(229, 227, 223);
+}
+
+#welcome-map > div:first-child {
+  height: 100%;
 }

@@ -18,15 +18,6 @@ import { FacetsService, Location, Amenity } from '../services/facets.service';
     .filter-buttons {
       padding: 1px;
     }
-    .dropdown-pane {
-      visibility: visible;
-      overflow-y: scroll!important;
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      width: 100%;
-    }
     .amenity-checkbox {
       cursor: pointer;
       display: table;

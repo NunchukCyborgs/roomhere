@@ -54,7 +54,7 @@
       </section>
     </div>
     <div class="large-5 medium-5 hide-for-small-only columns">
-      <property-map *ngIf="mapOptions" [properties]="properties$ | async" [mapOptions]="mapOptions"></property-map>
+      <property-map id="welcome-map" *ngIf="mapOptions" [properties]="properties$ | async" [mapOptions]="mapOptions"></property-map>
     </div>
   </div>
 </section>
