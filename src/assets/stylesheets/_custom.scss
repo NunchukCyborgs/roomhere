@@ -79,3 +79,9 @@ button[disabled], button[disabled]:hover {
 .input-group > :first-child {
   border-radius: 0;
 }
+/* Hover css */
+.menu>li>a:hover {
+    background-color: #391940;
+    color: white !important;
+    border-radius: 4px;
+}
