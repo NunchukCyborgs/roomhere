@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Response } from '@angular/http';
 import { FormBuilder, FormGroup, Validators, REACTIVE_FORM_DIRECTIVES, FORM_DIRECTIVES } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
-import { User, UserService } from './index'; 
+import { User, UserService } from './index';
 import { ValidationService } from '../services/validation.service';
 import { ControlMessages } from '../control-messages.component';
 
@@ -57,7 +57,6 @@ declare let $: any;
   `
 })
 export class Register {
-  public user: User = new User();
   public success: boolean = false;
   public serverErrors: string[] = [];
   public registerForm: any;
@@ -79,13 +78,14 @@ export class Register {
   }
 
   public onSubmit() {
-    this.userService.register(this.user)
-      .catch((err: Response, caught: Observable<any>) => this.showErrors(err, caught))
-      .subscribe((res: Response) => this.success = res.ok);
-  }
+    const user = new User({
+      email: this.registerForm.controls.email.value,
+      password: this.registerForm.controls.password.value,
+      password_confirmation: this.registerForm.controls.confirmPassword.value,
+    });
 
-  private showErrors(err: Response, caught: Observable<any>): Observable<Response> {
-    this.serverErrors = err.json().errors.full_messages;
-    return Observable.of(err);
+    this.userService.register(user)
+      .do((res: Response) => this.serverErrors = ValidationService.getAuthErrors(res))
+      .subscribe((res: Response) => this.success = res.ok);
   }
 }

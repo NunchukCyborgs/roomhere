@@ -44,10 +44,9 @@ declare let $: any;
   `
 })
 export class Login {
-  public user: User = new User();
   public serverErrors: string[] = [];
   public loginForm: any;
-  
+
   constructor(private userService: UserService, private unsafe: ServerUnsafeService, private formBuilder: FormBuilder) { }
 
   ngOnInit() {
@@ -58,8 +57,13 @@ export class Login {
   }
 
   public onSubmit() {
-    this.userService.login(this.user)
-      .catch((err: Response, caught: Observable<any>) => this.showErrors(err, caught))
+    const user = new User({
+      email: this.loginForm.controls.email.value,
+      password: this.loginForm.controls.password.value,
+    });
+    
+    this.userService.login(user)
+      .do((res: Response) => this.serverErrors = ValidationService.getAuthErrors(res))
       .subscribe((res: Response) => this.closeModal(res));
   }
 
@@ -67,10 +71,5 @@ export class Login {
     if (res.ok) {
       this.unsafe.tryUnsafeCode(() => $('.login-modal__close-button').click(), '$ is undefined');
     }
-  }
-
-  private showErrors(err: Response, caught: Observable<any>): Observable<Response> {
-    this.serverErrors = err.json().errors;
-    return Observable.of(err);
   }
 }
