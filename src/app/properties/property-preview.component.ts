@@ -15,7 +15,6 @@ import { BASE_URL } from '../config';
     text-align: center;
     border-radius: 4px;
     margin-bottom: 10px;
-    padding: 10px;
 }
 
 .image-overlay-content {
@@ -38,6 +37,7 @@ import { BASE_URL } from '../config';
 }
 
 .overlay-fade-in img {
+  width: 100%;
   transition: all 0.2s linear;
 }
 
@@ -162,16 +162,31 @@ import { BASE_URL } from '../config';
   font-size: 1.2rem;
 }
 
+.chrome-wrap-fix {
+  overflow: hidden;
+  width: 100%;
+}
+
+.responsive-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
   `],
   template: `
   <div class="image-wrapper overlay-fade-in">
     <a href="#"></a>
     <a target="_blank" [href]="'/properties/' + property.slug">
-      <img *ngIf="property?.images[0]?.url" class="js-property-image" [src]="BASE_URL + property.images[0].url">
+      <div class="chrome-wrap-fix">
+        <div class="responsive-image">
+          <img *ngIf="property?.images[0]?.url" class="js-property-image" [src]="BASE_URL + property.images[0].url">
+        </div>
+      </div>
 
       <div class="image-overlay-content">
           <h2 class="js-description">{{property.bedrooms}} Bedroom {{property.bathrooms}} Bath</h2>
-          <p class="js-price price">{{property.price}}</p><a class="js-property-link button large" >View Now</a>
+          <p class="js-price price">{{ property.price | currency : "USD" : true : "1.0-0" }}</p><a class="js-property-link button large" >View Now</a>
       </div>
     <h5 class="js-address-line-1">{{property.address1}}</h5>
     <h5 class="js-address-line-2" *ngIf="property.address2">{{property.address2}}</h5>
