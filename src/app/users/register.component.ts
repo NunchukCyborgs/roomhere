@@ -1,13 +1,16 @@
 import { Component } from '@angular/core';
 import { Response } from '@angular/http';
+import { FormBuilder, FormGroup, Validators, REACTIVE_FORM_DIRECTIVES, FORM_DIRECTIVES } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
-import { User, UserService } from './index'; 
+import { User, UserService } from './index';
+import { ValidationService } from '../services/validation.service';
+import { ControlMessages } from '../control-messages.component';
 
 declare let $: any;
 
 @Component({
   selector: 'register',
-  directives: [],
+  directives: [REACTIVE_FORM_DIRECTIVES, FORM_DIRECTIVES, ControlMessages],
   styles: [`
   
   `],
@@ -17,29 +20,23 @@ declare let $: any;
       <span aria-hidden="true">&times;</span>
     </button>
 
-    <form [class.hide]="success" (ngSubmit)="onSubmit()" #registerForm="ngForm">
+    <form [class.hide]="success" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
       <div class="form-group">
         <label for="email">Email</label>
-        <input type="email" class="form-control" id="email" required [(ngModel)]="user.email" name="email">
-        <div [class.hide]="registerForm.controls.email?.valid || registerForm.controls.email?.pristine" class="alert alert-danger">
-          Email is required
-        </div>
+        <input formControlName="email" type="email" class="form-control" id="email">
+        <control-messages [control]="registerForm.controls.email"></control-messages>
       </div>
       <div class="form-group">
         <label for="password">Password</label>
-        <input type="password" class="form-control" id="password" required [(ngModel)]="user.password" name="password">
-        <div [class.hide]="registerForm.controls.password?.valid || registerForm.controls.password?.pristine" class="alert alert-danger">
-          Password is required
-        </div>
+        <input formControlName="password" type="password" class="form-control" id="password">
+        <control-messages [control]="registerForm.controls.password"></control-messages>
       </div>
       <div class="form-group">
         <label for="confirmPassword">Confirm Password</label>
-        <input type="password" class="form-control" id="confirmPassword" required [(ngModel)]="user.password_confirmation" name="confirmPassword">
-        <div [class.hide]="registerForm.controls.confirmPassword?.valid || registerForm.controls.confirmPassword?.pristine" class="alert alert-danger">
-          Password is required
-        </div>
+        <input formControlName="confirmPassword" type="password" class="form-control" id="confirmPassword">
+        <control-messages [control]="registerForm.controls.confirmPassword">{{getConfirmPasswordMatchMessage()}}</control-messages>
       </div>
-      <button type="submit" class="btn btn-default" [attr.disabled]="!registerForm.form.valid ? true : null">Create Account</button>
+      <button type="submit" class="btn btn-default" [attr.disabled]="!registerForm.valid || getConfirmPasswordMatchMessage() ? true : null">Create an Account</button>
     </form>
 
     <div [class.hide]="!success">
@@ -51,29 +48,44 @@ declare let $: any;
       </p>
     </div>
 
-    <div [class.hide]="!errors.length || success">
+    <div [class.hide]="!serverErrors.length || success">
       <h6>Uh oh! We had a problem logging you in with those credentials.</h6>
 
-      <span *ngFor="let error of errors">{{error}}. </span>
+      <span *ngFor="let error of serverErrors">{{error}}. </span>
     </div>
   </div>
   `
 })
 export class Register {
-  public user: User = new User();
   public success: boolean = false;
-  public errors: string[] = [];
+  public serverErrors: string[] = [];
+  public registerForm: any;
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private formBuilder: FormBuilder) { }
 
-  public onSubmit() {
-    this.userService.register(this.user)
-      .catch((err: Response, caught: Observable<any>) => this.showErrors(err, caught))
-      .subscribe((res: Response) => this.success = res.ok);
+  ngOnInit() {
+    this.registerForm = this.formBuilder.group({
+      'email': ['', [Validators.required, ValidationService.emailValidator]],
+      'password': ['', [Validators.required, Validators.minLength(8)]],
+      'confirmPassword': ['', [Validators.required, Validators.minLength(8)]],
+    });
   }
 
-  private showErrors(err: Response, caught: Observable<any>): Observable<Response> {
-    this.errors = err.json().errors.full_messages;
-    return Observable.of(err);
+  public getConfirmPasswordMatchMessage() {
+    const password = this.registerForm.controls.password;
+    const confirm = this.registerForm.controls.confirmPassword;
+    return password.value !== confirm.value && password.touched && confirm.touched ? 'Passwords do not match. ' : '';
+  }
+
+  public onSubmit() {
+    const user = new User({
+      email: this.registerForm.controls.email.value,
+      password: this.registerForm.controls.password.value,
+      password_confirmation: this.registerForm.controls.confirmPassword.value,
+    });
+
+    this.userService.register(user)
+      .do((res: Response) => this.serverErrors = ValidationService.getAuthErrors(res))
+      .subscribe((res: Response) => this.success = res.ok);
   }
 }

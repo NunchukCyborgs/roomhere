@@ -59,6 +59,6 @@ export class HttpService {
 
   private handleError(err, url): Observable<Response> {
     console.log(`caught http error of ${err.toString().substr(0, 50)} going to ${url}`);
-    return Observable.of(new Response(new ResponseOptions({url: url})));
+    return Observable.of(new Response(new ResponseOptions({url: url, body: err.json()})));
   }
 }

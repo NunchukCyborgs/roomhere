@@ -1,5 +1,6 @@
 import { Component, Directive, AfterViewInit, ViewEncapsulation } from '@angular/core';
 import { ROUTER_DIRECTIVES } from '@angular/router';
+import { FormBuilder } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 
 import { PropertyService } from './properties/index';
@@ -18,7 +19,7 @@ declare let require: (string) => string;
     Login,
     Register
   ],
-  providers: [PropertyService, GoogleApiService, UserService, HttpService, ServerUnsafeService],
+  providers: [FormBuilder, PropertyService, GoogleApiService, UserService, HttpService, ServerUnsafeService],
   encapsulation: ViewEncapsulation.None,
   styles: [require('../assets/stylesheets/app.scss').toString()],
   // Styles here are global, be careful
