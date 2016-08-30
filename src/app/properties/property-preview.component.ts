@@ -7,8 +7,8 @@ import { BASE_URL } from '../config';
   selector: 'property-preview',
   styles: [`
   .image-wrapper {
-    width: 100%;
-    height: 100%;
+    width: 95%;
+    height: 95%;
     border: 1px solid rgba(0, 0, 0, 0.04);
     overflow: hidden;
     position: relative;
