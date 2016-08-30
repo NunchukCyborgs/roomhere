@@ -18,7 +18,6 @@ const MAP_ZOOM_LEVEL = 13;
           overflow: scroll;
           overflow-x: hidden;
           height: 100vh;
-          border-top:solid 1px grey;
           max-width: none !important;
         }
     .left-margin-fix{
