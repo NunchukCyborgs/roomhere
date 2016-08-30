@@ -1,14 +1,17 @@
 import { Component } from '@angular/core';
 import { Response } from '@angular/http';
+import { FormBuilder, FormGroup, Validators, REACTIVE_FORM_DIRECTIVES, FORM_DIRECTIVES } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import { User, UserService } from './index';
 import { ServerUnsafeService } from '../services/server-unsafe.service';
+import { ValidationService } from '../services/validation.service';
+import { ControlMessages } from '../control-messages.component';
 
 declare let $: any;
 
 @Component({
   selector: 'login',
-  directives: [],
+  directives: [REACTIVE_FORM_DIRECTIVES, FORM_DIRECTIVES, ControlMessages],
   styles: [`
   
   `],
@@ -18,39 +21,43 @@ declare let $: any;
       <span aria-hidden="true">&times;</span>
     </button>
 
-    <form (ngSubmit)="onSubmit(loginForm)" #loginForm="ngForm">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
       <div class="form-group">
         <label for="email">Email</label>
-        <input type="email" class="form-control" id="email" required [(ngModel)]="user.email" name="email" >
-        <div [class.hide]="loginForm.controls.email?.valid || loginForm.controls.email?.pristine" class="alert alert-danger">
-          Email is required
-        </div>
+        <input formControlName="email" type="email" class="form-control" id="email">
+        <control-messages [control]="loginForm.controls.email"></control-messages>
       </div>
       <div class="form-group">
         <label for="password">Password</label>
-        <input type="password" class="form-control" id="password" required [(ngModel)]="user.password" name="password">
-        <div [class.hide]="loginForm.controls.password?.valid || loginForm.controls.password?.pristine" class="alert alert-danger">
-          Password is required
-        </div>
+        <input formControlName="password" type="password" class="form-control" id="password">
+        <control-messages [control]="loginForm.controls.password"></control-messages>
       </div>
-      <button type="submit" class="btn btn-default" [attr.disabled]="!loginForm.form.valid ? true : null">Login</button>
+      <button type="submit" class="btn btn-default" [attr.disabled]="!loginForm.valid ? true : null">Login</button>
     </form>
 
-    <div [class.hide]="!errors.length">
+    <div [class.hide]="!serverErrors.length">
       <h6>Uh oh! We had a problem logging you in with those credentials.</h6>
 
-      <span *ngFor="let error of errors">{{error}} </span>
+      <span *ngFor="let error of serverErrors">{{error}} </span>
     </div>
   </div>
   `
 })
 export class Login {
   public user: User = new User();
-  public errors: string[] = [];
+  public serverErrors: string[] = [];
+  public loginForm: any;
+  
+  constructor(private userService: UserService, private unsafe: ServerUnsafeService, private formBuilder: FormBuilder) { }
 
-  constructor(private userService: UserService, private unsafe: ServerUnsafeService) { }
+  ngOnInit() {
+    this.loginForm = this.formBuilder.group({
+      'email': ['', [Validators.required, ValidationService.emailValidator]],
+      'password': ['', [Validators.required, Validators.minLength(8)]],
+    });
+  }
 
-  public onSubmit(f) {
+  public onSubmit() {
     this.userService.login(this.user)
       .catch((err: Response, caught: Observable<any>) => this.showErrors(err, caught))
       .subscribe((res: Response) => this.closeModal(res));
@@ -63,7 +70,7 @@ export class Login {
   }
 
   private showErrors(err: Response, caught: Observable<any>): Observable<Response> {
-    this.errors = err.json().errors;
+    this.serverErrors = err.json().errors;
     return Observable.of(err);
   }
 }
