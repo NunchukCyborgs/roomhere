@@ -7,14 +7,15 @@ import { BASE_URL } from '../config';
   selector: 'property-preview',
   styles: [`
   .image-wrapper {
-  width: 100%;
-  height: 100%;
-  border: 1px solid rgba(0, 0, 0, 0.04);
-  overflow: hidden;
-  position: relative;
-  text-align: center;
-  border-radius: 4px;
-  margin-bottom: 50px;
+    width: 100%;
+    height: 100%;
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    padding: 10px;
 }
 
 .image-overlay-content {
@@ -73,7 +74,7 @@ import { BASE_URL } from '../config';
 }
 
 .overlay-fade-in:hover img {
-  transform: scale(1.2);
+  transform: scale(1.4);
 }
 
 .overlay-fade-in:hover .image-overlay-content {
@@ -163,21 +164,19 @@ import { BASE_URL } from '../config';
 
   `],
   template: `
-      <div class="large-6 columns">
-        <div class="image-wrapper overlay-fade-in">
-          <a href="#"></a>
-          <a target="_blank" [href]="'/properties/' + property.slug">
-            <img *ngIf="property?.images[0]?.url" class="js-property-image" [src]="BASE_URL + property.images[0].url">
+  <div class="image-wrapper overlay-fade-in">
+    <a href="#"></a>
+    <a target="_blank" [href]="'/properties/' + property.slug">
+      <img *ngIf="property?.images[0]?.url" class="js-property-image" [src]="BASE_URL + property.images[0].url">
 
-            <div class="image-overlay-content">
-                <h2 class="js-description">{{property.bedrooms}} Bedroom {{property.bathrooms}} Bath</h2>
-                <p class="js-price price">{{property.price}}</p><a class="js-property-link button large" >View Now</a>
-            </div>
-          <h5 class="js-address-line-1">{{property.address1}}</h5>
-          <h5 class="js-address-line-2" *ngIf="property.address2">{{property.address2}}</h5>
-          </a>
-        </div>
+      <div class="image-overlay-content">
+          <h2 class="js-description">{{property.bedrooms}} Bedroom {{property.bathrooms}} Bath</h2>
+          <p class="js-price price">{{property.price}}</p><a class="js-property-link button large" >View Now</a>
       </div>
+    <h5 class="js-address-line-1">{{property.address1}}</h5>
+    <h5 class="js-address-line-2" *ngIf="property.address2">{{property.address2}}</h5>
+    </a>
+  </div>
   `
 })
 export class PropertyPreview {

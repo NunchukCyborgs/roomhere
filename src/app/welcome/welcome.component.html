@@ -19,11 +19,9 @@
         <section [class.hide]="showFilters">
           <div class="row">
             <div class="small-12 columns">
-              <div class="row">
-                <div id="properties-list" class=" small-up-1 medium-up-2">
-                  <div *ngFor="let property of properties$ | async">
-                    <property-preview [property]="property"></property-preview>
-                  </div>
+              <div class="row flex-row">
+                <div *ngFor="let property of properties$ | async" class="small-12 medium-6">
+                  <property-preview [property]="property"></property-preview>
                 </div>
               </div>
             </div>
@@ -33,9 +31,22 @@
               <li class="pagination-previous">
                 <button (click)="pageNumber = pageNumber - 1; applyFacet()" [attr.disabled]="pageNumber === 1 ? true : null" aria-label="Previous Page">Previous</button>
               </li>
+              <li *ngIf="pageNumber - 2 >= 1">
+                <button (click)="pageNumber = pageNumber - 2; applyFacet()" [attr.ariaLabel]="'Page ' + (pageNumber - 2).toString()">{{pageNumber - 2}}</button>
+              </li>
+              <li *ngIf="pageNumber - 1 >= 1">
+                <button (click)="pageNumber = pageNumber - 1; applyFacet()" [attr.ariaLabel]="'Page ' + (pageNumber - 1).toString()">{{pageNumber - 1}}</button>
+              </li>
               <li class="current"><span class="show-for-sr">You're on page</span> {{pageNumber}}</li>
+              <li *ngIf="pageNumber + 1 <= (lastPage$ | async)">
+                <button (click)="pageNumber = pageNumber + 1; applyFacet()" [attr.ariaLabel]="'Page ' + (pageNumber + 1).toString()">{{pageNumber + 1}}</button>
+              </li>
+              <li *ngIf="pageNumber + 2 <= (lastPage$ | async)">
+                <button (click)="pageNumber = pageNumber + 2; applyFacet()" [attr.ariaLabel]="'Page ' + (pageNumber + 2).toString()">{{pageNumber + 2}}</button>
+              </li>
               <li class="pagination-previous">
-                <button (click)="pageNumber = pageNumber + 1; applyFacet()" [attr.disabled]="pageNumber >= (lastPage$ | async) ? true : null" aria-label="Next Page">Next</button>
+                <button (click)="pageNumber = pageNumber + 1; applyFacet()" [attr.disabled]="pageNumber >= (lastPage$ | async) ? true : null"
+                  aria-label="Next Page">Next</button>
               </li>
             </ul>
           </div>
