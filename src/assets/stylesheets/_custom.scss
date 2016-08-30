@@ -75,3 +75,7 @@ button[disabled], button[disabled]:hover {
 .ext-head-room {
   margin-top: 2em;
 }
+
+.input-group > :first-child {
+  border-radius: 0;
+}
