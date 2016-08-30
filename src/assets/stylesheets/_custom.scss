@@ -57,3 +57,9 @@ button[disabled], button[disabled]:hover {
   top: 100%;
   bottom: auto;
 }
+
+#scrolldiv {
+  @include breakpoint(small only) {
+    border-top: solid 1px grey;
+  }
+}
