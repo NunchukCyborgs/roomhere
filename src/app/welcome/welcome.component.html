@@ -31,7 +31,19 @@
               <li class="pagination-previous">
                 <button (click)="pageNumber = pageNumber - 1; applyFacet()" [attr.disabled]="pageNumber === 1 ? true : null" aria-label="Previous Page">Previous</button>
               </li>
+              <li *ngIf="pageNumber - 2 >= 1">
+                <button (click)="pageNumber = pageNumber - 2; applyFacet()" [attr.ariaLabel]="'Page ' + (pageNumber - 2).toString()">{{pageNumber - 2}}</button>
+              </li>
+              <li *ngIf="pageNumber - 1 >= 1">
+                <button (click)="pageNumber = pageNumber - 1; applyFacet()" [attr.ariaLabel]="'Page ' + (pageNumber - 1).toString()">{{pageNumber - 1}}</button>
+              </li>
               <li class="current"><span class="show-for-sr">You're on page</span> {{pageNumber}}</li>
+              <li *ngIf="pageNumber + 1 <= (lastPage$ | async)">
+                <button (click)="pageNumber = pageNumber + 1; applyFacet()" [attr.ariaLabel]="'Page ' + (pageNumber + 1).toString()">{{pageNumber + 1}}</button>
+              </li>
+              <li *ngIf="pageNumber + 2 <= (lastPage$ | async)">
+                <button (click)="pageNumber = pageNumber + 2; applyFacet()" [attr.ariaLabel]="'Page ' + (pageNumber + 2).toString()">{{pageNumber + 2}}</button>
+              </li>
               <li class="pagination-previous">
                 <button (click)="pageNumber = pageNumber + 1; applyFacet()" [attr.disabled]="pageNumber >= (lastPage$ | async) ? true : null"
                   aria-label="Next Page">Next</button>
