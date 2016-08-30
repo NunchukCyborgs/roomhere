@@ -32,7 +32,7 @@ import { BASE_URL } from '../config';
   letter-spacing: 0.15em;
   color: #f4f4f4;
   font-size: 28px;
-  font-family: 'Neuton';
+  font-family: 'Lato';
   opacity: 0;
   transition: all 0.2s linear;
 }
@@ -57,7 +57,7 @@ import { BASE_URL } from '../config';
 }
 
 .overlay-fade-in .button {
-  font-family: "Neuton" !important;
+  font-family: "Merriweather Sans" !important;
   display: inline-block;
   text-decoration: none;
   padding: 7px 14px;
@@ -157,7 +157,7 @@ import { BASE_URL } from '../config';
 }
 
 .price {
-  font-family: 'Neuton';
+  font-family: 'Lato';
   font-weight: 700;
   font-size: 1.2rem;
 }
