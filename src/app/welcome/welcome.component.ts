@@ -6,7 +6,7 @@ import { PropertySlider } from './property-slider.component';
 import { CAPE_GIRARDEU_CENTER } from '../config';
 
 declare let $: any;
-const MAP_HEIGHT = '100vh';
+const MAP_HEIGHT = '100%';
 const MAP_ZOOM_LEVEL = 13;
 
 @Component({
@@ -14,21 +14,12 @@ const MAP_ZOOM_LEVEL = 13;
   selector: 'welcome',
   directives: [PropertyPreview, PropertyMap, PropertyFilters, PropertySlider],
   styles: [`
-   #scrolldiv{
-          overflow: scroll;
-          overflow-x: hidden;
-          height: 100vh;
-          max-width: none !important;
-        }
     .left-margin-fix{
         margin-left:auto !important;
     }
     #one{
         overflow: hidden;
         position: relative;
-    }
-    #map{
-        height: 100vh;
     }
     body{
         margin: 0px;

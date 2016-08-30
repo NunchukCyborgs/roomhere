@@ -12,7 +12,7 @@ declare let RichMarker: any;
 
 export interface MapOptions {
   zoomLevel: number;
-  height: string;
+  height?: string;
   center: { latitude: number, longitude: number };
 }
 
@@ -21,13 +21,10 @@ export interface MapOptions {
   selector: 'property-map',
   providers: [],
   styles: [`
-    #map{
-    height: 100vh;
-    }
   `],
   template: `
     <div>
-      <div class="map" [id]="id" [style.height]="mapOptions.height"></div>
+      <div class="map" [id]="id" [style.height]="mapOptions.height ? mapOptions.height : null"></div>
       <button id="mapbtn{{id}}" type="button" (click)="noop()" style="display: none;" ></button>
     </div>
   `
