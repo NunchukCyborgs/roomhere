@@ -19,7 +19,7 @@
             {{property?.bedrooms}}
           </div>
           <div class="callout column small-3 medium-2 stat text-center">
-            <div><i class="icon-paw"></i></div>
+            <div><i class="icon-shower"></i></div>
             {{property?.bathrooms}}
           </div>
           <div class="callout column small-6 medium-3 text-center">
@@ -98,9 +98,13 @@
     </section>
   </div>
   <div class="row show-for-small-only callout-bottom marg-top sticky-actions">
-    <div class="small-12 columns">
+    <div class="small-12 columns white">
       <property-actions-group (submit)="doPropertyAction(propertyActionState.state)" [actionText]="isEditing ? 'Update Property' : propertyActionState?.text"
+<<<<<<< HEAD
+      (shareFacebook)="shareFacebook()" (shareTwitter)="shareTwitter()"></property-actions-group>
+=======
       (shareFacebook)="shareFacebook()" [tweetText]="tweetText"></property-actions-group>
+>>>>>>> master
     </div>
   </div>
 </div>

@@ -10,9 +10,13 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
       <a class="button expanded large rent-now" (click)="submit.emit(true)">{{actionText}}</a>
       <div class="secondary expanded button-group">
         <button type="button" (click)="shareFacebook.emit(true)" class="button"><i class="large icon-facebook"></i></button>
+<<<<<<< HEAD
+        <button type="button" (click)="shareTwitter.emit(true)" class="button"><i class="large icon-twitter"></i></button>
+=======
         <a target="_blank" [href]="tweetText" class="button">
           <i class="large icon-twitter"></i>
         </a>
+>>>>>>> master
       </div>
     </div>
   `
@@ -22,4 +26,8 @@ export class PropertyActionsGroup {
   @Input() tweetText: string;
   @Output() submit: EventEmitter<any> = new EventEmitter();
   @Output() shareFacebook: EventEmitter<any> = new EventEmitter();
+<<<<<<< HEAD
+  @Output() shareTwitter: EventEmitter<any> = new EventEmitter();
+=======
+>>>>>>> master
 }

@@ -50,7 +50,9 @@ declare let $: any;
        box-shadow: inset 1px 1px 3px #999;
        width: 350px;
    }
-   
+    .callout{
+        padding: .5rem !important;
+    }
    @media (min-width: 1025px) {
        .marg-top {
            margin-top: 40px;
@@ -76,6 +78,7 @@ declare let $: any;
        .callout-bottom {
            border-radius: 5%;
            box-shadow: inset 1px 1px 3px #999;
+           background: #fff;
        }
    }
    
@@ -91,6 +94,9 @@ declare let $: any;
        left: 5px;
        right: 5px;
    }
+    .white{
+            background: #fff;
+        }
   `],
   templateUrl: './property-view.component.html'
 })
