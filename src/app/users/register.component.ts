@@ -108,7 +108,7 @@ span.prefix, label.prefix {
                     </div>
                     <p class="text-center"><button type="submit" class="button large" [attr.disabled]="!registerForm.valid||getConfirmPasswordMatchMessage()?true:null">Create an Account!</button></p>
                 </form>
-                <p class="text-center">Already have an account? <a data-open="LoginModal">Login here</a>
+                <p class="text-center" [class.hide]="success">Already have an account? <a data-open="LoginModal">Login here</a>
                 </p>
                 <div [class.hide]="!success" class="callout success">
                     <h5>Success!</h5>
