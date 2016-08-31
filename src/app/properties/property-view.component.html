@@ -1,7 +1,7 @@
 <div class="property-view-container">
   <div stick class="callout hide-for-small-only call-to-actions--top property-actions-group-top">
     <property-actions-group (submit)="doPropertyAction(propertyActionState.state)" [actionText]="isEditing ? 'Update Property' : propertyActionState?.text"
-      (shareFacebook)="shareFacebook()" (shareTwitter)="shareTwitter()" (shareInsta)="shareInsta()"
+      (shareFacebook)="shareFacebook()" [tweetText]="tweetText"
     ></property-actions-group>
   </div>
   <property-images [images]="property?.images" *ngIf="property?.images"></property-images>
@@ -100,7 +100,11 @@
   <div class="row show-for-small-only callout-bottom marg-top sticky-actions">
     <div class="small-12 columns white">
       <property-actions-group (submit)="doPropertyAction(propertyActionState.state)" [actionText]="isEditing ? 'Update Property' : propertyActionState?.text"
+<<<<<<< HEAD
       (shareFacebook)="shareFacebook()" (shareTwitter)="shareTwitter()"></property-actions-group>
+=======
+      (shareFacebook)="shareFacebook()" [tweetText]="tweetText"></property-actions-group>
+>>>>>>> master
     </div>
   </div>
 </div>

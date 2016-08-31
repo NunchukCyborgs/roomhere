@@ -105,6 +105,7 @@ export class PropertyView implements OnDestroy {
   public mapOptions: MapOptions;
   public propertyActionState: PropertyActionState;
   public isEditing: boolean = false;
+  public tweetText: string;
 
   constructor(
     private router: Router,
@@ -136,9 +137,9 @@ export class PropertyView implements OnDestroy {
   }
 
   public shareFacebook() {
-    this.socialService.isFacebookinit$.subscribe(isInit => {
-      if (isInit) {
-        this.socialService.facebookShare();
+    this.socialService.hasInit$.subscribe(isInit => {
+      if (isInit.facebook) {
+        this.socialService.facebookShare(this.router.url);
       }
     });
 
@@ -163,6 +164,7 @@ export class PropertyView implements OnDestroy {
       .flatMap(params => this.propertyService.getPropertyBySlug$(params['slug']))
       .do((property: Property) => this.updateMapOptions(property))
       .do((property: Property) => this.property = property)
+      .do((property: Property) => this.tweetText = this.socialService.makeTwitterUrl(property))
       .do((property: Property) => this.seoService.addPropertyTags(property))
       .subscribe((i) => this.userService.user$.subscribe(i => this.propertyActionState = PropertyAction.getState(this.property, i)));
   }

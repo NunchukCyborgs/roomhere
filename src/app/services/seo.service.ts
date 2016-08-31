@@ -7,8 +7,12 @@ import { Property } from '../properties/index';
 
 @Injectable()
 export class SeoService {
+  public getDescription(property: Property): string {
+    return `Check out this rental property at ${property.address1} on Roomhere.io!`;
+  }
+
   public addPropertyTags(property: Property): void {
-    const description = `Check out this rental property at ${property.address1} on Roomhere.io!`;
+    const description = this.getDescription(property);
     const title = `Roomhere.io property at ${property.address1}`;
 
     const tags: Array<{ key: string, value: string }> = [

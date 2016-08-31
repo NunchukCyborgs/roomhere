@@ -1,27 +1,37 @@
 import { Component, Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { ServerUnsafeService } from './server-unsafe.service';
+import { UtilService } from './util.service';
+import { BASE_URL } from '../config';
+import { Property } from '../properties/index';
+import { SeoService } from './seo.service';
 
 declare let FB: any;
 
 @Injectable()
 export class SocialService {
-  constructor(private unsafe: ServerUnsafeService) { }
+  public hasInit$: BehaviorSubject<{ facebook: boolean }>;
+  private hasInit: { facebook: boolean } = { facebook: false };
 
-  public isFacebookinit$: BehaviorSubject<boolean> = new BehaviorSubject(false);
-  private isFacebookInit: boolean = false;
+  constructor(private unsafe: ServerUnsafeService, private utilService: UtilService, private seoService: SeoService) {
+    this.hasInit$ = new BehaviorSubject(this.hasInit);
+  }
+
+  public makeTwitterUrl(property: Property) {
+    return `https://twitter.com/intent/tweet?text=${this.seoService.getDescription(property)}&via=roomhere`;
+  }
 
   public facebookInit() {
     this.unsafe.tryUnsafeCode(() => {
       window['fbAsyncInit'] = () => {
-        if (!this.isFacebookInit) {
+        if (!this.hasInit.facebook) {
           FB.init({
             appId: '1184964188190261',
             xfbml: true,
             version: 'v2.7'
           });
 
-          this.isFacebookinit$.next(this.isFacebookInit = true);
+          this.hasInit$.next(Object.assign(this.hasInit, { facebook: true }));
         }
       };
 
@@ -35,12 +45,12 @@ export class SocialService {
     }, 'window not defined');
   }
 
-  public facebookShare(url?: string): void {
+  public facebookShare(url: string = ''): void {
     this.unsafe.tryUnsafeCode(() => {
       FB.ui({
         method: 'share',
         display: 'popup',
-        href: url || 'https://roomhere.io/',
+        href: BASE_URL + url,
       }, (response) => { });
     }, 'FB not defined');
   }
