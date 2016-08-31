@@ -8,6 +8,7 @@ import { GoogleApiService } from './services/google-api.service';
 import { HttpService } from './services/http.service';
 import { ServerUnsafeService } from './services/server-unsafe.service';
 import { FacetsService } from './services/facets.service';
+import { SeoService } from './services/seo.service';
 import { Login, Register, UserService } from './users/index';
 
 declare let $: any;
@@ -20,7 +21,7 @@ declare let require: (string) => string;
     Login,
     Register
   ],
-  providers: [FormBuilder, PropertyService, GoogleApiService, UserService, HttpService, ServerUnsafeService, FacetsService],
+  providers: [FormBuilder, PropertyService, GoogleApiService, UserService, HttpService, ServerUnsafeService, FacetsService, SeoService],
   encapsulation: ViewEncapsulation.None,
   styles: [require('../assets/stylesheets/app.scss').toString()],
   // Styles here are global, be careful

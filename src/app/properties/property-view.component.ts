@@ -5,8 +5,9 @@ import { Subscription } from 'rxjs/Subscription';
 import { UserService } from '../users/index';
 import { NumberTicker } from '../number-ticker.component';
 import { ServerUnsafeService } from '../services/server-unsafe.service';
+import { SeoService } from '../services/seo.service';
 import { PropertyService, Property, PropertyImages, PropertyReviews, SimilarProperties,
-    PropertyMap, MapOptions, PropertyAmenities, PropertyAction, PropertyActionState, PropertyActionStates, PropertyActionsGroup } from './index';
+  PropertyMap, MapOptions, PropertyAmenities, PropertyAction, PropertyActionState, PropertyActionStates, PropertyActionsGroup } from './index';
 
 import { StickDirective } from '../sticky.directive';
 
@@ -16,11 +17,11 @@ const HEIGHT: string = '100px';
 declare let $: any;
 
 @Component({
-    moduleId: __filename,
-    selector: 'property-view',
-    directives: [PropertyReviews, SimilarProperties, PropertyMap, PropertyImages,
-        PropertyAmenities, NumberTicker, PropertyActionsGroup, StickDirective],
-    styles: [`
+  moduleId: __filename,
+  selector: 'property-view',
+  directives: [PropertyReviews, SimilarProperties, PropertyMap, PropertyImages,
+    PropertyAmenities, NumberTicker, PropertyActionsGroup, StickDirective],
+  styles: [`
      .property-view-container {
        position: relative;
        padding-bottom: 150px;
@@ -90,69 +91,66 @@ declare let $: any;
        right: 5px;
    }
   `],
-    templateUrl: './property-view.component.html'
+  templateUrl: './property-view.component.html'
 })
 export class PropertyView implements OnDestroy {
-    public property: Property;
-    public mapOptions: MapOptions;
-    public propertyActionState: PropertyActionState;
-    public isEditing: boolean = false;
+  public property: Property;
+  public mapOptions: MapOptions;
+  public propertyActionState: PropertyActionState;
+  public isEditing: boolean = false;
 
-    public doPropertyAction(state: PropertyActionStates) {
-        switch (state) {
-            case PropertyActionStates.Edit:
-                if (this.isEditing) {
-                    this.propertyService.update(this.property).subscribe(() => this.isEditing = false);
-                } else {
-                    this.isEditing = true;
-                }
-                break;
-            case PropertyActionStates.Claim:
-                console.log('claim');
-                break;
-            case PropertyActionStates.Rent:
-                console.log('rent');
-                break;
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private propertyService: PropertyService,
+    private userService: UserService,
+    private unsafe: ServerUnsafeService,
+    private seoService: SeoService
+  ) {
+
+  }
+
+  public doPropertyAction(state: PropertyActionStates) {
+    switch (state) {
+      case PropertyActionStates.Edit:
+        if (this.isEditing) {
+          this.propertyService.update(this.property).subscribe(() => this.isEditing = false);
+        } else {
+          this.isEditing = true;
         }
+        break;
+      case PropertyActionStates.Claim:
+        console.log('claim');
+        break;
+      case PropertyActionStates.Rent:
+        console.log('rent');
+        break;
     }
+  }
 
-    private sub: Subscription;
+  private sub: Subscription;
 
-    constructor(
-        private router: Router,
-        private route: ActivatedRoute,
-        private propertyService: PropertyService,
-        private userService: UserService,
-        private unsafe: ServerUnsafeService
-    ) {
-
+  private updateMapOptions(property: Property) {
+    this.mapOptions = {
+      height: HEIGHT,
+      zoomLevel: ZOOM_LEVEL,
+      center: {
+        latitude: property.latitude,
+        longitude: property.longitude
+      },
     }
+  }
 
-    private updateMapOptions(property: Property) {
-        this.mapOptions = {
-            height: HEIGHT,
-            zoomLevel: ZOOM_LEVEL,
-            center: {
-                latitude: property.latitude,
-                longitude: property.longitude
-            },
-        }
-    }
+  ngOnInit() {
+    this.sub = this.route.params
+      .flatMap(params => this.propertyService.getPropertyBySlug$(params['slug']))
+      .do((property: Property) => this.updateMapOptions(property))
+      .do((property: Property) => this.property = property)
+      .do((property: Property) => this.seoService.addPropertyTags(property))
+      .subscribe((i) => this.userService.user$.subscribe(i => this.propertyActionState = PropertyAction.getState(this.property, i)));
+  }
 
-    ngOnInit() {
-        this.sub = this.route.params
-            .flatMap(params => this.propertyService.getPropertyBySlug$(params['slug']))
-            .do((property: Property) => this.updateMapOptions(property))
-            .do((property: Property) => this.property = property)
-            .subscribe((i) => this.userService.user$.subscribe(i => this.propertyActionState = PropertyAction.getState(this.property, i)));
-    }
-
-    ngOnDestroy() {
-        this.sub.unsubscribe();
-    }
-
-    ngAfterViewInit() {
-        console.log('nice');
-        // this.unsafe.tryUnsafeCode(() => $('.property-actions-group-top').foundation(), '$ is undefined');
-    }
+  ngOnDestroy() {
+    this.sub.unsubscribe();
+  }
 }

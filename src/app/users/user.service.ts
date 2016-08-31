@@ -8,7 +8,7 @@ import { User } from './index';
 import { HttpService } from '../services/http.service';
 import { ServerUnsafeService } from '../services/server-unsafe.service';
 
-import { BASE_URL } from '../config';
+import { BASE_API_URL } from '../config';
 
 @Injectable()
 export class UserService {
@@ -33,7 +33,7 @@ export class UserService {
   }
 
   public login(user: User) {
-    return this.http.post(`${BASE_URL}/auth/sign_in`, user)
+    return this.http.post(`${BASE_API_URL}/auth/sign_in`, user)
       .do((i: Response) => this.handleLogin(i));
   }
 
@@ -44,7 +44,7 @@ export class UserService {
 
   public register(user: User): Observable<any> {
     user.confirm_success_url = this.unsafe.tryUnsafeCode(() => window.location.href, 'window is not defined');
-    return this.http.post(`${BASE_URL}/auth`, user);
+    return this.http.post(`${BASE_API_URL}/auth`, user);
   }
 
   private checkForQueryAuth() {
