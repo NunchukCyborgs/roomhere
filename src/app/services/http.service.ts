@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { Http, Headers, Response, ResponseOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs';
-import { BASE_URL } from '../config';
+import { BASE_API_URL } from '../config';
 import { ServerUnsafeService } from './server-unsafe.service';
 
 @Injectable()

@@ -1,11 +1,8 @@
-<!--<meta property="og:title" content="<%= @property.address1 %>" />
-<meta property="og:type" content="website" />
-<meta property="og:description" content="<%= truncate(@property.description, length: 160) %>" />
-<meta property="og:url" content="<%= property_url(@property) %>" />-->
-<!--<meta property="og:image" content="<%= @property.main_image.url %>" />-->
 <div class="property-view-container">
   <div stick class="callout hide-for-small-only call-to-actions--top property-actions-group-top">
-    <property-actions-group (submit)="doPropertyAction(propertyActionState.state)" [actionText]="isEditing ? 'Update Property' : propertyActionState?.text"></property-actions-group>
+    <property-actions-group (submit)="doPropertyAction(propertyActionState.state)" [actionText]="isEditing ? 'Update Property' : propertyActionState?.text"
+      (shareFacebook)="shareFacebook()" (shareTwitter)="shareTwitter()" (shareInsta)="shareInsta()"
+    ></property-actions-group>
   </div>
   <property-images [images]="property?.images" *ngIf="property?.images"></property-images>
   <div class="row">
@@ -102,7 +99,8 @@
   </div>
   <div class="row show-for-small-only callout-bottom marg-top sticky-actions">
     <div class="small-12 columns">
-      <property-actions-group (submit)="doPropertyAction(propertyActionState.state)" [actionText]="isEditing ? 'Update Property' : propertyActionState?.text"></property-actions-group>
+      <property-actions-group (submit)="doPropertyAction(propertyActionState.state)" [actionText]="isEditing ? 'Update Property' : propertyActionState?.text"
+      (shareFacebook)="shareFacebook()" (shareTwitter)="shareTwitter()" (shareInsta)="shareInsta()"></property-actions-group>
     </div>
   </div>
 </div>

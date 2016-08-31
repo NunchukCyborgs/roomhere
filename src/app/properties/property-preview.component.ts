@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Property, PropertyService } from './index';
-import { BASE_URL } from '../config';
+import { BASE_API_URL } from '../config';
 
 @Component({
   moduleId: __filename,
@@ -180,7 +180,7 @@ import { BASE_URL } from '../config';
     <a target="_blank" [href]="'/properties/' + property.slug">
       <div class="chrome-wrap-fix">
         <div class="responsive-image">
-          <img *ngIf="property?.images[0]?.url" class="js-property-image" [src]="BASE_URL + property.images[0].url">
+          <img *ngIf="property?.images[0]?.url" class="js-property-image" [src]="BASE_API_URL + property.images[0].url">
         </div>
       </div>
 
@@ -196,5 +196,5 @@ import { BASE_URL } from '../config';
 })
 export class PropertyPreview {
   @Input() property: Property;
-  public BASE_URL: string = BASE_URL;
+  public BASE_API_URL: string = BASE_API_URL;
 }
