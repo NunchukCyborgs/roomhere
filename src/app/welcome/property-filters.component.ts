@@ -7,7 +7,6 @@ import { FacetsService, Location, Amenity } from '../services/facets.service';
   moduleId: __filename,
   selector: 'property-filters',
   directives: [NgClass],
-  providers: [FacetsService],
   styles: [`
     .wrapper {
       position: relative;
