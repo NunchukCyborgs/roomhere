@@ -92,11 +92,20 @@ span.prefix, label.prefix {
                             <span class="prefix"><i class="icon-lock"></i></span>
                         </div>
                         <div class="small-10 columns ">
-                            <input placeholder="password" formControlName="confirmPassword" type="password" class="form-control" id="confirmPassword">
+                            <input placeholder="password" formControlName="password" type="password" class="form-control" id="password">
+                        </div>
+                        <control-messages [control]="registerForm.controls.password"></control-messages>
+                    </div>
+                    <div class="form-group row collapse">
+                        <div class="small-2 columns ">
+                            <span class="prefix"><i class="icon-lock"></i></span>
+                        </div>
+                        <div class="small-10 columns ">
+                            <input placeholder="confirm password" formControlName="confirmPassword" type="password" class="form-control" id="confirmPassword">
                         </div>
                         <control-messages [control]="registerForm.controls.confirmPassword">{{getConfirmPasswordMatchMessage()}}</control-messages>
                     </div>
-                    <p class="text-center"><a type="submit" class="button large" [attr.disabled]="!registerForm.valid||getConfirmPasswordMatchMessage()?true:null">Create an Account!</a></p>
+                    <p class="text-center"><button type="submit" class="button large" [attr.disabled]="!registerForm.valid||getConfirmPasswordMatchMessage()?true:null">Create an Account!</button></p>
                 </form>
                 <p class="text-center">Already have an account? <a href="#">Login here</a>
                 </p>
@@ -112,8 +121,6 @@ span.prefix, label.prefix {
             </div>
         </div>
     </div>
-
-    
   `
 })
 export class Register {

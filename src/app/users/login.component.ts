@@ -93,13 +93,13 @@ span.prefix, label.prefix {
                             <span class="prefix"><i class="icon-lock"></i></span>
                         </div>
                         <div class="small-10 columns ">
-                            <input placeholder="password" formControlName="confirmPassword" type="password" class="form-control" id="confirmPassword">
+                            <input placeholder="password" formControlName="password" type="password" class="form-control" id="password">
                         </div>
                         <control-messages [control]="loginForm.controls.password"></control-messages>
                     </div>
-                    <p class="text-center"><a type="submit" class="text-center button large" [attr.disabled]="!loginForm.valid?true:null">Log In</a></p>
+                    <p class="text-center"><button type="submit" class="text-center button large" [attr.disabled]="!loginForm.valid?true:null">Log In</button></p>
                 </form>
-                <p class="text-center"><a href="#">Forgot your password?</a>
+                <p class="text-center"><a>Forgot your password?</a>
                 </p>
             </div>
             <div [class.hide]="!serverErrors.length">
