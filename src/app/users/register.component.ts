@@ -62,6 +62,7 @@ span.prefix, label.prefix {
     height: 2.3125em;
     line-height: 2.3125em;
 }
+
 @media screen and (max-width: 39.9375em) {
 .signup-panel .button {
     width: 90%;
@@ -85,7 +86,7 @@ span.prefix, label.prefix {
                         <div class="small-10  columns">
                             <input type="email" placeholder="email" formControlName="email" class="form-control" id="email">
                         </div>
-                        <control-messages [control]="registerForm.controls.email"></control-messages>
+                        <control-messages [control]="registerForm.controls.email" class="alert"></control-messages>
                     </div>
                     <div class="form-group row collapse">
                         <div class="small-2 columns ">
@@ -107,17 +108,17 @@ span.prefix, label.prefix {
                     </div>
                     <p class="text-center"><button type="submit" class="button large" [attr.disabled]="!registerForm.valid||getConfirmPasswordMatchMessage()?true:null">Create an Account!</button></p>
                 </form>
-                <p class="text-center">Already have an account? <a href="#">Login here</a>
+                <p class="text-center">Already have an account? <a data-open="LoginModal">Login here</a>
                 </p>
-            </div>
-            <div [class.hide]="!success">
-                <h5>Success!</h5>
-                <p>Alright, there's one last step to create an account. Please check your email for a magic activation link and click to confirm you are as human as we think you are.
-                </p>
-            </div>
-            <div [class.hide]="!serverErrors.length || success">
-                <h6>Uh oh! We had a problem logging you in with those credentials.</h6>
-                <span *ngFor="let error of serverErrors">{{error}}. </span>
+                <div [class.hide]="!success" class="callout success">
+                    <h5>Success!</h5>
+                    <p>Alright, there's one last step to create an account. Please check your email for a magic activation link and click to confirm you are as human as we think you are.
+                    </p>
+                </div>
+                <div [class.hide]="!serverErrors.length || success" class="callout alert">
+                    <h6>Uh oh! We had a problem logging you in with those credentials.</h6>
+                    <span *ngFor="let error of serverErrors">{{error}}. </span>
+                </div>
             </div>
         </div>
     </div>

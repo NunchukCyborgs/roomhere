@@ -101,10 +101,10 @@ span.prefix, label.prefix {
                 </form>
                 <p class="text-center"><a>Forgot your password?</a>
                 </p>
-            </div>
-            <div [class.hide]="!serverErrors.length">
+                <div [class.hide]="!serverErrors.length" class="callout alert">
                 <h6>Uh oh! We had a problem logging you in with those credentials.</h6>
                 <span *ngFor="let error of serverErrors">{{error}} </span>
+            </div>
             </div>
         </div>
     </div>
