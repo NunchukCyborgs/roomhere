@@ -1,4 +1,4 @@
-import { Component, Directive, AfterViewInit, ViewEncapsulation } from '@angular/core';
+import { Component, Directive, OnInit, ViewEncapsulation } from '@angular/core';
 import { ROUTER_DIRECTIVES, Router } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
@@ -57,7 +57,7 @@ declare let require: (string) => string;
     </div>
   `
 })
-export class App implements AfterViewInit {
+export class App implements OnInit {
   public hasAuth$: Observable<boolean>;
   constructor(private userService: UserService, private unsafe: ServerUnsafeService, private router: Router) {
     this.hasAuth$ = this.userService.hasAuth$;
