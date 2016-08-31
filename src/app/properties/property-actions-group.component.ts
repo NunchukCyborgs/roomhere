@@ -11,7 +11,6 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
       <div class="secondary expanded button-group">
         <button type="button" (click)="shareFacebook.emit(true)" class="button"><i class="large icon-facebook"></i></button>
         <button type="button" (click)="shareTwitter.emit(true)" class="button"><i class="large icon-twitter"></i></button>
-        <button type="button" (click)="shareInsta.emit(true)" class="button"><i class="large icon-instagram"></i></button>
       </div>
     </div>
   `
@@ -21,5 +20,4 @@ export class PropertyActionsGroup {
   @Output() submit: EventEmitter<any> = new EventEmitter();
   @Output() shareFacebook: EventEmitter<any> = new EventEmitter();
   @Output() shareTwitter: EventEmitter<any> = new EventEmitter();
-  @Output() shareInsta: EventEmitter<any> = new EventEmitter();
 }
