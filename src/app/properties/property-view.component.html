@@ -100,11 +100,7 @@
   <div class="row show-for-small-only callout-bottom marg-top sticky-actions">
     <div class="small-12 columns white">
       <property-actions-group (submit)="doPropertyAction(propertyActionState.state)" [actionText]="isEditing ? 'Update Property' : propertyActionState?.text"
-<<<<<<< HEAD
-      (shareFacebook)="shareFacebook()" (shareTwitter)="shareTwitter()"></property-actions-group>
-=======
       (shareFacebook)="shareFacebook()" [tweetText]="tweetText"></property-actions-group>
->>>>>>> master
     </div>
   </div>
 </div>
