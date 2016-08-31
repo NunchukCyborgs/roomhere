@@ -10,6 +10,7 @@ import { ServerUnsafeService } from './services/server-unsafe.service';
 import { FacetsService } from './services/facets.service';
 import { SeoService } from './services/seo.service';
 import { SocialService } from './services/social.service'
+import { UtilService } from './services/util.service';
 import { Login, Register, UserService } from './users/index';
 
 declare let $: any;
@@ -23,7 +24,7 @@ declare let require: (string) => string;
     Register
   ],
   providers: [FormBuilder, PropertyService, GoogleApiService, UserService, HttpService, 
-  ServerUnsafeService, FacetsService, SeoService, SocialService],
+  ServerUnsafeService, FacetsService, SeoService, SocialService, UtilService],
   encapsulation: ViewEncapsulation.None,
   styles: [require('../assets/stylesheets/app.scss').toString()],
   // Styles here are global, be careful

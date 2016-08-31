@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { Property } from '../properties/index';
 import { GoogleApiService } from '../services/google-api.service';
-import { generateGUID } from '../config';
+import { UtilService } from '../services/util.service';
 import { ServerUnsafeService } from '../services/server-unsafe.service';
 
 declare let google: any;
@@ -32,12 +32,13 @@ export interface MapOptions {
 export class PropertyMap {
   @Input() properties: Property[];
   @Input() mapOptions: MapOptions;
-  public id: string = `map${generateGUID()}`;
+  public id: string;
   private map: any;
   private init: any;
   private markers: any[] = [];
 
-  constructor(private router: Router, private googleApi: GoogleApiService, private unsafe: ServerUnsafeService) { }
+  constructor(private router: Router, private googleApi: GoogleApiService, 
+  private unsafe: ServerUnsafeService, private utilService: UtilService) { }
 
   public noop() { }
 
@@ -86,6 +87,7 @@ export class PropertyMap {
   }
 
   ngOnInit() {
+    this.id = `map${this.utilService.generateGUID()}`;
     this.init = this.googleApi.initMap().then(() => {
       this.map = new google.maps.Map(document.getElementById(this.id), {
         center: new google.maps.LatLng(this.mapOptions.center.latitude, this.mapOptions.center.longitude),
