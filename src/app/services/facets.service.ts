@@ -27,6 +27,8 @@ export class FacetsService {
   public _amenities: Amenity[] = [];
   public locations$: BehaviorSubject<Location[]>;
   public _locations: Location[] = [];
+  public minPrice$: BehaviorSubject<number> = new BehaviorSubject(0);
+  public maxPrice$: BehaviorSubject<number> = new BehaviorSubject(5000);
 
   constructor(private http: HttpService) {
     this.amenities$ = new BehaviorSubject(this._amenities);
@@ -47,6 +49,9 @@ export class FacetsService {
           this._locations.push(location);
           this.locations$.next(this._locations);
         }
+
+        this.minPrice$.next(json.min_price);
+        this.maxPrice$.next(json.max_price);
       });
   }
 
