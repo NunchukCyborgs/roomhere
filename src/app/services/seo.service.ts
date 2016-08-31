@@ -31,7 +31,6 @@ export class SeoService {
     }
   }
 
-
   constructor(
     private renderer: Renderer,
     private router: Router,

@@ -6,6 +6,7 @@ import { UserService } from '../users/index';
 import { NumberTicker } from '../number-ticker.component';
 import { ServerUnsafeService } from '../services/server-unsafe.service';
 import { SeoService } from '../services/seo.service';
+import { SocialService } from '../services/social.service';
 import { PropertyService, Property, PropertyImages, PropertyReviews, SimilarProperties,
   PropertyMap, MapOptions, PropertyAmenities, PropertyAction, PropertyActionState, PropertyActionStates, PropertyActionsGroup } from './index';
 
@@ -105,9 +106,9 @@ export class PropertyView implements OnDestroy {
     private propertyService: PropertyService,
     private userService: UserService,
     private unsafe: ServerUnsafeService,
-    private seoService: SeoService
+    private seoService: SeoService,
+    private socialService: SocialService
   ) {
-
   }
 
   public doPropertyAction(state: PropertyActionStates) {
@@ -126,6 +127,16 @@ export class PropertyView implements OnDestroy {
         console.log('rent');
         break;
     }
+  }
+
+  public shareFacebook() {
+    this.socialService.isFacebookinit$.subscribe(isInit => {
+      if (isInit) {
+        this.socialService.facebookShare();
+      }
+    });
+
+    this.socialService.facebookInit();
   }
 
   private sub: Subscription;
