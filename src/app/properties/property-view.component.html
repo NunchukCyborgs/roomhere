@@ -3,12 +3,9 @@
 <meta property="og:description" content="<%= truncate(@property.description, length: 160) %>" />
 <meta property="og:url" content="<%= property_url(@property) %>" />-->
 <!--<meta property="og:image" content="<%= @property.main_image.url %>" />-->
-
-<div class="property-view-container" id="PropertyViewContainer">
-  <div data-sticky-container>
-    <div class="callout hide-for-small-only call-to-actions--top property-actions-group-top" class="sticky" data-sticky data-anchor="PropertyViewContainer">
-      <property-actions-group (submit)="doPropertyAction(propertyActionState.state)" [actionText]="isEditing ? 'Update Property' : propertyActionState?.text"></property-actions-group>
-    </div>
+<div class="property-view-container">
+  <div stick class="callout hide-for-small-only call-to-actions--top property-actions-group-top">
+    <property-actions-group (submit)="doPropertyAction(propertyActionState.state)" [actionText]="isEditing ? 'Update Property' : propertyActionState?.text"></property-actions-group>
   </div>
   <property-images [images]="property?.images" *ngIf="property?.images"></property-images>
   <div class="row">
@@ -60,7 +57,8 @@
                 <div class="small-2 large-2 columns text-right-middle">
                   <label for="LeasePrice" class="text-right middle"><i class="icon-dollar"></i></label>
                 </div>
-                  <div class="small-4 large-3 text-left columns">Lease Price: <number-ticker [(number)]="property.price" [min]="0" [max]="120"></number-ticker>( $ )
+                <div class="small-4 large-3 text-left columns">Lease Price:
+                  <number-ticker [(number)]="property.price" [min]="0" [max]="120"></number-ticker>( $ )
                 </div>
                 <div class="small-2 large-2 columns">
                   <label for="LeaseLength" class="text-right middle"><i class="icon-calendar-check-o"></i></label>

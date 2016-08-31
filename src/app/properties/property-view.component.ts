@@ -8,6 +8,8 @@ import { ServerUnsafeService } from '../services/server-unsafe.service';
 import { PropertyService, Property, PropertyImages, PropertyReviews, SimilarProperties,
     PropertyMap, MapOptions, PropertyAmenities, PropertyAction, PropertyActionState, PropertyActionStates, PropertyActionsGroup } from './index';
 
+import { StickDirective } from '../sticky.directive';
+
 const ZOOM_LEVEL: number = 16;
 const HEIGHT: string = '100px';
 
@@ -17,7 +19,7 @@ declare let $: any;
     moduleId: __filename,
     selector: 'property-view',
     directives: [PropertyReviews, SimilarProperties, PropertyMap, PropertyImages,
-        PropertyAmenities, NumberTicker, PropertyActionsGroup],
+        PropertyAmenities, NumberTicker, PropertyActionsGroup, StickDirective],
     styles: [`
      .property-view-container {
        position: relative;
@@ -138,8 +140,6 @@ export class PropertyView implements OnDestroy {
     }
 
     ngOnInit() {
-        this.unsafe.tryUnsafeCode(() => $('.property-actions-group-top').foundation(), '$ is undefined');
-
         this.sub = this.route.params
             .flatMap(params => this.propertyService.getPropertyBySlug$(params['slug']))
             .do((property: Property) => this.updateMapOptions(property))
@@ -149,5 +149,10 @@ export class PropertyView implements OnDestroy {
 
     ngOnDestroy() {
         this.sub.unsubscribe();
+    }
+
+    ngAfterViewInit() {
+        console.log('nice');
+        // this.unsafe.tryUnsafeCode(() => $('.property-actions-group-top').foundation(), '$ is undefined');
     }
 }
