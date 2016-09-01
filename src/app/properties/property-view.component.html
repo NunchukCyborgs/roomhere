@@ -1,106 +1,191 @@
 <div class="property-view-container">
-  <div stick class="callout hide-for-small-only call-to-actions--top property-actions-group-top">
-    <property-actions-group (submit)="doPropertyAction(propertyActionState.state)" [actionText]="isEditing ? 'Update Property' : propertyActionState?.text"
-      (shareFacebook)="shareFacebook()" [tweetText]="tweetText"
-    ></property-actions-group>
-  </div>
-  <property-images [images]="property?.images" *ngIf="property?.images"></property-images>
-  <div class="row">
-    <section class="small-11 medium-10 columns small-centered">
-      <div class="row flex-row marg-top">
-        <div *ngIf="!isEditing">
-          <h3>{{property?.address1}}</h3>
-          <h3 *ngIf="property?.address2">{{property?.address2}}</h3>
-          <div class="medium-5 column callout show-for-medium">
-            <property-map *ngIf="mapOptions" [properties]="[property]" [mapOptions]="mapOptions"></property-map>
-          </div>
-          <div class="callout column small-3 medium-2 stat text-center">
-            <div><i class="icon-bed"></i></div>
-            {{property?.bedrooms}}
-          </div>
-          <div class="callout column small-3 medium-2 stat text-center">
-            <div><i class="icon-paw"></i></div>
-            {{property?.bathrooms}}
-          </div>
-          <div class="callout column small-6 medium-3 text-center">
-            <div><span class="stat">{{property?.price | currency:'USD':true}}</span><small>/month</small></div>
-            <small *ngIf="property?.lease_length">Lease: {{property?.lease_length}} months</small>
-          </div>
-        </div>
-        <div *ngIf="isEditing" class="column small-12">
-          <div class="row">
-            <div class="column small-12 large-6 marg-btm">
-              <h3>{{property?.address1}}</h3>
-              <h3 *ngIf="property?.address2">{{property?.address2}}</h3>
-              <div class="row">
-                <div class="small-2 large-2 columns">
-                  <label for="bedrooms" class="text-right middle"><i class="icon-bed"></i></label>
-                </div>
-                <div class="small-4 large-3 text-left columns">
-                  <label><small>Bedrooms</small>
-                <number-ticker name="bedrooms" [(number)]="property.bedrooms" [min]="1" [max]="16"></number-ticker>
-              </label>
-                </div>
-                <div class="small-2 large-2 columns">
-                  <label for="bathrooms" class="text-right middle"><i class="icon-shower"></i></label>
-                </div>
-                <div class="small-4 large-3 end text-left columns">
-                  <label><small>Bathrooms</small>
-                <number-ticker name="bathrooms" [(number)]="property.bathrooms" [min]="1" [max]="16"></number-ticker>
-              </label>
-                </div>
-              </div>
-              <div class="row">
-                <div class="small-2 large-2 columns text-right-middle">
-                  <label for="LeasePrice" class="text-right middle"><i class="icon-dollar"></i></label>
-                </div>
-                <div class="small-4 large-3 text-left columns">Lease Price:
-                  <number-ticker [(number)]="property.price" [min]="0" [max]="120"></number-ticker>( $ )
-                </div>
-                <div class="small-2 large-2 columns">
-                  <label for="LeaseLength" class="text-right middle"><i class="icon-calendar-check-o"></i></label>
-                </div>
-                <div class="small-4 large-3 text-left end columns"> Lease Length:
-                  <number-ticker [(number)]="property.lease_length" [min]="0" [max]="120"></number-ticker> (months)
-                </div>
-              </div>
-            </div>
-            <div class="column small-12 large-6">
-              <div *ngIf="isEditing">
-                Description:
-                <textarea [(ngModel)]="property.description"></textarea>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="row marg-top marg-btm">
-        <div class="small-12 large-6 columns">
-          <property-amenities *ngIf="property?.amenities && isEditing" [(amenities)]="property.amenities" [isEditing]="isEditing"></property-amenities>
-        </div>
-        <div class="column medium-6">
-          <div *ngIf="!isEditing">
-            <p>{{property?.description}}</p>
-          </div>
-        </div>
-        <div class="column medium-6">
-          <property-amenities *ngIf="property?.amenities && !isEditing" [(amenities)]="property.amenities" [isEditing]="isEditing"></property-amenities>
-        </div>
-        <div *ngIf="isEditing">
-          <div class="column marg-top hide-for-small-only marg-btm">
-            <property-map *ngIf="mapOptions" [properties]="[property]" [mapOptions]="mapOptions"></property-map>
-          </div>
-        </div>
-        <div class="column hide-for-medium marg-top">
-          <property-map *ngIf="mapOptions" [properties]="[property]" [mapOptions]="mapOptions"></property-map>
-        </div>
-      </div>
-    </section>
-  </div>
-  <div class="row show-for-small-only callout-bottom marg-top sticky-actions">
-    <div class="small-12 columns">
-      <property-actions-group (submit)="doPropertyAction(propertyActionState.state)" [actionText]="isEditing ? 'Update Property' : propertyActionState?.text"
-      (shareFacebook)="shareFacebook()" [tweetText]="tweetText"></property-actions-group>
+    <div stick class="callout hide-for-small-only call-to-actions--top property-actions-group-top">
+        <property-actions-group (submit)="doPropertyAction(propertyActionState.state)" [actionText]="isEditing ? 'Update Property' : propertyActionState?.text" (shareFacebook)="shareFacebook()" [tweetText]="tweetText"></property-actions-group>
     </div>
-  </div>
+    <property-images [images]="property?.images" *ngIf="property?.images"></property-images>
+    <div class="row">
+        <section class="small-11 medium-11 columns small-centered">
+            <div class="row marg-top">
+                <div *ngIf="!isEditing" data-equalizer>
+                    <h3>{{property?.address1}}</h3>
+                    <h3 *ngIf="property?.address2">{{property?.address2}}</h3>
+                    <div class="medium-4 large-5 columns callout show-for-medium" data-equalizer-watch>
+                        <property-map *ngIf="mapOptions" [properties]="[property]" [mapOptions]="mapOptions"></property-map>
+                    </div>
+                    <div class="callout columns small-3 medium-2 large-1 stat text-center" data-equalizer-watch>
+                        <div><i class="icon-bed"></i>
+                        </div>
+                        {{property?.bedrooms}}
+                    </div>
+                    <div class="callout columns small-3 medium-2 large-1 stat text-center" data-equalizer-watch>
+                        <div><i class="icon-shower"></i>
+                        </div>
+                        {{property?.bathrooms}}
+                    </div>
+                    <div class="callout columns small-6 medium-4 stat end text-center" data-equalizer-watch>
+                        <div class="ver-center"><span class="stat">{{property?.price | currency:'USD':true}}</span><span class="hide-for-small-only">/mo.</span><p class="show-for-small-only">/mo.</p></div>
+                        <p *ngIf="property?.lease_length">Lease: {{property?.lease_length}} months</p>
+                    </div>
+                </div>
+                <fieldset *ngIf="isEditing" class="fieldset">
+                    <legend>
+                        <h3>{{property?.address1}}</h3>
+                        <h3 *ngIf="property?.address2">{{property?.address2}}</h3>
+                    </legend>
+                    <div *ngIf="isEditing" class="columns medium-12 hide-for-small-only">
+                        <div class="row">
+                            <div class="column medium-10 medium-push-1 large-6 large-push-0 marg-btm">
+                                <div class="row">
+                                    <div class="medium-3 large-2 columns">
+                                        <label for="bedrooms" class="text-right middle"><i class="icon-bed"></i>
+                                        </label>
+                                    </div>
+                                    <div class="medium-9 large-4 end text-left columns">
+                                        <label>Bedrooms
+                                            <number-ticker name="bedrooms" [(number)]="property.bedrooms" [min]="1" [max]="16"></number-ticker>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="medium-3 large-2 columns">
+                                        <label for="bathrooms" class="text-right middle"><i class="icon-shower"></i>
+                                        </label>
+                                    </div>
+                                    <div class="medium-9 large-4 end text-left columns">
+                                        <label>Bathrooms
+                                            <number-ticker name="bathrooms" [(number)]="property.bathrooms" [min]="1" [max]="16"></number-ticker>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="medium-3 large-2 columns">
+                                        <label for="LeasePrice" class="text-right middle"><i class="icon-dollar"></i>
+                                        </label>
+                                    </div>
+                                    <div class="medium-9 large-4 end text-left columns">Lease Price:
+                                        <number-ticker [(number)]="property.price" [min]="0" [max]="120"></number-ticker>( $ )
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="medium-3 large-2 text-right columns">
+                                        <label for="ImageUpload" class="text-right middle"><i class="icon-calendar-check-o"></i></label>
+                                    </div>
+                                    <div class="medium-9 large-4 end text-left end columns"> Lease Length:
+                                        <number-ticker [(number)]="property.lease_length" [min]="0" [max]="120">
+                                        </number-ticker>
+                                         (months)
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="medium-3 large-2 columns">
+                                        <label for="ImageUpload" class="text-right middle"><i class="icon-picture"></i>
+                                        </label>
+                                    </div>
+                                    <div class="medium-9 large-4 end text-left end columns">.jpg or .png
+                                        <input type="file" id="exampleFileUpload" class="show-for-sr">
+                                        <label for="exampleFileUpload" class="button expanded">Upload Images</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="column small-12 large-6">
+                                <div *ngIf="isEditing">
+                                    Description:
+                                    <textarea [(ngModel)]="property.description"></textarea>
+                                </div>
+                                <div class="marg-top">
+                                    <property-amenities *ngIf="property?.amenities && isEditing" [(amenities)]="property.amenities" [isEditing]="isEditing"></property-amenities>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="isEditing" class="columns small-12 show-for-small-only">
+                        <div class="row">
+                            <div class="column small-12 marg-btm">
+                                <div class="row">
+                                    <div class="small-3 columns">
+                                        <label for="bedrooms" class="text-right middle"><i class="middle icon-bed"></i>
+                                        </label>
+                                    </div>
+                                    <div class="small-9 text-left columns">
+                                        <label>Bedrooms
+                                            <number-ticker name="bedrooms" [(number)]="property.bedrooms" [min]="1" [max]="16"></number-ticker>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="small-3  columns">
+                                        <label for="bathrooms" class="text-right middle"><i class="middle icon-shower"></i>
+                                        </label>
+                                    </div>
+                                    <div class="small-9 end text-left columns">
+                                        <label>Bathrooms
+                                            <number-ticker name="bathrooms" [(number)]="property.bathrooms" [min]="1" [max]="16"></number-ticker>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="small-3 columns text-right-middle">
+                                        <label for="LeasePrice" class="text-right middle"><i class="middle icon-dollar"></i>
+                                        </label>
+                                    </div>
+                                    <div class="small-9 text-left columns">Lease Price:
+                                        <number-ticker [(number)]="property.price" [min]="0" [max]="120"></number-ticker>( $ )
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="small-3 columns">
+                                        <label for="LeaseLength" class="text-right middle"><i class="middle icon-calendar-check-o"></i>
+                                        </label>
+                                    </div>
+                                    <div class="small-9 text-left end columns"> Lease Length:
+                                        <number-ticker [(number)]="property.lease_length" [min]="0" [max]="120"></number-ticker> (months)
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="small-3 columns">
+                                        <label for="ImageUpload" class="text-right middle"><i class="icon-picture"></i>
+                                        </label>
+                                    </div>
+                                    <div class="small-9 end text-left end columns">.jpg or .png
+                                        <input type="file" id="exampleFileUpload" class="show-for-sr">
+                                        <label for="exampleFileUpload" class="button expanded">Upload Images</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="columns small-12 medium-6">
+                                <div *ngIf="isEditing">
+                                    Description:
+                                    <textarea [(ngModel)]="property.description"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </fieldset>
+            </div>
+            <div class="row marg-top marg-btm">
+                <div class="column medium-6">
+                    <div *ngIf="!isEditing">
+                        <p>{{property?.description}}</p>
+                    </div>
+                </div>
+                <div class="column medium-6">
+                    <property-amenities *ngIf="property?.amenities && !isEditing" [(amenities)]="property.amenities" [isEditing]="isEditing"></property-amenities>
+                </div>
+                <div *ngIf="isEditing">
+                    <div class="column marg-top hide-for-small-only marg-btm">
+                        <property-map *ngIf="mapOptions" [properties]="[property]" [mapOptions]="mapOptions"></property-map>
+                    </div>
+                </div>
+                <div class="column hide-for-medium marg-top">
+                    <property-map *ngIf="mapOptions" [properties]="[property]" [mapOptions]="mapOptions"></property-map>
+                </div>
+            </div>
+        </section>
+    </div>
+    <div class="row show-for-small-only callout-bottom marg-top sticky-actions">
+        <div class="small-12 columns">
+            <property-actions-group (submit)="doPropertyAction(propertyActionState.state)" [actionText]="isEditing ? 'Update Property' : propertyActionState?.text" (shareFacebook)="shareFacebook()" [tweetText]="tweetText"></property-actions-group>
+        </div>
+    </div>
 </div>
