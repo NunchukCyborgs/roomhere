@@ -1,5 +1,5 @@
-import { Component, Directive, AfterViewInit, ViewEncapsulation } from '@angular/core';
-import { ROUTER_DIRECTIVES } from '@angular/router';
+import { Component, Directive, OnInit, ViewEncapsulation } from '@angular/core';
+import { ROUTER_DIRECTIVES, Router } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 
@@ -37,8 +37,10 @@ declare let require: (string) => string;
       <div class="top-bar-right">
         <ul class="menu">
           <li><a [routerLinkActive]="['active', 'router-link-active']" [routerLink]=" ['./home'] ">Home</a></li>
-          <li *ngIf="!(hasAuth$ | async)"><a data-open="RegisterModal">Create an Account<register class="reveal small" id="RegisterModal" data-reveal></register></a></li>
-          <li *ngIf="!(hasAuth$ | async)"><a data-open="LoginModal">Login<login class="reveal small" id="LoginModal" data-reveal></login></a></li>
+          <li *ngIf="!(hasAuth$ | async)"><a data-open="RegisterModal">
+            Create an Account</a>
+          </li>
+          <li *ngIf="!(hasAuth$ | async)"><a data-open="LoginModal">Login</a></li>
           <li *ngIf="hasAuth$ | async"><a (click)="logout()">Log Out</a></li>
         </ul>
       </div>
@@ -48,17 +50,21 @@ declare let require: (string) => string;
         <main>
           <router-outlet></router-outlet>
         </main>
+        <div hidden>
+          <register class="reveal small" id="RegisterModal" data-reveal></register>
+          <login class="reveal small" id="LoginModal" data-reveal></login>
+        </div>
     </div>
   `
 })
-export class App implements AfterViewInit {
+export class App implements OnInit {
   public hasAuth$: Observable<boolean>;
-  constructor(private userService: UserService, private unsafe: ServerUnsafeService) {
+  constructor(private userService: UserService, private unsafe: ServerUnsafeService, private router: Router) {
     this.hasAuth$ = this.userService.hasAuth$;
   }
   
-  ngAfterViewInit() {
-    this.unsafe.tryUnsafeCode(() => $('.top-bar-right .menu').foundation(), '$ not defined');
+  ngOnInit() {
+    this.router.events.subscribe(() => this.unsafe.tryUnsafeCode(() => $('body').foundation(), '$ not defined'))
   }
 
   logout() {
