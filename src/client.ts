@@ -15,6 +15,5 @@ import {ngApp} from './main.browser';
 document.addEventListener('DOMContentLoaded', () => {
 
   ngApp()
-    .then(prebootComplete);
-
+    .then(() => setTimeout(prebootComplete, 0));
 });

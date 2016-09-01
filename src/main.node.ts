@@ -37,7 +37,7 @@ export function ngApp(req, res) {
       NODE_LOCATION_PROVIDERS
     ],
     async: true,
-    preboot: false // { appRoot: 'app' } // your top level app component selector
+    preboot: { appRoot: 'app', buffer: true }
   };
 
   res.render('index', config);
