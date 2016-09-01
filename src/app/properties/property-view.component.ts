@@ -23,24 +23,23 @@ declare let $: any;
   directives: [PropertyReviews, SimilarProperties, PropertyMap, PropertyImages,
     PropertyAmenities, NumberTicker, PropertyActionsGroup, StickDirective],
   styles: [`
-     .property-view-container {
+    .property-view-container {
        position: relative;
        padding-bottom: 150px;
    }
-   
-   .flex-row {
-       display: block !important;
-   }
-   
-   em,
-   i {
+   textarea {
+        max-width: 100%;
+        min-height: 150px;
+    }
+   em,i {
        font-size: 1.8rem;
+       position: relative;
+       top: 50%;
+       transform: translateY(-50%);
    }
-   
    .call-to-actions--top .rent-now {
        margin-bottom: 10px;
    }
-   
    .call-to-actions--top {
        position: absolute;
        top: 10px;
@@ -49,6 +48,15 @@ declare let $: any;
        z-index: 10;
        box-shadow: inset 1px 1px 3px #999;
        width: 350px;
+    }
+    .stat {
+        height: 133px;
+    }
+    .ver-center{
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+    }
    }
     .callout{
         padding: .5rem !important;
@@ -81,18 +89,24 @@ declare let $: any;
            background: #fff;
        }
    }
-   
    @media (max-width: 480px) {
        .marg-top {
-           margin-top: 40px;
+           margin-top: 20px;
        }
-   }
-   
-   .sticky-actions {
+    .callout-bottom {
+           border-radius: 5%;
+           box-shadow: inset 1px 1px 3px #999;
+           background:#fff;
+       }
+    .sticky-actions {
        position: fixed;
-       bottom: 10px;
+       bottom: 20px;
        left: 5px;
        right: 5px;
+        }
+    .stat {
+       font-size:2.1rem;
+        }
    }
     .white{
             background: #fff;

@@ -11,43 +11,44 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
       input[type="number"] {
           -moz-appearance: textfield;
       }
-
       .icon-minus, .icon-plus {
-        font-size: .8em;
+        font-size: .8rem;
+        padding: 2px;
       }
-      
-
+      .icon-plus:hover {
+        color: #DAA520;
+      }
+      .icon-minus:hover{
+         color: #DAA520;
+      } 
       input {
-        width: 35px;
         display: inline;
         border: none;
         box-shadow: none;
         background: #f5f5f5;
-        margin-bottom: 0;
+        margin-bottom: 0px;
         text-align: center;
         font-size:1.5rem;
-        font-weight:700;
+        font-weight:500;
       }
-
       .number-ticker {
-        display: inline-block;
         border: 2px solid #EEE;
-        
       }
-
-      .number-ticker__wrapper {
-        display: block
-      }
-
       button:focus, input:focus {
         outline: none;
       }
 
       button {
-        padding: 1px 3px 2px;
-        border: 1px solid #666;
-        border-radius: 100%;
+            transform: translateY(50%);
       }
+      .purp{
+        background: #44254a;
+        color:#fff;
+    }
+     .purp:hover{
+        background: #391940;
+        color:#fff;
+    }
     @media (max-width: 480px) {
     
     .number-ticker{
@@ -57,11 +58,15 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
     }
     `],
     template: `
-    <div class="number-ticker__wrapper">
-      <div class="number-ticker">
+    <div class="row collapse purp number-ticker">
+      <div class="small-2 text-center columns">
         <button type="button" (click)="increment(-1)"><i class="icon-minus"></i></button>
+      </div>
+      <div class="small-8 text-center columns">
         <input type="number" [min]="min" [max]="max" [value]="number" pattern="[0-9]*" inputmode="numeric"
         (change)="number = $event.target.value; increment(0)" />
+      </div>
+      <div class="small-2 text-center columns">
         <button type="button" (click)="increment(1)"><i class="icon-plus"></i></button>
       </div>
     </div>
