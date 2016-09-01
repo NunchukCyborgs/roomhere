@@ -1,7 +1,6 @@
-import { Component, OnDestroy, Renderer, Inject, Injectable } from '@angular/core';
-import { LocationStrategy } from '@angular/common';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Renderer, Inject, Injectable } from '@angular/core';
 import { DOCUMENT } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 import { BASE_URL } from '../config';
 import { Property } from '../properties/index';
 
