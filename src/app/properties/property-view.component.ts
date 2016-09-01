@@ -48,7 +48,6 @@ declare let $: any;
        z-index: 10;
        box-shadow: inset 1px 1px 3px #999;
        width: 350px;
-<<<<<<< HEAD
     }
     .stat {
         height: 133px;
@@ -58,13 +57,10 @@ declare let $: any;
         top: 50%;
         transform: translateY(-50%);
     }
-    
-=======
    }
     .callout{
         padding: .5rem !important;
     }
->>>>>>> master
    @media (min-width: 1025px) {
        .marg-top {
            margin-top: 40px;
@@ -112,13 +108,9 @@ declare let $: any;
        font-size:2.1rem;
         }
    }
-<<<<<<< HEAD
-   
-=======
     .white{
             background: #fff;
         }
->>>>>>> master
   `],
   templateUrl: './property-view.component.html'
 })
