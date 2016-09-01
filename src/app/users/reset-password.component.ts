@@ -9,7 +9,7 @@ import { ControlMessages } from '../control-messages.component';
 declare let $: any;
 
 @Component({
-  selector: 'register',
+  selector: 'reset-password',
   directives: [REACTIVE_FORM_DIRECTIVES, FORM_DIRECTIVES, ControlMessages],
   styles: [`
 .signup-panel {
@@ -77,17 +77,8 @@ span.prefix, label.prefix {
     <div class="row">
         <div class="medium-10 medium-push-1 columns">
             <div class="signup-panel">
-                <p class="welcome"> Welcome to Roomhere!</p>
-                <form [class.hide]="success" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-                    <div class="form-group row collapse">
-                        <div class="small-2 columns">
-                            <span class="prefix"><i class="icon-mail"></i></span>
-                        </div>
-                        <div class="small-10  columns">
-                            <input type="email" placeholder="email" formControlName="email" class="form-control" id="email">
-                        </div>
-                        <control-messages [control]="registerForm.controls.email" class="alert"></control-messages>
-                    </div>
+                <form [class.hide]="success" [formGroup]="resetPasswordForm" (ngSubmit)="onSubmit()">
+                    <p class="welcome">Pick a New Password</p>
                     <div class="form-group row collapse">
                         <div class="small-2 columns ">
                             <span class="prefix"><i class="icon-lock"></i></span>
@@ -95,7 +86,7 @@ span.prefix, label.prefix {
                         <div class="small-10 columns ">
                             <input placeholder="password" formControlName="password" type="password" class="form-control" id="password">
                         </div>
-                        <control-messages [control]="registerForm.controls.password"></control-messages>
+                        <control-messages [control]="resetPasswordForm.controls.password"></control-messages>
                     </div>
                     <div class="form-group row collapse">
                         <div class="small-2 columns ">
@@ -104,19 +95,16 @@ span.prefix, label.prefix {
                         <div class="small-10 columns ">
                             <input placeholder="confirm password" formControlName="confirmPassword" type="password" class="form-control" id="confirmPassword">
                         </div>
-                        <control-messages [control]="registerForm.controls.confirmPassword">{{getConfirmPasswordMatchMessage()}}</control-messages>
+                        <control-messages [control]="resetPasswordForm.controls.confirmPassword">{{getConfirmPasswordMatchMessage()}}</control-messages>
                     </div>
-                    <p class="text-center"><button type="submit" class="button large" [attr.disabled]="!registerForm.valid||getConfirmPasswordMatchMessage()?true:null">Create an Account!</button></p>
+                    <p class="text-center"><button type="submit" class="button large" [attr.disabled]="!resetPasswordForm.valid||getConfirmPasswordMatchMessage()?true:null">Reset Password</button></p>
                 </form>
-                <p class="text-center" [class.hide]="success">Already have an account? <a data-open="LoginModal">Login here</a>
-                </p>
-                <div [class.hide]="!success || serverErrors.length" class="callout success">
-                    <h5>Success!</h5>
-                    <p>Alright, there's one last step to create an account. Please check your email for a magic activation link and click to confirm you are as human as we think you are.
-                    </p>
+                <div [class.hide]="!success" class="callout success">
+                    <h5>All done here!</h5>
+                    <p>Your new password is set, good work!</p>
                 </div>
                 <div [class.hide]="!serverErrors.length || success" class="callout alert">
-                    <h6>Uh oh! We had a problem logging you in with those credentials.</h6>
+                    <h6>Uh oh! Something went wrong.</h6>
                     <span *ngFor="let error of serverErrors">{{error}}. </span>
                 </div>
             </div>
@@ -124,35 +112,33 @@ span.prefix, label.prefix {
     </div>
   `
 })
-export class Register {
+export class ResetPassword {
   public success: boolean = false;
   public serverErrors: string[] = [];
-  public registerForm: any;
+  public resetPasswordForm: any;
 
   constructor(private userService: UserService, private formBuilder: FormBuilder) { }
 
   ngOnInit() {
-    this.registerForm = this.formBuilder.group({
-      'email': ['', [Validators.required, ValidationService.emailValidator]],
+    this.resetPasswordForm = this.formBuilder.group({
       'password': ['', [Validators.required, Validators.minLength(8)]],
       'confirmPassword': ['', [Validators.required, Validators.minLength(8)]],
     });
   }
 
   public getConfirmPasswordMatchMessage() {
-    const password = this.registerForm.controls.password;
-    const confirm = this.registerForm.controls.confirmPassword;
+    const password = this.resetPasswordForm.controls.password;
+    const confirm = this.resetPasswordForm.controls.confirmPassword;
     return password.value !== confirm.value && password.touched && confirm.touched ? 'Passwords do not match. ' : '';
   }
 
   public onSubmit() {
     const user = new User({
-      email: this.registerForm.controls.email.value,
-      password: this.registerForm.controls.password.value,
-      password_confirmation: this.registerForm.controls.confirmPassword.value,
+      password: this.resetPasswordForm.controls.password.value,
+      password_confirmation: this.resetPasswordForm.controls.confirmPassword.value,
     });
 
-    this.userService.register(user)
+    this.userService.resetPassword(user)
       .do((res: Response) => this.serverErrors = ValidationService.getAuthErrors(res))
       .subscribe((res: Response) => this.success = res.ok);
   }
