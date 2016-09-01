@@ -140,3 +140,58 @@ control-messages{
 .sticky {
   position: fixed !important;
 }
+
+
+.large-text-right {
+  @include breakpoint(large only) {
+    text-align: right;
+  }
+}
+
+.large-text-center {
+  @include breakpoint(large only) {
+    text-align: center;
+  }
+}
+
+.large-text-left {
+  @include breakpoint(large only) {
+    text-align: left;
+  }
+}
+
+.medium-text-right {
+  @include breakpoint(medium up) {
+    text-align: right;
+  }
+}
+
+.medium-text-center {
+  @include breakpoint(medium up) {
+    text-align: center;
+  }
+}
+
+.medium-text-left {
+  @include breakpoint(medium up) {
+    text-align: left;
+  }
+}
+
+.small-text-right {
+  @include breakpoint(small up) {
+    text-align: right;
+  }
+}
+
+.small-text-center {
+  @include breakpoint(small up) {
+    text-align: center;
+  }
+}
+
+.small-text-left {
+  @include breakpoint(small up) {
+    text-align: left;
+  }
+}

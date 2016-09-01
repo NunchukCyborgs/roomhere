@@ -27,17 +27,17 @@
                         <p *ngIf="property?.lease_length">Lease: {{property?.lease_length}} months</p>
                     </div>
                 </div>
-                <fieldset *ngIf="isEditing" class="fieldset">
+                <fieldset [class.hide]="!isEditing" class="fieldset">
                     <legend>
                         <h3>{{property?.address1}}</h3>
                         <h3 *ngIf="property?.address2">{{property?.address2}}</h3>
                     </legend>
-                    <div *ngIf="isEditing" class="columns medium-12 hide-for-small-only">
+                    <div [class.hide]="!isEditing" class="columns small-12">
                         <div class="row">
-                            <div class="column medium-10 medium-push-1 large-6 large-push-0 marg-btm">
+                            <div class="column medium-10 medium-centered large-uncentered large-6 large-push-0 marg-btm">
                                 <div class="row">
                                     <div class="medium-3 large-2 columns">
-                                        <label for="bedrooms" class="text-right middle"><i class="icon-bed"></i>
+                                        <label for="bedrooms" class="large-text-right medium-text-left"><i class="icon-bed"></i>
                                         </label>
                                     </div>
                                     <div class="medium-9 large-4 end text-left columns">
@@ -48,7 +48,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="medium-3 large-2 columns">
-                                        <label for="bathrooms" class="text-right middle"><i class="icon-shower"></i>
+                                        <label for="bathrooms" class="large-text-right medium-text-left"><i class="icon-shower"></i>
                                         </label>
                                     </div>
                                     <div class="medium-9 large-4 end text-left columns">
@@ -59,7 +59,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="medium-3 large-2 columns">
-                                        <label for="LeasePrice" class="text-right middle"><i class="icon-dollar"></i>
+                                        <label for="LeasePrice" class="large-text-right medium-text-left"><i class="icon-dollar"></i>
                                         </label>
                                     </div>
                                     <div class="medium-9 large-4 end text-left columns">Lease Price:
@@ -67,8 +67,8 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="medium-3 large-2 text-right columns">
-                                        <label for="ImageUpload" class="text-right middle"><i class="icon-calendar-check-o"></i></label>
+                                    <div class="medium-3 large-2 columns">
+                                        <label for="LeaseLength" class="large-text-right medium-text-left"><i class="icon-calendar-check-o"></i></label>
                                     </div>
                                     <div class="medium-9 large-4 end text-left end columns"> Lease Length:
                                         <number-ticker [(number)]="property.lease_length" [min]="0" [max]="120">
@@ -78,10 +78,11 @@
                                 </div>
                                 <div class="row">
                                     <div class="medium-3 large-2 columns">
-                                        <label for="ImageUpload" class="text-right middle"><i class="icon-picture"></i>
+                                        <label for="ImageUpload" class="large-text-right medium-text-left"><i class="icon-picture"></i>
                                         </label>
                                     </div>
                                     <div class="medium-9 large-4 end text-left end columns">.jpg or .png
+                                        <input id="FileUpload" type="file" name="property[files][]">
                                         <button (click)="uploadImage()" type="button" id="FileUpload" class="button expanded">Upload Images</button>
                                     </div>
                                 </div>
@@ -93,68 +94,6 @@
                                 </div>
                                 <div class="marg-top">
                                     <property-amenities *ngIf="property?.amenities && isEditing" [(amenities)]="property.amenities" [isEditing]="isEditing"></property-amenities>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div *ngIf="isEditing" class="columns small-12 show-for-small-only">
-                        <div class="row">
-                            <div class="column small-12 marg-btm">
-                                <div class="row">
-                                    <div class="small-3 columns">
-                                        <label for="bedrooms" class="text-right middle"><i class="middle icon-bed"></i>
-                                        </label>
-                                    </div>
-                                    <div class="small-9 text-left columns">
-                                        <label>Bedrooms
-                                            <number-ticker name="bedrooms" [(number)]="property.bedrooms" [min]="1" [max]="16"></number-ticker>
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="small-3  columns">
-                                        <label for="bathrooms" class="text-right middle"><i class="middle icon-shower"></i>
-                                        </label>
-                                    </div>
-                                    <div class="small-9 end text-left columns">
-                                        <label>Bathrooms
-                                            <number-ticker name="bathrooms" [(number)]="property.bathrooms" [min]="1" [max]="16"></number-ticker>
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="small-3 columns text-right-middle">
-                                        <label for="LeasePrice" class="text-right middle"><i class="middle icon-dollar"></i>
-                                        </label>
-                                    </div>
-                                    <div class="small-9 text-left columns">Lease Price:
-                                        <number-ticker [(number)]="property.price" [min]="0" [max]="120"></number-ticker>( $ )
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="small-3 columns">
-                                        <label for="LeaseLength" class="text-right middle"><i class="middle icon-calendar-check-o"></i>
-                                        </label>
-                                    </div>
-                                    <div class="small-9 text-left end columns"> Lease Length:
-                                        <number-ticker [(number)]="property.lease_length" [min]="0" [max]="120"></number-ticker> (months)
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="small-3 columns">
-                                        <label for="ImageUpload" class="text-right middle"><i class="icon-picture"></i>
-                                        </label>
-                                    </div>
-                                    <div class="small-9 end text-left end columns">.jpg or .png
-                                        <input type="file" id="exampleFileUpload" class="show-for-sr">
-                                        <label for="exampleFileUpload" class="button expanded">Upload Images</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="columns small-12 medium-6">
-                                <div *ngIf="isEditing">
-                                    Description:
-                                    <textarea [(ngModel)]="property.description"></textarea>
                                 </div>
                             </div>
                         </div>

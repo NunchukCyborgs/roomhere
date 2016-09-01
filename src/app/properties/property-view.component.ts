@@ -9,6 +9,7 @@ import { SeoService } from '../services/seo.service';
 import { SocialService } from '../services/social.service';
 import { PropertyService, Property, PropertyImages, PropertyReviews, SimilarProperties,
   PropertyMap, MapOptions, PropertyAmenities, PropertyAction, PropertyActionState, PropertyActionStates, PropertyActionsGroup } from './index';
+import { BASE_API_URL } from '../config'
 
 import { StickDirective } from '../sticky.directive';
 
@@ -69,7 +70,7 @@ declare let $: any;
            margin-bottom: 40px;
        }
    }
-   
+
    @media (max-width: 1024px) {
        .call-to-actions--top {
            width: 300px;
@@ -81,7 +82,7 @@ declare let $: any;
            margin-bottom: 20px;
        }
    }
-   
+
    @media (max-width: 640px) {
        .callout-bottom {
            border-radius: 5%;
@@ -139,6 +140,7 @@ export class PropertyView implements OnDestroy {
           this.propertyService.update(this.property).subscribe(() => this.isEditing = false);
         } else {
           this.isEditing = true;
+          this.imageUploadInit();
         }
         break;
       case PropertyActionStates.Claim:
@@ -160,50 +162,50 @@ export class PropertyView implements OnDestroy {
     this.socialService.facebookInit();
   }
 
+  private imageUploadInit() {
+    this.unsafe.tryUnsafeCode(() => {
+      console.log('loading');
+
+      const fileUpload = $('#FileUpload');
+      const URL = `${BASE_API_URL}/properties/${this.property.slug}/images`;
+
+      console.log(fileUpload);
+
+      fileUpload.fileupload({
+        // Uncomment the following to send cross-domain cookies:
+        withCredentials: true,
+        url: URL,
+        type: 'POST',
+        maxFileSize: 999000,
+        acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
+        add: function(e, data) {
+          console.log("file add");
+          data.submit();
+        },
+        done: function(e, data) {
+          console.log(data);
+        }
+      });
+
+      fileUpload.fileupload(
+        'option',
+        'redirect',
+        window.location.href.replace(
+          /\/[^\/]*$/,
+          '/cors/result.html?%s'
+        )
+      );
+    }, '$ is undefined');
+  }
+
+
   public uploadImage() {
-    const fileUpload = $('#FileUpload'); 
-    const URL = `properties/${this.property.slug}`; 
-    fileUpload.fileupload({
-      // Uncomment the following to send cross-domain cookies:
-      //xhrFields: {withCredentials: true},
-      url: URL
-    });
+
 
     // Enable iframe cross-domain access via redirect option:
-    fileUpload.fileupload(
-      'option',
-      'redirect',
-      window.location.href.replace(
-        /\/[^\/]*$/,
-        '/cors/result.html?%s'
-      )
-    );
-
-    fileUpload.fileupload('option', {
-            url: URL,
-            // Enable image resizing, except for Android and Opera,
-            // which actually support image resizing, but fail to
-            // send Blob objects via XHR requests:
-            disableImageResize: /Android(?!.*Chrome)|Opera/
-                .test(window.navigator.userAgent),
-            maxFileSize: 999000,
-            acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i
-        });
 
     // Load existing files:
-    fileUpload.addClass('fileupload-processing');
-    $.ajax({
-      // Uncomment the following to send cross-domain cookies:
-      //xhrFields: {withCredentials: true},
-      url: fileUpload.fileupload('option', 'url'),
-      dataType: 'json',
-      context: fileUpload[0]
-    }).always(function () {
-      $(this).removeClass('fileupload-processing');
-    }).done(function (result) {
-      $(this).fileupload('option', 'done')
-        .call(this, $.Event('done'), { result: result });
-    });
+    // fileUpload.addClass('fileupload-processing');
   }
 
   private sub: Subscription;
