@@ -11,18 +11,14 @@ import { FacetsService } from './services/facets.service';
 import { SeoService } from './services/seo.service';
 import { SocialService } from './services/social.service'
 import { UtilService } from './services/util.service';
-import { Login, Register, UserService } from './users/index';
+import { Login, Register, ForgotPassword, UserService } from './users/index';
 
 declare let $: any;
 declare let require: (string) => string;
 
 @Component({
   selector: 'app',
-  directives: [
-    ...ROUTER_DIRECTIVES,
-    Login,
-    Register
-  ],
+  directives: [...ROUTER_DIRECTIVES, Login, Register, ForgotPassword],
   providers: [FormBuilder, PropertyService, GoogleApiService, UserService, HttpService, 
   ServerUnsafeService, FacetsService, SeoService, SocialService, UtilService],
   encapsulation: ViewEncapsulation.None,
@@ -53,6 +49,7 @@ declare let require: (string) => string;
         <div hidden>
           <register class="reveal small" id="RegisterModal" data-reveal></register>
           <login class="reveal small" id="LoginModal" data-reveal></login>
+          <forgot-password class="reveal small" id="ForgotPasswordModal" data-reveal></forgot-password>
         </div>
     </div>
   `
