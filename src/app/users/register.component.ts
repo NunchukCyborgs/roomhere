@@ -110,7 +110,7 @@ span.prefix, label.prefix {
                 </form>
                 <p class="text-center" [class.hide]="success">Already have an account? <a data-open="LoginModal">Login here</a>
                 </p>
-                <div [class.hide]="!success" class="callout success">
+                <div [class.hide]="!success || serverErrors.length" class="callout success">
                     <h5>Success!</h5>
                     <p>Alright, there's one last step to create an account. Please check your email for a magic activation link and click to confirm you are as human as we think you are.
                     </p>

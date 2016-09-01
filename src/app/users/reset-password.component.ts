@@ -77,8 +77,8 @@ span.prefix, label.prefix {
     <div class="row">
         <div class="medium-10 medium-push-1 columns">
             <div class="signup-panel">
-                <p class="welcome">Pick a New Password</p>
                 <form [class.hide]="success" [formGroup]="resetPasswordForm" (ngSubmit)="onSubmit()">
+                    <p class="welcome">Pick a New Password</p>
                     <div class="form-group row collapse">
                         <div class="small-2 columns ">
                             <span class="prefix"><i class="icon-lock"></i></span>

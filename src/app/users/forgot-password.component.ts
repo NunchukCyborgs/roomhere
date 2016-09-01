@@ -77,8 +77,8 @@ span.prefix, label.prefix {
     <div class="row">
         <div class="medium-10 medium-push-1 columns">
             <div class="forgot-password-panel">
-                <p class="welcome">Reset your password</p>
-                <form [formGroup]="forgotPasswordForm" (ngSubmit)="onSubmit()">
+                <form [class.hide]="success" [formGroup]="forgotPasswordForm" (ngSubmit)="onSubmit()">
+                    <p class="welcome">Reset your password</p>
                     <div class="form-group row collapse">
                         <div class="small-2 columns">
                             <span class="prefix"><i class="icon-mail"></i></span>
@@ -90,7 +90,7 @@ span.prefix, label.prefix {
                     </div>
                     <p class="text-center"><button type="submit" class="text-center button large" [attr.disabled]="!forgotPasswordForm.valid?true:null">Reset Password</button></p>
                 </form>
-                <div [class.hide]="!success" class="callout success">
+                <div [class.hide]="!success || serverErrors.length" class="callout success">
                     <h5>Success!</h5>
                     <p>Check your email ({{forgotPasswordForm.controls.email.value}}) for the link to reset your password</p>
                 </div>
@@ -121,7 +121,7 @@ export class ForgotPassword {
       email: this.forgotPasswordForm.controls.email.value,
     });
     
-    this.userService.resetPassword(user)
+    this.userService.sendResetPasswordLink(user)
       .do((res: Response) => this.serverErrors = ValidationService.getAuthErrors(res))
       .subscribe((res: Response) => this.success = true);
   }

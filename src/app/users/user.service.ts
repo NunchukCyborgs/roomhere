@@ -54,7 +54,8 @@ export class UserService {
 
   public resetPassword(user: User): Observable<any> {
     user.redirect_url = this.getRedirectUrl();
-    return this.http.post(`${BASE_API_URL}/auth/password/edit`, user);
+    user.email = this.http.headers.get('uid');
+    return this.http.patch(`${BASE_API_URL}/auth/password`, user);
   }
 
   private checkForQueryAuth() {
