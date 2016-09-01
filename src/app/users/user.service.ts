@@ -47,9 +47,14 @@ export class UserService {
     return this.http.post(`${BASE_API_URL}/auth`, user);
   }
 
-  public resetPassword(user: User): Observable<any> {
+  public sendResetPasswordLink(user: User): Observable<any> {
     user.redirect_url = this.getRedirectUrl();
     return this.http.post(`${BASE_API_URL}/auth/password`, user);
+  }
+
+  public resetPassword(user: User): Observable<any> {
+    user.redirect_url = this.getRedirectUrl();
+    return this.http.post(`${BASE_API_URL}/auth/password/edit`, user);
   }
 
   private checkForQueryAuth() {
@@ -57,7 +62,7 @@ export class UserService {
       .routerState
       .queryParams
       .subscribe(params => {
-        if (params['account_confirmation_success'] === 'true') {
+        if (params['account_confirmation_success'] === 'true' || params['reset_password'] === 'true') {
           this.http.setAuthHeaders(params['token'], params['client_id'], params['uid'])
           this.hasAuth$.next(true);
         }
@@ -95,6 +100,6 @@ export class UserService {
   }
 
   private getRedirectUrl(): string {
-    return this.unsafe.tryUnsafeCode(() => window.location.href, 'window is not defined');
+    return this.unsafe.tryUnsafeCode(() => window.location.origin + window.location.pathname, 'window is not defined');
   }
 }

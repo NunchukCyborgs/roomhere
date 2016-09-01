@@ -11,14 +11,14 @@ import { FacetsService } from './services/facets.service';
 import { SeoService } from './services/seo.service';
 import { SocialService } from './services/social.service'
 import { UtilService } from './services/util.service';
-import { Login, Register, ForgotPassword, UserService } from './users/index';
+import { Login, Register, ForgotPassword, ResetPassword, UserService } from './users/index';
 
 declare let $: any;
 declare let require: (string) => string;
 
 @Component({
   selector: 'app',
-  directives: [...ROUTER_DIRECTIVES, Login, Register, ForgotPassword],
+  directives: [...ROUTER_DIRECTIVES, Login, Register, ForgotPassword, ResetPassword],
   providers: [FormBuilder, PropertyService, GoogleApiService, UserService, HttpService, 
   ServerUnsafeService, FacetsService, SeoService, SocialService, UtilService],
   encapsulation: ViewEncapsulation.None,
@@ -50,6 +50,7 @@ declare let require: (string) => string;
           <register class="reveal small" id="RegisterModal" data-reveal></register>
           <login class="reveal small" id="LoginModal" data-reveal></login>
           <forgot-password class="reveal small" id="ForgotPasswordModal" data-reveal></forgot-password>
+          <reset-password class="reveal small" id="ResetPasswordModal" data-reveal></reset-password>
         </div>
     </div>
   `
@@ -62,6 +63,12 @@ export class App implements OnInit {
   
   ngOnInit() {
     this.router.events.subscribe(() => this.unsafe.tryUnsafeCode(() => $('body').foundation(), '$ not defined'))
+    this.router.routerState.queryParams
+      .subscribe(params => { 
+        if (params['reset_password'] === 'true') {
+          this.unsafe.tryUnsafeCode(() => $('#ResetPasswordModal').foundation('open'), '$ is undefined');
+        }
+      });
   }
 
   logout() {
