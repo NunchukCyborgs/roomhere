@@ -17,6 +17,9 @@ import { FacetsService, Location, Amenity } from '../services/facets.service';
     .filter-buttons {
       padding: 1px;
     }
+    .filter-buttons a {
+      height: 100%;
+    }
     .amenity-checkbox {
       cursor: pointer;
       display: table;

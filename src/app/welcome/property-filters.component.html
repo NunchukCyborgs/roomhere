@@ -27,10 +27,12 @@
           <p class="amenity-type">Bedrooms:</p>
         </div>
         <div class="small-12 large-10 columns">
-          <div class="input-group button-group secondary expanded js-bedrooms-facet">
-            <a class="button" [ngClass]="{selected: facet.min_bedrooms === 1}" (click)="facet.min_bedrooms = 1">One Bedroom +</a>
-            <a class="button" [ngClass]="{selected: facet.min_bedrooms === 2}" (click)="facet.min_bedrooms = 2">Two Bedroom + </a>
-            <a class="button" [ngClass]="{selected: facet.min_bedrooms === 3}" (click)="facet.min_bedrooms = 3">Three Bedroom +</a>
+          <div class="input-group button-group secondary">
+            <div class="row flex-row">
+              <div class="filter-buttons column small-4"><a class="button expanded" [ngClass]="{selected: facet.min_bedrooms === 1}" (click)="facet.min_bedrooms = 1">One Bedroom +</a></div>
+              <div class="filter-buttons column small-4"><a class="button expanded" [ngClass]="{selected: facet.min_bedrooms === 2}" (click)="facet.min_bedrooms = 2">Two Bedrooms +</a></div>
+              <div class="filter-buttons column small-4"><a class="button expanded" [ngClass]="{selected: facet.min_bedrooms === 3}" (click)="facet.min_bedrooms = 3">Three Bedrooms +</a></div>
+            </div>
           </div>
         </div>
       </div>
