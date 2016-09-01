@@ -42,7 +42,7 @@ export class PropertyService {
   }
 
   private getFromViewCache(): Property[] {
-    return this.unsafe.tryUnsafeCode(() => JSON.parse(getDOM().query('.properties-cache').getAttribute('properties:cache')), 'This seems alright?');
+    return this.unsafe.tryUnsafeCode(() => JSON.parse(getDOM().query('.properties-cache').getAttribute('properties:cache')), 'not implemented exception');
   }
 
   constructor(
