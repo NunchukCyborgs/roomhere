@@ -160,6 +160,52 @@ export class PropertyView implements OnDestroy {
     this.socialService.facebookInit();
   }
 
+  public uploadImage() {
+    const fileUpload = $('#FileUpload'); 
+    const URL = `properties/${this.property.slug}`; 
+    fileUpload.fileupload({
+      // Uncomment the following to send cross-domain cookies:
+      //xhrFields: {withCredentials: true},
+      url: URL
+    });
+
+    // Enable iframe cross-domain access via redirect option:
+    fileUpload.fileupload(
+      'option',
+      'redirect',
+      window.location.href.replace(
+        /\/[^\/]*$/,
+        '/cors/result.html?%s'
+      )
+    );
+
+    fileUpload.fileupload('option', {
+            url: URL,
+            // Enable image resizing, except for Android and Opera,
+            // which actually support image resizing, but fail to
+            // send Blob objects via XHR requests:
+            disableImageResize: /Android(?!.*Chrome)|Opera/
+                .test(window.navigator.userAgent),
+            maxFileSize: 999000,
+            acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i
+        });
+
+    // Load existing files:
+    fileUpload.addClass('fileupload-processing');
+    $.ajax({
+      // Uncomment the following to send cross-domain cookies:
+      //xhrFields: {withCredentials: true},
+      url: fileUpload.fileupload('option', 'url'),
+      dataType: 'json',
+      context: fileUpload[0]
+    }).always(function () {
+      $(this).removeClass('fileupload-processing');
+    }).done(function (result) {
+      $(this).fileupload('option', 'done')
+        .call(this, $.Event('done'), { result: result });
+    });
+  }
+
   private sub: Subscription;
 
   private updateMapOptions(property: Property) {
