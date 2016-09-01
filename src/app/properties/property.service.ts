@@ -16,18 +16,26 @@ export class PropertyService {
   public lastPage$: BehaviorSubject<number> = new BehaviorSubject(Number.MAX_SAFE_INTEGER)
 
   public getFilteredProperties$(facet: PropertyFacet, pageNumber: number = 1, perPage: number = 10): Observable<Property[]> {
-    const cache = this.getFromViewCache();
+    const KEY: string = 'properties_cache';
+    const cache = this.getFromViewCache(KEY);
+
     return cache ? Observable.of(cache) : this.http
       .post(`${BASE_API_URL}/properties/filtered_results`, { facets: facet, page: pageNumber, per_page: perPage })
       .map(i => i.json())
       .do(i => this.lastPage$.next(Math.ceil(i.total_count / perPage)))
       .map(i => i.results)
-      .do(i => this.hydrateViewCache(i))
+      .do(i => this.hydrateViewCache(i, KEY))
   }
 
   public getPropertyBySlug$(slug: string): Observable<Property> {
-    return this.http.get(`${BASE_API_URL}/properties/${slug}`)
-      .map(i => i.json());
+
+    const KEY: string = 'property_cache';
+    const cache = this.getFromViewCache(KEY);
+
+    return cache ? Observable.of(cache) : this.http
+      .get(`${BASE_API_URL}/properties/${slug}`)
+      .map(i => i.json())
+      .do(i => this.hydrateViewCache(i, KEY))
   }
 
   public update(property: Property): Observable<Property> {
@@ -35,14 +43,14 @@ export class PropertyService {
       .map(i => i.json());
   }
 
-  private hydrateViewCache(properties: Property[]) {
+  private hydrateViewCache(obj: any, key: string) {
     const elem = this.renderer.createElement(this.document.body, 'meta');
-    this.renderer.setElementClass(elem, 'properties-cache', true);
-    this.renderer.setElementAttribute(elem, 'properties:cache', JSON.stringify(properties));
+    this.renderer.setElementClass(elem, key, true);
+    this.renderer.setElementAttribute(elem, key, JSON.stringify(obj));
   }
 
-  private getFromViewCache(): Property[] {
-    return this.unsafe.tryUnsafeCode(() => JSON.parse(getDOM().query('.properties-cache').getAttribute('properties:cache')), 'not implemented exception');
+  private getFromViewCache(key: string): any {
+    return this.unsafe.tryUnsafeCode(() => JSON.parse(getDOM().query(`.${key}`).getAttribute(key)), 'not implemented exception');
   }
 
   constructor(
