@@ -10,6 +10,7 @@ import { SocialService } from '../services/social.service';
 import { PropertyService, Property, PropertyImages, PropertyReviews, SimilarProperties,
   PropertyMap, MapOptions, PropertyAmenities, PropertyAction, PropertyActionState, PropertyActionStates, PropertyActionsGroup } from './index';
 import { BASE_API_URL } from '../config'
+import { HttpService } from '../services/http.service';
 
 import { StickDirective } from '../sticky.directive';
 
@@ -129,7 +130,8 @@ export class PropertyView implements OnDestroy {
     private userService: UserService,
     private unsafe: ServerUnsafeService,
     private seoService: SeoService,
-    private socialService: SocialService
+    private socialService: SocialService,
+    private http: HttpService
   ) {
   }
 
@@ -178,11 +180,17 @@ export class PropertyView implements OnDestroy {
         type: 'POST',
         maxFileSize: 999000,
         acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
-        add: function(e, data) {
+        add: (e, data) => {
+          let h = { };
+          this.http.headers.forEach((values: string[], name: string) => {
+            h[name] = values[0];
+          });
+          delete h['Content-Type'];
+          data.headers = h;
           console.log("file add");
           data.submit();
         },
-        done: function(e, data) {
+        done: (e, data) => {
           console.log(data);
         }
       });
