@@ -28,7 +28,7 @@ declare let require: (string) => string;
   <div>
     <div class="top-bar" id="top-menu">
       <div class="top-bar-title">
-        <img src="/assets/images/logo_hor_dpPurp_205x58.png" alt="Roomhere"/>
+        <img src="/assets/images/logo_hor_dpPurp_205x58.png" alt="Roomhere" [routerLink]=" ['./home'] "/>
       </div>
       <div class="top-bar-right">
         <ul class="menu">
