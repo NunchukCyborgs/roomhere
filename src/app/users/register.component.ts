@@ -11,64 +11,7 @@ declare let $: any;
 @Component({
   selector: 'register',
   directives: [REACTIVE_FORM_DIRECTIVES, FORM_DIRECTIVES, ControlMessages],
-  styles: [`
-.signup-panel {
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  padding: 15px;
-  margin-top: 30px;
-}
-.signup-panel i {
-  font-size: 30px;
-  line-height: 50px;
-  color: #999;
-}
-.signup-panel form input, .signup-panel form span {
-  height: 50px;
-}
-.signup-panel .welcome {
-  font-size: 26px;
-  text-align: center;
-  margin-left: 0;
-}
-.signup-panel p {
-  font-size: 13px;
-  font-weight: 200;
-}
-.signup-panel .button {
-  width: 50%;
-}
-.signup-panel form input, .signup-panel form span {
-    height: 50px;
-}
-span.prefix, label.prefix {
-    background: #f2f2f2;
-    border-color: #d9d9d9;
-    border-right: none;
-    color: #333;
-}
-.prefix, .postfix {
-    display: block;
-    position: relative;
-    z-index: 2;
-    text-align: center;
-    width: 100%;
-    padding-top: 0;
-    padding-bottom: 0;
-    border-style: solid;
-    border-width: 1px;
-    overflow: hidden;
-    font-size: 0.875em;
-    height: 2.3125em;
-    line-height: 2.3125em;
-}
-
-@media screen and (max-width: 39.9375em) {
-.signup-panel .button {
-    width: 90%;
-}
-}
-  `],
+  styles:[require('./modal/modal.component.scss').toString()],
   template: `
   <div>
     <button class="close-button" data-close aria-label="Close modal" type="button">
@@ -108,7 +51,7 @@ span.prefix, label.prefix {
                     </div>
                     <p class="text-center"><button type="submit" class="button large" [attr.disabled]="!registerForm.valid||getConfirmPasswordMatchMessage()?true:null">Create an Account!</button></p>
                 </form>
-                <p class="text-center" [class.hide]="success">Already have an account? <a data-open="LoginModal">Login here</a>
+                <p class="text-center" [class.hide]="success">Already have an account? <a data-open="LoginModal" (click)="closeModal()">Login here</a>
                 </p>
                 <div [class.hide]="!success || serverErrors.length" class="callout success">
                     <h5>Success!</h5>
