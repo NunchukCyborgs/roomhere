@@ -11,7 +11,7 @@ declare let $: any;
 @Component({
   selector: 'reset-password',
   directives: [REACTIVE_FORM_DIRECTIVES, FORM_DIRECTIVES, ControlMessages],
-  styles: [],
+  styles:[require('./modal/modal.component.scss').toString()],
   template: `
   <div>
     <button class="close-button" data-close aria-label="Close modal" type="button">
