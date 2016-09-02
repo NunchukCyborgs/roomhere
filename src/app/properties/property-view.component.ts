@@ -166,12 +166,8 @@ export class PropertyView implements OnDestroy {
 
   private imageUploadInit() {
     this.unsafe.tryUnsafeCode(() => {
-      console.log('loading');
-
       const fileUpload = $('#FileUpload');
       const URL = `${BASE_API_URL}/properties/${this.property.slug}/images`;
-
-      console.log(fileUpload);
 
       fileUpload.fileupload({
         // Uncomment the following to send cross-domain cookies:
@@ -187,11 +183,11 @@ export class PropertyView implements OnDestroy {
           });
           delete h['Content-Type'];
           data.headers = h;
-          console.log("file add");
           data.submit();
         },
         done: (e, data) => {
-          console.log(data);
+          let x = data.jqXHR;
+          this.http.setAuthHeaders(x.getResponseHeader('access-token'), x.getResponseHeader('client'), x.getResponseHeader('uid'));
         }
       });
 
