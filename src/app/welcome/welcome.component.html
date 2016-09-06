@@ -8,10 +8,10 @@
             <p>Price Range</p>
           </div>
 
-          <property-slider [facet]="facet" (applyFacet)="applyFacet($event)"></property-slider>
+          <property-slider [facet]="facet" (applyFacet)="pageNumber = 1; applyFacet($event)"></property-slider>
 
           <div class="large-12 columns">
-            <property-filters [(showFilters)]="showFilters" [facet]="facet" (applyFacet)="applyFacet($event)"></property-filters>
+            <property-filters [(showFilters)]="showFilters" [facet]="facet" (applyFacet)="pageNumber = 1; applyFacet($event)"></property-filters>
           </div>
 
         </div>

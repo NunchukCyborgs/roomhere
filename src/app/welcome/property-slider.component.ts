@@ -56,6 +56,9 @@ export class PropertySlider implements AfterViewInit {
     this.minPrice = options.start ? options.start : this.minPrice;
     
     if (this.minPrice && this.maxPrice) {
+      this.facet.min_price = this.minPrice;
+      this.facet.max_price = this.maxPrice;
+      this.applyFacet.emit(this.facet);
       this.unsafe.tryUnsafeCode(() => new Foundation.Slider($('.slider'), { start: this.minPrice, end: this.maxPrice }), 'Foundation undefined');
     }
   }
