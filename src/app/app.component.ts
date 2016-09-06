@@ -28,11 +28,11 @@ declare let require: (string) => string;
   <div>
     <div class="top-bar" id="top-menu">
       <div class="top-bar-title">
-        <img src="/assets/images/logo_hor_dpPurp_205x58.png" alt="Roomhere" [routerLink]=" ['./home'] "/>
+        <a [routerLink]="['']"><img src="/assets/images/logo_hor_dpPurp_205x58.png" alt="Roomhere"/></a>
       </div>
       <div class="top-bar-right">
         <ul class="menu">
-          <li><a [routerLinkActive]="['active', 'router-link-active']" [routerLink]=" ['./home'] ">Home</a></li>
+          <li><a [routerLinkActive]="['active', 'router-link-active']" [routerLink]="['']">Home</a></li>
           <li *ngIf="!(hasAuth$ | async)"><a data-open="RegisterModal">
             Create an Account</a>
           </li>
