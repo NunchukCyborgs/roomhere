@@ -10,6 +10,9 @@ declare let Foundation: any;
   moduleId: __filename,
   selector: 'property-slider',
   styles: [`
+    input {
+      min-width: 60px;
+    }
   `],
   template: `
     <div class="large-2 medium-2 small-3 columns">
