@@ -12,63 +12,7 @@ declare let $: any;
 @Component({
   selector: 'forgot-password',
   directives: [REACTIVE_FORM_DIRECTIVES, FORM_DIRECTIVES, ControlMessages],
-  styles: [`
-  .forgot-password-panel {
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  padding: 15px;
-  margin-top: 30px;
-}
-.forgot-password-panel i {
-  font-size: 30px;
-  line-height: 50px;
-  color: #999;
-}
-.forgot-password-panel form input, .forgot-password-panel form span {
-  height: 50px;
-}
-.forgot-password-panel .welcome {
-  font-size: 26px;
-  text-align: center;
-  margin-left: 0;
-}
-.forgot-password-panel p {
-  font-size: 13px;
-  font-weight: 200;
-}
-.forgot-password-panel .button {
-    width: 50%;
-}
-.forgot-password-panel form input, .forgot-password-panel form span {
-    height: 50px;
-}
-span.prefix, label.prefix {
-    background: #f2f2f2;
-    border-color: #d9d9d9;
-    border-right: none;
-    color: #333;
-}
-.prefix, .postfix {
-    display: block;
-    position: relative;
-    z-index: 2;
-    text-align: center;
-    width: 100%;
-    padding-top: 0;
-    padding-bottom: 0;
-    border-style: solid;
-    border-width: 1px;
-    overflow: hidden;
-    font-size: 0.875em;
-    height: 2.3125em;
-    line-height: 2.3125em;
-}
-@media screen and (max-width: 39.9375em) {
-.forgot-password-panel .button {
-    width: 90%;
-}
-}
-  `],
+ styles:[require('./modal/modal.component.scss').toString()],
   template: `
 <div>
     <button class="close-button" data-close aria-label="Close modal" type="button">
