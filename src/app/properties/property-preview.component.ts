@@ -19,7 +19,10 @@ declare let require: (string) => string;
       </div>
 
       <div class="image-overlay-content">
-          <h2 class="js-description">{{property.bedrooms}} Bedroom {{property.bathrooms}} Bath</h2>
+          <h2 class="js-description">
+            <div>{{property.bedrooms}} Bedroom</div>
+            <div>{{property.bathrooms}} Bath</div>
+          </h2>
           <p class="js-price price">{{ property.price | currency : "USD" : true : "1.0-0" }}</p><a class="js-property-link button large" >View Now</a>
       </div>
     <h5 class="js-address-line-1">{{property.address1}}</h5>
