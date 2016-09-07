@@ -76,13 +76,17 @@ export class PropertyService {
     }, 'not implemented exception');
   }
 
+  public deleteImage(property: Property, imageId: number) {
+    //this.http.delete(`${BASE_API_URL}/properties/${property.slug}`);
+  }
+
   constructor(
     private unsafe: ServerUnsafeService,
     private http: HttpService,
     private renderer: Renderer,
     @Inject(DOCUMENT) private document: any
   ) {
-    // Cache the base case. This request gets auto cancelled by angular 
+    // Cache the base case. This request gets auto cancelled by angular
     // during application init, but we need this to be view cached
     // in our custom shitty view caching system
     this.getFilteredProperties$(new PropertyFacet()).subscribe();

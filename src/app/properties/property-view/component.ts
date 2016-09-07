@@ -8,9 +8,9 @@ import { ServerUnsafeService } from '../../services/server-unsafe.service';
 import { SeoService } from '../../services/seo.service';
 import { SocialService } from '../../services/social.service';
 import { PropertyService, Property, PropertyImages, PropertyReviews, SimilarProperties, PropertyEditImage,
-  PropertyMap, MapOptions, PropertyAmenities, PropertyAction, PropertyActionState, PropertyActionStates, PropertyActionsGroup } from './index';
-import { BASE_API_URL } from '../config'
-import { HttpService } from '../services/http.service';
+  PropertyMap, MapOptions, PropertyAmenities, PropertyAction, PropertyActionState, PropertyActionStates, PropertyActionsGroup } from '../index';
+import { BASE_API_URL } from '../../config'
+import { HttpService } from '../../services/http.service';
 
 import { StickDirective } from '../../sticky.directive';
 

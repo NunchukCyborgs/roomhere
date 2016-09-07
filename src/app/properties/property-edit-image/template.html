@@ -1,0 +1,4 @@
+<div class="column image-wrapper">
+  <img *ngIf="imageUrl" class="js-property-image edit-property-image" [src]="BASE_API_URL + imageUrl" />
+  <a href="#" (click)="delete()" class="image-delete"><i class="fa fa-ban"></i></a>
+</div>
