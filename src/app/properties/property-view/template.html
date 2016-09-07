@@ -25,8 +25,7 @@
                     </div>
                     <div class="callout columns small-6 medium-4 stat end text-center" data-equalizer-watch>
                         <div class="ver-center"><span class="stat">{{property?.price | currency:'USD':true}}</span><span class="hide-for-small-only">/mo.</span>
-                            <p
-                                class="show-for-small-only">/mo.</p>
+                            <p class="show-for-small-only">/mo.</p>
                         </div>
                         <p *ngIf="property?.lease_length">Lease: {{property?.lease_length}} months</p>
                     </div>
@@ -86,9 +85,13 @@
                                         </label>
                                     </div>
                                     <div class="medium-9 large-10 text-left end columns">
-                                      <div id="dropzone" class="fade well">Drop images here (.jpg or .png)</div>
+                                        <div id="dropzone" class="fade well">Drop images here <small>(.jpg or .png)</small></div>
                                         <input id="FileUpload" type="file" name="property[files][]" multiple>
                                     </div>
+                                </div>
+                                <div class="row small-up-1 medium-up-3 large-up-6 gallery">
+                                    <property-edit-image *ngFor="let img of property?.images" [(property)]="property" [(imageUrl)]="img.url" [(imageId)]="img.id"></property-edit-image>
+                                    <upload-progress *ngFor="let file of pendingFiles" class="column" [fileName]="file.fileName" [progress]="file.progress"></upload-progress>
                                 </div>
                             </div>
                             <div class="column small-12 large-6">
@@ -99,9 +102,6 @@
                                 <div class="marg-top">
                                     <property-amenities *ngIf="property?.amenities && isEditing" [(amenities)]="property.amenities" [isEditing]="isEditing"></property-amenities>
                                 </div>
-                            </div>
-                            <div [class.hide]="!isEditing" class="row small-up-1 medium-up-3 large-up-6 gallery">
-                              <property-edit-image *ngFor="let img of property?.images; let i = index;" class="column" [(property)]="property" [(imageUrl)]="img.url" [(imageId)]="img.id"></property-edit-image>
                             </div>
                         </div>
                         <div class="row">
