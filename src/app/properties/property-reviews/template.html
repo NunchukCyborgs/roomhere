@@ -1,13 +1,4 @@
-import { Component, Input } from '@angular/core';
-import { PropertyService, Property } from './index';
-
-@Component({
-  moduleId: __filename,
-  selector: 'property-reviews',
-  styles: [`
-  `],
-  template: `
-    <div>
+<div>
       <h4>Reviews</h4>
       <div class="media-object stack-for-small">
           <div class="media-object-section"><img class="thumbnail" src="http://placehold.it/200x200"></div>
@@ -35,9 +26,3 @@ import { PropertyService, Property } from './index';
       </label>
       <button class="button">Submit Review</button>
     </div>
-  `
-})
-export class PropertyReviews {
-  @Input() property: Property;
-
-}

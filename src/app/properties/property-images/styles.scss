@@ -1,0 +1,46 @@
+    .item.carousel-item {
+      opacity: 0;
+      transition: opacity 0.4s ease-in;
+      -ms-transition: opacity 0.4s ease-in;
+      -moz-transition: opacity 0.4s ease-in;
+      -webkit-transition: opacity 0.4s ease-in;
+    }
+    
+    .item.carousel-item.active {
+        opacity: 1;
+        transition: opacity 0.4s ease-out;
+        -ms-transition: opacity 0.4s ease-out;
+        -moz-transition: opacity 0.4s ease-out;
+        -webkit-transition: opacity 0.4s ease-out;
+    }​
+
+    carousel {
+      width: 100%;
+    }
+
+    carousel, .image {
+      height: 550px !important;
+    }
+
+    .image {
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+
+    @media (max-width: 1024px) {
+      carousel, .image {
+        height: 500px !important;
+      }
+    }
+
+    @media (max-width: 640px) {
+      carousel, .image {
+        height: 400px !important;
+      }
+    }
+
+    @media (max-width: 480px) {
+      carousel, .image {
+        height: 300px !important;
+      }
+    }

@@ -48,7 +48,6 @@ app.get('/', ngApp);
 app.get('/faq', ngApp);
 app.get('/privacy-policy', ngApp);
 app.get('/properties/:slug', ngApp);
-app.get('/properties/:slug/edit', ngApp);
 
 // use indexFile over ngApp only when there is too much load on the server
 function indexFile(req, res) {
