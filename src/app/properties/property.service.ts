@@ -23,10 +23,8 @@ export class PropertyService {
     const cache = this.getFromViewCache(KEY);
     let sequence;
     if (cache) {
-      console.log('cache hit. page: ', pageNumber);
       sequence = Observable.of(cache);
     } else {
-      console.log('cache miss. page: ', pageNumber);
       sequence = this.http
         .post(`${BASE_API_URL}/properties/filtered_results`, { facets: facet, page: pageNumber, per_page: perPage })
         .map(i => i.json())
