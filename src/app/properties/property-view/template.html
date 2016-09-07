@@ -1,6 +1,7 @@
 <div class="property-view-container">
     <div stick class="callout hide-for-small-only call-to-actions--top property-actions-group-top">
-        <property-actions-group (submit)="doPropertyAction(propertyActionState.state)" [actionText]="isEditing ? 'Update Property' : propertyActionState?.text" (shareFacebook)="shareFacebook()" [tweetText]="tweetText"></property-actions-group>
+        <property-actions-group (submit)="doPropertyAction(propertyActionState.state)" [actionText]="isEditing ? 'Update Property' : propertyActionState?.text"
+            (shareFacebook)="shareFacebook()" [tweetText]="tweetText"></property-actions-group>
     </div>
     <property-images [images]="property?.images" *ngIf="property?.images"></property-images>
     <div class="row">
@@ -23,7 +24,10 @@
                         {{property?.bathrooms}}
                     </div>
                     <div class="callout columns small-6 medium-4 stat end text-center" data-equalizer-watch>
-                        <div class="ver-center"><span class="stat">{{property?.price | currency:'USD':true}}</span><span class="hide-for-small-only">/mo.</span><p class="show-for-small-only">/mo.</p></div>
+                        <div class="ver-center"><span class="stat">{{property?.price | currency:'USD':true}}</span><span class="hide-for-small-only">/mo.</span>
+                            <p
+                                class="show-for-small-only">/mo.</p>
+                        </div>
                         <p *ngIf="property?.lease_length">Lease: {{property?.lease_length}} months</p>
                     </div>
                 </div>
@@ -32,7 +36,7 @@
                         <h3>{{property?.address1}}</h3>
                         <h3 *ngIf="property?.address2">{{property?.address2}}</h3>
                     </legend>
-                    <div *ngIf="isEditing" class="columns medium-12 hide-for-small-only">
+                    <div class="columns medium-12 hide-for-small-only">
                         <div class="row">
                             <div class="column medium-10 medium-push-1 large-6 large-push-0 marg-btm">
                                 <div class="row">
@@ -73,7 +77,7 @@
                                     <div class="medium-9 large-4 end text-left end columns"> Lease Length:
                                         <number-ticker [(number)]="property.lease_length" [min]="0" [max]="120">
                                         </number-ticker>
-                                         (months)
+                                        (months)
                                     </div>
                                 </div>
                                 <div class="row">
@@ -95,6 +99,13 @@
                                 <div class="marg-top">
                                     <property-amenities *ngIf="property?.amenities && isEditing" [(amenities)]="property.amenities" [isEditing]="isEditing"></property-amenities>
                                 </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="column">
+                                <button class="float-right success button" (click)="doPropertyAction(propertyActionState.state)">
+                                    Update Property
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -159,8 +170,14 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="column">
+                                <button class="float-right success button" (click)="doPropertyAction(propertyActionState.state)">
+                                    Update Property
+                                </button>
+                            </div>
+                        </div>
                     </div>
-
                 </fieldset>
             </div>
             <div class="row marg-top marg-btm">
@@ -185,7 +202,8 @@
     </div>
     <div class="row show-for-small-only callout-bottom marg-top sticky-actions">
         <div class="small-12 columns white">
-            <property-actions-group (submit)="doPropertyAction(propertyActionState.state)" [actionText]="isEditing ? 'Update Property' : propertyActionState?.text" (shareFacebook)="shareFacebook()" [tweetText]="tweetText"></property-actions-group>
+            <property-actions-group (submit)="doPropertyAction(propertyActionState.state)" [actionText]="isEditing ? 'Update Property' : propertyActionState?.text"
+                (shareFacebook)="shareFacebook()" [tweetText]="tweetText"></property-actions-group>
         </div>
     </div>
 </div>
