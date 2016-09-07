@@ -85,9 +85,9 @@
                                         <label for="ImageUpload" class="large-text-right medium-text-left"><i class="icon-picture"></i>
                                         </label>
                                     </div>
-                                    <div class="medium-9 large-4 end text-left end columns">.jpg or .png
+                                    <div class="medium-9 large-10 text-left end columns">
+                                      <div id="dropzone" class="fade well">Drop images here (.jpg or .png)</div>
                                         <input id="FileUpload" type="file" name="property[files][]" multiple>
-                                        <button (click)="uploadImage()" type="button" id="FileUpload" class="button expanded">Upload Images</button>
                                     </div>
                                 </div>
                             </div>
@@ -99,6 +99,9 @@
                                 <div class="marg-top">
                                     <property-amenities *ngIf="property?.amenities && isEditing" [(amenities)]="property.amenities" [isEditing]="isEditing"></property-amenities>
                                 </div>
+                            </div>
+                            <div [class.hide]="!isEditing" class="row small-up-1 medium-up-3 large-up-6 gallery">
+                              <property-edit-image *ngFor="let img of property?.images; let i = index;" class="column" [(property)]="property" [(imageUrl)]="img.url" [(imageId)]="img.id"></property-edit-image>
                             </div>
                         </div>
                         <div class="row">
