@@ -20,7 +20,6 @@ export class PropertyEditImage {
   constructor(private propertyService: PropertyService) { }
 
   public delete() {
-    this.propertyService.deleteImage(this.property, this.imageId);
+    this.propertyService.deleteImage(this.property, this.imageId).subscribe();
   }
-
 }

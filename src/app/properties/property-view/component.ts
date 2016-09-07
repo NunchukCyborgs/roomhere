@@ -104,8 +104,9 @@ export class PropertyView implements OnDestroy {
           data.submit();
         },
         done: (e, data) => {
-          let x = data.jqXHR;
+          const x = data.jqXHR;
           this.http.setAuthHeaders(x.getResponseHeader('access-token'), x.getResponseHeader('client'), x.getResponseHeader('uid'));
+          this.propertyService.updateLocal(data.result);
         }
       });
 

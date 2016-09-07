@@ -13,6 +13,9 @@ import { ServerUnsafeService } from '../services/server-unsafe.service';
 
 @Injectable()
 export class PropertyService {
+  public propertyBySlug$: BehaviorSubject<Property>;
+  private _propertyBySlug: Property;
+
   public lastPage$: BehaviorSubject<number> = new BehaviorSubject(Number.MAX_SAFE_INTEGER)
   private viewCaches: string[] = [];
 
@@ -33,7 +36,7 @@ export class PropertyService {
     return sequence
       .do(i => this.lastPage$.next(Math.ceil(i.total_count / perPage)))
       .do(i => this.hydrateViewCache(i, KEY))
-      .map(i => i.results)
+      .map(i => i.results);
   }
 
   public getPropertyBySlug$(slug: string): Observable<Property> {
@@ -53,11 +56,21 @@ export class PropertyService {
 
     return sequence
       .do(i => this.hydrateViewCache(i, KEY))
+      .do(i => this._propertyBySlug = i)
+      .do(() => this.propertyBySlug$ = this.propertyBySlug$ || new BehaviorSubject(this._propertyBySlug)) // do something else
+      .flatMap(i => this.updateLocal(i));
   }
 
-  public update(property: Property): Observable<Property> {
+  public update(property: Property): Observable<any> {
     return this.http.patch(`${BASE_API_URL}/properties/${property.id}`, property)
-      .map(i => i.json());
+      .map(i => i.json())
+      .flatMap(i => this.updateLocal(i));
+  }
+
+  public updateLocal(property: Property): Observable<Property> {
+    this._propertyBySlug = property;
+    this.propertyBySlug$.next(this._propertyBySlug);
+    return this.propertyBySlug$;
   }
 
   private hydrateViewCache(obj: any, key: string) {
@@ -76,8 +89,10 @@ export class PropertyService {
     }, 'not implemented exception');
   }
 
-  public deleteImage(property: Property, imageId: number) {
-    //this.http.delete(`${BASE_API_URL}/properties/${property.slug}`);
+  public deleteImage(property: Property, imageId: number): Observable<any> {
+    return this.http.delete(`${BASE_API_URL}/properties/${property.slug}/images/${imageId}`)
+      .map(i => i.json())
+      .flatMap(i => this.updateLocal(i));
   }
 
   constructor(
