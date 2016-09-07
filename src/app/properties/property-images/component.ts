@@ -1,7 +1,7 @@
 import { Component, Input, AfterViewInit } from '@angular/core';
 import { BASE_API_URL } from '../../config';
-import { Slide } from '../../slide.component';
-import { Carousel }  from '../../carousel.component';
+import { Slide } from '../../components/slide/component';
+import { Carousel }  from '../../components/carousel/component';
 
 declare let $: any;
 declare let require: (string) => string;

@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators, REACTIVE_FORM_DIRECTIVES, FORM_DIRE
 import { Observable } from 'rxjs/Observable';
 import { User, UserService } from '../index';
 import { ValidationService } from '../../services/validation.service';
-import { ControlMessages } from '../../control-messages.component';
+import { ControlMessages } from '../../components/control-messages/component';
 
 declare let $: any;
 declare let require: (string) => string;

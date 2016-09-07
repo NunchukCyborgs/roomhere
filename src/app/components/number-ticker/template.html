@@ -1,0 +1,12 @@
+<div class="row collapse purp number-ticker">
+      <div class="small-2 text-center columns">
+        <button type="button" (click)="increment(-1)"><i class="icon-minus"></i></button>
+      </div>
+      <div class="small-8 text-center columns">
+        <input type="number" [min]="min" [max]="max" [value]="number" pattern="[0-9]*" inputmode="numeric"
+        (change)="number = $event.target.value; increment(0)" />
+      </div>
+      <div class="small-2 text-center columns">
+        <button type="button" (click)="increment(1)"><i class="icon-plus"></i></button>
+      </div>
+    </div>

@@ -1,10 +1,13 @@
 import { Component, Input } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
-import { ValidationService } from './services/validation.service';
+import { ValidationService } from '../../services/validation.service';
+
+declare let require: (string) => string;
 
 @Component({
   selector: 'control-messages',
-  template: `<div><ng-content></ng-content><span *ngIf="errorMessage !== null">{{errorMessage}}</span></div>`
+  styles: [require('./styles.scss').toString()],
+  templateUrl: 'template.html',
 })
 export class ControlMessages {
   @Input() control: FormControl;
@@ -15,7 +18,7 @@ export class ControlMessages {
         return ValidationService.getValidatorErrorMessage(propertyName, this.control.errors[propertyName]);
       }
     }
-    
+
     return null;
   }
 }
