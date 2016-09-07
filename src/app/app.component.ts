@@ -11,14 +11,16 @@ import { FacetsService } from './services/facets.service';
 import { SeoService } from './services/seo.service';
 import { SocialService } from './services/social.service'
 import { UtilService } from './services/util.service';
+
 import { Login, Register, ForgotPassword, ResetPassword, UserService } from './users/index';
+import { StickyFooter } from './footer/component';
 
 declare let $: any;
 declare let require: (string) => string;
 
 @Component({
   selector: 'app',
-  directives: [...ROUTER_DIRECTIVES, Login, Register, ForgotPassword, ResetPassword],
+  directives: [...ROUTER_DIRECTIVES, Login, Register, ForgotPassword, ResetPassword, StickyFooter],
   providers: [FormBuilder, PropertyService, GoogleApiService, UserService, HttpService, 
   ServerUnsafeService, FacetsService, SeoService, SocialService, UtilService],
   encapsulation: ViewEncapsulation.None,
@@ -53,6 +55,7 @@ declare let require: (string) => string;
           <reset-password class="reveal small" id="ResetPasswordModal" data-reveal></reset-password>
         </div>
     </div>
+    <sticky-footer></sticky-footer>
   `
 })
 export class App implements OnInit {

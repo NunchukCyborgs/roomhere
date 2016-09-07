@@ -144,3 +144,10 @@ control-messages{
 .pagination li {
   display: inline-block;
 }
+
+body {
+  position: relative;
+  padding-bottom: 6rem;
+  min-height: 100%;
+  height: initial;
+}
