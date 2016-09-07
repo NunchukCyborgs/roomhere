@@ -11,18 +11,16 @@ import { FacetsService } from './services/facets.service';
 import { SeoService } from './services/seo.service';
 import { SocialService } from './services/social.service'
 import { UtilService } from './services/util.service';
-import { Login, Register, UserService } from './users/index';
+
+import { Login, Register, ForgotPassword, ResetPassword, UserService } from './users/index';
+import { StickyFooter } from './footer/component';
 
 declare let $: any;
 declare let require: (string) => string;
 
 @Component({
   selector: 'app',
-  directives: [
-    ...ROUTER_DIRECTIVES,
-    Login,
-    Register
-  ],
+  directives: [...ROUTER_DIRECTIVES, Login, Register, ForgotPassword, ResetPassword, StickyFooter],
   providers: [FormBuilder, PropertyService, GoogleApiService, UserService, HttpService, 
   ServerUnsafeService, FacetsService, SeoService, SocialService, UtilService],
   encapsulation: ViewEncapsulation.None,
@@ -32,11 +30,11 @@ declare let require: (string) => string;
   <div>
     <div class="top-bar" id="top-menu">
       <div class="top-bar-title">
-        <img src="/assets/images/logo_hor_dpPurp_205x58.png" alt="Roomhere"/>
+        <a [routerLink]="['']"><img src="/assets/images/logo_hor_dpPurp_205x58.png" alt="Roomhere"/></a>
       </div>
       <div class="top-bar-right">
         <ul class="menu">
-          <li><a [routerLinkActive]="['active', 'router-link-active']" [routerLink]=" ['./home'] ">Home</a></li>
+          <li><a [routerLinkActive]="['active', 'router-link-active']" [routerLink]="['']">Home</a></li>
           <li *ngIf="!(hasAuth$ | async)"><a data-open="RegisterModal">
             Create an Account</a>
           </li>
@@ -53,8 +51,11 @@ declare let require: (string) => string;
         <div hidden>
           <register class="reveal small" id="RegisterModal" data-reveal></register>
           <login class="reveal small" id="LoginModal" data-reveal></login>
+          <forgot-password class="reveal small" id="ForgotPasswordModal" data-reveal></forgot-password>
+          <reset-password class="reveal small" id="ResetPasswordModal" data-reveal></reset-password>
         </div>
     </div>
+    <sticky-footer></sticky-footer>
   `
 })
 export class App implements OnInit {
@@ -65,6 +66,12 @@ export class App implements OnInit {
   
   ngOnInit() {
     this.router.events.subscribe(() => this.unsafe.tryUnsafeCode(() => $('body').foundation(), '$ not defined'))
+    this.router.routerState.queryParams
+      .subscribe(params => { 
+        if (params['reset_password'] === 'true') {
+          this.unsafe.tryUnsafeCode(() => $('#ResetPasswordModal').foundation('open'), '$ is undefined');
+        }
+      });
   }
 
   logout() {

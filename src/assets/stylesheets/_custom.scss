@@ -141,7 +141,6 @@ control-messages{
   position: fixed !important;
 }
 
-
 .large-text-right {
   @include breakpoint(large only) {
     text-align: right;
@@ -194,4 +193,15 @@ control-messages{
   @include breakpoint(small up) {
     text-align: left;
   }
+}
+
+.pagination li {
+  display: inline-block;
+}
+
+body {
+  position: relative;
+  padding-bottom: 6rem;
+  min-height: 100%;
+  height: initial;
 }

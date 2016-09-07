@@ -10,6 +10,9 @@ declare let Foundation: any;
   moduleId: __filename,
   selector: 'property-slider',
   styles: [`
+    input {
+      min-width: 60px;
+    }
   `],
   template: `
     <div class="large-2 medium-2 small-3 columns">
@@ -53,6 +56,9 @@ export class PropertySlider implements AfterViewInit {
     this.minPrice = options.start ? options.start : this.minPrice;
     
     if (this.minPrice && this.maxPrice) {
+      this.facet.min_price = this.minPrice;
+      this.facet.max_price = this.maxPrice;
+      this.applyFacet.emit(this.facet);
       this.unsafe.tryUnsafeCode(() => new Foundation.Slider($('.slider'), { start: this.minPrice, end: this.maxPrice }), 'Foundation undefined');
     }
   }

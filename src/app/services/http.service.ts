@@ -36,7 +36,7 @@ export class HttpService {
   public setAuthHeaders(token?: string, client?: string, uid?: string): void {
     this.headers.set('access-token', token);
     this.headers.set('client', client);
-    this.headers.set('uid', uid);
+    this.headers.set('uid', decodeURIComponent(uid));
     this.headers.set('token-type', 'Bearer');
 
     this.unsafe.tryUnsafeCode(() => {

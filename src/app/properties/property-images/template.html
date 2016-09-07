@@ -1,0 +1,5 @@
+<carousel [interval]="interval" [noWrap]="noLoop">
+       <slide *ngFor="let slidez of slides; let i=index" [active]="slidez.active">
+        <div [style.background-image]="'url(' + slidez.image + ')'" class="image"></div>
+      </slide>
+    </carousel>

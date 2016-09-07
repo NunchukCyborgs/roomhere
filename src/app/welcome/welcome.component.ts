@@ -21,10 +21,6 @@ const MAP_ZOOM_LEVEL = 13;
         overflow: hidden;
         position: relative;
     }
-    body{
-        margin: 0px;
-        height: 100%;
-    }
     .rental{
         margin-bottom: 50px;
     }
