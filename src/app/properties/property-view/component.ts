@@ -2,8 +2,10 @@ import { Component, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
+
 import { UserService } from '../../users/index';
 import { NumberTicker } from '../../components/number-ticker/component';
+import { UploadProgress } from '../../components/upload-progress/component';
 import { ServerUnsafeService } from '../../services/server-unsafe.service';
 import { SeoService } from '../../services/seo.service';
 import { SocialService } from '../../services/social.service';
@@ -11,20 +13,19 @@ import { PropertyService, Property, PropertyImages, PropertyReviews, SimilarProp
   PropertyMap, MapOptions, PropertyAmenities, PropertyAction, PropertyActionState, PropertyActionStates, PropertyActionsGroup } from '../index';
 import { BASE_API_URL } from '../../config'
 import { HttpService } from '../../services/http.service';
-
 import { StickDirective } from '../../sticky.directive';
-
-const ZOOM_LEVEL: number = 16;
-const HEIGHT: string = '100px';
 
 declare let $: any;
 declare let require: (string) => string;
+
+const ZOOM_LEVEL: number = 16;
+const HEIGHT: string = '100px';
 
 @Component({
   moduleId: __filename,
   selector: 'property-view',
   directives: [PropertyReviews, SimilarProperties, PropertyMap, PropertyImages,
-    PropertyAmenities, NumberTicker, PropertyActionsGroup, StickDirective, PropertyEditImage],
+    PropertyAmenities, NumberTicker, PropertyActionsGroup, StickDirective, PropertyEditImage, UploadProgress],
   styles: [require('./styles.scss').toString()],
   templateUrl: 'template.html'
 })
@@ -35,6 +36,7 @@ export class PropertyView implements OnDestroy {
   public isEditing: boolean = false;
   public tweetText: string;
   private dropZoneTimeout: number;
+  private pendingFiles: Array<{fileName: string, progress: number}> = [];
 
   constructor(
     private router: Router,
@@ -91,10 +93,9 @@ export class PropertyView implements OnDestroy {
         maxFileSize: 999000,
         acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
         add: (e, data) => {
+          const file = data.files[0];
+          this.pendingFiles.push({fileName: this.getFileName(data), progress: 0});
           $('#dropzone').removeClass("in");
-          $.each(data.files, (index, file) => {
-            console.log('Added file: ' + file.name);
-          });
           let h = { };
           this.http.headers.forEach((values: string[], name: string) => {
             h[name] = values[0];
@@ -107,7 +108,13 @@ export class PropertyView implements OnDestroy {
           const x = data.jqXHR;
           this.http.setAuthHeaders(x.getResponseHeader('access-token'), x.getResponseHeader('client'), x.getResponseHeader('uid'));
           this.propertyService.updateLocal(data.result);
-        }
+          this.pendingFiles.splice(this.pendingFiles.map(i => i.fileName).indexOf(this.getFileName(data)));
+        },
+        progress: (e, data) => {
+          const file = this.pendingFiles[this.pendingFiles.map(i => i.fileName).indexOf(this.getFileName(data))];
+          const progress = Number(data.loaded / data.total * 100);
+          file.progress = progress;
+        },
       });
 
       fileUpload.fileupload(
@@ -136,6 +143,10 @@ export class PropertyView implements OnDestroy {
         }
       });
     }, '$ is undefined');
+  }
+
+  private getFileName(data: any): string {
+    return data.files[0].name.replace(/[^a-z0-9]/ig, '');
   }
 
 
