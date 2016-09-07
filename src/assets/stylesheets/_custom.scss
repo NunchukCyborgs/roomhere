@@ -141,6 +141,60 @@ control-messages{
   position: fixed !important;
 }
 
+.large-text-right {
+  @include breakpoint(large only) {
+    text-align: right;
+  }
+}
+
+.large-text-center {
+  @include breakpoint(large only) {
+    text-align: center;
+  }
+}
+
+.large-text-left {
+  @include breakpoint(large only) {
+    text-align: left;
+  }
+}
+
+.medium-text-right {
+  @include breakpoint(medium up) {
+    text-align: right;
+  }
+}
+
+.medium-text-center {
+  @include breakpoint(medium up) {
+    text-align: center;
+  }
+}
+
+.medium-text-left {
+  @include breakpoint(medium up) {
+    text-align: left;
+  }
+}
+
+.small-text-right {
+  @include breakpoint(small up) {
+    text-align: right;
+  }
+}
+
+.small-text-center {
+  @include breakpoint(small up) {
+    text-align: center;
+  }
+}
+
+.small-text-left {
+  @include breakpoint(small up) {
+    text-align: left;
+  }
+}
+
 .pagination li {
   display: inline-block;
 }
@@ -151,3 +205,31 @@ body {
   min-height: 100%;
   height: initial;
 }
+
+/*******Dropzone********/
+
+#FileUpload {
+  display: none;
+}
+
+#dropzone {
+    background: #fefefe;
+    border: 1px dashed #999;
+    width: 100%;
+    height: 140px;
+    line-height: 50px;
+    text-align: center;
+    padding-top: 25px;
+    color: #44254a;
+    font-weight: bold;
+}
+
+#dropzone.in {
+  background: palegreen;
+}
+
+#dropzone:hover {
+    background: #ddd;
+}
+
+/**************************/

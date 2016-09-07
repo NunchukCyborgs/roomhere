@@ -8,4 +8,5 @@ export { PropertyMap, MapOptions } from '../welcome/property-map.component';
 export { PropertyPreview } from './property-preview/component'
 export { PropertyAmenities } from './property-amenities/component';
 export { PropertyActionsGroup } from './property-actions-group/component';
+export { PropertyEditImage } from './property-edit-image/component';
 export { PropertyView } from './property-view/component';

@@ -7,8 +7,10 @@ import { NumberTicker } from '../../components/number-ticker/component';
 import { ServerUnsafeService } from '../../services/server-unsafe.service';
 import { SeoService } from '../../services/seo.service';
 import { SocialService } from '../../services/social.service';
-import { PropertyService, Property, PropertyImages, PropertyReviews, SimilarProperties,
+import { PropertyService, Property, PropertyImages, PropertyReviews, SimilarProperties, PropertyEditImage,
   PropertyMap, MapOptions, PropertyAmenities, PropertyAction, PropertyActionState, PropertyActionStates, PropertyActionsGroup } from '../index';
+import { BASE_API_URL } from '../../config'
+import { HttpService } from '../../services/http.service';
 
 import { StickDirective } from '../../sticky.directive';
 
@@ -22,7 +24,7 @@ declare let require: (string) => string;
   moduleId: __filename,
   selector: 'property-view',
   directives: [PropertyReviews, SimilarProperties, PropertyMap, PropertyImages,
-    PropertyAmenities, NumberTicker, PropertyActionsGroup, StickDirective],
+    PropertyAmenities, NumberTicker, PropertyActionsGroup, StickDirective, PropertyEditImage],
   styles: [require('./styles.scss').toString()],
   templateUrl: 'template.html'
 })
@@ -32,6 +34,7 @@ export class PropertyView implements OnDestroy {
   public propertyActionState: PropertyActionState;
   public isEditing: boolean = false;
   public tweetText: string;
+  private dropZoneTimeout: number;
 
   constructor(
     private router: Router,
@@ -40,7 +43,8 @@ export class PropertyView implements OnDestroy {
     private userService: UserService,
     private unsafe: ServerUnsafeService,
     private seoService: SeoService,
-    private socialService: SocialService
+    private socialService: SocialService,
+    private http: HttpService
   ) {
   }
 
@@ -51,6 +55,7 @@ export class PropertyView implements OnDestroy {
           this.propertyService.update(this.property).subscribe(() => this.isEditing = false);
         } else {
           this.isEditing = true;
+          this.imageUploadInit();
         }
         break;
       case PropertyActionStates.Claim:
@@ -70,6 +75,77 @@ export class PropertyView implements OnDestroy {
     });
 
     this.socialService.facebookInit();
+  }
+
+  private imageUploadInit() {
+    this.unsafe.tryUnsafeCode(() => {
+      const fileUpload = $('#FileUpload');
+      const URL = `${BASE_API_URL}/properties/${this.property.slug}/images`;
+
+      fileUpload.fileupload({
+        // Uncomment the following to send cross-domain cookies:
+        withCredentials: true,
+        dropZone: $('#dropzone'),
+        url: URL,
+        type: 'POST',
+        maxFileSize: 999000,
+        acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
+        add: (e, data) => {
+          $('#dropzone').removeClass("in");
+          $.each(data.files, (index, file) => {
+            console.log('Added file: ' + file.name);
+          });
+          let h = { };
+          this.http.headers.forEach((values: string[], name: string) => {
+            h[name] = values[0];
+          });
+          delete h['Content-Type'];
+          data.headers = h;
+          data.submit();
+        },
+        done: (e, data) => {
+          const x = data.jqXHR;
+          this.http.setAuthHeaders(x.getResponseHeader('access-token'), x.getResponseHeader('client'), x.getResponseHeader('uid'));
+          this.propertyService.updateLocal(data.result);
+        }
+      });
+
+      fileUpload.fileupload(
+        'option',
+        'redirect',
+        window.location.href.replace(
+          /\/[^\/]*$/,
+          '/cors/result.html?%s'
+        )
+      );
+      $(document).bind('dragover', (e) => {
+        let dropZone = $('#dropzone');
+        var found = false,
+        node = e.target;
+        do {
+          if (node === dropZone[0]) {
+            found = true;
+            break;
+          }
+          node = node.parentNode;
+        } while (node != null);
+        if (found) {
+          dropZone.addClass('in');
+        } else {
+          dropZone.removeClass('in');
+        }
+      });
+    }, '$ is undefined');
+  }
+
+
+  public uploadImage() {
+
+
+    // Enable iframe cross-domain access via redirect option:
+
+    // Load existing files:
+    // fileUpload.addClass('fileupload-processing');
   }
 
   private sub: Subscription;

@@ -1,0 +1,26 @@
+.edit-property-image {
+  height: 150px;
+}
+
+.image-delete {
+  display:none;
+  position:absolute;
+  top: 0;
+  right:36px;
+  font-size: 30px;
+  color: white;
+  width:15px;
+  height:15px;
+}
+
+.image-wrapper {
+  position: relative;
+}
+
+.image-wrapper:hover .image-delete {
+  display:block;
+}
+
+.image-delete:hover {
+  color: #CCC;
+}

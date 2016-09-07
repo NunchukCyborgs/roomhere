@@ -21,6 +21,12 @@ export class HttpService {
       .catch((err, caught) => this.handleError(err, url));
   }
 
+  public delete(url: string): Observable<any> {
+    return this.http.delete(url, { headers: this.headers })
+      .do(i => this.updateHeaders(i.headers))
+      .catch((err, caught) => this.handleError(err, url));
+  }
+
   public post(url: string, obj: any): Observable<any> {
     return this.http.post(url, JSON.stringify(obj), { headers: this.headers })
       .do(i => this.updateHeaders(i.headers))
