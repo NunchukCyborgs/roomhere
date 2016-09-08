@@ -78,6 +78,7 @@ export class PropertyView implements OnDestroy {
     this.mapOptions = {
       height: HEIGHT,
       zoomLevel: ZOOM_LEVEL,
+      interactive: false,
       center: {
         latitude: property.latitude,
         longitude: property.longitude

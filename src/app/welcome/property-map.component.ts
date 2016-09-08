@@ -13,6 +13,7 @@ declare let RichMarker: any;
 export interface MapOptions {
   zoomLevel: number;
   height?: string;
+  interactive: boolean;
   center: { latitude: number, longitude: number };
 }
 
@@ -36,14 +37,14 @@ export class PropertyMap {
   private map: any;
   private init: any;
   private markers: any[] = [];
+  private computedCenter: any;
 
-  constructor(private router: Router, private googleApi: GoogleApiService, 
-  private unsafe: ServerUnsafeService, private utilService: UtilService) { }
+  constructor(private router: Router, private googleApi: GoogleApiService,
+    private unsafe: ServerUnsafeService, private utilService: UtilService) { }
 
   public noop() { }
 
   private updateMap() {
-
     if (this.properties) {
       this.properties.map(property => {
         if (this.markers.map(marker => <number>marker.propertyid).indexOf(property.id) === -1) {
@@ -55,11 +56,13 @@ export class PropertyMap {
             propertyid: property.id
           });
 
-          marker.addListener('click', () => {
-            let link = `/properties/${property.slug}`;
-            let win = this.unsafe.tryUnsafeCode(() => window.open(link, '_blank'), 'window is not defined');
-            win.focus();
-          });
+          if (this.mapOptions.interactive) {
+            marker.addListener('click', () => {
+              let link = `/properties/${property.slug}`;
+              let win = this.unsafe.tryUnsafeCode(() => window.open(link, '_blank'), 'window is not defined');
+              win.focus();
+            });
+          }
 
           this.markers.push(marker);
         }
@@ -78,19 +81,44 @@ export class PropertyMap {
 
   private centerMapOnProperties() {
     if (this.properties && this.properties.length) {
-      const averageCoords = new google.maps.LatLng(
+      this.computedCenter = new google.maps.LatLng(
         this.properties.map(i => i.latitude).reduce((sum, x) => sum + x, 0) / (this.properties.length || 1),
         this.properties.map(i => i.longitude).reduce((sum, x) => sum + x, 0) / (this.properties.length || 1)
       )
-      this.map.panTo(averageCoords);
+      this.map.panTo(this.computedCenter);
     }
+  }
+
+  private setOptions() {
+    const options: any = {
+      disableDefaultUI: false,
+      clickableIcons: true,
+      draggable: true,
+      scrollwheel: true,
+      fullscreenControl: false,
+      disableDoubleClickZoom: false,
+    };
+
+    const nonInteractiveOptions = {
+      disableDefaultUI: true,
+      clickableIcons: false,
+      draggable: false,
+      scrollwheel: false,
+      fullscreenControl: true,
+      disableDoubleClickZoom: true,
+    };
+
+    this.map.setOptions(Object.assign(options, this.mapOptions.interactive ? {} : nonInteractiveOptions));
+
+    this.map.addListener('bounds_changed', () => this.map.setCenter(this.computedCenter));
   }
 
   ngOnInit() {
     this.id = `map${this.utilService.generateGUID()}`;
     this.init = this.googleApi.initMap().then(() => {
+      this.computedCenter = new google.maps.LatLng(this.mapOptions.center.latitude, this.mapOptions.center.longitude);
       this.map = new google.maps.Map(document.getElementById(this.id), {
-        center: new google.maps.LatLng(this.mapOptions.center.latitude, this.mapOptions.center.longitude),
+        center: this.computedCenter,
         zoom: this.mapOptions.zoomLevel,
       });
 
@@ -101,6 +129,7 @@ export class PropertyMap {
   ngOnChanges() {
     if (this.init) {
       this.init.then(() => {
+        this.setOptions();
         this.clearMap();
         this.updateMap();
         this.centerMapOnProperties();

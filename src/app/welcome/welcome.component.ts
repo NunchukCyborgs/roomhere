@@ -83,6 +83,7 @@ export class Welcome implements OnInit {
 
   private updateMapOptions() {
     this.mapOptions = {
+      interactive: true,
       height: MAP_HEIGHT,
       center: CAPE_GIRARDEU_CENTER,
       zoomLevel: MAP_ZOOM_LEVEL
