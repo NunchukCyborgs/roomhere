@@ -49,4 +49,8 @@ export class Register {
       .do((res: Response) => this.serverErrors = ValidationService.getAuthErrors(res))
       .subscribe((res: Response) => this.success = res.ok);
   }
+
+  public closeModal() {
+    $('.register-modal__close-button').click();
+  }
 }

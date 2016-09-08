@@ -1,5 +1,5 @@
 <div>
-  <button class="close-button" data-close aria-label="Close modal" type="button">
+  <button class="close-button register-modal__close-button" data-close aria-label="Close modal" type="button">
         <span aria-hidden="true">&times;</span>
     </button>
   <div class="row">
@@ -43,7 +43,9 @@
             </div>
             <control-messages [control]="registerForm.controls.confirmPassword">{{getConfirmPasswordMatchMessage()}}</control-messages>
           </div>
-          <p class="text-center"><button type="submit" class="button large" [attr.disabled]="!registerForm.valid||getConfirmPasswordMatchMessage()?true:null">Create an Account!</button></p>
+          <p class="text-center">
+            <button type="submit" class="button large" [attr.disabled]="!registerForm.valid||getConfirmPasswordMatchMessage()?true:null">Create an Account!</button>
+          </p>
         </form>
         <p class="text-center" [class.hide]="success">Already have an account? <a data-open="LoginModal" (click)="closeModal()">Login here</a>
         </p>
@@ -60,3 +62,4 @@
       </div>
     </div>
   </div>
+</div>
