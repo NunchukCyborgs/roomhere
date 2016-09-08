@@ -1,47 +1,17 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { NgClass } from '@angular/common';
 import { Observable } from 'rxjs/Observable';
-import { PropertyPreview, PropertyService, Property, PropertyFacet } from '../properties/index';
-import { FacetsService, Location, Amenity } from '../services/facets.service';
+import { PropertyPreview, PropertyService, Property, PropertyFacet } from '../../properties/index';
+import { FacetsService, Location, Amenity } from '../../services/facets.service';
+
+declare let require: (string) => string;
+
 @Component({
   moduleId: __filename,
   selector: 'property-filters',
   directives: [NgClass],
-  styles: [`
-    .wrapper {
-      position: relative;
-    }
-    .button-group a.button.selected {
-      opacity: .5;
-    }
-    .filter-buttons {
-      padding: 1px;
-    }
-    .filter-buttons a {
-      height: 100%;
-    }
-    .amenity-checkbox {
-      cursor: pointer;
-      display: table;
-      width: 100%;
-    }
-    .amenity-checkbox>div {
-      display: table-cell;
-      vertical-align: top;
-    }
-    .amenity-checkbox input {
-      margin-right: 15px;
-    }
-    .amenity-checkbox>div:last-child {
-      width: 99%;
-      text-align: left;
-    }
-    .amenity-type {
-      line-height: 1.6;
-      font-size: 90%;
-    }
-  `],
-  templateUrl: './property-filters.component.html'
+  styles:[require('./styles.scss').toString()],
+  templateUrl: 'template.html',
 })
 export class PropertyFilters {
   @Input() facet: PropertyFacet;
@@ -83,6 +53,7 @@ export class PropertyFilters {
 
   public apply() {
     this.applyFacet.emit(this.facet);
+    this.toggleShowFilters();
   }
 
   public toggleShowFilters() {
