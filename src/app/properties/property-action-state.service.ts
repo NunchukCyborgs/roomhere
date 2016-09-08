@@ -49,7 +49,7 @@ export class PropertyActionStateService {
     if (this._actionState === PropertyActionState.Editing) {
       this.isEditing$.next(this._isEditing = false);
     } else if (this._actionState === PropertyActionState.Authorized) {
-      this.isEditing$.next(this._isEditing = false);
+      this.isEditing$.next(this._isEditing = true);
     } else {
       console.log('begin rent now workflow');
     }

@@ -68,7 +68,8 @@ export class PropertyView implements OnDestroy {
 
   public updateProperty() {
     this.propertyService.update(this.property)
-      .subscribe(i => this.property = i);
+      .do(i => this.property = i)
+      .subscribe(i => this.doAction());
   }
 
   public doAction() {
