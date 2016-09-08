@@ -1,4 +1,4 @@
-  .image-wrapper {
+.image-wrapper {
     width: 95%;
     height: 95%;
     border: 1px solid rgba(0, 0, 0, 0.04);
@@ -43,7 +43,7 @@
 .overlay-fade-in h2 {
   color: #f2f2f2;
   font-size: 1.8rem;
-  margin-top: 20%;
+  margin-top: 15%;
   opacity: 0;
   transition: all 0.2s ease-in-out;
   background: rgba(0, 0, 0, 0.7);
@@ -166,9 +166,19 @@
   object-fit: cover;
 }
 
-@media (min-width: 640px) {
-  .property-image {
-    height: 100%;
-    max-height: 150px;
-  }
+@media (max-width: 640px) {
+ 
+  .overlay-fade-in p {
+  font-size: 1.4rem;
+}
+    
+  .overlay-fade-in h2 {
+  font-size: 1.4rem;
+  margin-top: 20%;
+}
+    
+  .button.large{
+  font-size: 1rem !important;
+}
+
 }
