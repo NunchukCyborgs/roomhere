@@ -1,6 +1,6 @@
 <div class="property-view-container">
     <div stick class="callout hide-for-small-only call-to-actions--top property-actions-group-top">
-        <property-actions-group (submit)="doPropertyAction(propertyActionState.state)" [actionText]="isEditing ? 'Update Property' : propertyActionState?.text"
+        <property-actions-group (submit)="doPropertyAction(propertyActionState.state)" [actionText]="isEditing ? 'Cancel Changes' : propertyActionState?.text"
             (shareFacebook)="shareFacebook()" [tweetText]="tweetText"></property-actions-group>
     </div>
     <property-images [images]="property?.images" *ngIf="property?.images"></property-images>
@@ -30,88 +30,7 @@
                         <p *ngIf="property?.lease_length">Lease: {{property?.lease_length}} months</p>
                     </div>
                 </div>
-                <fieldset [class.hide]="!isEditing" class="fieldset">
-                    <legend>
-                        <h3>{{property?.address1}}</h3>
-                        <h3 *ngIf="property?.address2">{{property?.address2}}</h3>
-                    </legend>
-                    <div [class.hide]="!isEditing" class="columns small-12">
-                        <div class="row">
-                            <div class="column medium-10 medium-centered large-uncentered large-6 large-push-0 marg-btm">
-                                <div class="row">
-                                    <div class="medium-3 large-2 columns">
-                                        <label for="bedrooms" class="large-text-right medium-text-left"><i class="icon-bed"></i>
-                                        </label>
-                                    </div>
-                                    <div class="medium-9 large-4 end text-left columns">
-                                        <label>Bedrooms
-                                            <number-ticker *ngIf="property" name="bedrooms" [(number)]="property.bedrooms" [min]="1" [max]="16"></number-ticker>
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="medium-3 large-2 columns">
-                                        <label for="bathrooms" class="large-text-right medium-text-left"><i class="icon-shower"></i>
-                                        </label>
-                                    </div>
-                                    <div class="medium-9 large-4 end text-left columns">
-                                        <label>Bathrooms
-                                            <number-ticker *ngIf="property" name="bathrooms" [(number)]="property.bathrooms" [min]="1" [max]="16"></number-ticker>
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="medium-3 large-2 columns">
-                                        <label for="LeasePrice" class="large-text-right medium-text-left"><i class="icon-dollar"></i>
-                                        </label>
-                                    </div>
-                                    <div class="medium-9 large-4 end text-left columns">Lease Price:
-                                        <number-ticker *ngIf="property" [(number)]="property.price" [min]="0" [max]="120"></number-ticker>( $ )
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="medium-3 large-2 columns">
-                                        <label for="LeaseLength" class="large-text-right medium-text-left"><i class="icon-calendar-check-o"></i></label>
-                                    </div>
-                                    <div class="medium-9 large-4 end text-left end columns"> Lease Length:
-                                        <number-ticker *ngIf="property" [(number)]="property.lease_length" [min]="0" [max]="120">
-                                        </number-ticker>
-                                        (months)
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="medium-3 large-2 columns">
-                                        <label for="ImageUpload" class="large-text-right medium-text-left"><i class="icon-picture"></i>
-                                        </label>
-                                    </div>
-                                    <div class="medium-9 large-10 text-left end columns">
-                                        <image-upload [id]="'FileUpload'"></image-upload>
-                                    </div>
-                                </div>
-                                <div class="row small-up-1 medium-up-3 large-up-6 gallery">
-                                    <property-edit-image *ngFor="let img of property?.images" [(property)]="property" [(imageUrl)]="img.url" [(imageId)]="img.id"></property-edit-image>
-                                    <upload-progress *ngFor="let file of pendingFiles$ | async" class="column" [fileName]="file.fileName" [progress]="file.progress"></upload-progress>
-                                </div>
-                            </div>
-                            <div class="column small-12 large-6">
-                                <div *ngIf="isEditing">
-                                    Description:
-                                    <textarea [(ngModel)]="property.description"></textarea>
-                                </div>
-                                <div class="marg-top">
-                                    <property-amenities *ngIf="property?.amenities && isEditing" [(amenities)]="property.amenities" [isEditing]="isEditing"></property-amenities>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="column">
-                                <button class="float-right success button" (click)="doPropertyAction(propertyActionState.state)">
-                                    Update Property
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </fieldset>
+                <property-edit [(property)]="property" (submit)="doPropertyAction(propertyActionState.state)" *ngIf="property && isEditing"></property-edit>
             </div>
             <div class="row marg-top marg-btm">
                 <div class="column medium-6">
@@ -135,7 +54,7 @@
     </div>
     <div class="row show-for-small-only callout-bottom marg-top sticky-actions">
         <div class="small-12 columns white">
-            <property-actions-group (submit)="doPropertyAction(propertyActionState.state)" [actionText]="isEditing ? 'Update Property' : propertyActionState?.text"
+            <property-actions-group (submit)="doPropertyAction(propertyActionState.state)" [actionText]="isEditing ? 'Cancel Changes' : propertyActionState?.text"
                 (shareFacebook)="shareFacebook()" [tweetText]="tweetText"></property-actions-group>
         </div>
     </div>

@@ -11,7 +11,8 @@ import { ServerUnsafeService } from '../../services/server-unsafe.service';
 import { SeoService } from '../../services/seo.service';
 import { SocialService } from '../../services/social.service';
 import { PropertyService, Property, PropertyImages, PropertyReviews, SimilarProperties, PropertyEditImage,
-  PropertyMap, MapOptions, PropertyAmenities, PropertyAction, PropertyActionState, PropertyActionStates, PropertyActionsGroup } from '../index';
+  PropertyMap, MapOptions, PropertyAmenities, PropertyAction, PropertyActionState, PropertyActionStates, 
+  PropertyActionsGroup, PropertyEdit } from '../index';
 import { BASE_API_URL } from '../../config'
 import { HttpService } from '../../services/http.service';
 import { ImageUploadService, PendingFile } from '../../services/image-upload.service';
@@ -28,7 +29,7 @@ const HEIGHT: string = '100px';
   selector: 'property-view',
   directives: [PropertyReviews, SimilarProperties, PropertyMap, PropertyImages,
     PropertyAmenities, NumberTicker, PropertyActionsGroup, StickDirective, PropertyEditImage, 
-    UploadProgress, ImageUpload],
+    UploadProgress, ImageUpload, PropertyEdit],
   styles: [require('./styles.scss').toString()],
   templateUrl: 'template.html'
 })

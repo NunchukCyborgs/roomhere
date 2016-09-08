@@ -9,4 +9,5 @@ export { PropertyPreview } from './property-preview/component'
 export { PropertyAmenities } from './property-amenities/component';
 export { PropertyActionsGroup } from './property-actions-group/component';
 export { PropertyEditImage } from './property-edit-image/component';
+export { PropertyEdit } from './property-edit/component';
 export { PropertyView } from './property-view/component';
