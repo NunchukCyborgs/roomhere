@@ -24,7 +24,12 @@ export class ForgotPassword {
   constructor(private userService: UserService, private unsafe: ServerUnsafeService, private formBuilder: FormBuilder) { }
 
   ngOnInit() {
-    this.forgotPasswordForm = this.formBuilder.group({
+    this.init();
+    this.unsafe.tryUnsafeCode(() => $(document).on('closed.zf.reveal', () => this.init()), '$ undefined');
+  }
+
+  private init() {
+     this.forgotPasswordForm = this.formBuilder.group({
       'email': ['', [Validators.required, ValidationService.emailValidator]],
     });
   }

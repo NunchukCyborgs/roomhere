@@ -23,6 +23,11 @@ export class Login {
   constructor(private userService: UserService, private unsafe: ServerUnsafeService, private formBuilder: FormBuilder) { }
 
   ngOnInit() {
+    this.init();
+    this.unsafe.tryUnsafeCode(() => $(document).on('closed.zf.reveal', () => this.init()), '$ undefined');
+  }
+
+  private init() {
     this.loginForm = this.formBuilder.group({
       'email': ['', [Validators.required, ValidationService.emailValidator]],
       'password': ['', [Validators.required, Validators.minLength(8)]],

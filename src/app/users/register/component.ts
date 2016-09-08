@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators, REACTIVE_FORM_DIRECTIVES, FORM_DIRE
 import { Observable } from 'rxjs/Observable';
 import { User, UserService } from '../index';
 import { ValidationService } from '../../services/validation.service';
+import { ServerUnsafeService } from '../../services/server-unsafe.service';
 import { ControlMessages } from '../../components/control-messages/component';
 
 declare let $: any;
@@ -20,9 +21,14 @@ export class Register {
   public serverErrors: string[] = [];
   public registerForm: any;
 
-  constructor(private userService: UserService, private formBuilder: FormBuilder) { }
+  constructor(private userService: UserService, private formBuilder: FormBuilder, private unsafe: ServerUnsafeService) { }
 
   ngOnInit() {
+    this.init();
+    this.unsafe.tryUnsafeCode(() => $(document).on('closed.zf.reveal', () => this.init()), '$ undefined');
+  }
+
+  private init() {
     this.registerForm = this.formBuilder.group({
       'email': ['', [Validators.required, ValidationService.emailValidator]],
       'licenseId': ['', Validators.required],

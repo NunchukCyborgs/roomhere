@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators, REACTIVE_FORM_DIRECTIVES, FORM_DIRE
 import { Observable } from 'rxjs/Observable';
 import { User, UserService } from '../index';
 import { ValidationService } from '../../services/validation.service';
+import { ServerUnsafeService } from '../../services/server-unsafe.service';
 import { ControlMessages } from '../../components/control-messages/component';
 
 declare let $: any;
@@ -20,10 +21,15 @@ export class ResetPassword {
   public serverErrors: string[] = [];
   public resetPasswordForm: any;
 
-  constructor(private userService: UserService, private formBuilder: FormBuilder) { }
+  constructor(private userService: UserService, private formBuilder: FormBuilder, private unsafe: ServerUnsafeService) { }
 
   ngOnInit() {
-    this.resetPasswordForm = this.formBuilder.group({
+    this.init();
+    this.unsafe.tryUnsafeCode(() => $(document).on('closed.zf.reveal', () => this.init()), '$ undefined');
+  }
+
+  private init() {
+      this.resetPasswordForm = this.formBuilder.group({
       'password': ['', [Validators.required, Validators.minLength(8)]],
       'confirmPassword': ['', [Validators.required, Validators.minLength(8)]],
     });
