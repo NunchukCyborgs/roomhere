@@ -205,31 +205,3 @@ body {
   min-height: 100%;
   height: initial;
 }
-
-/*******Dropzone********/
-
-#FileUpload {
-  display: none;
-}
-
-#dropzone {
-    background: #fefefe;
-    border: 1px dashed #999;
-    width: 100%;
-    height: 140px;
-    line-height: 50px;
-    text-align: center;
-    padding-top: 25px;
-    color: #44254a;
-    font-weight: bold;
-}
-
-#dropzone.in {
-  background: palegreen;
-}
-
-#dropzone:hover {
-    background: #ddd;
-}
-
-/**************************/

@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { UserService } from '../../users/index';
 import { NumberTicker } from '../../components/number-ticker/component';
 import { UploadProgress } from '../../components/upload-progress/component';
+import { ImageUpload } from '../../components/image-upload/component';
 import { ServerUnsafeService } from '../../services/server-unsafe.service';
 import { SeoService } from '../../services/seo.service';
 import { SocialService } from '../../services/social.service';
@@ -26,7 +27,8 @@ const HEIGHT: string = '100px';
   moduleId: __filename,
   selector: 'property-view',
   directives: [PropertyReviews, SimilarProperties, PropertyMap, PropertyImages,
-    PropertyAmenities, NumberTicker, PropertyActionsGroup, StickDirective, PropertyEditImage, UploadProgress],
+    PropertyAmenities, NumberTicker, PropertyActionsGroup, StickDirective, PropertyEditImage, 
+    UploadProgress, ImageUpload],
   styles: [require('./styles.scss').toString()],
   templateUrl: 'template.html'
 })
@@ -59,7 +61,7 @@ export class PropertyView implements OnDestroy {
           this.propertyService.update(this.property).subscribe(() => this.isEditing = false);
         } else {
           this.isEditing = true;
-          this.imageUploadService.uploaderInit('FileUpload', 'dropzone', this.property);
+          this.imageUploadService.uploaderInit('FileUpload', this.property);
         }
         break;
       case PropertyActionStates.Claim:

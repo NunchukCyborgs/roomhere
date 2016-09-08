@@ -3,7 +3,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 declare let require: (string) => string;
 
 @Component({
-    selector: 'number-ticker',
+  selector: 'number-ticker',
   styles: [require('./styles.scss').toString()],
   templateUrl: 'template.html',
 })

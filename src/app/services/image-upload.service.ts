@@ -22,20 +22,20 @@ export class ImageUploadService {
     this.pendingFiles$.subscribe();
   }
 
-  public uploaderInit(uploaderId: string, dropzoneId: string, property: Property) {
+  public uploaderInit(uploaderId: string, property: Property, wrapperSelector: string = 'image-upload .wrapper') {
     this.unsafe.tryUnsafeCode(() => {
       const fileUpload$ = $(`#${uploaderId}`);
-      const dropzone$ = $(`#${dropzoneId}`)
       const URL = `${BASE_API_URL}/properties/${property.slug}/images`;
+      const wrapper$ = $(wrapperSelector);
 
       fileUpload$.fileupload({
         withCredentials: true,
-        dropZone: dropzone$,
+        dropZone: fileUpload$,
         url: URL,
         type: 'POST',
         maxFileSize: 999000,
         acceptFileTypes: /(\.|\/)(jpe?g|png)$/i,
-        add: (e, data) => this.imageAdded(data, dropzone$),
+        add: (e, data) => this.imageAdded(data, wrapper$),
         progress: (e, data) => this.uploadProgress(data),
         done: (e, data) => this.uploadComplete(data),
       });
@@ -48,22 +48,8 @@ export class ImageUploadService {
           '/cors/result.html?%s'
         )
       );
-      $(document).bind('dragover', (e) => {
-        var found = false,
-          node = e.target;
-        do {
-          if (node === dropzone$[0]) {
-            found = true;
-            break;
-          }
-          node = node.parentNode;
-        } while (node != null);
-        if (found) {
-          dropzone$.addClass('in');
-        } else {
-          dropzone$.removeClass('in');
-        }
-      });
+
+      this.bindToDrag(wrapper$);
     }, '$ is undefined');
   }
 
@@ -83,10 +69,10 @@ export class ImageUploadService {
     return data.files[0].name.replace(/[^a-z0-9]/ig, '');
   }
 
-  private imageAdded(data, dropzone$) {
+  private imageAdded(data, wrapper$) {
     const file = data.files[0];
     this.updatePendingFiles([...this.pendingFiles, { fileName: this.getFileName(data), progress: 0 }])
-    dropzone$.removeClass('in');
+    wrapper$.removeClass('in');
     let h = {};
     this.http.headers.forEach((values: string[], name: string) => {
       h[name] = values[0];
@@ -98,18 +84,38 @@ export class ImageUploadService {
 
   private uploadProgress(data) {
     const progress = Number(data.loaded / data.total * 100);
-    this.updatePendingFile({fileName: this.getFileName(data), progress: progress});
+    this.updatePendingFile({ fileName: this.getFileName(data), progress: progress });
   }
 
   private uploadComplete(data) {
     const x = data.jqXHR;
     this.http.setAuthHeaders(x.getResponseHeader('access-token'), x.getResponseHeader('client'), x.getResponseHeader('uid'));
     this.propertyService.updateLocal(data.result);
-    this.deletePendingFile({fileName: this.getFileName(data), progress: 100});
+    this.deletePendingFile({ fileName: this.getFileName(data), progress: 100 });
   }
 
   private updatePendingFiles(pendingFiles: PendingFile[]) {
     this._pendingFiles = pendingFiles;
     this.pendingFiles$.next(this._pendingFiles);
+  }
+
+  private bindToDrag(wrapper$) {
+    $(document).bind('dragover', (e) => {
+        let found = false;
+        let node = e.target;
+
+        do {
+          if (node === wrapper$[0]) {
+            found = true;
+            break;
+          }
+          node = node.parentNode;
+        } while (node != null);
+        if (found) {
+          wrapper$.addClass('in');
+        } else {
+          wrapper$.removeClass('in');
+        }
+      });
   }
 }
