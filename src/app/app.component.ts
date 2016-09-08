@@ -11,6 +11,7 @@ import { FacetsService } from './services/facets.service';
 import { SeoService } from './services/seo.service';
 import { SocialService } from './services/social.service'
 import { UtilService } from './services/util.service';
+import { ImageUploadService } from './services/image-upload.service';
 
 import { Login, Register, ForgotPassword, ResetPassword, UserService } from './users/index';
 import { StickyFooter } from './footer/component';
@@ -22,7 +23,7 @@ declare let require: (string) => string;
   selector: 'app',
   directives: [...ROUTER_DIRECTIVES, Login, Register, ForgotPassword, ResetPassword, StickyFooter],
   providers: [FormBuilder, PropertyService, GoogleApiService, UserService, HttpService, 
-  ServerUnsafeService, FacetsService, SeoService, SocialService, UtilService],
+  ServerUnsafeService, FacetsService, SeoService, SocialService, UtilService, ImageUploadService],
   encapsulation: ViewEncapsulation.None,
   styles: [require('../assets/stylesheets/app.scss').toString()],
   // Styles here are global, be careful

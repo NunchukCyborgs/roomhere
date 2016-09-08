@@ -43,12 +43,7 @@ export class UploadProgress {
         bar.text.style.color = state.color;
       },
     });
-  }
 
-  ngOnChanges() {
-    if (this.progressBar && this.progress) {
-      this.progressBar.animate(this.progress / 100.0);
-      this.progressBar.setText(`${this.progress}%`);
-    }
+    this.progressBar.set(this.progress / 100.0);
   }
 }

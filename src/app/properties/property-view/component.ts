@@ -13,6 +13,7 @@ import { PropertyService, Property, PropertyImages, PropertyReviews, SimilarProp
   PropertyMap, MapOptions, PropertyAmenities, PropertyAction, PropertyActionState, PropertyActionStates, PropertyActionsGroup } from '../index';
 import { BASE_API_URL } from '../../config'
 import { HttpService } from '../../services/http.service';
+import { ImageUploadService, PendingFile } from '../../services/image-upload.service';
 import { StickDirective } from '../../sticky.directive';
 
 declare let $: any;
@@ -35,8 +36,8 @@ export class PropertyView implements OnDestroy {
   public propertyActionState: PropertyActionState;
   public isEditing: boolean = false;
   public tweetText: string;
-  private dropZoneTimeout: number;
-  private pendingFiles: Array<{fileName: string, progress: number}> = [];
+  public pendingFiles$: Observable<PendingFile[]>;
+  private sub: Subscription;
 
   constructor(
     private router: Router,
@@ -46,7 +47,8 @@ export class PropertyView implements OnDestroy {
     private unsafe: ServerUnsafeService,
     private seoService: SeoService,
     private socialService: SocialService,
-    private http: HttpService
+    private http: HttpService,
+    private imageUploadService: ImageUploadService
   ) {
   }
 
@@ -57,7 +59,7 @@ export class PropertyView implements OnDestroy {
           this.propertyService.update(this.property).subscribe(() => this.isEditing = false);
         } else {
           this.isEditing = true;
-          this.imageUploadInit();
+          this.imageUploadService.uploaderInit('FileUpload', 'dropzone', this.property);
         }
         break;
       case PropertyActionStates.Claim:
@@ -79,87 +81,6 @@ export class PropertyView implements OnDestroy {
     this.socialService.facebookInit();
   }
 
-  private imageUploadInit() {
-    this.unsafe.tryUnsafeCode(() => {
-      const fileUpload = $('#FileUpload');
-      const URL = `${BASE_API_URL}/properties/${this.property.slug}/images`;
-
-      fileUpload.fileupload({
-        // Uncomment the following to send cross-domain cookies:
-        withCredentials: true,
-        dropZone: $('#dropzone'),
-        url: URL,
-        type: 'POST',
-        maxFileSize: 999000,
-        acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
-        add: (e, data) => {
-          const file = data.files[0];
-          this.pendingFiles.push({fileName: this.getFileName(data), progress: 0});
-          $('#dropzone').removeClass("in");
-          let h = { };
-          this.http.headers.forEach((values: string[], name: string) => {
-            h[name] = values[0];
-          });
-          delete h['Content-Type'];
-          data.headers = h;
-          data.submit();
-        },
-        done: (e, data) => {
-          const x = data.jqXHR;
-          this.http.setAuthHeaders(x.getResponseHeader('access-token'), x.getResponseHeader('client'), x.getResponseHeader('uid'));
-          this.propertyService.updateLocal(data.result);
-          this.pendingFiles.splice(this.pendingFiles.map(i => i.fileName).indexOf(this.getFileName(data)));
-        },
-        progress: (e, data) => {
-          const file = this.pendingFiles[this.pendingFiles.map(i => i.fileName).indexOf(this.getFileName(data))];
-          const progress = Number(data.loaded / data.total * 100);
-          file.progress = progress;
-        },
-      });
-
-      fileUpload.fileupload(
-        'option',
-        'redirect',
-        window.location.href.replace(
-          /\/[^\/]*$/,
-          '/cors/result.html?%s'
-        )
-      );
-      $(document).bind('dragover', (e) => {
-        let dropZone = $('#dropzone');
-        var found = false,
-        node = e.target;
-        do {
-          if (node === dropZone[0]) {
-            found = true;
-            break;
-          }
-          node = node.parentNode;
-        } while (node != null);
-        if (found) {
-          dropZone.addClass('in');
-        } else {
-          dropZone.removeClass('in');
-        }
-      });
-    }, '$ is undefined');
-  }
-
-  private getFileName(data: any): string {
-    return data.files[0].name.replace(/[^a-z0-9]/ig, '');
-  }
-
-
-  public uploadImage() {
-
-
-    // Enable iframe cross-domain access via redirect option:
-
-    // Load existing files:
-    // fileUpload.addClass('fileupload-processing');
-  }
-
-  private sub: Subscription;
 
   private updateMapOptions(property: Property) {
     this.mapOptions = {
@@ -173,6 +94,8 @@ export class PropertyView implements OnDestroy {
   }
 
   ngOnInit() {
+    this.pendingFiles$ = this.imageUploadService.pendingFiles$;
+
     this.sub = this.route.params
       .flatMap(params => this.propertyService.getPropertyBySlug$(params['slug']))
       .do((property: Property) => this.updateMapOptions(property))

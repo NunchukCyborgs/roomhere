@@ -13,6 +13,7 @@ export class SeoService {
   public addPropertyTags(property: Property): void {
     const description = this.getDescription(property);
     const title = `Roomhere.io property at ${property.address1}`;
+    const imageUrl = property.images && property.images.length ? BASE_URL + property.images[0].url : '';
 
     const tags: Array<{ key: string, value: string }> = [
       { key: 'description', value: description },
@@ -20,10 +21,10 @@ export class SeoService {
       { key: 'og:type', value: 'website' },
       { key: 'og:description', value: description },
       { key: 'og:url', value: BASE_URL + this.router.url },
-      { key: 'og:image', value: BASE_URL + property.images[0].url },
+      { key: 'og:image', value: imageUrl },
       { key: 'twitter:card', value: 'summary' },
       { key: 'twitter:site', value: '@roomhere' },
-      { key: 'twitter:image', value: BASE_URL + property.images[0].url },
+      { key: 'twitter:image', value: imageUrl },
       { key: 'description', value: description },
       { key: 'twitter:title', value: title },
     ];

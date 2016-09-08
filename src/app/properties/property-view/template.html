@@ -91,7 +91,7 @@
                                 </div>
                                 <div class="row small-up-1 medium-up-3 large-up-6 gallery">
                                     <property-edit-image *ngFor="let img of property?.images" [(property)]="property" [(imageUrl)]="img.url" [(imageId)]="img.id"></property-edit-image>
-                                    <upload-progress *ngFor="let file of pendingFiles" class="column" [fileName]="file.fileName" [progress]="file.progress"></upload-progress>
+                                    <upload-progress *ngFor="let file of pendingFiles$ | async" class="column" [fileName]="file.fileName" [progress]="file.progress"></upload-progress>
                                 </div>
                             </div>
                             <div class="column small-12 large-6">
