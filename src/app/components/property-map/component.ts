@@ -2,11 +2,12 @@ import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
-import { Property } from '../properties/index';
-import { GoogleApiService } from '../services/google-api.service';
-import { UtilService } from '../services/util.service';
-import { ServerUnsafeService } from '../services/server-unsafe.service';
+import { Property } from '../../properties/index';
+import { GoogleApiService } from '../../services/google-api.service';
+import { UtilService } from '../../services/util.service';
+import { ServerUnsafeService } from '../../services/server-unsafe.service';
 
+declare let require: (string) => string;
 declare let google: any;
 declare let RichMarker: any;
 
@@ -20,15 +21,8 @@ export interface MapOptions {
 @Component({
   moduleId: __filename,
   selector: 'property-map',
-  providers: [],
-  styles: [`
-  `],
-  template: `
-    <div>
-      <div class="map" [id]="id" [style.height]="mapOptions.height ? mapOptions.height : null"></div>
-      <button id="mapbtn{{id}}" type="button" (click)="noop()" style="display: none;" ></button>
-    </div>
-  `
+  styles: [require('./styles.scss').toString()],
+  templateUrl: 'template.html',
 })
 export class PropertyMap {
   @Input() properties: Property[];
@@ -110,7 +104,7 @@ export class PropertyMap {
 
     this.map.setOptions(Object.assign(options, this.mapOptions.interactive ? {} : nonInteractiveOptions));
 
-    this.map.addListener('bounds_changed', () => this.map.setCenter(this.computedCenter));
+    this.map.addListener('bounds_changed', () => !this.mapOptions.interactive && this.map.setCenter(this.computedCenter));
   }
 
   ngOnInit() {

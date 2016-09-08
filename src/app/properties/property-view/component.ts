@@ -7,11 +7,12 @@ import { UserService } from '../../users/index';
 import { NumberTicker } from '../../components/number-ticker/component';
 import { UploadProgress } from '../../components/upload-progress/component';
 import { ImageUpload } from '../../components/image-upload/component';
+import { MapOptions, PropertyMap } from '../../components/property-map/component';
 import { ServerUnsafeService } from '../../services/server-unsafe.service';
 import { SeoService } from '../../services/seo.service';
 import { SocialService } from '../../services/social.service';
 import { PropertyService, Property, PropertyImages, PropertyReviews, SimilarProperties, PropertyEditImage,
-  PropertyMap, MapOptions, PropertyAmenities, PropertyActionsGroup, PropertyEdit, PropertyActionStateService } from '../index';
+ PropertyAmenities, PropertyActionsGroup, PropertyEdit, PropertyActionStateService } from '../index';
 import { BASE_API_URL } from '../../config'
 import { HttpService } from '../../services/http.service';
 import { ImageUploadService, PendingFile } from '../../services/image-upload.service';
