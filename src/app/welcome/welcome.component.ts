@@ -3,6 +3,7 @@ import { Observable } from 'rxjs/Observable';
 import { PropertyService, Property, PropertyFacet, PropertyPreview, PropertyMap, MapOptions } from '../properties/index';
 import { PropertyFilters } from './property-filters.component';
 import { PropertySlider } from './property-slider.component';
+import { UserService, User } from '../users/index';
 import { CAPE_GIRARDEU_CENTER } from '../config';
 
 declare let $: any;
@@ -31,7 +32,6 @@ const MAP_ZOOM_LEVEL = 13;
         margin-top: 40px;
     }
 
-    
     .pag{
         margin-bottom: 100px;
     }
@@ -58,18 +58,27 @@ export class Welcome implements OnInit {
   public lastPage$: Observable<number>;
   public mapOptions: MapOptions;
   public showFilters: boolean = false;
+  public user$: Observable<User>;
 
-  constructor(private propertyService: PropertyService) { }
+  constructor(private propertyService: PropertyService, private userService: UserService) { }
 
   ngOnInit() {
-    this.applyFacet(this.facet);
+    this.applyFacet();
     this.lastPage$ = this.propertyService.lastPage$;
+    this.user$ = this.userService.user$;
     this.updateMapOptions();
+    this.updateOnUser();
   }
 
-  public applyFacet(facet: PropertyFacet) {
+  public applyFacet() {
     this.properties$ = this.propertyService
       .getFilteredProperties$(this.facet, this.pageNumber)
+  }
+
+  private updateOnUser() {
+    this.user$
+      .do(i => this.facet.license_id = i.license_id)
+      .subscribe(() => this.applyFacet());
   }
 
   private updateMapOptions() {

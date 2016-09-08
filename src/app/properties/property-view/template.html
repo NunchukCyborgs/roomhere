@@ -1,13 +1,12 @@
 <div class="property-view-container">
     <div stick class="callout hide-for-small-only call-to-actions--top property-actions-group-top">
-        <property-actions-group (submit)="doPropertyAction(propertyActionState.state)" [actionText]="isEditing ? 'Cancel Changes' : propertyActionState?.text"
-            (shareFacebook)="shareFacebook()" [tweetText]="tweetText"></property-actions-group>
+        <property-actions-group (submit)="doAction()" [actionText]="actionText$ | async" (shareFacebook)="shareFacebook()" [tweetText]="tweetText"></property-actions-group>
     </div>
     <property-images [images]="property?.images" *ngIf="property?.images"></property-images>
     <div class="row">
         <section class="small-11 medium-11 columns small-centered">
             <div class="row marg-top">
-                <div *ngIf="!isEditing" data-equalizer>
+                <div *ngIf="!(isEditing$ | async)" data-equalizer>
                     <h3>{{property?.address1}}</h3>
                     <h3 *ngIf="property?.address2">{{property?.address2}}</h3>
                     <div class="medium-4 large-5 columns callout show-for-medium" data-equalizer-watch>
@@ -30,18 +29,16 @@
                         <p *ngIf="property?.lease_length">Lease: {{property?.lease_length}} months</p>
                     </div>
                 </div>
-                <property-edit [(property)]="property" (submit)="doPropertyAction(propertyActionState.state)" *ngIf="property && isEditing"></property-edit>
+                <property-edit [(property)]="property" (submit)="updateProperty()" *ngIf="property && (isEditing$ | async)"></property-edit>
             </div>
             <div class="row marg-top marg-btm">
-                <div class="column medium-6">
-                    <div *ngIf="!isEditing">
-                        <p>{{property?.description}}</p>
-                    </div>
+                <div *ngIf="!(isEditing$ | async)" class="column medium-6">
+                    <p>{{property?.description}}</p>
                 </div>
-                <div class="column medium-6">
-                    <property-amenities *ngIf="property?.amenities && !isEditing" [(amenities)]="property.amenities" [isEditing]="isEditing"></property-amenities>
+                <div *ngIf="!(isEditing$ | async)" class="column medium-6">
+                    <property-amenities *ngIf="property?.amenities" [(amenities)]="property.amenities" [isEditing]="false"></property-amenities>
                 </div>
-                <div *ngIf="isEditing">
+                <div *ngIf="(isEditing$ | async)">
                     <div class="column marg-top hide-for-small-only marg-btm">
                         <property-map *ngIf="mapOptions" [properties]="[property]" [mapOptions]="mapOptions"></property-map>
                     </div>
@@ -54,8 +51,7 @@
     </div>
     <div class="row show-for-small-only callout-bottom marg-top sticky-actions">
         <div class="small-12 columns white">
-            <property-actions-group (submit)="doPropertyAction(propertyActionState.state)" [actionText]="isEditing ? 'Cancel Changes' : propertyActionState?.text"
-                (shareFacebook)="shareFacebook()" [tweetText]="tweetText"></property-actions-group>
+            <property-actions-group (submit)="doAction()" [actionText]="actionText$ | async" (shareFacebook)="shareFacebook()" [tweetText]="tweetText"></property-actions-group>
         </div>
     </div>
 </div>

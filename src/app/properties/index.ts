@@ -1,6 +1,7 @@
 export { Amenity } from '../services/facets.service';
-export { Property, PropertyFacet, PropertyAction, PropertyActionState, PropertyActionStates } from './property';
+export { Property, PropertyFacet } from './property';
 export { PropertyService } from './property.service';
+export { PropertyActionStateService } from './property-action-state.service';
 export { PropertyImages } from './property-images/component';
 export { PropertyReviews } from './property-reviews/component';
 export { SimilarProperties } from './similar-properties/component';
