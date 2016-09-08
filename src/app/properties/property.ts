@@ -10,6 +10,7 @@ export class PropertyFacet {
    public locations: Location[];
    public amenities: Amenity[];
    public types: string[];
+   public license_id: string;
 
    constructor() {
      this.min_price = 0;
@@ -20,6 +21,7 @@ export class PropertyFacet {
      this.locations = [];
      this.amenities = [];
      this.types = [];
+     this.license_id = null;
    }
 
    get formattedFacet() {
@@ -47,7 +49,7 @@ export class Property {
   public longitude: number;
   public locations: Location[];
   public lease_length: number; // months
-  public licenser_id: string;
+  public license_id: string;
   public owner_id: number;
   public slug: string;
   public square_footage: number;
@@ -55,47 +57,4 @@ export class Property {
   public updated_at: Date;
   public zipcode: string;
   public price: number;
-}
-
-export enum PropertyActionStates {
-  Editing,
-  Edit,
-  Claim,
-  Nothing,
-  Rent
-}
-
-export interface PropertyActionState {
-  state: PropertyActionStates;
-  text: string;
-}
-
-export class PropertyAction {
-  private static getStateText(state: PropertyActionStates): string {
-    switch (state) {
-      case PropertyActionStates.Edit:
-        return 'Edit Property';
-      case PropertyActionStates.Claim:
-        return 'claim Property';
-      case PropertyActionStates.Nothing:
-        return '';
-      case PropertyActionStates.Rent:
-        return 'Rent Now!';
-    }
-  }
-
-  public static getState(property: Property, user: User): PropertyActionState {
-    if (user.licenser_id && user.licenser_id === property.licenser_id && property.owner_id === null) {
-      return { state: PropertyActionStates.Claim, text: this.getStateText(PropertyActionStates.Claim) };
-
-    } else if (user.uid) { //(property.owner_id === user.id) {
-      return { state: PropertyActionStates.Edit, text: this.getStateText(PropertyActionStates.Edit) };
-
-    } else if (!user.licenser_id) {
-      return { state: PropertyActionStates.Rent, text: this.getStateText(PropertyActionStates.Rent) };
-      
-    } else {
-      return { state: PropertyActionStates.Nothing, text: this.getStateText(PropertyActionStates.Nothing) };
-    }
-  }
 }

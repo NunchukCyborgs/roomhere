@@ -3,6 +3,13 @@
     <div class="medium-7 small-12 columns">
       <section id="scrolldiv">
         <div class="row marg20top">
+          <div *ngIf="(user$ | async).license_id" class="callout primary">
+            <h3>Viewing properties you own</h3>
+            <p>
+              We are showing you all properties registered with your license ID ({{(user$ | async).license_id}}).
+              When you're done checking out your own properties, you can log out to see to return to normal view.
+            </p>
+          </div>
 
           <div class="large-12 columns">
             <p>Price Range</p>

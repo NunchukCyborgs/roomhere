@@ -64,8 +64,10 @@ export class UserService {
       .queryParams
       .subscribe(params => {
         if (params['account_confirmation_success'] === 'true' || params['reset_password'] === 'true') {
-          this.http.setAuthHeaders(params['token'], params['client_id'], params['uid'])
-          this.hasAuth$.next(true);
+          let headers = { token: params['token'], client: params['client_id'], uid: params['uid'] };
+          this.http.setAuthHeaders(headers.token, headers.client, headers.uid);
+          this.updateUser(headers.uid)
+            .do(() => this.hasAuth$.next(true));
         }
       });
   }
@@ -82,13 +84,14 @@ export class UserService {
   }
 
   private checkForSessionAuth() {
-    const headers = this.unsafe.tryUnsafeCode(() => { 
-      return {token: sessionStorage.getItem('access-token'), client: sessionStorage.getItem('client'), uid: sessionStorage.getItem('uid') };
+    const headers = this.unsafe.tryUnsafeCode(() => {
+      return { token: sessionStorage.getItem('access-token'), client: sessionStorage.getItem('client'), uid: sessionStorage.getItem('uid') };
     }, 'sessionStorage undefined');
 
     if (headers && headers.token && headers.client && headers.uid) {
       this.http.setAuthHeaders(headers.token, headers.client, headers.uid);
-      this.hasAuth$.next(true);
+      this.updateUser(headers.uid)
+        .do(() => this.hasAuth$.next(true));
     }
   }
 
@@ -102,5 +105,11 @@ export class UserService {
 
   private getRedirectUrl(): string {
     return this.unsafe.tryUnsafeCode(() => window.location.origin + window.location.pathname, 'window is not defined');
+  }
+
+  private updateUser(uid: string): Observable<User> {
+    return this.http.get(`${BASE_API_URL}/users/${uid}`)
+      .map(i => i.json())
+      .do(i => this.user$.next(this._user = i));
   }
 }

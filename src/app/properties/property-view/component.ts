@@ -11,8 +11,7 @@ import { ServerUnsafeService } from '../../services/server-unsafe.service';
 import { SeoService } from '../../services/seo.service';
 import { SocialService } from '../../services/social.service';
 import { PropertyService, Property, PropertyImages, PropertyReviews, SimilarProperties, PropertyEditImage,
-  PropertyMap, MapOptions, PropertyAmenities, PropertyAction, PropertyActionState, PropertyActionStates, 
-  PropertyActionsGroup, PropertyEdit } from '../index';
+  PropertyMap, MapOptions, PropertyAmenities, PropertyActionsGroup, PropertyEdit, PropertyActionStateService } from '../index';
 import { BASE_API_URL } from '../../config'
 import { HttpService } from '../../services/http.service';
 import { ImageUploadService, PendingFile } from '../../services/image-upload.service';
@@ -28,7 +27,7 @@ const HEIGHT: string = '100px';
   moduleId: __filename,
   selector: 'property-view',
   directives: [PropertyReviews, SimilarProperties, PropertyMap, PropertyImages,
-    PropertyAmenities, NumberTicker, PropertyActionsGroup, StickDirective, PropertyEditImage, 
+    PropertyAmenities, NumberTicker, PropertyActionsGroup, StickDirective, PropertyEditImage,
     UploadProgress, ImageUpload, PropertyEdit],
   styles: [require('./styles.scss').toString()],
   templateUrl: 'template.html'
@@ -36,8 +35,8 @@ const HEIGHT: string = '100px';
 export class PropertyView implements OnDestroy {
   public property: Property;
   public mapOptions: MapOptions;
-  public propertyActionState: PropertyActionState;
-  public isEditing: boolean = false;
+  public isEditing$: Observable<boolean>;
+  public actionText$: Observable<string>;
   public tweetText: string;
   public pendingFiles$: Observable<PendingFile[]>;
   private sub: Subscription;
@@ -51,27 +50,9 @@ export class PropertyView implements OnDestroy {
     private seoService: SeoService,
     private socialService: SocialService,
     private http: HttpService,
-    private imageUploadService: ImageUploadService
+    private imageUploadService: ImageUploadService,
+    private actionStateService: PropertyActionStateService
   ) {
-  }
-
-  public doPropertyAction(state: PropertyActionStates) {
-    switch (state) {
-      case PropertyActionStates.Edit:
-        if (this.isEditing) {
-          this.propertyService.update(this.property).subscribe(() => this.isEditing = false);
-        } else {
-          this.isEditing = true;
-          this.imageUploadService.uploaderInit('FileUpload', this.property);
-        }
-        break;
-      case PropertyActionStates.Claim:
-        console.log('claim');
-        break;
-      case PropertyActionStates.Rent:
-        console.log('rent');
-        break;
-    }
   }
 
   public shareFacebook() {
@@ -84,6 +65,14 @@ export class PropertyView implements OnDestroy {
     this.socialService.facebookInit();
   }
 
+  public updateProperty() {
+    this.propertyService.update(this.property)
+      .subscribe(i => this.property = i);
+  }
+
+  public doAction() {
+    this.actionStateService.doAction(this.userService.user, this.property);
+  }
 
   private updateMapOptions(property: Property) {
     this.mapOptions = {
@@ -98,6 +87,10 @@ export class PropertyView implements OnDestroy {
 
   ngOnInit() {
     this.pendingFiles$ = this.imageUploadService.pendingFiles$;
+    this.isEditing$ = this.actionStateService.isEditing$;
+    this.actionText$ = this.actionStateService.actionText$;
+
+    this.userService.user$.subscribe(i => this.actionStateService.setState(i, this.property));
 
     this.sub = this.route.params
       .flatMap(params => this.propertyService.getPropertyBySlug$(params['slug']))
@@ -105,7 +98,7 @@ export class PropertyView implements OnDestroy {
       .do((property: Property) => this.property = property)
       .do((property: Property) => this.tweetText = this.socialService.makeTwitterUrl(property))
       .do((property: Property) => this.seoService.addPropertyTags(property))
-      .subscribe((i) => this.userService.user$.subscribe(i => this.propertyActionState = PropertyAction.getState(this.property, i)));
+      .subscribe((property: Property) => this.actionStateService.setState(this.userService.user, property));
   }
 
   ngOnDestroy() {
