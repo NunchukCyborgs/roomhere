@@ -57,4 +57,5 @@ export class Property {
   public updated_at: Date;
   public zipcode: string;
   public price: number;
+  public amenities_attributes: Array<{id: number, _destroy?: boolean}>;
 }

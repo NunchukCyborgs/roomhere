@@ -29,7 +29,7 @@
                         <p *ngIf="property?.lease_length">Lease: {{property?.lease_length}} months</p>
                     </div>
                 </div>
-                <property-edit [(property)]="property" (submit)="updateProperty()" *ngIf="property && (isEditing$ | async)"></property-edit>
+                <property-edit [property]="property" (submit)="updateProperty(property)" *ngIf="property && (isEditing$ | async)"></property-edit>
             </div>
             <div class="row marg-top marg-btm">
                 <div *ngIf="!(isEditing$ | async)" class="column medium-6">

@@ -25,6 +25,8 @@ export class PropertyAmenities {
   }
 
   public update(amen: Amenity, $event: any) {
-    amen.active = $event.target.value === 'on';
+    amen.active = $event.target.checked;
+    this.amenities[this.amenities.map(i => i.id).indexOf(amen.id)] = amen;
+    this.amenitiesChange.emit(this.amenities);
   }
 }

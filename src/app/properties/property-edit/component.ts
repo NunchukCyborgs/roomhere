@@ -19,14 +19,12 @@ declare let require: (string) => string;
 export class PropertyEdit  {
   @Output() submit: EventEmitter<any> = new EventEmitter();
   @Input() property: Property;
-  @Output() propertyChange: EventEmitter<any> = new EventEmitter();
   public pendingFiles$: Observable<PendingFile[]>;
 
   constructor(private imageUploadService: ImageUploadService) {}
 
   public onSubmit() {
-    this.propertyChange.emit(this.property);
-    this.submit.emit(true);
+    this.submit.emit(this.property);
   }
 
   ngAfterViewInit() {

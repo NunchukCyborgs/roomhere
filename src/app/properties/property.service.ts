@@ -62,7 +62,8 @@ export class PropertyService {
   }
 
   public update(property: Property): Observable<any> {
-    return this.http.patch(`${BASE_API_URL}/properties/${property.id}`, property)
+    property = this.updateAmenities(property);
+    return this.http.patch(`${BASE_API_URL}/properties/${property.id}`, {property: property})
       .map(i => i.json())
       .flatMap(i => this.updateLocal(i));
   }
@@ -71,6 +72,11 @@ export class PropertyService {
     this._propertyBySlug = property;
     this.propertyBySlug$.next(this._propertyBySlug);
     return this.propertyBySlug$;
+  }
+
+  private updateAmenities(property: Property): Property {
+    property.amenities_attributes = property.amenities.map(i => { return {id: i.id, _destroy: !i.active}; });
+    return property;
   }
 
   private hydrateViewCache(obj: any, key: string) {

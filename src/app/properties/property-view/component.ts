@@ -64,8 +64,8 @@ export class PropertyView implements OnDestroy {
     this.socialService.facebookInit();
   }
 
-  public updateProperty() {
-    this.propertyService.update(this.property)
+  public updateProperty(property: Property) {
+    this.propertyService.update(property)
       .do(i => this.property = i)
       .subscribe(i => this.doAction());
   }
