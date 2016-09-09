@@ -39,7 +39,6 @@ export class PropertyView implements OnDestroy {
   public isEditing$: Observable<boolean>;
   public actionText$: Observable<string>;
   public tweetText: string;
-  public pendingFiles$: Observable<PendingFile[]>;
   private sub: Subscription;
 
   constructor(
@@ -51,7 +50,6 @@ export class PropertyView implements OnDestroy {
     private seoService: SeoService,
     private socialService: SocialService,
     private http: HttpService,
-    private imageUploadService: ImageUploadService,
     private actionStateService: PropertyActionStateService
   ) {
   }
@@ -89,7 +87,6 @@ export class PropertyView implements OnDestroy {
   }
 
   ngOnInit() {
-    this.pendingFiles$ = this.imageUploadService.pendingFiles$;
     this.isEditing$ = this.actionStateService.isEditing$;
     this.actionText$ = this.actionStateService.actionText$;
 
