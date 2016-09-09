@@ -1,7 +1,8 @@
 import { Component, OnDestroy, Input, ViewEncapsulation } from '@angular/core';
 import { Slide } from '../slide/component';
+import { ServerUnsafeService } from '../../services/server-unsafe.service';
 
-export enum Direction {UNKNOWN, NEXT, PREV}
+export enum Direction { UNKNOWN, NEXT, PREV }
 
 declare let require: (string) => string;
 
@@ -22,8 +23,11 @@ export class Carousel implements OnDestroy {
   }
 
   public set interval(value: number) {
-    this._interval = value;
-    this.restartTimer();
+    const isClient = this.unsafe.tryUnsafeCode(() => Boolean(document && window), 'document undefined');
+    if (isClient) {
+      this._interval = value;
+      this.restartTimer();
+    }
   }
 
   private slides: Array<Slide> = [];
@@ -33,6 +37,8 @@ export class Carousel implements OnDestroy {
   private currentSlide: Slide;
   private previousSlide: Slide;
   private _interval: number;
+
+  constructor(private unsafe: ServerUnsafeService) { }
 
   public ngOnDestroy() {
     this.destroyed = true;
