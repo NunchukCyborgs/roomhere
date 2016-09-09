@@ -39,6 +39,7 @@ export class UserService {
 
   public logout() {
     this.http.setAuthHeaders();
+    this.unsafe.tryUnsafeCode(() => sessionStorage.clear(), 'sessionStorage undefined');
     this.hasAuth$.next(false);
   }
 
@@ -67,7 +68,7 @@ export class UserService {
           let headers = { token: params['token'], client: params['client_id'], uid: params['uid'] };
           this.http.setAuthHeaders(headers.token, headers.client, headers.uid);
           this.updateUser(headers.uid)
-            .do(() => this.hasAuth$.next(true));
+            .subscribe(() => this.hasAuth$.next(true));
         }
       });
   }
@@ -80,7 +81,11 @@ export class UserService {
   }
 
   private storeUser() {
-    this.user$.subscribe(i => this.unsafe.tryUnsafeCode(() => sessionStorage.setItem('user', JSON.stringify(i)), 'sessionStorage undefined'));
+    this.user$.subscribe(i => {
+      if (i.uid) {
+        this.unsafe.tryUnsafeCode(() => sessionStorage.setItem('user', JSON.stringify(i)), 'sessionStorage undefined');
+      }
+    });
   }
 
   private checkForSessionAuth() {
@@ -90,8 +95,7 @@ export class UserService {
 
     if (headers && headers.token && headers.client && headers.uid) {
       this.http.setAuthHeaders(headers.token, headers.client, headers.uid);
-      this.updateUser(headers.uid)
-        .do(() => this.hasAuth$.next(true));
+      this.hasAuth$.next(true);
     }
   }
 
@@ -108,8 +112,12 @@ export class UserService {
   }
 
   private updateUser(uid: string): Observable<User> {
-    return this.http.get(`${BASE_API_URL}/users/${uid}`)
-      .map(i => i.json())
-      .do(i => this.user$.next(this._user = i));
+    // Add this back in when the route exists
+    // return this.http.get(`${BASE_API_URL}/users/${uid}`)
+    //   .map(i => i.json())
+    //   .do(i => console.log('user from server: ', i))
+    //   .do(i => this.user$.next(this._user = i));
+
+    return Observable.of(this.user);
   }
 }

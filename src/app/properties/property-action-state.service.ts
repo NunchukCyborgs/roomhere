@@ -36,7 +36,7 @@ export class PropertyActionStateService {
   public setState(user: User, property: Property): Observable<PropertyActionState> {
     if (this._isEditing) {
       this.actionState$.next(this._actionState = PropertyActionState.Editing);
-    } else if (property && user && user.license_id === property.license_id) {
+    } else if (property && user && (user.license_id === property.license_id || !property.license_id)) { // Remove this silly case when api is finished
       this.actionState$.next(this._actionState = PropertyActionState.Authorized);
     } else {
       this.actionState$.next(this._actionState = PropertyActionState.NonAuthorized);
