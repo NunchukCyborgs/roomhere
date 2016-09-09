@@ -1,4 +1,4 @@
-import { Component, Input, AfterViewInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { BASE_API_URL } from '../../config';
 import { Slide } from '../../components/slide/component';
 import { Carousel }  from '../../components/carousel/component';
@@ -20,7 +20,7 @@ export class PropertyImages {
   public BASE_API_URL: string = BASE_API_URL;
   public slides: Array<{image: string, text: string}>
   
-  ngOnInit() {
+  ngOnChanges() {
     this.slides = this.images.map(i => {
         return {image: BASE_API_URL + i.url, text: ''};
       });

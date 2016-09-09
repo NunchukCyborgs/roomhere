@@ -2,7 +2,7 @@
     <div stick class="callout hide-for-small-only call-to-actions--top property-actions-group-top">
         <property-actions-group (submit)="doAction()" [actionText]="actionText$ | async" (shareFacebook)="shareFacebook()" [tweetText]="tweetText"></property-actions-group>
     </div>
-    <property-images [images]="property?.images" [interval]="6500" *ngIf="property?.images"></property-images>
+    <property-images [images]="property.images" [interval]="6500" *ngIf="property?.images"></property-images>
     <div class="row">
         <section class="small-11 medium-11 columns small-centered">
             <div class="row marg-top">
