@@ -89,7 +89,10 @@ export class ImageUploadService {
 
   private uploadComplete(data) {
     const x = data.jqXHR;
-    this.http.setAuthHeaders(x.getResponseHeader('access-token'), x.getResponseHeader('client'), x.getResponseHeader('uid'));
+    let headers = { token: x.getResponseHeader('access-token'), client: x.getResponseHeader('client'), uid: x.getResponseHeader('uid') };
+    if (headers.token && headers.client && headers.uid) {
+      this.http.setAuthHeaders(headers.token, headers.client, headers.uid);
+    }
     this.propertyService.updateLocal(data.result);
     this.deletePendingFile({ fileName: this.getFileName(data), progress: 100 });
   }
@@ -101,21 +104,21 @@ export class ImageUploadService {
 
   private bindToDrag(wrapper$) {
     $(document).bind('dragover', (e) => {
-        let found = false;
-        let node = e.target;
+      let found = false;
+      let node = e.target;
 
-        do {
-          if (node === wrapper$[0]) {
-            found = true;
-            break;
-          }
-          node = node.parentNode;
-        } while (node != null);
-        if (found) {
-          wrapper$.addClass('in');
-        } else {
-          wrapper$.removeClass('in');
+      do {
+        if (node === wrapper$[0]) {
+          found = true;
+          break;
         }
-      });
+        node = node.parentNode;
+      } while (node != null);
+      if (found) {
+        wrapper$.addClass('in');
+      } else {
+        wrapper$.removeClass('in');
+      }
+    });
   }
 }
