@@ -13,7 +13,7 @@
                     </div>
                     <div class="medium-9 large-4 end text-left columns">
                         <label>Bedrooms
-                            <number-ticker name="bedrooms" [(number)]="property.bedrooms" [min]="1" [max]="16"></number-ticker>
+                            <number-ticker name="bedrooms" [(number)]="property.bedrooms" [min]="1" [max]="50"></number-ticker>
                         </label>
                     </div>
                 </div>
@@ -24,7 +24,7 @@
                     </div>
                     <div class="medium-9 large-4 end text-left columns">
                         <label>Bathrooms
-                            <number-ticker name="bathrooms" [(number)]="property.bathrooms" [min]="1" [max]="16"></number-ticker>
+                            <number-ticker name="bathrooms" [(number)]="property.bathrooms" [min]="1" [max]="50"></number-ticker>
                         </label>
                     </div>
                 </div>
@@ -34,7 +34,7 @@
                         </label>
                     </div>
                     <div class="medium-9 large-4 end text-left columns">Lease Price:
-                        <number-ticker [(number)]="property.price" [min]="0" [max]="120"></number-ticker>( $ )
+                        <number-ticker [(number)]="property.price" [min]="0" [max]="99999"></number-ticker>( $ )
                     </div>
                 </div>
                 <div class="row">
