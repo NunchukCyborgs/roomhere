@@ -4,7 +4,7 @@
     </div>
     <property-images [images]="property.images" [interval]="6500" *ngIf="property?.images"></property-images>
     <div class="row">
-        <section class="small-12 medium-11 large-9 columns small-centered">
+        <section class="small-12 medium-11 large-9 columns small-centered padding">
             <div *ngIf="!(isEditing$ | async)" class="callout-card">
                 <div class="callout-card-content">
                     <div class="row column">
@@ -39,7 +39,6 @@
                 </div>
             </div>
             <property-edit [property]="property" (submit)="updateProperty(property)" *ngIf="property && (isEditing$ | async)"></property-edit>
-            <property-map *ngIf="mapOptions" [properties]="[property]" [mapOptions]="mapOptions"></property-map>
         </section>
     </div>
     <div class="row show-for-small-only callout-bottom sticky-actions">
@@ -47,4 +46,5 @@
             <property-actions-group (submit)="doAction()" [actionText]="actionText$ | async" (shareFacebook)="shareFacebook()" [tweetText]="tweetText"></property-actions-group>
         </div>
     </div>
+    <property-map *ngIf="mapOptions" [properties]="[property]" [mapOptions]="mapOptions"></property-map>
 </div>
