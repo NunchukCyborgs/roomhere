@@ -35,14 +35,14 @@
                         <div class="column">
                             <p>{{property?.description}}</p>
                         </div>
-                        <!--<property-map *ngIf="mapOptions" [properties]="[property]" [mapOptions]="mapOptions"></property-map>-->
                     </div>
                 </div>
             </div>
             <property-edit [property]="property" (submit)="updateProperty(property)" *ngIf="property && (isEditing$ | async)"></property-edit>
+            <property-map *ngIf="mapOptions" [properties]="[property]" [mapOptions]="mapOptions"></property-map>
         </section>
     </div>
-    <div class="row show-for-small-only callout-bottom sticky-actions" >
+    <div class="row show-for-small-only callout-bottom sticky-actions">
         <div class="column">
             <property-actions-group (submit)="doAction()" [actionText]="actionText$ | async" (shareFacebook)="shareFacebook()" [tweetText]="tweetText"></property-actions-group>
         </div>

@@ -22,7 +22,7 @@ declare let $: any;
 declare let require: (string) => string;
 
 const ZOOM_LEVEL: number = 16;
-const HEIGHT: string = '100px';
+const HEIGHT: string = '350px';
 
 @Component({
   moduleId: __filename,
