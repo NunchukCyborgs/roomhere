@@ -1,4 +1,10 @@
-<div class="column image-wrapper">
-  <img *ngIf="imageUrl" class="js-property-image edit-property-image" [src]="BASE_API_URL + imageUrl" />
-  <button (click)="delete()" class="image-delete"><i class="fa fa-ban"></i></button>
-</div>
+<div class="image-wrapper">
+    <a target="_blank" [href]="BASE_API_URL + imageUrl">
+      <div class="chrome-wrap-fix">
+        <div class="responsive-image">
+          <img *ngIf="imageUrl" [src]="BASE_API_URL + imageUrl">
+        </div>
+      </div>
+    </a>
+  </div>
+<button (click)="delete()" class="button image-delete">Remove Image</button>
