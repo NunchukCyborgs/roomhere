@@ -46,16 +46,14 @@ declare let require: (string) => string;
       </div>
     </div>
 
-    <div class="row column left-margin-fix full-width">
-        <main>
-          <router-outlet></router-outlet>
-        </main>
-        <div hidden>
-          <register class="reveal small" id="RegisterModal" data-reveal></register>
-          <login class="reveal small" id="LoginModal" data-reveal></login>
-          <forgot-password class="reveal small" id="ForgotPasswordModal" data-reveal></forgot-password>
-          <reset-password class="reveal small" id="ResetPasswordModal" data-reveal></reset-password>
-        </div>
+    <main>
+      <router-outlet></router-outlet>
+    </main>
+    <div hidden>
+      <register class="reveal small" id="RegisterModal" data-reveal></register>
+      <login class="reveal small" id="LoginModal" data-reveal></login>
+      <forgot-password class="reveal small" id="ForgotPasswordModal" data-reveal></forgot-password>
+      <reset-password class="reveal small" id="ResetPasswordModal" data-reveal></reset-password>
     </div>
     <sticky-footer></sticky-footer>
   `
