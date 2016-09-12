@@ -46,7 +46,7 @@ declare let require: (string) => string;
       </div>
     </div>
 
-    <div class="row left-margin-fix full-width">
+    <div class="row column left-margin-fix full-width">
         <main>
           <router-outlet></router-outlet>
         </main>
