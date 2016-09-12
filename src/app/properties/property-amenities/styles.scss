@@ -1,3 +1,13 @@
-.strike {
-  text-decoration: line-through;
+.non-active {
+  opacity: .35
+}
+
+.amenity {
+  padding: 3px 0;
+}
+
+@media screen and (max-width: 480px) {
+  .amenity-size {
+    font-size: 80%;
+  }
 }

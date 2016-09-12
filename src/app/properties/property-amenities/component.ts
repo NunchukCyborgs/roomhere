@@ -16,8 +16,14 @@ export class PropertyAmenities {
   public featuredAmenities: Amenity[];
   public showMore: boolean;
 
+  public prettyAmenities: Amenity[];
+
   ngOnInit() {
-    this.featuredAmenities = this.amenities
+    this.prettyAmenities = this
+      .sortAmenities(this.amenities)
+      .map(i => this.shortenAmenities(i));
+
+    this.featuredAmenities = this.prettyAmenities
       .filter(i => i.active)
       .slice(1, 4);
 
@@ -28,5 +34,14 @@ export class PropertyAmenities {
     amen.active = $event.target.checked;
     this.amenities[this.amenities.map(i => i.id).indexOf(amen.id)] = amen;
     this.amenitiesChange.emit(this.amenities);
+  }
+
+  private sortAmenities(amens: Amenity[]): Amenity[] {
+    return amens.sort((a, b) => a.name.length < b.name.length ? -1 : 1);
+  }
+
+  private shortenAmenities(amen: Amenity): Amenity {
+    amen.name = amen.name.replace(' Included', ' Incl.').replace(' Allowed', '');
+    return amen;
   }
 }

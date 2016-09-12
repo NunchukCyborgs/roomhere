@@ -8,14 +8,6 @@ textarea {
     min-height: 150px;
 }
 
-em,
-i {
-    font-size: 1.8rem;
-    position: relative;
-    top: 50%;
-    transform: translateY(-50%);
-}
-
 .call-to-actions--top .rent-now {
     margin-bottom: 10px;
 }
@@ -30,45 +22,21 @@ i {
     width: 350px;
 }
 
-.stat {
-    height: 133px;
-}
-
-.ver-center {
-    position: relative;
-    top: 50%;
-    transform: translateY(-50%);
+.stat i {
+    font-size: 1.2em;
 }
 
 .callout {
     padding: .5rem !important;
 }
 
-@media (min-width: 1025px) {
-    .marg-top {
-        margin-top: 40px;
-    }
-    .marg-btm {
-        margin-bottom: 40px;
-    }
-}
-
 @media (max-width: 1024px) {
     .call-to-actions--top {
         width: 300px;
     }
-    .marg-top {
-        margin-top: 20px;
-    }
-    .marg-btm {
-        margin-bottom: 20px;
-    }
 }
 
 @media (max-width: 640px) {
-    .marg-top {
-        margin-top: 20px;
-    }
     .callout-bottom {
         border-radius: 5%;
         box-shadow: inset 1px 1px 3px #999;
@@ -90,6 +58,6 @@ i {
     }
 }
 
-.white {
-    background: #fff;
+.padding {
+    padding: 10px 0;
 }

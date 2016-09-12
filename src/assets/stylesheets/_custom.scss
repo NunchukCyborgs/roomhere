@@ -16,6 +16,12 @@
   font-size: 1.5em;
 }
 
+div[class$="-centered"] {
+  float: none !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
 /* Hot fix */
 body {
   overflow: initial;
@@ -56,8 +62,6 @@ button[disabled], button[disabled]:hover {
   top: 100%;
   bottom: auto;
 }
-
-
 
 .top-bar-right {
   margin-top: 8px;
@@ -140,20 +144,20 @@ control-messages{
   position: fixed !important;
 }
 
-.large-text-right {
-  @include breakpoint(large only) {
+.small-text-right {
+  @include breakpoint(small up) {
     text-align: right;
   }
 }
 
-.large-text-center {
-  @include breakpoint(large only) {
+.small-text-center {
+  @include breakpoint(small up) {
     text-align: center;
   }
 }
 
-.large-text-left {
-  @include breakpoint(large only) {
+.small-text-left {
+  @include breakpoint(small up) {
     text-align: left;
   }
 }
@@ -176,20 +180,20 @@ control-messages{
   }
 }
 
-.small-text-right {
-  @include breakpoint(small up) {
+.large-text-right {
+  @include breakpoint(large only) {
     text-align: right;
   }
 }
 
-.small-text-center {
-  @include breakpoint(small up) {
+.large-text-center {
+  @include breakpoint(large only) {
     text-align: center;
   }
 }
 
-.small-text-left {
-  @include breakpoint(small up) {
+.large-text-left {
+  @include breakpoint(large only) {
     text-align: left;
   }
 }

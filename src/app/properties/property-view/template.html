@@ -4,52 +4,45 @@
     </div>
     <property-images [images]="property.images" [interval]="6500" *ngIf="property?.images"></property-images>
     <div class="row">
-        <section class="small-11 medium-11 columns small-centered">
-            <div class="row marg-top">
-                <div *ngIf="!(isEditing$ | async)" data-equalizer>
-                    <h3>{{property?.address1}}</h3>
-                    <h3 *ngIf="property?.address2">{{property?.address2}}</h3>
-                    <div class="medium-4 large-5 columns callout show-for-medium" data-equalizer-watch>
-                        <property-map *ngIf="mapOptions" [properties]="[property]" [mapOptions]="mapOptions"></property-map>
-                    </div>
-                    <div class="callout columns small-3 medium-2 large-1 stat text-center" data-equalizer-watch>
-                        <div><i class="icon-bed"></i>
+        <section class="small-12 medium-11 large-9 columns small-centered">
+            <div *ngIf="!(isEditing$ | async)" class="callout-card">
+                <div class="callout-card-content">
+                    <div class="row column">
+                        <div class="column padding large-5 small-text-center large-text-left">
+                            <h3>{{property?.address1}}</h3>
+                            <h3 *ngIf="property?.address2">{{property?.address2}}</h3>
                         </div>
-                        {{property?.bedrooms}}
-                    </div>
-                    <div class="callout columns small-3 medium-2 large-1 stat text-center" data-equalizer-watch>
-                        <div><i class="icon-shower"></i>
+                        <div class="column padding large-2 medium-3 small-6 stat text-center">
+                            <span><i class="icon-bed"></i></span>
+                            <span>{{property?.bedrooms}}</span>
                         </div>
-                        {{property?.bathrooms}}
-                    </div>
-                    <div class="callout columns small-6 medium-4 stat end text-center" data-equalizer-watch>
-                        <div class="ver-center"><span class="stat">{{property?.price | currency:'USD':true}}</span><span class="hide-for-small-only">/mo.</span>
-                            <p class="show-for-small-only">/mo.</p>
+                        <div class="column padding large-2 medium-3 small-6 stat text-center">
+                            <span><i class="icon-shower"></i></span>
+                            <span>{{property?.bathrooms}}</span>
                         </div>
-                        <p *ngIf="property?.lease_length">Lease: {{property?.lease_length}} months</p>
+                        <div class="column padding large-3 medium-6 text-center">
+                            <div><span class="stat">{{property?.price | currency:'USD':true}}</span><small>/mo</small></div>
+                            <div><small *ngIf="property?.lease_length">{{property?.lease_length}} months</small></div>
+                        </div>
+                        <hr />
                     </div>
-                </div>
-                <property-edit [property]="property" (submit)="updateProperty(property)" *ngIf="property && (isEditing$ | async)"></property-edit>
-            </div>
-            <div class="row marg-top marg-btm">
-                <div *ngIf="!(isEditing$ | async)" class="column medium-6">
-                    <p>{{property?.description}}</p>
-                </div>
-                <div *ngIf="!(isEditing$ | async)" class="column medium-6">
-                    <property-amenities *ngIf="property?.amenities" [(amenities)]="property.amenities" [isEditing]="false"></property-amenities>
-                </div>
-                <div *ngIf="(isEditing$ | async)">
-                    <div class="column marg-top hide-for-small-only marg-btm">
-                        <property-map *ngIf="mapOptions" [properties]="[property]" [mapOptions]="mapOptions"></property-map>
+                    <div class="row column padding small-9 small-centered">
+                        <div class="column padding">
+                            <property-amenities *ngIf="property?.amenities" [(amenities)]="property.amenities" [isEditing]="false"></property-amenities>
+                        </div>
                     </div>
-                </div>
-                <div class="column hide-for-medium marg-top">
-                    <property-map *ngIf="mapOptions" [properties]="[property]" [mapOptions]="mapOptions"></property-map>
+                    <div class="row column padding small-11 small-centered">
+                        <div class="column">
+                            <p>{{property?.description}}</p>
+                        </div>
+                        <!--<property-map *ngIf="mapOptions" [properties]="[property]" [mapOptions]="mapOptions"></property-map>-->
+                    </div>
                 </div>
             </div>
+            <property-edit [property]="property" (submit)="updateProperty(property)" *ngIf="property && (isEditing$ | async)"></property-edit>
         </section>
     </div>
-    <div class="row show-for-small-only callout-bottom marg-top sticky-actions">
+    <div class="row show-for-small-only callout-bottom sticky-actions" >
         <div class="column">
             <property-actions-group (submit)="doAction()" [actionText]="actionText$ | async" (shareFacebook)="shareFacebook()" [tweetText]="tweetText"></property-actions-group>
         </div>
