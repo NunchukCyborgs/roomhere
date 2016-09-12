@@ -4,81 +4,55 @@
         <h3 *ngIf="property.address2">{{property.address2}}</h3>
     </legend>
     <div class="columns small-12">
-        <div class="row">
-            <div class="column medium-10 medium-centered large-uncentered large-6 large-push-0 marg-btm">
-                <div class="row flex-row">
-                    <div class="small-2 medium-3 large-3 columns icon-label-wrapper">
-                        <label for="bedrooms"><i class="large icon-bed"></i>
-                        </label>
-                    </div>
-                    <div class="small-10 medium-9 large-9 text-left columns">
+        <div class="row flex-row padding">
+            <div class="column medium-6">
+                <div class="row">
+                    <div class="small-12 columns ticker-icon-combo">
                         <label>Bedrooms
                             <number-ticker name="bedrooms" [(number)]="property.bedrooms" [min]="1" [max]="50"></number-ticker>
+                            <i class="large icon-bed"></i>
                         </label>
                     </div>
-                </div>
-                <div class="row flex-row">
-                    <div class="small-2 medium-3 large-3 columns icon-label-wrapper">
-                        <label for="bathrooms"><i class="large icon-shower"></i>
-                        </label>
-                    </div>
-                    <div class="small-10 medium-9 large-9 text-left columns">
+                    <div class="small-12 columns ticker-icon-combo">
                         <label>Bathrooms
                             <number-ticker name="bathrooms" [(number)]="property.bathrooms" [min]="1" [max]="50"></number-ticker>
+                            <i class="large icon-shower"></i>
                         </label>
                     </div>
-                </div>
-                <div class="row flex-row">
-                    <div class="small-2 medium-3 large-3 columns icon-label-wrapper">
-                        <label for="LeasePrice"><i class="large icon-dollar"></i>
-                        </label>
-                    </div>
-                    <div class="small-10 medium-9 large-9 text-left columns">
+                    <div class="small-12 columns ticker-icon-combo">
                         <label>Price/mo
-                            <number-ticker [(number)]="property.price" [min]="0" [max]="99999"></number-ticker>
+                            <number-ticker name="price" [(number)]="property.price" [min]="0" [max]="99999"></number-ticker>
+                            <i class="large icon-dollar"></i>
                         </label>
                     </div>
-                </div>
-                <div class="row flex-row">
-                    <div class="small-2 medium-3 large-3 columns icon-label-wrapper">
-                        <label for="LeaseLength"><i class="large icon-calendar-check-o"></i></label>
-                    </div>
-                    <div class="small-10 medium-9 large-9 text-left columns">
+                    <div class="small-12 columns ticker-icon-combo">
                         <label>Lease Length (months)
-                            <number-ticker [(number)]="property.lease_length" [min]="0" [max]="120"></number-ticker>
+                            <number-ticker name="lease_length" [(number)]="property.lease_length" [min]="0" [max]="120"></number-ticker>
+                            <i class="large icon-calendar-check-o"></i>
                         </label>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="medium-3 large-3 columns">
-                        <label for="ImageUpload" class="large-text-right medium-text-left"><i class="icon-picture"></i>
-                        </label>
-                    </div>
-                    <div class="medium-9 large-10 text-left end columns">
-                        <image-upload [id]="'FileUpload'"></image-upload>
-                    </div>
-                </div>
-                <div class="row small-up-1 medium-up-3 large-up-6 gallery">
-                    <property-edit-image *ngFor="let img of property.images" [(property)]="property" [(imageUrl)]="img.url" [(imageId)]="img.id"></property-edit-image>
-                    <upload-progress *ngFor="let file of pendingFiles$ | async" class="column" [fileName]="file.fileName" [progress]="file.progress"></upload-progress>
                 </div>
             </div>
-            <div class="column small-12 large-6">
-                <div>
+            <div class="column medium-6">
+                <label>
                     Description:
                     <textarea [(ngModel)]="property.description"></textarea>
-                </div>
-                <div class="marg-top">
+                </label>
+            </div>
+        </div>
+        <div class="row flex-row">
+            <div class="column large-6 padding">
+                <div class="row column small-10 small-centered">
                     <property-amenities [(amenities)]="property.amenities" [isEditing]="true"></property-amenities>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="column">
-                <button class="float-right success button" (click)="onSubmit()">
-                    Update Property
-                </button>
+            <div class="column large-6 padding">
+                <image-upload [id]="'FileUpload'"></image-upload>
             </div>
+        </div>
+        <div class="row small-up-1 medium-up-3 large-up-6 gallery">
+            <property-edit-image *ngFor="let img of property.images" [(property)]="property" [(imageUrl)]="img.url" [(imageId)]="img.id"></property-edit-image>
+            <upload-progress *ngFor="let file of pendingFiles$ | async" class="column" [fileName]="file.fileName" [progress]="file.progress"></upload-progress>
         </div>
     </div>
 </fieldset>
