@@ -6,49 +6,51 @@
     <div class="columns small-12">
         <div class="row">
             <div class="column medium-10 medium-centered large-uncentered large-6 large-push-0 marg-btm">
-                <div class="row">
-                    <div class="medium-3 large-2 columns">
-                        <label for="bedrooms" class="large-text-right medium-text-left"><i class="icon-bed"></i>
+                <div class="row flex-row">
+                    <div class="small-2 medium-3 large-3 columns icon-label-wrapper">
+                        <label for="bedrooms"><i class="large icon-bed"></i>
                         </label>
                     </div>
-                    <div class="medium-9 large-4 end text-left columns">
+                    <div class="small-10 medium-9 large-9 text-left columns">
                         <label>Bedrooms
                             <number-ticker name="bedrooms" [(number)]="property.bedrooms" [min]="1" [max]="50"></number-ticker>
                         </label>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="medium-3 large-2 columns">
-                        <label for="bathrooms" class="large-text-right medium-text-left"><i class="icon-shower"></i>
+                <div class="row flex-row">
+                    <div class="small-2 medium-3 large-3 columns icon-label-wrapper">
+                        <label for="bathrooms"><i class="large icon-shower"></i>
                         </label>
                     </div>
-                    <div class="medium-9 large-4 end text-left columns">
+                    <div class="small-10 medium-9 large-9 text-left columns">
                         <label>Bathrooms
                             <number-ticker name="bathrooms" [(number)]="property.bathrooms" [min]="1" [max]="50"></number-ticker>
                         </label>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="medium-3 large-2 columns">
-                        <label for="LeasePrice" class="large-text-right medium-text-left"><i class="icon-dollar"></i>
+                <div class="row flex-row">
+                    <div class="small-2 medium-3 large-3 columns icon-label-wrapper">
+                        <label for="LeasePrice"><i class="large icon-dollar"></i>
                         </label>
                     </div>
-                    <div class="medium-9 large-4 end text-left columns">Lease Price:
-                        <number-ticker [(number)]="property.price" [min]="0" [max]="99999"></number-ticker>( $ )
+                    <div class="small-10 medium-9 large-9 text-left columns">
+                        <label>Price/mo
+                            <number-ticker [(number)]="property.price" [min]="0" [max]="99999"></number-ticker>
+                        </label>
+                    </div>
+                </div>
+                <div class="row flex-row">
+                    <div class="small-2 medium-3 large-3 columns icon-label-wrapper">
+                        <label for="LeaseLength"><i class="large icon-calendar-check-o"></i></label>
+                    </div>
+                    <div class="small-10 medium-9 large-9 text-left columns">
+                        <label>Lease Length (months)
+                            <number-ticker [(number)]="property.lease_length" [min]="0" [max]="120"></number-ticker>
+                        </label>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="medium-3 large-2 columns">
-                        <label for="LeaseLength" class="large-text-right medium-text-left"><i class="icon-calendar-check-o"></i></label>
-                    </div>
-                    <div class="medium-9 large-4 end text-left end columns"> Lease Length:
-                        <number-ticker [(number)]="property.lease_length" [min]="0" [max]="120">
-                        </number-ticker>
-                        (months)
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="medium-3 large-2 columns">
+                    <div class="medium-3 large-3 columns">
                         <label for="ImageUpload" class="large-text-right medium-text-left"><i class="icon-picture"></i>
                         </label>
                     </div>

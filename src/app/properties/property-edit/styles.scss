@@ -1,0 +1,20 @@
+i.large {
+    font-size: 3.2em;
+}
+
+@media (max-width: 480px) {
+    i.large {
+        font-size: 2em;
+    }
+}
+
+
+.icon-label-wrapper {
+    position: relative;
+
+    i:before {
+        position: absolute;
+        bottom: 5px;
+        right: 0;
+    }
+}
