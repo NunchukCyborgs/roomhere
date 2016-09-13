@@ -8,9 +8,9 @@ declare let require: (string) => string;
 
 @Component({
   selector: 'carousel',
-  directives: [],
+  // directives: [],
   encapsulation: ViewEncapsulation.None,
-  styles: [require('./styles.scss').toString()],
+  // styles: [require('./styles.scss').toString()],
   templateUrl: 'template.html',
 })
 export class Carousel implements OnDestroy {

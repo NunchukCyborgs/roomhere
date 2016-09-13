@@ -25,12 +25,12 @@ const ZOOM_LEVEL: number = 16;
 const HEIGHT: string = '350px';
 
 @Component({
-  moduleId: __filename,
+//  moduleId: __filename,
   selector: 'property-view',
-  directives: [PropertyReviews, SimilarProperties, PropertyMap, PropertyImages,
-    PropertyAmenities, NumberTicker, PropertyActionsGroup, StickDirective, PropertyEditImage,
-    UploadProgress, ImageUpload, PropertyEdit],
-  styles: [require('./styles.scss').toString()],
+  // directives: [PropertyReviews, SimilarProperties, PropertyMap, PropertyImages,
+  //   PropertyAmenities, NumberTicker, PropertyActionsGroup, StickDirective, PropertyEditImage,
+  //   UploadProgress, ImageUpload, PropertyEdit],
+  // styles: [require('./styles.scss').toString()],
   templateUrl: 'template.html'
 })
 export class PropertyView implements OnDestroy {

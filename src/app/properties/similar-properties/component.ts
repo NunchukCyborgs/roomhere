@@ -4,9 +4,9 @@ import { PropertyService, Property } from '../index';
 declare let require: (string) => string;
 
 @Component({
-  moduleId: __filename,
+//  moduleId: __filename,
   selector: 'similar-properties',
-  styles: [require('./styles.scss').toString()],
+  // styles: [require('./styles.scss').toString()],
   templateUrl: 'template.html',
 })
 export class SimilarProperties {

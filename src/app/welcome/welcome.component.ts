@@ -12,9 +12,9 @@ const MAP_HEIGHT = '100%';
 const MAP_ZOOM_LEVEL = 13;
 
 @Component({
-  moduleId: __filename,
+  // moduleId: __filename,
   selector: 'welcome',
-  directives: [PropertyPreview, PropertyMap, PropertyFilters, PropertySlider],
+  // directives: [PropertyPreview, PropertyMap, PropertyFilters, PropertySlider],
   styles: [`
     .left-margin-fix{
         margin-left:auto !important;

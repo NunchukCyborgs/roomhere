@@ -7,9 +7,9 @@ import { FacetsService, Location, Amenity } from '../../services/facets.service'
 declare let require: (string) => string;
 
 @Component({
-  moduleId: __filename,
+//  moduleId: __filename,
   selector: 'property-filters',
-  directives: [NgClass],
+  // directives: [NgClass],
   styles:[require('./styles.scss').toString()],
   templateUrl: 'template.html',
 })

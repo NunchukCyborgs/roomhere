@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Response } from '@angular/http';
-import { FormBuilder, FormGroup, Validators, REACTIVE_FORM_DIRECTIVES, FORM_DIRECTIVES } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import { User, UserService } from '../index';
 import { ValidationService } from '../../services/validation.service';
@@ -12,8 +12,8 @@ declare let require: (string) => string;
 
 @Component({
   selector: 'reset-password',
-  directives: [REACTIVE_FORM_DIRECTIVES, FORM_DIRECTIVES, ControlMessages],
-  styles:[require('../modal/modal.component.scss').toString(), require('./styles.scss').toString()],
+  // directives: [REACTIVE_FORM_DIRECTIVES, FORM_DIRECTIVES, ControlMessages],
+  // styles:[require('../modal/modal.component.scss').toString(), require('./styles.scss').toString()],
   templateUrl: 'template.html',
 })
 export class ResetPassword {

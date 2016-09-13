@@ -5,9 +5,9 @@ import { BASE_API_URL } from '../../config';
 declare let require: (string) => string;
 
 @Component({
-  moduleId: __filename,
+//  moduleId: __filename,
   selector: 'property-preview',
-  styles: [require('./styles.scss').toString()],
+  // styles: [require('./styles.scss').toString()],
   templateUrl: 'template.html'
 })
 export class PropertyPreview {

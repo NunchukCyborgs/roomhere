@@ -60,17 +60,17 @@ export class UserService {
   }
 
   private checkForQueryAuth() {
-    this.router
-      .routerState
-      .queryParams
-      .subscribe(params => {
-        if (params['account_confirmation_success'] === 'true' || params['reset_password'] === 'true') {
-          let headers = { token: params['token'], client: params['client_id'], uid: params['uid'] };
-          this.http.setAuthHeaders(headers.token, headers.client, headers.uid);
-          this.updateUser(headers.uid)
-            .subscribe(() => this.hasAuth$.next(true));
-        }
-      });
+    // this.router
+    //   .routerState
+    //   .queryParams
+    //   .subscribe(params => {
+    //     if (params['account_confirmation_success'] === 'true' || params['reset_password'] === 'true') {
+    //       let headers = { token: params['token'], client: params['client_id'], uid: params['uid'] };
+    //       this.http.setAuthHeaders(headers.token, headers.client, headers.uid);
+    //       this.updateUser(headers.uid)
+    //         .subscribe(() => this.hasAuth$.next(true));
+    //     }
+    //   });
   }
 
   private checkForUser() {

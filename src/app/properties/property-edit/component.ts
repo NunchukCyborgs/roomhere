@@ -10,10 +10,10 @@ import { ImageUploadService, PendingFile } from '../../services/image-upload.ser
 declare let require: (string) => string;
 
 @Component({
-  moduleId: __filename,
+//  moduleId: __filename,
   selector: 'property-edit',
-  directives: [PropertyAmenities, ImageUpload, NumberTicker, UploadProgress, PropertyEditImage],
-  styles: [require('./styles.scss').toString()],
+  // directives: [PropertyAmenities, ImageUpload, NumberTicker, UploadProgress, PropertyEditImage],
+  // styles: [require('./styles.scss').toString()],
   templateUrl: 'template.html'
 })
 export class PropertyEdit  {

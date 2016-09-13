@@ -4,7 +4,7 @@ declare let require: (string) => string;
 
 @Component({
   selector: 'number-ticker',
-  styles: [require('./styles.scss').toString()],
+  // styles: [require('./styles.scss').toString()],
   templateUrl: 'template.html',
 })
 export class NumberTicker {

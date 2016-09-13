@@ -4,7 +4,7 @@ declare let require: (string) => string;
 
 @Component({
   selector: 'image-upload',
-  styles: [require('./styles.scss').toString()],
+  // styles: [require('./styles.scss').toString()],
   templateUrl: 'template.html',
 })
 export class ImageUpload {

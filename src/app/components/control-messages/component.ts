@@ -6,7 +6,7 @@ declare let require: (string) => string;
 
 @Component({
   selector: 'control-messages',
-  styles: [require('./styles.scss').toString()],
+  // styles: [require('./styles.scss').toString()],
   templateUrl: 'template.html',
 })
 export class ControlMessages {

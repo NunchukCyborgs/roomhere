@@ -1,17 +1,20 @@
 var webpack = require('webpack');
 var path = require('path');
+var resolveNgRoute = require('@angularclass/resolve-angular-routes');
 
 var commonConfig = {
   resolve: {
     extensions: ['', '.ts', '.js', '.json']
   },
   module: {
+    preLoaders: [],
     loaders: [
       { test: /\.ts$/, loaders: ['ts-loader', 'angular2-template-loader'] },
+      // { test: /\.js$/, loader: 'raw-loader' },
       { test: /\.html$/, loader: 'raw-loader' },
       { test: /\.css$/, loader: 'raw-loader' },
       { test: /\.json$/, loader: 'raw-loader' },
-      { test: /\.scss$/, loaders: ['css', 'sass']},
+      // { test: /\.scss$/, loaders: ['css-loader', 'sass-loader']},
       { test: /\.woff[\?]?.*$/, loader: 'url-loader?limit=10000&mimetype=application/font-woff' },
       { test: /\.ttf[\?]?.*$/, loader: 'url-loader?limit=10000&mimetype=application/octet-stream' },
       { test: /\.eot[\?]?.*$/, loader: 'file-loader' },
@@ -22,6 +25,12 @@ var commonConfig = {
     includePaths: [path.resolve(__dirname, 'node_modules/foundation-sites/scss'), path.resolve(__dirname, 'node_modules/motion-ui/src')]
   },
   plugins: [
+    new webpack.ContextReplacementPlugin(
+      // The (\\|\/) piece accounts for path separators in *nix and Windows
+      /angular(\\|\/)core(\\|\/)src(\\|\/)linker/,
+      root('./src'),
+      resolveNgRoute(root('./src'))
+    )
   ]
 };
 

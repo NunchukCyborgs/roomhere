@@ -7,10 +7,10 @@ declare let $: any;
 declare let require: (string) => string;
 
 @Component({
-  moduleId: __filename,
+//  moduleId: __filename,
   selector: 'property-images',
-  directives: [Slide, Carousel],
-  styles: [require('./styles.scss').toString()],
+  // directives: [Slide, Carousel],
+  // styles: [require('./styles.scss').toString()],
   templateUrl: 'template.html'
 })
 export class PropertyImages {

@@ -3,9 +3,9 @@ declare let require: (string) => any;
 const ProgressBar = require('progressbar.js');
 
 @Component({
-  moduleId: __filename,
+  // moduleId: __filename,
   selector: 'upload-progress',
-  styles: [require('./styles.scss').toString()],
+  // styles: [require('./styles.scss').toString()],
   templateUrl: 'template.html',
 })
 export class UploadProgress {

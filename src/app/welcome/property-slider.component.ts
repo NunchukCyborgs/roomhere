@@ -7,7 +7,7 @@ declare let $: any;
 declare let Foundation: any;
 
 @Component({
-  moduleId: __filename,
+//  moduleId: __filename,
   selector: 'property-slider',
   styles: [`
     input {
