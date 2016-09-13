@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-
+import { PropertyActionState } from '../index';
 declare let require: (string) => string;
 
 @Component({
@@ -9,7 +9,7 @@ declare let require: (string) => string;
   templateUrl: 'template.html'
 })
 export class PropertyActionsGroup  {
-  @Input() actionText: string;
+  @Input() actionState: PropertyActionState;
   @Input() tweetText: string;
   @Output() submit: EventEmitter<any> = new EventEmitter();
   @Output() shareFacebook: EventEmitter<any> = new EventEmitter();

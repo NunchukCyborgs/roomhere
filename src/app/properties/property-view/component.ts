@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
@@ -12,7 +12,7 @@ import { ServerUnsafeService } from '../../services/server-unsafe.service';
 import { SeoService } from '../../services/seo.service';
 import { SocialService } from '../../services/social.service';
 import { PropertyService, Property, PropertyImages, PropertyReviews, SimilarProperties, PropertyEditImage,
- PropertyAmenities, PropertyActionsGroup, PropertyEdit, PropertyActionStateService } from '../index';
+ PropertyAmenities, PropertyActionsGroup, PropertyEdit, PropertyActionStateService, PropertyActionState, PropertyActionMode } from '../index';
 import { BASE_API_URL } from '../../config'
 import { HttpService } from '../../services/http.service';
 import { ImageUploadService, PendingFile } from '../../services/image-upload.service';
@@ -37,9 +37,12 @@ export class PropertyView implements OnDestroy {
   public property: Property;
   public mapOptions: MapOptions;
   public isEditing$: Observable<boolean>;
-  public actionText$: Observable<string>;
+  public actionState$: Observable<PropertyActionState>;
   public tweetText: string;
   private sub: Subscription;
+
+  @ViewChild(PropertyEdit)
+  private propEdit: PropertyEdit;
 
   constructor(
     private router: Router,
@@ -64,13 +67,17 @@ export class PropertyView implements OnDestroy {
     this.socialService.facebookInit();
   }
 
-  public updateProperty(property: Property) {
-    this.propertyService.update(property)
-      .do(i => this.property = i)
-      .subscribe(i => this.doAction());
+  public updatePropertyAndActionState() {
+    if (this.actionStateService.actionState.mode === PropertyActionMode.Editing) {
+      this.propertyService.update(this.propEdit.property)
+        .do(i => this.property = i)
+        .subscribe(i => this.doAction());
+    } else {
+      this.doAction();
+    }
   }
 
-  public doAction() {
+  private doAction() {
     this.actionStateService.doAction(this.userService.user, this.property);
   }
 
@@ -88,7 +95,7 @@ export class PropertyView implements OnDestroy {
 
   ngOnInit() {
     this.isEditing$ = this.actionStateService.isEditing$;
-    this.actionText$ = this.actionStateService.actionText$;
+    this.actionState$ = this.actionStateService.actionState$;
 
     this.userService.user$.subscribe(i => this.actionStateService.setState(i, this.property));
 

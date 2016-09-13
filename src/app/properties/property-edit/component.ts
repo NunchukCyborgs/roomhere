@@ -21,6 +21,10 @@ export class PropertyEdit  {
   @Input() property: Property;
   public pendingFiles$: Observable<PendingFile[]>;
 
+  public test() {
+    console.log('tst string');
+  }
+
   constructor(private imageUploadService: ImageUploadService) {}
 
   public onSubmit() {
