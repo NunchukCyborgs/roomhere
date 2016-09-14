@@ -8,11 +8,13 @@ import { MapOptions } from '../../components/property-map/component';
 import { ServerUnsafeService } from '../../services/server-unsafe.service';
 import { SeoService } from '../../services/seo.service';
 import { SocialService } from '../../services/social.service';
-import { PropertyService, Property, PropertyImages, PropertyReviews, SimilarProperties, PropertyEditImage,
- PropertyAmenities, PropertyActionsGroup, PropertyEdit, PropertyActionStateService, PropertyActionState, PropertyActionMode } from '../index';
+import { Property, PropertyImages, PropertyReviews, SimilarProperties, PropertyEditImage,
+ PropertyAmenities, PropertyActionsGroup, PropertyEdit, PropertyActionState, PropertyActionMode } from '../index';
 import { BASE_API_URL } from '../../config'
 import { HttpService } from '../../services/http.service';
 import { ImageUploadService, PendingFile } from '../../services/image-upload.service';
+import { PropertyService } from '../property.service';
+import { PropertyActionStateService } from '../property-action-state.service';
 
 const ZOOM_LEVEL: number = 16;
 const HEIGHT: string = '350px';

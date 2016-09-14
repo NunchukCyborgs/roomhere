@@ -10,8 +10,6 @@ import { PropertyView } from './property-view/component';
 
 export { Amenity } from '../services/facets.service';
 export { Property, PropertyFacet } from './property';
-export { PropertyService } from './property.service';
-export { PropertyActionStateService, PropertyActionState, PropertyActionMode } from './property-action-state.service';
 export { PropertyImages } from './property-images/component';
 export { PropertyReviews } from './property-reviews/component';
 export { SimilarProperties } from './similar-properties/component';
@@ -21,6 +19,8 @@ export { PropertyActionsGroup } from './property-actions-group/component';
 export { PropertyEditImage } from './property-edit-image/component';
 export { PropertyEdit } from './property-edit/component';
 export { PropertyView } from './property-view/component';
+export { PropertyActionStateService, PropertyActionState, PropertyActionMode } from './property-action-state.service';
+export { PropertyService } from './property.service';
 
 export let ALL_COMPONENTS = [
   PropertyImages,

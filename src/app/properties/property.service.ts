@@ -1,6 +1,6 @@
 import { Renderer, Inject, Injectable } from "@angular/core";
 import { HttpService } from '../services/http.service';
-import { DOCUMENT } from '@angular/platform-browser';
+// import { DOCUMENT } from '@angular/platform-browser';
 // import { getDOM } from '@angular/platform-browser/src/dom/dom_adapter';
 
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
@@ -82,9 +82,9 @@ export class PropertyService {
   private hydrateViewCache(obj: any, key: string) {
     if (this.viewCaches.indexOf(key) === -1) {
       this.viewCaches.push(key);
-      const elem = this.renderer.createElement(this.document.body, 'meta');
-      this.renderer.setElementClass(elem, key, true);
-      this.renderer.setElementAttribute(elem, 'value', JSON.stringify(obj));
+      // const elem = this.renderer.createElement(this.document.body, 'meta');
+      // this.renderer.setElementClass(elem, key, true);
+      // this.renderer.setElementAttribute(elem, 'value', JSON.stringify(obj));
     }
   }
 
@@ -106,8 +106,8 @@ export class PropertyService {
   constructor(
     private unsafe: ServerUnsafeService,
     private http: HttpService,
-    private renderer: Renderer,
-    @Inject(DOCUMENT) private document: any
+    // private renderer: RootRenderer,
+    // @Inject(DOCUMENT) private document: any
   ) {
     // Cache the base case. This request gets auto cancelled by angular
     // during application init, but we need this to be view cached

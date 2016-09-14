@@ -10,6 +10,8 @@ import { routing } from './app.routes';
 import { Login, Register, ForgotPassword, ResetPassword, UserService } from './app/users/index';
 import { StickyFooter } from './app/footer/component';
 import { Welcome } from './app/welcome/component';
+import { FAQ } from './app/faq/component';
+import { PrivacyPolicy } from './app/privacy-policy/component';
 
 import { ALL_COMPONENTS } from './app/components/index';
 import { ALL_COMPONENTS as ALL_PROPERTY_COMPONENTS, PropertyService, PropertyActionStateService } from './app/properties/index';
@@ -28,6 +30,8 @@ export function main(config) {
       ResetPassword,
       StickyFooter,
       Welcome,
+      FAQ,
+      PrivacyPolicy,
     ],
     imports: [
       UniversalModule.withConfig({

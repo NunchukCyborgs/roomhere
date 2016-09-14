@@ -58,7 +58,6 @@ export class HttpService {
       if (this.headers.keys().indexOf(name) !== -1) {
         this.headers.set(name, values[0]);
         this.unsafe.tryUnsafeCode(() => sessionStorage.setItem(name, values[0]), 'sessionStore undefined');
-        ;
       }
     });
   }

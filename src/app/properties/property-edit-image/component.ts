@@ -1,12 +1,9 @@
 import { Component, Input, AfterViewInit } from '@angular/core';
 import { BASE_API_URL } from '../../config';
-import { Property, PropertyService } from '../index';
-
-
-;
+import { Property } from '../index';
+import { PropertyService } from '../property.service';
 
 @Component({
-//  moduleId: __filename,
   selector: 'property-edit-image',
   // styles: [require('./styles.scss').toString()],
   templateUrl: 'template.html'

@@ -30,13 +30,13 @@ export class SeoService {
     ];
 
     for (let tag of tags) {
-      const elem = this.renderer.createElement(this.document.head, 'meta');
-      this.renderer.setElementAttribute(elem, tag.key, tag.value);
+      // const elem = this.renderer.createElement(this.document.head, 'meta');
+      // this.renderer.setElementAttribute(elem, tag.key, tag.value);
     }
   }
 
   constructor(
-    private renderer: Renderer,
+    // private renderer: Renderer,
     private router: Router,
     @Inject(DOCUMENT) private document: any
     ) {

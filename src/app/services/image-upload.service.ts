@@ -3,9 +3,8 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { ServerUnsafeService } from './server-unsafe.service';
 import { HttpService } from './http.service';
 import { BASE_API_URL } from '../config';
-import { Property, PropertyService } from '../properties/index';
-
-
+import { Property } from '../properties/index';
+import { PropertyService } from '../properties/property.service';
 
 export interface PendingFile {
   fileName: string,
