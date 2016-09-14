@@ -8,6 +8,7 @@ $bg: #fff;
 $font-color: #333;
 
 .callout-card {
+    max-width: 1000px;
     background: $secondary;
     border: 1px solid #333;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
