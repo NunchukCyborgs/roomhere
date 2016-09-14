@@ -9,7 +9,7 @@ import { UserService } from './users/index';
 @Component({
   selector: 'app',
   encapsulation: ViewEncapsulation.None,
-  // styles: [require('../assets/stylesheets/app.scss').toString()],
+  styles: [require('../assets/stylesheets/app.scss').toString()],
   // Styles here are global, be careful
   template: `
   <div>

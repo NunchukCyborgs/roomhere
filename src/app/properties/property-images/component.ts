@@ -3,14 +3,9 @@ import { BASE_API_URL } from '../../config';
 import { Slide } from '../../components/slide/component';
 import { Carousel }  from '../../components/carousel/component';
 
-
-;
-
 @Component({
-//  moduleId: __filename,
   selector: 'property-images',
-  // directives: [Slide, Carousel],
-  // styles: [require('./styles.scss').toString()],
+  styles: [require('./styles.scss').toString()],
   templateUrl: 'template.html'
 })
 export class PropertyImages {

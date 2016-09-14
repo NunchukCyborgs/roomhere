@@ -7,13 +7,9 @@ import { UploadProgress } from '../../components/upload-progress/component';
 import { NumberTicker } from '../../components/number-ticker/component';
 import { ImageUploadService, PendingFile } from '../../services/image-upload.service';
 
-;
-
 @Component({
-//  moduleId: __filename,
   selector: 'property-edit',
-  // directives: [PropertyAmenities, ImageUpload, NumberTicker, UploadProgress, PropertyEditImage],
-  // styles: [require('./styles.scss').toString()],
+  styles: [require('./styles.scss').toString()],
   templateUrl: 'template.html'
 })
 export class PropertyEdit  {

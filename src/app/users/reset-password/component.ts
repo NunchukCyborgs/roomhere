@@ -7,13 +7,9 @@ import { ValidationService } from '../../services/validation.service';
 import { ServerUnsafeService } from '../../services/server-unsafe.service';
 import { ControlMessages } from '../../components/control-messages/component';
 
-
-;
-
 @Component({
   selector: 'reset-password',
-  // directives: [REACTIVE_FORM_DIRECTIVES, FORM_DIRECTIVES, ControlMessages],
-  // styles:[require('../modal/modal.component.scss').toString(), require('./styles.scss').toString()],
+  styles:[require('../modal/modal.component.scss').toString(), require('./styles.scss').toString()],
   templateUrl: 'template.html',
 })
 export class ResetPassword {

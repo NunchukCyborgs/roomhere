@@ -10,7 +10,7 @@ const MAP_ZOOM_LEVEL = 13;
 
 @Component({
   selector: 'welcome',
-  // styles: [require('./styles.scss').toString()],
+  styles: [require('./styles.scss').toString()],
   templateUrl: 'template.html'
 })
 export class Welcome implements OnInit {

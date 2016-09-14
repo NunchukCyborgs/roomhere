@@ -4,9 +4,9 @@ import { Amenity } from '../index';
 ;
 
 @Component({
-//  moduleId: __filename,
+
   selector: 'property-amenities',
-  // styles: [require('./styles.scss').toString()],
+  styles: [require('./styles.scss').toString()],
   templateUrl: 'template.html',
 })
 export class PropertyAmenities {

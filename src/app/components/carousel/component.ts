@@ -4,13 +4,11 @@ import { ServerUnsafeService } from '../../services/server-unsafe.service';
 
 export enum Direction { UNKNOWN, NEXT, PREV }
 
-;
-
 @Component({
   selector: 'carousel',
-  // directives: [],
+  
   encapsulation: ViewEncapsulation.None,
-  // styles: [require('./styles.scss').toString()],
+  styles: [require('./styles.scss').toString()],
   templateUrl: 'template.html',
 })
 export class Carousel implements OnDestroy {

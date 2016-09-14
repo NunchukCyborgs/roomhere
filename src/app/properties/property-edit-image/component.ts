@@ -5,7 +5,7 @@ import { PropertyService } from '../property.service';
 
 @Component({
   selector: 'property-edit-image',
-  // styles: [require('./styles.scss').toString()],
+  styles: [require('./styles.scss').toString()],
   templateUrl: 'template.html'
 })
 export class PropertyEditImage {

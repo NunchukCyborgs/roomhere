@@ -7,13 +7,9 @@ import { ServerUnsafeService } from '../../services/server-unsafe.service';
 import { ValidationService } from '../../services/validation.service';
 import { ControlMessages } from '../../components/control-messages/component';
 
-;
-
-
 @Component({
   selector: 'login',
-  // directives: [REACTIVE_FORM_DIRECTIVES, FORM_DIRECTIVES, ControlMessages],
-  //  styles:[require('../modal/modal.component.scss').toString(), require('./styles.scss').toString()],
+  styles:[require('../modal/modal.component.scss').toString(), require('./styles.scss').toString()],
   templateUrl: 'template.html'
 })
 export class Login {

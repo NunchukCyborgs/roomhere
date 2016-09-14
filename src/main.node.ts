@@ -39,7 +39,11 @@ export function main(config) {
         originUrl: 'http://localhost:3000',
         baseUrl: '/',
         requestUrl: '/',
-        preboot: { appRoot: ['app'], uglify: true },
+        preboot: { appRoot: ['app'], uglify: false },
+        /*
+          Uglify is throwing a zone error
+          Zone.js has detected that ZoneAwarePromise `(window|global).Promise` has been overwritten ...
+        */
       }),
       FormsModule,
       ReactiveFormsModule,

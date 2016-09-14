@@ -4,7 +4,7 @@ import { BASE_API_URL } from '../../config';
 
 @Component({
   selector: 'property-preview',
-  // styles: [require('./styles.scss').toString()],
+  styles: [require('./styles.scss').toString()],
   templateUrl: 'template.html'
 })
 export class PropertyPreview {
