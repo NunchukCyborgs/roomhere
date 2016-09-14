@@ -4,7 +4,7 @@ import { ServerUnsafeService } from '../../services/server-unsafe.service';
 
 export enum Direction { UNKNOWN, NEXT, PREV }
 
-declare let require: (string) => string;
+;
 
 @Component({
   selector: 'carousel',

@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-declare let require: (string) => any;
 const ProgressBar = require('progressbar.js');
 
 @Component({

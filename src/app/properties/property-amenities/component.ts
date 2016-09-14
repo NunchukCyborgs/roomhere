@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Amenity } from '../index';
 
-declare let require: (string) => string;
+;
 
 @Component({
 //  moduleId: __filename,

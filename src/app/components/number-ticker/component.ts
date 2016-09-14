@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 
-declare let require: (string) => string;
+;
 
 @Component({
   selector: 'number-ticker',

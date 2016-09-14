@@ -4,10 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 
 import { UserService } from '../../users/index';
-import { NumberTicker } from '../../components/number-ticker/component';
-import { UploadProgress } from '../../components/upload-progress/component';
-import { ImageUpload } from '../../components/image-upload/component';
-import { MapOptions, PropertyMap } from '../../components/property-map/component';
+import { MapOptions } from '../../components/property-map/component';
 import { ServerUnsafeService } from '../../services/server-unsafe.service';
 import { SeoService } from '../../services/seo.service';
 import { SocialService } from '../../services/social.service';
@@ -16,20 +13,12 @@ import { PropertyService, Property, PropertyImages, PropertyReviews, SimilarProp
 import { BASE_API_URL } from '../../config'
 import { HttpService } from '../../services/http.service';
 import { ImageUploadService, PendingFile } from '../../services/image-upload.service';
-import { StickDirective } from '../../sticky.directive';
-
-declare let $: any;
-declare let require: (string) => string;
 
 const ZOOM_LEVEL: number = 16;
 const HEIGHT: string = '350px';
 
 @Component({
-//  moduleId: __filename,
   selector: 'property-view',
-  // directives: [PropertyReviews, SimilarProperties, PropertyMap, PropertyImages,
-  //   PropertyAmenities, NumberTicker, PropertyActionsGroup, StickDirective, PropertyEditImage,
-  //   UploadProgress, ImageUpload, PropertyEdit],
   // styles: [require('./styles.scss').toString()],
   templateUrl: 'template.html'
 })
@@ -41,7 +30,7 @@ export class PropertyView implements OnDestroy {
   public tweetText: string;
   private sub: Subscription;
 
-  @ViewChild(PropertyEdit)
+  // @ViewChild(PropertyEdit)
   private propEdit: PropertyEdit;
 
   constructor(

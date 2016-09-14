@@ -2,8 +2,8 @@ import { Component, Input, AfterViewInit } from '@angular/core';
 import { BASE_API_URL } from '../../config';
 import { Property, PropertyService } from '../index';
 
-declare let $: any;
-declare let require: (string) => string;
+
+;
 
 @Component({
 //  moduleId: __filename,

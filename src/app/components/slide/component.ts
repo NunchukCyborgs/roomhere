@@ -1,6 +1,6 @@
 import {Component, OnInit, OnDestroy, Input, HostBinding } from '@angular/core';
 import {Carousel, Direction} from  '../carousel/component';
-declare let require: (string) => string;
+;
 
 @Component({
   selector: 'slide',

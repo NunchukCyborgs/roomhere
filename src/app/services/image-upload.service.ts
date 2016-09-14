@@ -5,7 +5,7 @@ import { HttpService } from './http.service';
 import { BASE_API_URL } from '../config';
 import { Property, PropertyService } from '../properties/index';
 
-declare let $: any;
+
 
 export interface PendingFile {
   fileName: string,

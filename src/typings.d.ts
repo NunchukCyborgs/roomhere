@@ -73,3 +73,10 @@ interface Thenable<T> {
     onRejected?: (error: any) => void): Thenable<U>;
   catch<U>(onRejected?: (error: any) => U | Thenable<U>): Thenable<U>;
 }
+
+
+// Custom
+
+declare let $: (string) => any;
+declare let Foundation: any;
+// declare let require: (string) => string;

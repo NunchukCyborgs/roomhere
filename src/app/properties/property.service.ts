@@ -1,7 +1,7 @@
 import { Renderer, Inject, Injectable } from "@angular/core";
 import { HttpService } from '../services/http.service';
 import { DOCUMENT } from '@angular/platform-browser';
-import { getDOM } from '@angular/platform-browser/src/dom/dom_adapter';
+// import { getDOM } from '@angular/platform-browser/src/dom/dom_adapter';
 
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
@@ -89,10 +89,12 @@ export class PropertyService {
   }
 
   private getFromViewCache(key: string): any {
-    return this.unsafe.tryUnsafeCode(() => {
-      const element = getDOM().query(`.${key}`);
-      return JSON.parse(element && element.getAttribute('value'));
-    }, 'not implemented exception');
+    // return this.unsafe.tryUnsafeCode(() => {
+    //   const element = getDOM().query(`.${key}`);
+    //   return JSON.parse(element && element.getAttribute('value'));
+    // }, 'not implemented exception');
+
+    return undefined
   }
 
   public deleteImage(property: Property, imageId: number): Observable<any> {

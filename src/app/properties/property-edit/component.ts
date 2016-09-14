@@ -7,7 +7,7 @@ import { UploadProgress } from '../../components/upload-progress/component';
 import { NumberTicker } from '../../components/number-ticker/component';
 import { ImageUploadService, PendingFile } from '../../services/image-upload.service';
 
-declare let require: (string) => string;
+;
 
 @Component({
 //  moduleId: __filename,

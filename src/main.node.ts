@@ -1,27 +1,57 @@
-import { NgModule, Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
+
 import { UniversalModule } from 'angular2-universal';
 
 import { App } from './app/app.component';
+import { routing } from './app.routes';
+
+import { Login, Register, ForgotPassword, ResetPassword, UserService } from './app/users/index';
+import { StickyFooter } from './app/footer/component';
+import { Welcome } from './app/welcome/component';
+
+import { ALL_COMPONENTS } from './app/components/index';
+import { ALL_COMPONENTS as ALL_PROPERTY_COMPONENTS, PropertyService, PropertyActionStateService } from './app/properties/index';
+import { ALL_SERVICES } from './app/services/index';
 
 export function main(config) {
-
   @NgModule({
-    bootstrap: [ App ],
-    declarations: [ App ],
+    bootstrap: [App],
+    declarations: [
+      ...ALL_COMPONENTS,
+      ...ALL_PROPERTY_COMPONENTS,
+      App,
+      Login,
+      Register,
+      ForgotPassword,
+      ResetPassword,
+      StickyFooter,
+      Welcome,
+    ],
     imports: [
       UniversalModule.withConfig({
         document: config.document,
         originUrl: 'http://localhost:3000',
         baseUrl: '/',
         requestUrl: '/',
-        // preboot: false,
         preboot: { appRoot: ['app'], uglify: true },
       }),
-      FormsModule
-    ]
+      FormsModule,
+      ReactiveFormsModule,
+      HttpModule,
+      routing,
+    ],
+    providers: [
+      ...ALL_SERVICES,
+      UserService,
+      PropertyService,
+      PropertyActionStateService,
+    ],
   })
-  class MainModule {}
+  class MainModule {
+  }
+  return MainModule;
+}
 
-  return MainModule
-};
+

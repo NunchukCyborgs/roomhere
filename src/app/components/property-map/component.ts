@@ -7,7 +7,7 @@ import { GoogleApiService } from '../../services/google-api.service';
 import { UtilService } from '../../services/util.service';
 import { ServerUnsafeService } from '../../services/server-unsafe.service';
 
-declare let require: (string) => string;
+;
 declare let google: any;
 declare let RichMarker: any;
 

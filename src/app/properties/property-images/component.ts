@@ -3,8 +3,8 @@ import { BASE_API_URL } from '../../config';
 import { Slide } from '../../components/slide/component';
 import { Carousel }  from '../../components/carousel/component';
 
-declare let $: any;
-declare let require: (string) => string;
+
+;
 
 @Component({
 //  moduleId: __filename,

@@ -4,13 +4,11 @@ import { Observable } from 'rxjs/Observable';
 import { PropertyPreview, PropertyService, Property, PropertyFacet } from '../../properties/index';
 import { FacetsService, Location, Amenity } from '../../services/facets.service';
 
-declare let require: (string) => string;
-
 @Component({
 //  moduleId: __filename,
   selector: 'property-filters',
   // directives: [NgClass],
-  styles:[require('./styles.scss').toString()],
+  // styles:[require('./styles.scss').toString()],
   templateUrl: 'template.html',
 })
 export class PropertyFilters {

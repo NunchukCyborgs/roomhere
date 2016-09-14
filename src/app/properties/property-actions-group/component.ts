@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { PropertyActionState } from '../index';
-declare let require: (string) => string;
+;
 
 @Component({
   // moduleId: __filename,

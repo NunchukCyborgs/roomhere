@@ -7,8 +7,8 @@ import { ServerUnsafeService } from '../../services/server-unsafe.service';
 import { ValidationService } from '../../services/validation.service';
 import { ControlMessages } from '../../components/control-messages/component';
 
-declare let $: any;
-declare let require: (string) => string;
+
+;
 
 @Component({
   selector: 'forgot-password',
