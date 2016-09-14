@@ -13,7 +13,7 @@ const MAP_ZOOM_LEVEL = 13;
   styles: [require('./styles.scss').toString()],
   templateUrl: 'template.html'
 })
-export class Welcome implements OnInit {
+export class Welcome {
   public properties$: Observable<Property[]>;
   public facet: PropertyFacet = new PropertyFacet();
   public pageNumber: number = 1;
@@ -21,10 +21,11 @@ export class Welcome implements OnInit {
   public mapOptions: MapOptions;
   public showFilters: boolean = false;
   public user$: Observable<User>;
+  public test: string = 'initial';
 
   constructor(private propertyService: PropertyService, private userService: UserService) { }
 
-  ngOnInit() {
+  ngAfterViewInit() {
     this.applyFacet();
     this.lastPage$ = this.propertyService.lastPage$;
     this.user$ = this.userService.user$;
@@ -35,6 +36,13 @@ export class Welcome implements OnInit {
   public applyFacet() {
     this.properties$ = this.propertyService
       .getFilteredProperties$(this.facet, this.pageNumber)
+      .do(i => console.log(`
+      
+      props length ${i.length}, id: ${i[0].id}
+
+
+      `))
+      .do(i => this.test = 'length: ' + i.length);
   }
 
   private updateOnUser() {

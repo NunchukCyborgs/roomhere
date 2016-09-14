@@ -1,5 +1,5 @@
 // the polyfills must be the first thing imported
-import 'angular2-universal-polyfills';
+import 'angular2-universal-polyfills/browser';
 
 // Angular 2
 import { enableProdMode} from '@angular/core';

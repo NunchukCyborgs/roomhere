@@ -46,10 +46,10 @@ export class HttpService {
     this.headers.set('token-type', 'Bearer');
 
     this.unsafe.tryUnsafeCode(() => {
-      sessionStorage.setItem('access-token', token || '');
-      sessionStorage.setItem('client', client || '');
-      sessionStorage.setItem('uid', uid || '');
-      sessionStorage.setItem('token-type', 'Bearer');
+      // sessionStorage.setItem('access-token', token || '');
+      // sessionStorage.setItem('client', client || '');
+      // sessionStorage.setItem('uid', uid || '');
+      // sessionStorage.setItem('token-type', 'Bearer');
     }, 'sessionStorage undefined');
   }
 
@@ -57,7 +57,7 @@ export class HttpService {
     headers.forEach((values: string[], name: string) => {
       if (this.headers.keys().indexOf(name) !== -1) {
         this.headers.set(name, values[0]);
-        this.unsafe.tryUnsafeCode(() => sessionStorage.setItem(name, values[0]), 'sessionStore undefined');
+        // this.unsafe.tryUnsafeCode(() => sessionStorage.setItem(name, values[0]), 'sessionStore undefined');
       }
     });
   }

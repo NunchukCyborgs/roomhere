@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
 
 import { UniversalModule } from 'angular2-universal';
 
@@ -39,7 +38,8 @@ export function main(config) {
         originUrl: 'http://localhost:3000',
         baseUrl: '/',
         requestUrl: '/',
-        preboot: { appRoot: ['app'], uglify: false },
+        preboot: false, // need to figure out
+        // preboot: { appRoot: ['app'], uglitify: false },
         /*
           Uglify is throwing a zone error
           Zone.js has detected that ZoneAwarePromise `(window|global).Promise` has been overwritten ...
@@ -47,7 +47,7 @@ export function main(config) {
       }),
       FormsModule,
       ReactiveFormsModule,
-      HttpModule,
+      // HttpModule, DANGER Do NOT use HttpModule, we use UniversalModule here instead
       routing,
     ],
     providers: [

@@ -23,7 +23,7 @@ export class PropertyService {
     const KEY: string = `properties_cache_p${pageNumber}_f${JSON.stringify(facet)}`
       .replace(/[^a-z_0-9]/ig, '');
 
-    const cache = this.getFromViewCache(KEY);
+    const cache = false; //this.getFromViewCache(KEY);
     let sequence;
     if (cache) {
       sequence = Observable.of(cache);
@@ -35,7 +35,7 @@ export class PropertyService {
 
     return sequence
       .do(i => this.lastPage$.next(Math.ceil(i.total_count / perPage)))
-      .do(i => this.hydrateViewCache(i, KEY))
+      // .do(i => this.hydrateViewCache(i, KEY))
       .map(i => i.results);
   }
 

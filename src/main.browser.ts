@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core'; // Renderer?
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
-import { UniversalModule } from 'angular2-universal';
+import { UniversalModule, isBrowser } from 'angular2-universal';
 
 import { App } from './app/app.component';
 import { routing } from './app.routes';
