@@ -214,3 +214,15 @@ input[type=number]::-webkit-outer-spin-button {
   -webkit-appearance: none; 
   margin: 0; 
 }
+
+.filter-buttons {
+  padding: 1px;
+}
+
+.filter-buttons a {
+  height: 100%;
+}
+
+.button-group a.button.selected {
+  opacity: .5;
+}

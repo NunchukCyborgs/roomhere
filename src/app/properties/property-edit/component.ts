@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
-import { Property, PropertyAmenities, PropertyEditImage } from '../index';
+import { Property, PropertyAmenities, PropertyEditImage, Type } from '../index';
 import { ImageUpload } from '../../components/image-upload/component';
 import { UploadProgress } from '../../components/upload-progress/component';
 import { NumberTicker } from '../../components/number-ticker/component';
@@ -16,19 +16,20 @@ declare let require: (string) => string;
   styles: [require('./styles.scss').toString()],
   templateUrl: 'template.html'
 })
-export class PropertyEdit  {
+export class PropertyEdit {
   @Output() submit: EventEmitter<any> = new EventEmitter();
   @Input() property: Property;
   public pendingFiles$: Observable<PendingFile[]>;
 
-  public test() {
-    console.log('tst string');
+  constructor(private imageUploadService: ImageUploadService) { }
+
+  public onSubmit(): void {
+    this.submit.emit(this.property);
   }
 
-  constructor(private imageUploadService: ImageUploadService) {}
-
-  public onSubmit() {
-    this.submit.emit(this.property);
+  public toggleType(typeName: string): void {
+    const type = this.property.types[this.property.types.map(i => i.name).indexOf(typeName)];
+    type.active = !type.active;
   }
 
   ngAfterViewInit() {

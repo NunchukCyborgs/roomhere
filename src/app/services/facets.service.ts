@@ -4,6 +4,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { BASE_API_URL } from '../config';
 
 export interface Amenity {
+  // This should probably be defined somewhere else..
   id: number;
   name: string;
   icon: string;
@@ -29,6 +30,7 @@ export class FacetsService {
   public _locations: Location[] = [];
   public minPrice$: BehaviorSubject<number> = new BehaviorSubject(0);
   public maxPrice$: BehaviorSubject<number> = new BehaviorSubject(5000);
+  public types$: BehaviorSubject<string[]> = new BehaviorSubject([]);
 
   constructor(private http: HttpService) {
     this.amenities$ = new BehaviorSubject(this._amenities);
@@ -43,15 +45,16 @@ export class FacetsService {
         let json = res.json();
         for (let amenity of json.amenities) {
           this._amenities.push(amenity);
-          this.amenities$.next(this._amenities);
         }
         for (let location of json.locations) {
           this._locations.push(location);
-          this.locations$.next(this._locations);
         }
 
+        this.amenities$.next(this._amenities);
+        this.locations$.next(this._locations);
         this.minPrice$.next(json.min_price);
         this.maxPrice$.next(json.max_price);
+        this.types$.next(json.types);
       });
   }
 

@@ -21,12 +21,14 @@ export class PropertyFilters {
 
   public locations$: Observable<Location[]>;
   public amenities$: Observable<Amenity[]>;
+  public types$: Observable<string[]>;
 
   constructor(private facetsService: FacetsService) { }
 
   ngOnInit() {
     this.locations$ = this.facetsService.locations$;
     this.amenities$ = this.facetsService.amenities$;
+    this.types$ = this.facetsService.types$;
   }
 
   public toggleType(type: string) {

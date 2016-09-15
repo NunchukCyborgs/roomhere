@@ -4,6 +4,15 @@
         <h3 *ngIf="property.address2">{{property.address2}}</h3>
     </legend>
     <div class="columns small-12">
+        <div class="button-group secondary">
+            <div class="row">
+                <div class="column">
+                    <div class="filter-buttons column large-3 small-6" *ngFor="let type of property.types">
+                        <a class="button expanded" [ngClass]="{selected: type.active}" (click)="toggleType(type.name)">{{type.name}}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="row flex-row padding">
             <div class="column medium-6">
                 <div class="row">

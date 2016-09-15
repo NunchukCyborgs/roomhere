@@ -1,5 +1,5 @@
 export { Amenity } from '../services/facets.service';
-export { Property, PropertyFacet } from './property';
+export { Property, PropertyFacet, Type } from './property';
 export { PropertyService } from './property.service';
 export { PropertyActionStateService, PropertyActionState, PropertyActionMode } from './property-action-state.service';
 export { PropertyImages } from './property-images/component';

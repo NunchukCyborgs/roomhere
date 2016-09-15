@@ -63,7 +63,8 @@ export class PropertyService {
 
   public update(property: Property): Observable<any> {
     property = this.updateAmenities(property);
-    return this.http.patch(`${BASE_API_URL}/properties/${property.id}`, {property: property})
+    property = this.updateTypes(property);
+    return this.http.patch(`${BASE_API_URL}/properties/${property.slug}`, {property: property})
       .map(i => i.json())
       .flatMap(i => this.updateLocal(i));
   }
@@ -76,6 +77,11 @@ export class PropertyService {
 
   private updateAmenities(property: Property): Property {
     property.amenities_attributes = property.amenities.map(i => { return {id: i.id, _destroy: !i.active}; });
+    return property;
+  }
+
+  private updateTypes(property: Property): Property {
+    property.types_attributes = property.types.map(i => { return {id: i.id, _destroy: !i.active}; });
     return property;
   }
 
