@@ -2,8 +2,6 @@ import { Component, Input } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { ValidationService } from '../../services/validation.service';
 
-;
-
 @Component({
   selector: 'control-messages',
   styles: [require('./styles.scss').toString()],

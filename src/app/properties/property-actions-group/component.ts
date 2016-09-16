@@ -1,9 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { PropertyActionState } from '../index';
-;
 
 @Component({
-  
   selector: 'property-actions-group',
   styles: [require('./styles.scss').toString()],
   templateUrl: 'template.html'

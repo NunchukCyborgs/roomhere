@@ -1,10 +1,6 @@
 import { Component } from '@angular/core';
 
-
-;
-
-@Component({
-  
+@Component({ 
   selector: 'privacy-policy',
   styles: [require('./styles.scss').toString()],
   templateUrl: 'template.html'

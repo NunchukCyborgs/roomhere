@@ -1,10 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Amenity } from '../index';
 
-;
-
 @Component({
-
   selector: 'property-amenities',
   styles: [require('./styles.scss').toString()],
   templateUrl: 'template.html',

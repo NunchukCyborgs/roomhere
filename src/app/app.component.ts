@@ -2,7 +2,6 @@ import { Component, Directive, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
-
 import { isBrowser } from 'angular2-universal';
 
 import { UserService } from './users/index';

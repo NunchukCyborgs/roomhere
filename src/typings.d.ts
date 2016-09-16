@@ -60,4 +60,6 @@ interface Global extends GlobalEnvironment  {}
 
 declare let $: (string) => any;
 declare let Foundation: any;
+declare let google: any;
+declare let RichMarker: any;
 // declare let require: (string) => string;

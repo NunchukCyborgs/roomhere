@@ -23,8 +23,8 @@ export class PropertyEdit  {
     this.submit.emit(this.property);
   }
 
-//   ngAfterViewInit() {
-//     this.pendingFiles$ = this.imageUploadService.pendingFiles$;
-//     this.imageUploadService.uploaderInit('FileUpload', this.property);
-//   }
+  ngAfterViewInit() {
+    this.pendingFiles$ = this.imageUploadService.pendingFiles$;
+    this.imageUploadService.uploaderInit('FileUpload', this.property);
+  }
 }

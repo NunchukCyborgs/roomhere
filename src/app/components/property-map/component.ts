@@ -7,9 +7,6 @@ import { GoogleApiService } from '../../services/google-api.service';
 import { UtilService } from '../../services/util.service';
 import { isBrowser } from 'angular2-universal';
 
-declare let google: any;
-declare let RichMarker: any;
-
 export interface MapOptions {
   zoomLevel: number;
   height?: string;
