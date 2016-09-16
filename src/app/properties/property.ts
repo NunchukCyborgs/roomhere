@@ -1,6 +1,13 @@
 import { Location, Amenity } from '../services/facets.service';
 import { User } from '../users/index';
 
+export interface Type {
+  name: string;
+  id: number;
+  active: boolean;
+  _destroy?: boolean;
+};
+
 export class PropertyFacet {
    public min_price: number;
    public max_price: number;
@@ -53,9 +60,18 @@ export class Property {
   public owner_id: number;
   public slug: string;
   public square_footage: number;
+<<<<<<< HEAD
   public types: string[] = [];
+=======
+  public types: Type[];
+>>>>>>> master
   public updated_at: Date;
   public zipcode: string;
   public price: number;
   public amenities_attributes: Array<{id: number, _destroy?: boolean}>;
+<<<<<<< HEAD
 }
+=======
+  public types_attributes: Array<{id: number, _destroy?: boolean}>;
+}
+>>>>>>> master

@@ -13,10 +13,9 @@
           <div class="input-group button-group secondary">
             <div class="row">
               <div class="column">
-                <div class="filter-buttons column large-3 small-6"><a class="button expanded" [ngClass]="{selected: facet.types.indexOf('apartment') !== -1}" (click)="toggleType('apartment')">Apartment</a></div>
-                <div class="filter-buttons column large-3 small-6"><a class="button expanded" [ngClass]="{selected: facet.types.indexOf('home') !== -1}" (click)="toggleType('home')">Home</a></div>
-                <div class="filter-buttons column large-3 small-6"><a class="button expanded" [ngClass]="{selected: facet.types.indexOf('duplex') !== -1}" (click)="toggleType('duplex')">Duplex</a></div>
-                <div class="filter-buttons column large-3 small-6"><a class="button expanded" [ngClass]="{selected: facet.types.indexOf('townhouse') !== -1}" (click)="toggleType('townhouse')">Townhouse</a></div>
+                <div class="filter-buttons column large-3 small-6" *ngFor="let type of types$ | async">
+                  <a class="button expanded" [ngClass]="{selected: facet.types.indexOf(type) !== -1}" (click)="toggleType(type)">{{type}}</a>
+                </div>
               </div>
             </div>
           </div>
