@@ -3,13 +3,13 @@ import { Http, Headers, Response, ResponseOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs';
 import { BASE_API_URL } from '../config';
-import { ServerUnsafeService } from './server-unsafe.service';
+import { isBrowser } from 'angular2-universal';
 
 @Injectable()
 export class HttpService {
   public headers: Headers;
 
-  constructor(private http: Http, private unsafe: ServerUnsafeService) {
+  constructor(private http: Http) {
     this.headers = new Headers();
     this.headers.set('Content-Type', 'application/json');
     this.headers.set('Accept', 'application/json');
@@ -45,19 +45,19 @@ export class HttpService {
     this.headers.set('uid', decodeURIComponent(uid));
     this.headers.set('token-type', 'Bearer');
 
-    this.unsafe.tryUnsafeCode(() => {
+    if (isBrowser) {
       // sessionStorage.setItem('access-token', token || '');
       // sessionStorage.setItem('client', client || '');
       // sessionStorage.setItem('uid', uid || '');
       // sessionStorage.setItem('token-type', 'Bearer');
-    }, 'sessionStorage undefined');
+    }
   }
 
   private updateHeaders(headers: Headers) {
     headers.forEach((values: string[], name: string) => {
       if (this.headers.keys().indexOf(name) !== -1) {
         this.headers.set(name, values[0]);
-        // this.unsafe.tryUnsafeCode(() => sessionStorage.setItem(name, values[0]), 'sessionStore undefined');
+        isBrowser && sessionStorage.setItem(name, values[0]);
       }
     });
   }

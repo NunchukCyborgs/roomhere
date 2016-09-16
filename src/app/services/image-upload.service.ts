@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { ServerUnsafeService } from './server-unsafe.service';
+import { isBrowser } from 'angular2-universal';
 import { HttpService } from './http.service';
 import { BASE_API_URL } from '../config';
 import { Property } from '../properties/index';
@@ -16,13 +16,13 @@ export class ImageUploadService {
   public pendingFiles$: BehaviorSubject<PendingFile[]>;
   private _pendingFiles: PendingFile[] = [];
 
-  constructor(private unsafe: ServerUnsafeService, private http: HttpService, private propertyService: PropertyService) {
+  constructor(private http: HttpService, private propertyService: PropertyService) {
     this.pendingFiles$ = new BehaviorSubject(this._pendingFiles);
     this.pendingFiles$.subscribe();
   }
 
   public uploaderInit(uploaderId: string, property: Property, wrapperSelector: string = 'image-upload .wrapper') {
-    this.unsafe.tryUnsafeCode(() => {
+    if (isBrowser) {
       const fileUpload$ = $(`#${uploaderId}`);
       const URL = `${BASE_API_URL}/properties/${property.slug}/images`;
       const wrapper$ = $(wrapperSelector);
@@ -49,7 +49,7 @@ export class ImageUploadService {
       );
 
       this.bindToDrag(wrapper$);
-    }, '$ is undefined');
+    };
   }
 
   public get pendingFiles(): PendingFile[] {

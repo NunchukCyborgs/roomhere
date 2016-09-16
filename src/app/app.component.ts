@@ -3,7 +3,8 @@ import { Router } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 
-import { ServerUnsafeService } from './services/server-unsafe.service';
+import { isBrowser } from 'angular2-universal';
+
 import { UserService } from './users/index';
 
 @Component({
@@ -43,16 +44,16 @@ import { UserService } from './users/index';
 })
 export class App {
   public hasAuth$: Observable<boolean>;
-  constructor(private userService: UserService, private unsafe: ServerUnsafeService, private router: Router) {
+  constructor(private userService: UserService, private router: Router) {
     this.hasAuth$ = this.userService.hasAuth$;
   }
 
   ngOnInit() {
-    this.router.events.subscribe(() => this.unsafe.tryUnsafeCode(() => $('body').foundation(), '$ not defined'))
+    this.router.events.subscribe(() => isBrowser && $('body').foundation())
     // this.router.routerState.queryParams
     //   .subscribe(params => { 
     //     if (params['reset_password'] === 'true') {
-    //       this.unsafe.tryUnsafeCode(() => $('#ResetPasswordModal').foundation('open'), '$ is undefined');
+    //       isBrowser && $('#ResetPasswordModal').foundation('open');
     //     }
     //   });
   }

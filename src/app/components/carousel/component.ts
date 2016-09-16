@@ -1,6 +1,6 @@
 import { Component, OnDestroy, Input, ViewEncapsulation } from '@angular/core';
 import { Slide } from '../slide/component';
-import { ServerUnsafeService } from '../../services/server-unsafe.service';
+import { isBrowser } from 'angular2-universal';
 
 export enum Direction { UNKNOWN, NEXT, PREV }
 
@@ -21,8 +21,7 @@ export class Carousel implements OnDestroy {
   }
 
   public set interval(value: number) {
-    const isClient = this.unsafe.tryUnsafeCode(() => Boolean(document && window), 'document undefined');
-    if (isClient) {
+    if (isBrowser) {
       this._interval = value;
       this.restartTimer();
     }
@@ -35,8 +34,6 @@ export class Carousel implements OnDestroy {
   private currentSlide: Slide;
   private previousSlide: Slide;
   private _interval: number;
-
-  constructor(private unsafe: ServerUnsafeService) { }
 
   public ngOnDestroy() {
     this.destroyed = true;

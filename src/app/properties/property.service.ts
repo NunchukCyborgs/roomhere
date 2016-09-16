@@ -9,7 +9,6 @@ import 'rxjs/Rx';
 
 import { Property, PropertyFacet } from './index';
 import { BASE_API_URL } from '../config';
-import { ServerUnsafeService } from '../services/server-unsafe.service';
 
 @Injectable()
 export class PropertyService {
@@ -89,10 +88,10 @@ export class PropertyService {
   }
 
   private getFromViewCache(key: string): any {
-    // return this.unsafe.tryUnsafeCode(() => {
+    // if (isBrowser) {
     //   const element = getDOM().query(`.${key}`);
     //   return JSON.parse(element && element.getAttribute('value'));
-    // }, 'not implemented exception');
+    // }
 
     return undefined
   }
@@ -104,7 +103,6 @@ export class PropertyService {
   }
 
   constructor(
-    private unsafe: ServerUnsafeService,
     private http: HttpService,
     // private renderer: RootRenderer,
     // @Inject(DOCUMENT) private document: any

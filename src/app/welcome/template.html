@@ -28,13 +28,9 @@
           <div class="row">
             <div class="small-12 columns">
               <div class="row flex-row">
-                {{properties$ | async | json}}
-                <h1>Property binds start {{test}} </h1>
                 <div *ngFor="let property of (properties$ | async)" class="small-12 medium-6">
-                  heyo
                   <property-preview [property]="property"></property-preview>
                 </div>
-                <h1>Property binds end</h1>
               </div>
             </div>
           </div>

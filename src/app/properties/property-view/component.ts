@@ -5,7 +5,6 @@ import { Subscription } from 'rxjs/Subscription';
 
 import { UserService } from '../../users/index';
 import { MapOptions } from '../../components/property-map/component';
-import { ServerUnsafeService } from '../../services/server-unsafe.service';
 import { SeoService } from '../../services/seo.service';
 import { SocialService } from '../../services/social.service';
 import { Property, PropertyImages, PropertyReviews, SimilarProperties, PropertyEditImage,
@@ -40,7 +39,6 @@ export class PropertyView implements OnDestroy {
     private route: ActivatedRoute,
     private propertyService: PropertyService,
     private userService: UserService,
-    private unsafe: ServerUnsafeService,
     private seoService: SeoService,
     private socialService: SocialService,
     private http: HttpService,

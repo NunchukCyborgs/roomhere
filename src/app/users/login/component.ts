@@ -3,7 +3,7 @@ import { Response } from '@angular/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import { User, UserService } from '../index';
-import { ServerUnsafeService } from '../../services/server-unsafe.service';
+import { isBrowser } from 'angular2-universal';
 import { ValidationService } from '../../services/validation.service';
 import { ControlMessages } from '../../components/control-messages/component';
 
@@ -16,11 +16,11 @@ export class Login {
   public serverErrors: string[] = [];
   public loginForm: any;
 
-  constructor(private userService: UserService, private unsafe: ServerUnsafeService, private formBuilder: FormBuilder) { }
+  constructor(private userService: UserService, private formBuilder: FormBuilder) { }
 
   ngOnInit() {
     this.init();
-    this.unsafe.tryUnsafeCode(() => $(document).on('closed.zf.reveal', () => this.init()), '$ undefined');
+    isBrowser && $(document).on('closed.zf.reveal', () => this.init());
   }
 
   private init() {
@@ -43,7 +43,7 @@ export class Login {
 
   private closeModal(res?: Response) {
     if (!res || res.ok) {
-      this.unsafe.tryUnsafeCode(() => $('login .close-button').click(), '$ is undefined');
+      isBrowser && $('login .close-button').click();
     }
   }
 }

@@ -1,6 +1,6 @@
 import { Component, Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { ServerUnsafeService } from './server-unsafe.service';
+import { isBrowser } from 'angular2-universal';
 import { UtilService } from './util.service';
 import { BASE_URL } from '../config';
 import { Property } from '../properties/index';
@@ -13,7 +13,7 @@ export class SocialService {
   public hasInit$: BehaviorSubject<{ facebook: boolean }>;
   private hasInit: { facebook: boolean } = { facebook: false };
 
-  constructor(private unsafe: ServerUnsafeService, private utilService: UtilService, private seoService: SeoService) {
+  constructor(private utilService: UtilService, private seoService: SeoService) {
     this.hasInit$ = new BehaviorSubject(this.hasInit);
   }
 
@@ -22,7 +22,7 @@ export class SocialService {
   }
 
   public facebookInit() {
-    this.unsafe.tryUnsafeCode(() => {
+    if (isBrowser) {
       window['fbAsyncInit'] = () => {
         if (!this.hasInit.facebook) {
           FB.init({
@@ -42,16 +42,16 @@ export class SocialService {
         js.src = "//connect.facebook.net/en_US/sdk.js";
         fjs.parentNode.insertBefore(js, fjs);
       } (document, 'script', 'facebook-jssdk'));
-    }, 'window not defined');
+    }
   }
 
   public facebookShare(url: string = ''): void {
-    this.unsafe.tryUnsafeCode(() => {
+    if (isBrowser) {
       FB.ui({
         method: 'share',
         display: 'popup',
         href: BASE_URL + url,
       }, (response) => { });
-    }, 'FB not defined');
+    }
   }
 }

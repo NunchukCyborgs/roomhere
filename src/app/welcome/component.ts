@@ -21,7 +21,6 @@ export class Welcome {
   public mapOptions: MapOptions;
   public showFilters: boolean = false;
   public user$: Observable<User>;
-  public test: string = 'initial';
 
   constructor(private propertyService: PropertyService, private userService: UserService) { }
 
@@ -35,14 +34,7 @@ export class Welcome {
 
   public applyFacet() {
     this.properties$ = this.propertyService
-      .getFilteredProperties$(this.facet, this.pageNumber)
-      .do(i => console.log(`
-      
-      props length ${i.length}, id: ${i[0].id}
-
-
-      `))
-      .do(i => this.test = 'length: ' + i.length);
+      .getFilteredProperties$(this.facet, this.pageNumber);
   }
 
   private updateOnUser() {

@@ -6,8 +6,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/Rx';
 import { User } from './index';
 import { HttpService } from '../services/http.service';
-import { ServerUnsafeService } from '../services/server-unsafe.service';
-
+import { isBrowser } from 'angular2-universal';
 import { BASE_API_URL } from '../config';
 
 @Injectable()
@@ -16,7 +15,7 @@ export class UserService {
   private _user: User = new User();
   public hasAuth$: BehaviorSubject<boolean>;
 
-  constructor(private http: HttpService, private router: Router, private unsafe: ServerUnsafeService) {
+  constructor(private http: HttpService, private router: Router) {
     this.user$ = new BehaviorSubject(this._user);
     this.user$.subscribe();
     this.hasAuth$ = new BehaviorSubject(false);
@@ -39,7 +38,7 @@ export class UserService {
 
   public logout() {
     this.http.setAuthHeaders();
-    this.unsafe.tryUnsafeCode(() => sessionStorage.clear(), 'sessionStorage undefined');
+    isBrowser && sessionStorage.clear();
     this.hasAuth$.next(false);
   }
 
@@ -74,7 +73,7 @@ export class UserService {
   }
 
   private checkForUser() {
-    const user = this.unsafe.tryUnsafeCode(() => JSON.parse(sessionStorage.getItem('user')), 'sessionStorage undefined');
+    const user = isBrowser && JSON.parse(sessionStorage.getItem('user'));
     if (user && user.id) {
       this.user$.next(user);
     }
@@ -83,15 +82,13 @@ export class UserService {
   private storeUser() {
     this.user$.subscribe(i => {
       if (i.uid) {
-        this.unsafe.tryUnsafeCode(() => sessionStorage.setItem('user', JSON.stringify(i)), 'sessionStorage undefined');
+        isBrowser && sessionStorage.setItem('user', JSON.stringify(i));
       }
     });
   }
 
   private checkForSessionAuth() {
-    const headers = this.unsafe.tryUnsafeCode(() => {
-      return { token: sessionStorage.getItem('access-token'), client: sessionStorage.getItem('client'), uid: sessionStorage.getItem('uid') };
-    }, 'sessionStorage undefined');
+    const headers = isBrowser && { token: sessionStorage.getItem('access-token'), client: sessionStorage.getItem('client'), uid: sessionStorage.getItem('uid') };
 
     if (headers && headers.token && headers.client && headers.uid) {
       this.http.setAuthHeaders(headers.token, headers.client, headers.uid);
@@ -108,7 +105,7 @@ export class UserService {
   }
 
   private getRedirectUrl(): string {
-    return this.unsafe.tryUnsafeCode(() => window.location.origin + window.location.pathname, 'window is not defined');
+    return isBrowser && window.location.origin + window.location.pathname;
   }
 
   private updateUser(uid: string): Observable<User> {
