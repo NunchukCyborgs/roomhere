@@ -16,50 +16,34 @@ import { ALL_COMPONENTS } from './app/components/index';
 import { ALL_COMPONENTS as ALL_PROPERTY_COMPONENTS, PropertyService, PropertyActionStateService } from './app/properties/index';
 import { ALL_SERVICES } from './app/services/index';
 
-export function main(config) {
-  @NgModule({
-    bootstrap: [App],
-    declarations: [
-      ...ALL_COMPONENTS,
-      ...ALL_PROPERTY_COMPONENTS,
-      App,
-      Login,
-      Register,
-      ForgotPassword,
-      ResetPassword,
-      StickyFooter,
-      Welcome,
-      FAQ,
-      PrivacyPolicy,
-    ],
-    imports: [
-      UniversalModule.withConfig({
-        document: config.document,
-        originUrl: 'http://localhost:3000',
-        baseUrl: '/',
-        requestUrl: '/',
-        preboot: false, // need to figure out
-        // preboot: { appRoot: ['app'], uglitify: false },
-        /*
-          Uglify is throwing a zone error
-          Zone.js has detected that ZoneAwarePromise `(window|global).Promise` has been overwritten ...
-        */
-      }),
-      FormsModule,
-      ReactiveFormsModule,
-      // HttpModule, DANGER Do NOT use HttpModule, we use UniversalModule here instead
-      routing,
-    ],
-    providers: [
-      ...ALL_SERVICES,
-      UserService,
-      PropertyService,
-      PropertyActionStateService,
-    ],
-  })
-  class MainModule {
-  }
-  return MainModule;
+@NgModule({
+  bootstrap: [App],
+  declarations: [
+    ...ALL_COMPONENTS,
+    ...ALL_PROPERTY_COMPONENTS,
+    App,
+    Login,
+    Register,
+    ForgotPassword,
+    ResetPassword,
+    StickyFooter,
+    Welcome,
+    FAQ,
+    PrivacyPolicy,
+  ],
+  imports: [
+    UniversalModule,
+    FormsModule,
+    ReactiveFormsModule,
+    // HttpModule, DANGER Do NOT use HttpModule, we use UniversalModule here instead
+    routing,
+  ],
+  providers: [
+    ...ALL_SERVICES,
+    UserService,
+    PropertyService,
+    PropertyActionStateService,
+  ],
+})
+export class MainModule {
 }
-
-

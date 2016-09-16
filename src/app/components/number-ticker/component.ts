@@ -1,7 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 
-;
-
 @Component({
   selector: 'number-ticker',
   styles: [require('./styles.scss').toString()],

@@ -19,8 +19,8 @@ export class PropertyService {
   private viewCaches: string[] = [];
 
   public getFilteredProperties$(facet: PropertyFacet, pageNumber: number = 1, perPage: number = 10): Observable<Property[]> {
-    const KEY: string = `properties_cache_p${pageNumber}_f${JSON.stringify(facet)}`
-      .replace(/[^a-z_0-9]/ig, '');
+    // const KEY: string = `properties_cache_p${pageNumber}_f${JSON.stringify(facet)}`
+    //   .replace(/[^a-z_0-9]/ig, '');
 
     const cache = false; //this.getFromViewCache(KEY);
     let sequence;

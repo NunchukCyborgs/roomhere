@@ -19,8 +19,8 @@ app.use(require('serve-favicon')(__dirname + '/assets/images/favicon.ico'));
 const ROOT = path.join(path.resolve(__dirname, '..'));
 
 // Express View
-import { main } from './main.node';
-app.engine('.html', createEngine({ main }));
+import { MainModule } from './main.node';
+app.engine('.html', createEngine({}));
 app.set('views', __dirname);
 app.set('view engine', 'html');
 
@@ -28,22 +28,29 @@ app.use(cookieParser('Angular 2 Universal'));
 app.use(bodyParser.json());
 
 // Serve static files
-app.use('/assets', express.static(path.join(__dirname, 'assets'), {maxAge: 30}));
-app.use(express.static(path.join(ROOT, 'dist/client'), {index: false}));
+app.use('/assets', express.static(path.join(__dirname, 'assets'), { maxAge: 30 }));
+app.use(express.static(path.join(ROOT, 'dist/client'), { index: false }));
 
-
-import { serverApi } from './backend/api';
-// Our API for demos only
-app.get('/data.json', serverApi);
+function ngApp(req, res) {
+  res.render('index', {
+    req,
+    res,
+    ngModule: MainModule,
+    preboot: false,
+    baseUrl: '/',
+    requestUrl: req.originalUrl,
+    originUrl: req.hostname,
+  });
+}
 
 // Routes with html5pushstate
 // ensure routes match client-side-app
-app.get('/', (req, res) => res.render('index', {req, res}));
-app.get('/faq', (req, res) => res.render('index', {req, res}));
-app.get('/privacy-policy', (req, res) => res.render('index', {req, res}));
-app.get('/properties/:slug', (req, res) => res.render('index', {req, res}));
+app.get('/', ngApp);
+app.get('/faq', ngApp);
+app.get('/privacy-policy', ngApp);
+app.get('/properties/:slug', ngApp);
 
-app.get('*', function(req, res) {
+app.get('*', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   var pojo = { status: 404, message: 'No Content' };
   var json = JSON.stringify(pojo, null, 2);

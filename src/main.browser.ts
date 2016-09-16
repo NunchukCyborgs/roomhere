@@ -18,36 +18,33 @@ import { ALL_SERVICES } from './app/services/index';
 
 import { PropertyService } from './app/properties/property.service';
 
-export function main() {
-  @NgModule({
-    bootstrap: [App],
-    declarations: [
-      ...ALL_COMPONENTS,
-      ...ALL_PROPERTY_COMPONENTS,
-      App,
-      Login,
-      Register,
-      ForgotPassword,
-      ResetPassword,
-      StickyFooter,
-      Welcome,
-      FAQ,
-      PrivacyPolicy,
-    ],
-    imports: [
-      UniversalModule,
-      FormsModule,
-      ReactiveFormsModule,
-      routing,
-    ],
-    providers: [
-      ...ALL_SERVICES,
-      UserService,
-      PropertyService,
-      PropertyActionStateService,
-    ],
-  })
-  class MainModule {
-  }
-  return MainModule;
+@NgModule({
+  bootstrap: [App],
+  declarations: [
+    ...ALL_COMPONENTS,
+    ...ALL_PROPERTY_COMPONENTS,
+    App,
+    Login,
+    Register,
+    ForgotPassword,
+    ResetPassword,
+    StickyFooter,
+    Welcome,
+    FAQ,
+    PrivacyPolicy,
+  ],
+  imports: [
+    UniversalModule,
+    FormsModule,
+    ReactiveFormsModule,
+    routing,
+  ],
+  providers: [
+    ...ALL_SERVICES,
+    UserService,
+    PropertyService,
+    PropertyActionStateService,
+  ],
+})
+export class MainModule {
 }

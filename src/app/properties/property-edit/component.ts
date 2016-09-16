@@ -17,18 +17,14 @@ export class PropertyEdit  {
   @Input() property: Property;
   public pendingFiles$: Observable<PendingFile[]>;
 
-  public test() {
-    console.log('tst string');
-  }
-
   constructor(private imageUploadService: ImageUploadService) {}
 
   public onSubmit() {
     this.submit.emit(this.property);
   }
 
-  ngAfterViewInit() {
-    this.pendingFiles$ = this.imageUploadService.pendingFiles$;
-    this.imageUploadService.uploaderInit('FileUpload', this.property);
-  }
+//   ngAfterViewInit() {
+//     this.pendingFiles$ = this.imageUploadService.pendingFiles$;
+//     this.imageUploadService.uploaderInit('FileUpload', this.property);
+//   }
 }
