@@ -9,7 +9,7 @@ import { PropertyEdit } from './property-edit/component';
 import { PropertyView } from './property-view/component';
 
 export { Amenity } from '../services/facets.service';
-export { Property, PropertyFacet } from './property';
+export { Property, PropertyFacet, Type } from './property';
 export { PropertyImages } from './property-images/component';
 export { PropertyReviews } from './property-reviews/component';
 export { SimilarProperties } from './similar-properties/component';
