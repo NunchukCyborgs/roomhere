@@ -6,7 +6,6 @@ export enum Direction { UNKNOWN, NEXT, PREV }
 
 @Component({
   selector: 'carousel',
-  
   encapsulation: ViewEncapsulation.None,
   styles: [require('./styles.scss').toString()],
   templateUrl: 'template.html',
