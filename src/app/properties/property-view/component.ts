@@ -1,4 +1,4 @@
-import { Component, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
@@ -24,15 +24,12 @@ const HEIGHT: string = '350px';
   templateUrl: 'template.html'
 })
 export class PropertyView implements OnDestroy {
-  public property: Property;
+  public property: Property = new Property();
   public mapOptions: MapOptions;
   public isEditing$: Observable<boolean>;
   public actionState$: Observable<PropertyActionState>;
   public tweetText: string;
   private sub: Subscription;
-
-  // @ViewChild(PropertyEdit)
-  private propEdit: PropertyEdit;
 
   constructor(
     private router: Router,
@@ -56,9 +53,9 @@ export class PropertyView implements OnDestroy {
     this.socialService.facebookInit();
   }
 
-  public updatePropertyAndActionState() {
+  public updatePropertyAndActionState(property: Property) {
     if (this.actionStateService.actionState.mode === PropertyActionMode.Editing) {
-      this.propertyService.update(this.propEdit.property)
+      this.propertyService.update(property)
         .do(i => this.property = i)
         .subscribe(i => this.doAction());
     } else {

@@ -5,9 +5,7 @@ import { PropertyPreview, PropertyService, Property, PropertyFacet } from '../..
 import { FacetsService, Location, Amenity } from '../../services/facets.service';
 
 @Component({
-
   selector: 'property-filters',
-  // directives: [NgClass],
   styles:[require('./styles.scss').toString()],
   templateUrl: 'template.html',
 })

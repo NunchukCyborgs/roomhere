@@ -18,7 +18,7 @@ export interface MapOptions {
 }
 
 @Component({
-  // moduleId: __filename,
+  
   selector: 'property-map',
   styles: [require('./styles.scss').toString()],
   templateUrl: 'template.html',
