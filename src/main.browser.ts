@@ -1,6 +1,5 @@
-import { NgModule } from '@angular/core'; // Renderer?
+import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
 import { UniversalModule, isBrowser } from 'angular2-universal';
 
 import { App } from './app/app.component';

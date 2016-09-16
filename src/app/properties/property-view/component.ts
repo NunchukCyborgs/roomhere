@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, Renderer } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
@@ -37,6 +37,7 @@ export class PropertyView implements OnDestroy {
     private propertyService: PropertyService,
     private userService: UserService,
     private seoService: SeoService,
+    private renderer: Renderer,
     private socialService: SocialService,
     private http: HttpService,
     private actionStateService: PropertyActionStateService
@@ -90,7 +91,7 @@ export class PropertyView implements OnDestroy {
       .do((property: Property) => this.updateMapOptions(property))
       .do((property: Property) => this.property = property)
       .do((property: Property) => this.tweetText = this.socialService.makeTwitterUrl(property))
-      .do((property: Property) => this.seoService.addPropertyTags(property))
+      .do((property: Property) => this.seoService.addPropertyTags(this.renderer, property))
       .subscribe((property: Property) => this.actionStateService.setState(this.userService.user, property));
   }
 
