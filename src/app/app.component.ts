@@ -1,5 +1,5 @@
 import { Component, Directive, OnInit, ViewEncapsulation } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 
@@ -44,18 +44,18 @@ import { UserService } from './users/index';
 })
 export class App {
   public hasAuth$: Observable<boolean>;
-  constructor(private userService: UserService, private router: Router) {
+  constructor(private userService: UserService, private router: Router, private route: ActivatedRoute) {
     this.hasAuth$ = this.userService.hasAuth$;
   }
 
   ngOnInit() {
     this.router.events.subscribe(() => isBrowser && $('body').foundation())
-    // this.router.routerState.queryParams
-    //   .subscribe(params => { 
-    //     if (params['reset_password'] === 'true') {
-    //       isBrowser && $('#ResetPasswordModal').foundation('open');
-    //     }
-    //   });
+    this.route.queryParams
+      .subscribe(params => { 
+        if (params['reset_password'] === 'true') {
+          isBrowser && $('#ResetPasswordModal').foundation('open');
+        }
+      });
   }
 
   logout() {

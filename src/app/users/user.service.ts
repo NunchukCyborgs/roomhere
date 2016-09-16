@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Response } from '@angular/http';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
@@ -15,7 +15,7 @@ export class UserService {
   private _user: User = new User();
   public hasAuth$: BehaviorSubject<boolean>;
 
-  constructor(private http: HttpService, private router: Router) {
+  constructor(private http: HttpService, private route: ActivatedRoute) {
     this.user$ = new BehaviorSubject(this._user);
     this.user$.subscribe();
     this.hasAuth$ = new BehaviorSubject(false);
@@ -59,17 +59,16 @@ export class UserService {
   }
 
   private checkForQueryAuth() {
-    // this.router
-    //   .routerState
-    //   .queryParams
-    //   .subscribe(params => {
-    //     if (params['account_confirmation_success'] === 'true' || params['reset_password'] === 'true') {
-    //       let headers = { token: params['token'], client: params['client_id'], uid: params['uid'] };
-    //       this.http.setAuthHeaders(headers.token, headers.client, headers.uid);
-    //       this.updateUser(headers.uid)
-    //         .subscribe(() => this.hasAuth$.next(true));
-    //     }
-    //   });
+    this.route
+      .queryParams
+      .subscribe(params => {
+        if (params['account_confirmation_success'] === 'true' || params['reset_password'] === 'true') {
+          let headers = { token: params['token'], client: params['client_id'], uid: params['uid'] };
+          this.http.setAuthHeaders(headers.token, headers.client, headers.uid);
+          this.updateUser(headers.uid)
+            .subscribe(() => this.hasAuth$.next(true));
+        }
+      });
   }
 
   private checkForUser() {
