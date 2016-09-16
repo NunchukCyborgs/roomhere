@@ -46,10 +46,10 @@ export class HttpService {
     this.headers.set('token-type', 'Bearer');
 
     if (isBrowser) {
-      // sessionStorage.setItem('access-token', token || '');
-      // sessionStorage.setItem('client', client || '');
-      // sessionStorage.setItem('uid', uid || '');
-      // sessionStorage.setItem('token-type', 'Bearer');
+      sessionStorage.setItem('access-token', token || '');
+      sessionStorage.setItem('client', client || '');
+      sessionStorage.setItem('uid', uid || '');
+      sessionStorage.setItem('token-type', 'Bearer');
     }
   }
 
