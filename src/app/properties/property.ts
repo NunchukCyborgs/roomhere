@@ -37,23 +37,23 @@ export class PropertyFacet {
 export class Property {
   public address1: string;
   public address2: string;
-  public amenities: Amenity[];
+  public amenities: Amenity[] = [];
   public bedrooms: number;
   public bathrooms: number;
   public contact_email: string;
   public created_at: Date;
   public description: string;
   public id: number;
-  public images: Array<{id: number, url: string}>;
+  public images: Array<{id: number, url: string}> = [];
   public latitude: number;
   public longitude: number;
-  public locations: Location[];
+  public locations: Location[] = [];
   public lease_length: number; // months
   public license_id: string;
   public owner_id: number;
   public slug: string;
   public square_footage: number;
-  public types: string[];
+  public types: string[] = [];
   public updated_at: Date;
   public zipcode: string;
   public price: number;
