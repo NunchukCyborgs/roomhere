@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core'; // Renderer?
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
 
 import { UniversalModule, isBrowser } from 'angular2-universal';
 
@@ -39,7 +38,6 @@ export function main() {
       UniversalModule,
       FormsModule,
       ReactiveFormsModule,
-      HttpModule,
       routing,
     ],
     providers: [
