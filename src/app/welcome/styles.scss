@@ -1,0 +1,33 @@
+.left-margin-fix{
+    margin-left:auto !important;
+}
+#one{
+    overflow: hidden;
+    position: relative;
+}
+.rental{
+    margin-bottom: 50px;
+}
+.fieldmargbtm{
+    margin-bottom: 10px;
+}
+.marg40top{
+    margin-top: 40px;
+}
+
+.pag{
+    margin-bottom: 100px;
+}
+
+p {
+  color: #888;
+  font-size: 13px;
+  margin-bottom: 0;
+}
+
+@media screen and (max-width: 39.9375em) {
+    .left-margin-fix{
+        margin-left:auto !important;
+        margin-right:auto !important;
+    }
+}

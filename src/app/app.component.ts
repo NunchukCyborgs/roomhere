@@ -1,30 +1,13 @@
 import { Component, Directive, OnInit, ViewEncapsulation } from '@angular/core';
-import { ROUTER_DIRECTIVES, Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
+import { isBrowser } from 'angular2-universal';
 
-import { PropertyService } from './properties/index';
-import { GoogleApiService } from './services/google-api.service';
-import { HttpService } from './services/http.service';
-import { ServerUnsafeService } from './services/server-unsafe.service';
-import { FacetsService } from './services/facets.service';
-import { SeoService } from './services/seo.service';
-import { SocialService } from './services/social.service'
-import { UtilService } from './services/util.service';
-import { ImageUploadService } from './services/image-upload.service';
-import { PropertyActionStateService } from './properties/property-action-state.service';
-
-import { Login, Register, ForgotPassword, ResetPassword, UserService } from './users/index';
-import { StickyFooter } from './footer/component';
-
-declare let $: any;
-declare let require: (string) => string;
+import { UserService } from './users/index';
 
 @Component({
   selector: 'app',
-  directives: [...ROUTER_DIRECTIVES, Login, Register, ForgotPassword, ResetPassword, StickyFooter],
-  providers: [FormBuilder, PropertyService, GoogleApiService, UserService, HttpService, 
-  ServerUnsafeService, FacetsService, SeoService, SocialService, UtilService, ImageUploadService, PropertyActionStateService],
   encapsulation: ViewEncapsulation.None,
   styles: [require('../assets/stylesheets/app.scss').toString()],
   // Styles here are global, be careful
@@ -58,18 +41,18 @@ declare let require: (string) => string;
     <sticky-footer></sticky-footer>
   `
 })
-export class App implements OnInit {
+export class App {
   public hasAuth$: Observable<boolean>;
-  constructor(private userService: UserService, private unsafe: ServerUnsafeService, private router: Router) {
+  constructor(private userService: UserService, private router: Router, private route: ActivatedRoute) {
     this.hasAuth$ = this.userService.hasAuth$;
   }
-  
+
   ngOnInit() {
-    this.router.events.subscribe(() => this.unsafe.tryUnsafeCode(() => $('body').foundation(), '$ not defined'))
-    this.router.routerState.queryParams
+    this.router.events.subscribe(() => isBrowser && $('body').foundation())
+    this.route.queryParams
       .subscribe(params => { 
         if (params['reset_password'] === 'true') {
-          this.unsafe.tryUnsafeCode(() => $('#ResetPasswordModal').foundation('open'), '$ is undefined');
+          isBrowser && $('#ResetPasswordModal').foundation('open');
         }
       });
   }

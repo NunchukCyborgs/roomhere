@@ -1,56 +1,43 @@
-import { Component, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnDestroy, Renderer } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 
 import { UserService } from '../../users/index';
-import { NumberTicker } from '../../components/number-ticker/component';
-import { UploadProgress } from '../../components/upload-progress/component';
-import { ImageUpload } from '../../components/image-upload/component';
-import { MapOptions, PropertyMap } from '../../components/property-map/component';
-import { ServerUnsafeService } from '../../services/server-unsafe.service';
+import { MapOptions } from '../../components/property-map/component';
 import { SeoService } from '../../services/seo.service';
 import { SocialService } from '../../services/social.service';
-import { PropertyService, Property, PropertyImages, PropertyReviews, SimilarProperties, PropertyEditImage,
- PropertyAmenities, PropertyActionsGroup, PropertyEdit, PropertyActionStateService, PropertyActionState, PropertyActionMode } from '../index';
+import { Property, PropertyImages, PropertyReviews, SimilarProperties, PropertyEditImage,
+ PropertyAmenities, PropertyActionsGroup, PropertyEdit, PropertyActionState, PropertyActionMode } from '../index';
 import { BASE_API_URL } from '../../config'
 import { HttpService } from '../../services/http.service';
 import { ImageUploadService, PendingFile } from '../../services/image-upload.service';
-import { StickDirective } from '../../sticky.directive';
-
-declare let $: any;
-declare let require: (string) => string;
+import { PropertyService } from '../property.service';
+import { PropertyActionStateService } from '../property-action-state.service';
 
 const ZOOM_LEVEL: number = 16;
 const HEIGHT: string = '350px';
 
 @Component({
-  moduleId: __filename,
   selector: 'property-view',
-  directives: [PropertyReviews, SimilarProperties, PropertyMap, PropertyImages,
-    PropertyAmenities, NumberTicker, PropertyActionsGroup, StickDirective, PropertyEditImage,
-    UploadProgress, ImageUpload, PropertyEdit],
   styles: [require('./styles.scss').toString()],
   templateUrl: 'template.html'
 })
 export class PropertyView implements OnDestroy {
-  public property: Property;
+  public property: Property = new Property();
   public mapOptions: MapOptions;
   public isEditing$: Observable<boolean>;
   public actionState$: Observable<PropertyActionState>;
   public tweetText: string;
   private sub: Subscription;
 
-  @ViewChild(PropertyEdit)
-  private propEdit: PropertyEdit;
-
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private propertyService: PropertyService,
     private userService: UserService,
-    private unsafe: ServerUnsafeService,
     private seoService: SeoService,
+    private renderer: Renderer,
     private socialService: SocialService,
     private http: HttpService,
     private actionStateService: PropertyActionStateService
@@ -67,9 +54,9 @@ export class PropertyView implements OnDestroy {
     this.socialService.facebookInit();
   }
 
-  public updatePropertyAndActionState() {
+  public updatePropertyAndActionState(property: Property) {
     if (this.actionStateService.actionState.mode === PropertyActionMode.Editing) {
-      this.propertyService.update(this.propEdit.property)
+      this.propertyService.update(property)
         .do(i => this.property = i)
         .subscribe(i => this.doAction());
     } else {
@@ -104,7 +91,7 @@ export class PropertyView implements OnDestroy {
       .do((property: Property) => this.updateMapOptions(property))
       .do((property: Property) => this.property = property)
       .do((property: Property) => this.tweetText = this.socialService.makeTwitterUrl(property))
-      .do((property: Property) => this.seoService.addPropertyTags(property))
+      .do((property: Property) => this.seoService.addPropertyTags(this.renderer, property))
       .subscribe((property: Property) => this.actionStateService.setState(this.userService.user, property));
   }
 

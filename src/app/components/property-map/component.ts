@@ -5,11 +5,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { Property } from '../../properties/index';
 import { GoogleApiService } from '../../services/google-api.service';
 import { UtilService } from '../../services/util.service';
-import { ServerUnsafeService } from '../../services/server-unsafe.service';
-
-declare let require: (string) => string;
-declare let google: any;
-declare let RichMarker: any;
+import { isBrowser } from 'angular2-universal';
 
 export interface MapOptions {
   zoomLevel: number;
@@ -19,7 +15,6 @@ export interface MapOptions {
 }
 
 @Component({
-  moduleId: __filename,
   selector: 'property-map',
   styles: [require('./styles.scss').toString()],
   templateUrl: 'template.html',
@@ -34,7 +29,7 @@ export class PropertyMap {
   private computedCenter: any;
 
   constructor(private router: Router, private googleApi: GoogleApiService,
-    private unsafe: ServerUnsafeService, private utilService: UtilService) { }
+    private utilService: UtilService) { }
 
   public noop() { }
 
@@ -53,7 +48,7 @@ export class PropertyMap {
           if (this.mapOptions.interactive) {
             marker.addListener('click', () => {
               let link = `/properties/${property.slug}`;
-              let win = this.unsafe.tryUnsafeCode(() => window.open(link, '_blank'), 'window is not defined');
+              let win = isBrowser && window.open(link, '_blank');
               win.focus();
             });
           }
@@ -65,7 +60,7 @@ export class PropertyMap {
   }
 
   private pokeMap() {
-    this.unsafe.tryUnsafeCode(() => window['mapbtn' + this.id].click() /* Trigger change detection and shit */, 'window is not defined');
+    isBrowser && window['mapbtn' + this.id].click(); /* Trigger change detection and shit */
   }
 
   private clearMap() {
@@ -109,15 +104,18 @@ export class PropertyMap {
 
   ngOnInit() {
     this.id = `map${this.utilService.generateGUID()}`;
-    this.init = this.googleApi.initMap().then(() => {
-      this.computedCenter = new google.maps.LatLng(this.mapOptions.center.latitude, this.mapOptions.center.longitude);
-      this.map = new google.maps.Map(document.getElementById(this.id), {
-        center: this.computedCenter,
-        zoom: this.mapOptions.zoomLevel,
-      });
 
-      this.ngOnChanges();
-    });
+    if (isBrowser) {
+      this.init = this.googleApi.initMap().then(() => {
+        this.computedCenter = new google.maps.LatLng(this.mapOptions.center.latitude, this.mapOptions.center.longitude);
+        this.map = new google.maps.Map(document.getElementById(this.id), {
+          center: this.computedCenter,
+          zoom: this.mapOptions.zoomLevel,
+        });
+
+        this.ngOnChanges();
+      });
+    }
   }
 
   ngOnChanges() {

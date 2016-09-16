@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from '../services/http.service';
 import { Observable } from 'rxjs/Observable';
-import { ServerUnsafeService } from './server-unsafe.service';
 import { UtilService } from './util.service';
+import { isBrowser } from 'angular2-universal';
 
 declare let google: any;
 declare let Promise: any;
@@ -18,8 +18,8 @@ const RICHMARKER_URL = '/assets/javascript/richmarker.min.js';
 export class GoogleApiService {
   private loadMap;
 
-  constructor(private http: HttpService, private unsafe: ServerUnsafeService, private utilService: UtilService) {
-    this.unsafe.tryUnsafeCode(() => {
+  constructor(private http: HttpService, private utilService: UtilService) {
+    if (isBrowser) {
       let resolve;
       this.loadMap = new Promise(i => resolve = i);
 
@@ -35,7 +35,7 @@ export class GoogleApiService {
       if (window[GOOGLE_MAP_CALLBACK]) {
         this.utilService.loadScript(GOOGLE_MAP_URL);
       }
-    }, 'window is not defined');
+    }
   }
 
   public initMap() {

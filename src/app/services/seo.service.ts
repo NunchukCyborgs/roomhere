@@ -10,7 +10,7 @@ export class SeoService {
     return `Check out this rental property at ${property.address1} on Roomhere.io!`;
   }
 
-  public addPropertyTags(property: Property): void {
+  public addPropertyTags(renderer: Renderer, property: Property): void {
     const description = this.getDescription(property);
     const title = `Roomhere.io property at ${property.address1}`;
     const imageUrl = property.images && property.images.length ? BASE_URL + property.images[0].url : '';
@@ -30,13 +30,12 @@ export class SeoService {
     ];
 
     for (let tag of tags) {
-      const elem = this.renderer.createElement(this.document.head, 'meta');
-      this.renderer.setElementAttribute(elem, tag.key, tag.value);
+      const elem = renderer.createElement(this.document.head, 'meta');
+      renderer.setElementAttribute(elem, tag.key, tag.value);
     }
   }
 
   constructor(
-    private renderer: Renderer,
     private router: Router,
     @Inject(DOCUMENT) private document: any
     ) {

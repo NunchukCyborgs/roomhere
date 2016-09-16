@@ -50,26 +50,16 @@ interface WebpackRequire {
   context(file: string, flag?: boolean, exp?: RegExp): any;
 }
 
-
-interface ErrorStackTraceLimit {
-  //stackTraceLimit: number;
-  stackTraceLimit(limit: number): void
-}
-
-
 // Extend typings
 interface NodeRequire extends WebpackRequire {}
-interface ErrorConstructor extends ErrorStackTraceLimit {}
 interface NodeModule extends WebpackModule {}
 interface Global extends GlobalEnvironment  {}
 
 
-interface Thenable<T> {
-  then<U>(
-    onFulfilled?: (value: T) => U | Thenable<U>,
-    onRejected?: (error: any) => U | Thenable<U>): Thenable<U>;
-  then<U>(
-    onFulfilled?: (value: T) => U | Thenable<U>,
-    onRejected?: (error: any) => void): Thenable<U>;
-  catch<U>(onRejected?: (error: any) => U | Thenable<U>): Thenable<U>;
-}
+// Custom
+
+declare let $: (string) => any;
+declare let Foundation: any;
+declare let google: any;
+declare let RichMarker: any;
+// declare let require: (string) => string;

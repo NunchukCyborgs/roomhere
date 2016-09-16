@@ -1,18 +1,14 @@
 import { Component } from '@angular/core';
 import { Response } from '@angular/http';
-import { FormBuilder, FormGroup, Validators, REACTIVE_FORM_DIRECTIVES, FORM_DIRECTIVES } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import { User, UserService } from '../index';
 import { ValidationService } from '../../services/validation.service';
-import { ServerUnsafeService } from '../../services/server-unsafe.service';
+import { isBrowser } from 'angular2-universal';
 import { ControlMessages } from '../../components/control-messages/component';
-
-declare let $: any;
-declare let require: (string) => string;
 
 @Component({
   selector: 'register',
-  directives: [REACTIVE_FORM_DIRECTIVES, FORM_DIRECTIVES, ControlMessages],
   styles:[require('../modal/modal.component.scss').toString(), require('./styles.scss').toString()],
   templateUrl: 'template.html',
 })
@@ -21,11 +17,11 @@ export class Register {
   public serverErrors: string[] = [];
   public registerForm: any;
 
-  constructor(private userService: UserService, private formBuilder: FormBuilder, private unsafe: ServerUnsafeService) { }
+  constructor(private userService: UserService, private formBuilder: FormBuilder) { }
 
   ngOnInit() {
     this.init();
-    this.unsafe.tryUnsafeCode(() => $(document).on('closed.zf.reveal', () => this.init()), '$ undefined');
+    isBrowser && $(document).on('closed.zf.reveal', () => this.init());
   }
 
   private init() {

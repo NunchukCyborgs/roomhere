@@ -1,21 +1,49 @@
-// Angular 2 Universal
-import { bootstrap } from '@angular/platform-browser-dynamic';
-import { provideRouter } from '@angular/router';
-import { HTTP_PROVIDERS } from '@angular/http';
-import { disableDeprecatedForms, provideForms } from '@angular/forms';
+import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { UniversalModule, isBrowser } from 'angular2-universal';
 
-// Application
 import { App } from './app/app.component';
-import { routes } from './app/app.routes';
+import { routing } from './app.routes';
+
+import { Login, Register, ForgotPassword, ResetPassword, UserService } from './app/users/index';
+import { StickyFooter } from './app/footer/component';
+import { Welcome } from './app/welcome/component';
+import { FAQ } from './app/faq/component';
+import { PrivacyPolicy } from './app/privacy-policy/component';
+
+import { ALL_COMPONENTS } from './app/components/index';
+import { ALL_COMPONENTS as ALL_PROPERTY_COMPONENTS, PropertyActionStateService } from './app/properties/index';
+import { ALL_SERVICES } from './app/services/index';
+
 import { PropertyService } from './app/properties/property.service';
 
-// you must return bootstrap for client.ts
-export function ngApp() {
-  return bootstrap(App, [
-    ...HTTP_PROVIDERS,
-    provideRouter(routes),
-    PropertyService,  
-    disableDeprecatedForms(),
-    provideForms()
-  ]);
+@NgModule({
+  bootstrap: [App],
+  declarations: [
+    ...ALL_COMPONENTS,
+    ...ALL_PROPERTY_COMPONENTS,
+    App,
+    Login,
+    Register,
+    ForgotPassword,
+    ResetPassword,
+    StickyFooter,
+    Welcome,
+    FAQ,
+    PrivacyPolicy,
+  ],
+  imports: [
+    UniversalModule,
+    FormsModule,
+    ReactiveFormsModule,
+    routing,
+  ],
+  providers: [
+    ...ALL_SERVICES,
+    UserService,
+    PropertyService,
+    PropertyActionStateService,
+  ],
+})
+export class MainModule {
 }

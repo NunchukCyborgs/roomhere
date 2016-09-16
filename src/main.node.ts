@@ -1,44 +1,49 @@
-// the polyfills must be the first thing imported in node.js
-// import 'angular2-universal/polyfills'; // polyfills are moved to server.ts
+import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { UniversalModule } from 'angular2-universal';
 
-// Angular 2 Universal
-import {
-  REQUEST_URL,
-  ORIGIN_URL,
-  NODE_LOCATION_PROVIDERS,
-  NODE_HTTP_PROVIDERS,
-  ExpressEngineConfig
-} from 'angular2-universal';
+import { App } from './app/app.component';
+import { routing } from './app.routes';
 
-import { provideRouter } from '@angular/router';
-import { APP_BASE_HREF } from '@angular/common';
+import { Login, Register, ForgotPassword, ResetPassword, UserService } from './app/users/index';
+import { StickyFooter } from './app/footer/component';
+import { Welcome } from './app/welcome/component';
+import { FAQ } from './app/faq/component';
+import { PrivacyPolicy } from './app/privacy-policy/component';
 
-// Application
-import {App} from './app/app.component';
-import {routes} from './app/app.routes';
+import { ALL_COMPONENTS } from './app/components/index';
+import { ALL_COMPONENTS as ALL_PROPERTY_COMPONENTS, PropertyService, PropertyActionStateService } from './app/properties/index';
+import { ALL_SERVICES } from './app/services/index';
 
-export function ngApp(req, res) {
-  let baseUrl = '/';
-  let url = req.originalUrl || '/';
-
-  let config: ExpressEngineConfig = {
-    directives: [
-      App
-    ],
-    platformProviders: [
-      {provide: ORIGIN_URL, useValue: 'http://localhost:3001'},
-      {provide: APP_BASE_HREF, useValue: baseUrl},
-    ],
-    providers: [
-      {provide: REQUEST_URL, useValue: url},
-      NODE_HTTP_PROVIDERS,
-      provideRouter(routes),
-      NODE_LOCATION_PROVIDERS
-    ],
-    async: true,
-    preboot: { appRoot: 'app', buffer: true }
-  };
-
-  res.render('index', config);
+@NgModule({
+  bootstrap: [App],
+  declarations: [
+    ...ALL_COMPONENTS,
+    ...ALL_PROPERTY_COMPONENTS,
+    App,
+    Login,
+    Register,
+    ForgotPassword,
+    ResetPassword,
+    StickyFooter,
+    Welcome,
+    FAQ,
+    PrivacyPolicy,
+  ],
+  imports: [
+    UniversalModule,
+    FormsModule,
+    ReactiveFormsModule,
+    // HttpModule, DANGER Do NOT use HttpModule, we use UniversalModule here instead
+    routing,
+  ],
+  providers: [
+    ...ALL_SERVICES,
+    UserService,
+    PropertyService,
+    PropertyActionStateService,
+  ],
+})
+export class MainModule {
 }

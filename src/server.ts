@@ -1,5 +1,5 @@
 // the polyfills must be the first thing imported in node.js
-import 'angular2-universal/polyfills';
+import 'angular2-universal-polyfills/node';
 
 import * as path from 'path';
 import * as express from 'express';
@@ -9,7 +9,7 @@ import * as cookieParser from 'cookie-parser';
 // Angular 2
 import { enableProdMode } from '@angular/core';
 // Angular 2 Universal
-import { expressEngine } from 'angular2-universal';
+import { createEngine } from 'angular2-express-engine';
 
 // enable prod for faster renders
 enableProdMode();
@@ -19,29 +19,30 @@ app.use(require('serve-favicon')(__dirname + '/assets/images/favicon.ico'));
 const ROOT = path.join(path.resolve(__dirname, '..'));
 
 // Express View
-app.engine('.html', expressEngine);
+import { MainModule } from './main.node';
+app.engine('.html', createEngine({}));
 app.set('views', __dirname);
 app.set('view engine', 'html');
-app.set('forceSSLOptions', {
-  enable301Redirects: true,
-  trustXFPHeader: false,
-  httpsPort: 443,
-  sslRequiredMessage: 'SSL Required.'
-});
 
 app.use(cookieParser('Angular 2 Universal'));
 app.use(bodyParser.json());
 
 // Serve static files
-app.use('/assets', express.static(path.join(__dirname, 'assets'), {maxAge: 30}));
-app.use(express.static(path.join(ROOT, 'dist/client'), {index: false}));
+app.use('/assets', express.static(path.join(__dirname, 'assets'), { maxAge: 30 }));
+app.use(express.static(path.join(ROOT, 'dist/client'), { index: false }));
 
+function ngApp(req, res) {
+  res.render('index', {
+    req,
+    res,
+    ngModule: MainModule,
+    reboot: { appRoot: ['app'], uglify: true },
+    baseUrl: '/',
+    requestUrl: req.originalUrl,
+    originUrl: req.hostname,
+  });
+}
 
-import { serverApi } from './backend/api';
-// Our API for demos only
-app.get('/data.json', serverApi);
-
-import { ngApp } from './main.node';
 // Routes with html5pushstate
 // ensure routes match client-side-app
 app.get('/', ngApp);
@@ -49,14 +50,7 @@ app.get('/faq', ngApp);
 app.get('/privacy-policy', ngApp);
 app.get('/properties/:slug', ngApp);
 
-// use indexFile over ngApp only when there is too much load on the server
-function indexFile(req, res) {
-  // when there is too much load on the server just send
-  // the index.html without prerendering for client-only
-  res.sendFile('/index.html', {root: __dirname});
-}
-
-app.get('*', function(req, res) {
+app.get('*', function (req, res) {
   res.setHeader('Content-Type', 'application/json');
   var pojo = { status: 404, message: 'No Content' };
   var json = JSON.stringify(pojo, null, 2);
@@ -64,6 +58,6 @@ app.get('*', function(req, res) {
 });
 
 // Server
-let server = app.listen(process.env.PORT || 3001, () => {
+let server = app.listen(process.env.PORT || 3000, () => {
   console.log(`Listening on: http://localhost:${server.address().port}`);
 });

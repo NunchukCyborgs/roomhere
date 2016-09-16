@@ -1,16 +1,28 @@
 {
   "compilerOptions": {
+    "declaration": false,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "target": "es5",
     "module": "commonjs",
-    "removeComments": true,
+    "moduleResolution": "node",
+    "outDir": "dist",
     "sourceMap": true,
-    "lib": ["es6", "dom"]
+    "sourceRoot": "src",
+    "target": "es5",
+    "lib": ["es6", "dom"],
+     "types": [
+       "body-parser",
+       "compression",
+       "cookie-parser",
+       "express",
+       "express-serve-static-core",
+       "mime",
+       "node",
+       "serve-static"
+     ]
   },
   "exclude": [
-    "node_modules",
-    "!node_modules/@types/**/*.d.ts"
+    "node_modules"
   ],
   "compileOnSave": false,
   "buildOnSave": false,

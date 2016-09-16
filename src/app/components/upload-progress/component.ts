@@ -1,9 +1,7 @@
 import { Component, Input } from '@angular/core';
-declare let require: (string) => any;
 const ProgressBar = require('progressbar.js');
 
 @Component({
-  moduleId: __filename,
   selector: 'upload-progress',
   styles: [require('./styles.scss').toString()],
   templateUrl: 'template.html',

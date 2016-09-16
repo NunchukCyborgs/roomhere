@@ -1,10 +1,6 @@
 import { Component } from '@angular/core';
 
-declare let $: any;
-declare let require: (string) => string;
-
-@Component({
-  moduleId: __filename,
+@Component({ 
   selector: 'privacy-policy',
   styles: [require('./styles.scss').toString()],
   templateUrl: 'template.html'
