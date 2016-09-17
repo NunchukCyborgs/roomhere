@@ -7,6 +7,7 @@ import { Slide } from './slide/component';
 import { UploadProgress } from './upload-progress/component';
 import { PropertySlider } from './property-slider/component';
 import { PropertyFilters } from './property-filters/component';
+import { PropertyAccordion } from './property-accordion/component';
 
 export let ALL_COMPONENTS = [
   Carousel, 
@@ -17,7 +18,8 @@ export let ALL_COMPONENTS = [
   Slide, 
   UploadProgress,
   PropertySlider,
-  PropertyFilters
+  PropertyFilters,
+  PropertyAccordion,
 ];
 
 export let COMPONENTS = { 
@@ -30,4 +32,5 @@ export let COMPONENTS = {
   UploadProgress: UploadProgress,
   PropertySlider: PropertySlider,
   PropertyFilters: PropertyFilters,
+  PropertyAccordion: PropertyAccordion,
 };
