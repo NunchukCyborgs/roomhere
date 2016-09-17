@@ -17,7 +17,7 @@ export class PropertyImages {
   
   ngOnChanges() {
     this.slides = this.images.map(i => {
-        return {image: BASE_API_URL + i.url, text: ''};
+        return {image: i.url, text: ''};
       });
   }
 }

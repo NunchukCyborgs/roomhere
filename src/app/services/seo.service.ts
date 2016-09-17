@@ -13,7 +13,7 @@ export class SeoService {
   public addPropertyTags(renderer: Renderer, property: Property): void {
     const description = this.getDescription(property);
     const title = `Roomhere.io property at ${property.address1}`;
-    const imageUrl = property.images && property.images.length ? BASE_URL + property.images[0].url : '';
+    const imageUrl = property.images && property.images.length ? property.images[0].url : '';
 
     const tags: Array<{ key: string, value: string }> = [
       { key: 'description', value: description },

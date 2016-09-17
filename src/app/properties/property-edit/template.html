@@ -61,7 +61,7 @@
         </div>
         <div class="row">
             <div *ngFor="let img of property.images" class="column small-6 medium-4 large-3 end">
-                <property-edit-image [(property)]="property" [(imageUrl)]="img.url" [(imageId)]="img.id"></property-edit-image>
+                <property-edit-image *ngIf="img.id" [(property)]="property" [(imageUrl)]="img.url" [(imageId)]="img.id"></property-edit-image>
             </div>
             <div *ngFor="let file of pendingFiles$ | async" class="column small-6 medium-4 large-3 end">
                 <upload-progress [fileName]="file.fileName" [progress]="file.progress"></upload-progress>

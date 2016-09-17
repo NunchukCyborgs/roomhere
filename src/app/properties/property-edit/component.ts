@@ -28,7 +28,7 @@ export class PropertyEdit {
     type.active = !type.active;
   }
 
-  ngAfterViewInit() {
+  ngOnChanges() {
     this.pendingFiles$ = this.imageUploadService.pendingFiles$;
     this.imageUploadService.uploaderInit('FileUpload', this.property);
   }

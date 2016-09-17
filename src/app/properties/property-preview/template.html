@@ -2,7 +2,7 @@
     <a target="_blank" [href]="'/properties/' + property.slug">
       <div class="chrome-wrap-fix">
         <div class="responsive-image">
-          <img *ngIf="property?.images[0]?.url" class="property-image" [src]="BASE_API_URL + property.images[0].url">
+          <img *ngIf="property?.images[0]?.url" class="property-image" [src]="property.images[0].url">
         </div>
       </div>
 
