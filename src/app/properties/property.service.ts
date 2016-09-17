@@ -39,7 +39,7 @@ export class PropertyService {
   public getMyProperties$(): Observable<any> {
     const seq = this.http
       .get(`${BASE_API_URL}/me`)
-      .map(i => i.json())
+      .map(i => i.json().properties)
       .flatMap(i => this.updateCollection(i, this._myProperties, this.myProperties$));
 
       seq.subscribe();

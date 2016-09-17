@@ -8,7 +8,7 @@ import { Property } from '../../properties/index';
   styles: [require('./styles.scss').toString()],
   templateUrl: 'template.html'
 })
-export class PropertyAccordion  {
+export class PropertyAccordion {
   @Input() properties: Property[];
   @Output() updateProperty: EventEmitter<any> = new EventEmitter();
 
@@ -19,7 +19,11 @@ export class PropertyAccordion  {
     this.readyForChanges = true;
   }
 
-  ngOnChanges() {
-    this.readyForChanges && isBrowser && $('.accordion').foundation('down', $(''));
+  ngAfterViewChecked() {
+    if (isBrowser) {
+      const accord$ = $('.accordion');
+      new Foundation.Accordion(accord$);
+      this.readyForChanges && accord$.foundation('down', $(''));
+    }
   }
 }
