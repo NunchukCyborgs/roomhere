@@ -20,6 +20,6 @@ export class PropertyAccordion  {
   }
 
   ngOnChanges() {
-    this.readyForChanges && isBrowser && $('.accordion').foundation('down', $());
+    this.readyForChanges && isBrowser && $('.accordion').foundation('down', $(''));
   }
 }
