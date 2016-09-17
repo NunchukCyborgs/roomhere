@@ -8,13 +8,20 @@ import { PropertyService, Property } from '../properties/index';
   templateUrl: 'template.html'
 })
 export class Dashboard  {
-  public properties$: Observable<Property>;
+  public properties$: Observable<Property[]>;
 
   constructor(private propertyService: PropertyService) {
 
   }
 
   ngOnInit() {
-    this.properties$ = this.propertyService.getMyProperties$();
+    // this.properties$ = this.propertyService.getMyProperties$();
+    this.properties$ = Observable.of([
+      new Property(),
+      new Property(),
+      new Property(),
+      new Property(),
+      new Property(),
+    ]);
   }
 }

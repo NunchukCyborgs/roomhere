@@ -1,0 +1,33 @@
+.accordion-title::before {
+    // Remove stupid x/o styling
+    content: initial !important;
+}
+
+.accordion-open,
+.accordion-close {
+    position: absolute;
+    right: 1rem;
+    top: 20%;
+    bottom: 20%;
+    margin: 0;
+}
+
+.accordion-close {
+    display: none;
+    right: 2rem;
+    font-size: 1.5em;
+    top: 35%;
+}
+
+.is-active {
+    .accordion-close {
+        display: block;
+    }
+    .accordion-open {
+        display: none;
+    }
+}
+
+.accordion-title {
+    position: relative;
+}

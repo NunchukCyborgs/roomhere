@@ -1,8 +1,14 @@
-<!--<div *ngFor="let property of properties$ | async">
-  {{property.address}}
-</div>-->
-
-<div>testing {{properties$ | async | json}}
-
-
+<div>
+  <ul class="accordion" data-accordion data-allow-all-closed="true">
+    <li class="accordion-item" data-accordion-item *ngFor="let property of properties$ | async">
+      <a class="accordion-title">
+        Address Maybe
+        <span class="button small secondary accordion-open">Edit</span>
+        <i class="fa fa-times accordion-close"></i>
+        </a>
+      <div class="accordion-content" data-tab-content>
+        I'd put an editable here
+      </div>
+    </li>
+  </ul>
 </div>
