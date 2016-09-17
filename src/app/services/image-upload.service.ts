@@ -92,7 +92,7 @@ export class ImageUploadService {
     if (headers.token && headers.client && headers.uid) {
       this.http.setAuthHeaders(headers.token, headers.client, headers.uid);
     }
-    this.propertyService.updateLocal(data.result);
+    this.propertyService.updatePropertyBySlugLocal(data.result);
     this.deletePendingFile({ fileName: this.getFileName(data), progress: 100 });
   }
 

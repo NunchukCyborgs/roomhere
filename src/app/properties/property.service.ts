@@ -12,6 +12,8 @@ import { BASE_API_URL } from '../config';
 export class PropertyService {
   public propertyBySlug$: BehaviorSubject<Property>;
   private _propertyBySlug: Property;
+  public myProperties$: BehaviorSubject<Property[]>;
+  private _myProperties: Property[];
 
   public lastPage$: BehaviorSubject<number> = new BehaviorSubject(Number.MAX_SAFE_INTEGER)
   private viewCaches: string[] = [];
@@ -25,12 +27,23 @@ export class PropertyService {
   }
 
   public getPropertyBySlug$(slug: string): Observable<any> {
-    return this.http
+    const seq = this.http
       .get(`${BASE_API_URL}/properties/${slug}`)
       .map(i => i.json())
-      .do(i => this._propertyBySlug = i)
-      .do(() => this.propertyBySlug$ = this.propertyBySlug$ || new BehaviorSubject(this._propertyBySlug)) // do something else
-      .flatMap(i => this.updateLocal(i));
+      .flatMap(i => this.updateCollection(i, this._propertyBySlug, this.propertyBySlug$));
+
+      seq.subscribe();
+      return seq;
+  }
+
+  public getMyProperties$(): Observable<any> {
+    const seq = this.http
+      .get(`${BASE_API_URL}/me`)
+      .map(i => i.json())
+      .flatMap(i => this.updateCollection(i, this._myProperties, this.myProperties$));
+
+      seq.subscribe();
+      return seq;
   }
 
   public update(property: Property): Observable<any> {
@@ -38,13 +51,18 @@ export class PropertyService {
     property = this.updateTypes(property);
     return this.http.patch(`${BASE_API_URL}/properties/${property.slug}`, {property: property})
       .map(i => i.json())
-      .flatMap(i => this.updateLocal(i));
+      .flatMap(i => this.updatePropertyBySlugLocal(i));
   }
 
-  public updateLocal(property: Property): Observable<Property> {
-    this._propertyBySlug = property;
-    this.propertyBySlug$.next(this._propertyBySlug);
-    return this.propertyBySlug$;
+  public updatePropertyBySlugLocal(property: Property): Observable<Property> {
+    return this.updateCollection(property, this._propertyBySlug, this.propertyBySlug$);
+  }
+
+  private updateCollection<T>(obj: T, collection: T, collection$: BehaviorSubject<T>): Observable<T> {
+    collection = obj;
+    collection$ = collection$ || new BehaviorSubject(collection);
+    collection$.next(collection);
+    return collection$;
   }
 
   private updateAmenities(property: Property): Property {
@@ -60,7 +78,7 @@ export class PropertyService {
   public deleteImage(property: Property, imageId: number): Observable<any> {
     return this.http.delete(`${BASE_API_URL}/properties/${property.slug}/images/${imageId}`)
       .map(i => i.json())
-      .flatMap(i => this.updateLocal(i));
+      .flatMap(i => this.updatePropertyBySlugLocal(i));
   }
 
   constructor(private http: HttpService) { }
