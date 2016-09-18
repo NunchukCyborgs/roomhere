@@ -26,6 +26,7 @@ import { UserService } from './users/index';
           </li>
           <li *ngIf="!(hasAuth$ | async)"><a data-open="LoginModal">Login</a></li>
           <li *ngIf="hasAuth$ | async"><a (click)="logout()">Log Out</a></li>
+          <li><a [routerLinkActive]="['active', 'router-link-active']" [routerLink]="['settings']">Settings</a></li>
         </ul>
       </div>
     </div>

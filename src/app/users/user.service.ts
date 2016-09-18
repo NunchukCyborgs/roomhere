@@ -42,20 +42,34 @@ export class UserService {
     this.hasAuth$.next(false);
   }
 
-  public register(user: User): Observable<any> {
+  public register(user: User): Observable<Response> {
     user.confirm_success_url = this.getRedirectUrl();
     return this.http.post(`${BASE_API_URL}/auth`, user);
   }
 
-  public sendResetPasswordLink(user: User): Observable<any> {
+  public sendResetPasswordLink(user: User): Observable<Response> {
     user.redirect_url = this.getRedirectUrl();
     return this.http.post(`${BASE_API_URL}/auth/password`, user);
   }
 
-  public resetPassword(user: User): Observable<any> {
+  public resetPassword(user: User): Observable<Response> {
     user.redirect_url = this.getRedirectUrl();
     user.email = this.http.headers.get('uid');
     return this.http.patch(`${BASE_API_URL}/auth/password`, user);
+  }
+
+  public setLicenseId(licenseId: string): Observable<Response> {
+    return this.http.post(`${BASE_API_URL}/users/licensing`, {license: licenseId});
+  }
+
+  public createContact(email?: string, phone?: string): Observable<Response> {
+    const contact = Object.assign({}, email ? {email: email} : {}, phone ? {phone: phone} : {});
+    return this.http.post(`${BASE_API_URL}/contacts`, {contact: contact });   
+  }
+
+  public updateContact(email?: string, phone?: string): Observable<Response> {
+    const contact = Object.assign({}, email ? {email: email} : {}, phone ? {phone: phone} : {});
+    return this.http.patch(`${BASE_API_URL}/contacts`, {contact: contact });
   }
 
   private checkForQueryAuth() {

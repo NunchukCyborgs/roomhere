@@ -12,6 +12,7 @@ import { Welcome } from './app/welcome/component';
 import { FAQ } from './app/faq/component';
 import { PrivacyPolicy } from './app/privacy-policy/component';
 import { Dashboard } from './app/dashboard/component';
+import { Settings } from './app/users/settings/component';
 
 import { ALL_COMPONENTS } from './app/components/index';
 import { ALL_COMPONENTS as ALL_PROPERTY_COMPONENTS, PropertyService, PropertyActionStateService } from './app/properties/index';
@@ -32,6 +33,7 @@ import { ALL_SERVICES } from './app/services/index';
     FAQ,
     PrivacyPolicy,
     Dashboard,
+    Settings,
   ],
   imports: [
     UniversalModule,

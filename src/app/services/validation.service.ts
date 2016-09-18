@@ -13,10 +13,11 @@ export class ValidationService {
   static getValidatorErrorMessage(validatorName: string, validatorValue?: any) {
     let config = {
       'required': 'Required',
-      'invalidCreditCard': 'Is invalid credit card number',
+      'invalidCreditCard': 'Invalid credit card number',
       'invalidEmailAddress': 'Invalid email address',
       // 'invalidPassword': 'Invalid password. Password must be at least 6 characters long, and contain a number.',
-      'minlength': `Minimum length ${validatorValue.requiredLength}`
+      'minlength': `Minimum length ${validatorValue.requiredLength}`,
+      'invalidPhoneNumber': 'Invalid phone number. Must be 10 or 11 digits'
     };
 
     return config[validatorName];
@@ -28,6 +29,15 @@ export class ValidationService {
       return null;
     } else {
       return { 'invalidCreditCard': true };
+    }
+  }
+
+  static phoneNumberValidator(control) {
+    const match = control.value.match(/\d/g); 
+    if (match && (match.length === 10 || match.length === 11)) {
+      return null;
+    } else {
+      return { 'invalidPhoneNumber': true };
     }
   }
 

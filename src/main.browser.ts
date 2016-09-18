@@ -11,6 +11,7 @@ import { Welcome } from './app/welcome/component';
 import { FAQ } from './app/faq/component';
 import { PrivacyPolicy } from './app/privacy-policy/component';
 import { Dashboard } from './app/dashboard/component';
+import { Settings } from './app/users/settings/component';
 
 import { ALL_COMPONENTS } from './app/components/index';
 import { ALL_COMPONENTS as ALL_PROPERTY_COMPONENTS, PropertyActionStateService } from './app/properties/index';
@@ -33,6 +34,7 @@ import { PropertyService } from './app/properties/property.service';
     FAQ,
     PrivacyPolicy,
     Dashboard,
+    Settings,
   ],
   imports: [
     UniversalModule,

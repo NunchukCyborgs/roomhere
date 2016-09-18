@@ -39,7 +39,6 @@ export class Welcome {
 
   private updateOnUser() {
     this.user$
-      .do(i => this.facet.license_id = i.license_id)
       .subscribe(() => this.applyFacet());
   }
 
