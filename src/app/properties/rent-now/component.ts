@@ -3,6 +3,7 @@ import { Response } from '@angular/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import { isBrowser } from 'angular2-universal';
+import { Owner } from '../property';
 
 @Component({
   selector: 'rent-now',
@@ -10,7 +11,7 @@ import { isBrowser } from 'angular2-universal';
   templateUrl: 'template.html'
 })
 export class RentNow {
-  constructor() { }
+  @Input() owner: Owner;
 
   private closeModal(res?: Response) {
     if (!res || res.ok) {

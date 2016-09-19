@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
+import { isBrowser } from 'angular2-universal';
 
 import { Property } from '../properties/index';
 import { User } from '../users/index';
@@ -57,7 +58,7 @@ export class PropertyActionStateService {
     } else if (this._actionState.mode === PropertyActionMode.Authorized) {
       this.isEditing$.next(this._isEditing = true);
     } else {
-      console.log('begin rent now workflow');
+      isBrowser && $('#RentNow').foundation('open');
     }
 
     this.setState(user, property);

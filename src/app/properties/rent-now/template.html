@@ -5,14 +5,13 @@
   <div class="row">
     <div class="medium-4 columns">
       <div class="profile-card">
-        <h4>SOTO Property Management</h4>
-        <p class="text-center">To find out more information about renting this property use the contact information for SOTO Property Management
+        <h4>{{owner?.contactName}}</h4>
+        <p class="text-center">To find out more information about renting this property use the contact information for {{owner?.contactName}}
           below.</p>
         <hr>
         <div class="profile-info">
-          <p class="phone">555-789-9090</p>
-          <p class="email">leasing@sotoproperties.com</p>
-          <p class="address">1213 N Kingshighway St, Cape Girardeau, MO 63701</p>
+          <p *ngIf="owner?.phone" class="phone">{{owner?.phone}}</p>
+          <p *ngIf="owner?.email" class="email">{{owner?.email}}</p>
         </div>
       </div>
     </div>
