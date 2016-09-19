@@ -44,7 +44,7 @@
                     <h3>{{property.address1}}</h3>
                     <h3 *ngIf="property.address2">{{property.address2}}</h3>
                 </legend>
-                <property-edit #propEdit [property]="property" (submit)="updatePropertyAndActionState(property)" [hidden]="!(isEditing$ | async)"></property-edit>
+                <property-edit #propEdit [property]="property" (submit)="updatePropertyAndActionState(property)"></property-edit>
             </fieldset>
         </div>
     </div>
