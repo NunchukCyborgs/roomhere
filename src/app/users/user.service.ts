@@ -59,7 +59,7 @@ export class UserService {
   }
 
   public setLicenseId(licenseId: string): Observable<Response> {
-    return this.http.post(`${BASE_API_URL}/users/licensing`, {license: licenseId});
+    return this.http.post(`${BASE_API_URL}/users/licensing`, {license_id: licenseId});
   }
 
   public createContact(email?: string, phone?: string): Observable<Response> {
