@@ -66,4 +66,12 @@ export class Property {
   public price: number;
   public amenities_attributes: Array<{id: number, _destroy?: boolean}>;
   public types_attributes: Array<{id: number, _destroy?: boolean}>;
+  public owner: Owner;
+}
+
+export interface Owner {
+  owner_name: string;
+  landlord_name: string;
+  email: string;
+  phone: string;
 }
