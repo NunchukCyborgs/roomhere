@@ -8,10 +8,9 @@ import * as cookieParser from 'cookie-parser';
 
 // Angular 2
 import { enableProdMode } from '@angular/core';
-// Angular 2 Universal
 import { createEngine } from 'angular2-express-engine';
+import { PrebootOptions } from 'preboot';
 
-// enable prod for faster renders
 enableProdMode();
 
 const app = express();
@@ -31,12 +30,14 @@ app.use(bodyParser.json());
 app.use('/assets', express.static(path.join(__dirname, 'assets'), { maxAge: 30 }));
 app.use(express.static(path.join(ROOT, 'dist/client'), { index: false }));
 
+const options: PrebootOptions = { appRoot: ['app'], uglify: true, buffer: true }; 
+
 function ngApp(req, res) {
   res.render('index', {
     req,
     res,
     ngModule: MainModule,
-    reboot: { appRoot: ['app'], uglify: true },
+    preboot: options,
     baseUrl: '/',
     requestUrl: req.originalUrl,
     originUrl: req.hostname,

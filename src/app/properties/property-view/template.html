@@ -5,7 +5,7 @@
     </div>
     <property-images [images]="property.images" [interval]="6500" *ngIf="property?.images"></property-images>
     <div class="row">
-        <section class="small-12 medium-11 large-9 columns small-centered padding">
+        <div class="small-12 medium-11 large-9 columns small-centered padding">
             <div *ngIf="!(isEditing$ | async)" class="callout-card">
                 <div class="callout-card-content">
                     <div class="row column">
@@ -39,9 +39,14 @@
                     </div>
                 </div>
             </div>
-            <div></div>
-            <property-edit #propEdit [property]="property" (submit)="updatePropertyAndActionState(property)" [hidden]="!(isEditing$ | async)"></property-edit>
-        </section>
+            <fieldset class="fieldset" [hidden]="!(isEditing$ | async)">
+                <legend>
+                    <h3>{{property.address1}}</h3>
+                    <h3 *ngIf="property.address2">{{property.address2}}</h3>
+                </legend>
+                <property-edit #propEdit [property]="property" (submit)="updatePropertyAndActionState(property)"></property-edit>
+            </fieldset>
+        </div>
     </div>
     <div class="row show-for-small-only callout-bottom sticky-actions">
         <div class="column">
@@ -51,3 +56,4 @@
     </div>
     <property-map *ngIf="mapOptions" [properties]="[property]" [mapOptions]="mapOptions"></property-map>
 </div>
+<rent-now [owner]="property.owner" id="RentNow" class="reveal" data-reveal></rent-now>

@@ -1,2 +1,18 @@
-<property-accordion [properties]="properties$ | async" (updateProperty)="updateProperty($event)">
+<div class="row">
+    <div class="large-10 large-push-1 landlord-panel columns">
+        <h2>Dashboard</h2>
+        <form>
+            <div class="row collapse">
+                <div class="small-4 medium-1 columns">
+                  <a><span class="prefix"><i class="icon-search"></i></span></a>
+                </div>
+                <div class="small-8 medium-6 end columns">
+                  <input type="text" placeholder="Find Your Property">
+                </div>
+            </div>
+        </form>
+        <h3>Properties</h3>
+        <property-accordion [properties]="properties$ | async" (updateProperty)="updateProperty($event)">
 </property-accordion>
+    </div>
+</div>

@@ -1,0 +1,33 @@
+.profile-card {
+  padding: 1rem;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+  margin: 2rem 0;
+  background-color: #fff;
+    p {
+      text-align: center;
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+  .profile-info {
+    padding: 1rem;
+    h4 {
+      margin-top: 0;
+      text-align: center;
+      text-transform: uppercase;
+    }
+    p {
+      text-align: center;
+      padding-left: 5px;
+      padding-right: 5px;
+    }
+    .inline-list {
+      text-align: center;
+      margin-bottom: 1rem;
+      li {
+        float: none;
+        display: inline-block;
+      }
+       
+    }
+  }
+}

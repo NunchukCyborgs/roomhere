@@ -1,0 +1,19 @@
+<div>
+  <button class="close-button" data-close aria-label="Close modal" type="button">
+        <span aria-hidden="true">&times;</span>
+    </button>
+  <div class="row">
+    <div class="medium-4 columns">
+      <div class="profile-card">
+        <h4>{{owner?.contactName}}</h4>
+        <p class="text-center">To find out more information about renting this property use the contact information for {{owner?.contactName}}
+          below.</p>
+        <hr>
+        <div class="profile-info">
+          <p *ngIf="owner?.phone" class="phone">{{owner?.phone}}</p>
+          <p *ngIf="owner?.email" class="email">{{owner?.email}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
