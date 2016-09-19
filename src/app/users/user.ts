@@ -15,3 +15,9 @@ export class User {
       this.password_confirmation = password_confirmation;
   }
 }
+
+export interface Contact {
+  id: number;
+  email: string;
+  phone: string;
+}

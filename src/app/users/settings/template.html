@@ -23,7 +23,8 @@
         <span class="prefix"><i class="icon-hashtag"></i></span>
       </div>
       <div class="small-10  columns">
-        <input type="text" placeholder="License ID" formControlName="licenseId" class="form-control" id="licenseId">
+        <input type="text" placeholder="License ID" formControlName="licenseId" class="form-control" id="licenseId"
+        [attr.disabled]="licenseId ? true : null">
       </div>
       <control-messages [control]="settingsForm.controls.licenseId" class="alert"></control-messages>
     </div>

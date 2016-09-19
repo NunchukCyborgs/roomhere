@@ -34,7 +34,7 @@ export class ValidationService {
 
   static phoneNumberValidator(control) {
     const match = control.value.match(/\d/g); 
-    if (match && (match.length === 10 || match.length === 11)) {
+    if (match && (match.length === 10 || match.length === 11 || control.value.length === 0)) {
       return null;
     } else {
       return { 'invalidPhoneNumber': true };

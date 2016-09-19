@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Response } from '@angular/http';
+import { Response, ResponseOptions } from '@angular/http';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/Rx';
 import { User } from './index';
+import { Contact } from './user';
 import { HttpService } from '../services/http.service';
 import { isBrowser } from 'angular2-universal';
 import { BASE_API_URL } from '../config';
@@ -13,6 +14,10 @@ import { BASE_API_URL } from '../config';
 export class UserService {
   public user$: BehaviorSubject<User>;
   private _user: User = new User();
+  public contacts$: BehaviorSubject<Contact[]>;
+  private _contacts: Contact[] = [];
+  public licenseId$: BehaviorSubject<string>;
+  private _licenseId: string = null;
   public hasAuth$: BehaviorSubject<boolean>;
 
   constructor(private http: HttpService, private route: ActivatedRoute) {
@@ -20,11 +25,17 @@ export class UserService {
     this.user$.subscribe();
     this.hasAuth$ = new BehaviorSubject(false);
     this.hasAuth$.subscribe();
+    this.contacts$ = new BehaviorSubject(this._contacts);
+    this.contacts$.subscribe();
+    this.licenseId$ = new BehaviorSubject(this._licenseId);
+    this.licenseId$.subscribe();
 
     this.checkForSessionAuth();
     this.checkForQueryAuth();
     this.checkForUser();
     this.storeUser();
+    this.loadLicenseId().subscribe();
+    this.loadContacts().subscribe();
   }
 
   get user(): User {
@@ -59,17 +70,44 @@ export class UserService {
   }
 
   public setLicenseId(licenseId: string): Observable<Response> {
-    return this.http.post(`${BASE_API_URL}/users/licensing`, {license_id: licenseId});
+    return this.loadLicenseId()
+      .flatMap(existingId => {
+        if (existingId) {
+          return Observable.of(new Response(new ResponseOptions({ body: licenseId })));
+        } else {
+          return this.http
+            .post(`${BASE_API_URL}/users/licensing`, { license_id: licenseId });
+        }
+      });
   }
 
-  public createContact(email?: string, phone?: string): Observable<Response> {
-    const contact = Object.assign({}, email ? {email: email} : {}, phone ? {phone: phone} : {});
-    return this.http.post(`${BASE_API_URL}/contacts`, {contact: contact });   
+  private createContact(email?: string, phone?: string): Observable<Response> {
+    const contact = Object.assign({}, email ? { email: email } : {}, phone ? { phone: phone } : {});
+    return this.http.post(`${BASE_API_URL}/contacts`, { contact: contact });
   }
 
-  public updateContact(email?: string, phone?: string): Observable<Response> {
-    const contact = Object.assign({}, email ? {email: email} : {}, phone ? {phone: phone} : {});
-    return this.http.patch(`${BASE_API_URL}/contacts`, {contact: contact });
+  private updateContact(id: number, email?: string, phone?: string): Observable<Response> {
+    const contact = Object.assign({}, email ? { email: email } : {}, phone ? { phone: phone } : {});
+    return this.http.patch(`${BASE_API_URL}/contacts/${id}`, { contact: contact });
+  }
+
+  public loadContacts(): Observable<Contact[]> {
+    return this.http
+      .get(`${BASE_API_URL}/me`)
+      .map(i => i.json().contacts)
+      .do(i => this.contacts$.next(this._contacts = i));
+  }
+
+  public loadLicenseId(): Observable<string> {
+    return this.http
+      .get(`${BASE_API_URL}/me`)
+      .map(i => i.json().license_id)
+      .do(i => this.licenseId$.next(this._licenseId = i));
+  }
+
+  public createUpdateContact(email?: string, phone?: string): Observable<Contact> {
+    return this.loadContacts()
+      .flatMap(i => i.length ? this.updateContact(i[0].id, email, phone) : this.createContact(email, phone));
   }
 
   private checkForQueryAuth() {

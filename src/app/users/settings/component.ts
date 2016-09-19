@@ -6,34 +6,44 @@ import { User, UserService } from '../index';
 import { ValidationService } from '../../services/validation.service';
 import { isBrowser } from 'angular2-universal';
 import { ControlMessages } from '../../components/control-messages/component';
+import { Contact } from '../user';
 
 @Component({
   selector: 'settings',
-  styles:[require('./styles.scss').toString()],
+  styles: [require('./styles.scss').toString()],
   templateUrl: 'template.html',
 })
 export class Settings {
-  public success: boolean = false;
-  public serverErrors: string[] = [];
+  public success: boolean;
   public settingsForm: any;
-
+  public contacts: Contact[];
+  public licenseId: string;
   constructor(private userService: UserService, private formBuilder: FormBuilder) { }
 
   ngOnInit() {
+    this.initForm();
+
+    this.userService
+      .loadContacts()
+      .do(i => this.contacts = i)
+      .flatMap(i => this.userService.loadLicenseId())
+      .do(i => this.licenseId = i)
+      .subscribe(i => this.initForm(this.contacts[0].email, this.contacts[0].phone, this.licenseId));
+  }
+
+  private initForm(email = '', phone = '', licenseId = '') {
     this.settingsForm = this.formBuilder.group({
-       // might have async problem here
-      'email': ['', ValidationService.emailValidator], 
-      'phone': ['', ValidationService.phoneNumberValidator],
-      'licenseId': ['', Validators.required],
+      'email': [email, ValidationService.emailValidator],
+      'phone': [phone, ValidationService.phoneNumberValidator],
+      'licenseId': [licenseId, Validators.required],
     });
   }
 
   public onSubmit() {
     const controls = this.settingsForm.controls;
-    console.log('on submit', controls.email.value, controls.phone.value, controls.licenseId.value);
     this.userService
-      .createContact(controls.email.value, controls.phone.value)
-      .flatMap(() => this.userService.setLicenseId(controls.licenseId.value)) // Only do if it's never been set?
+      .createUpdateContact(controls.email.value, controls.phone.value)
+      .flatMap(() => this.userService.setLicenseId(controls.licenseId.value))
       .subscribe((res: Response) => this.success = res.ok);
   }
 
