@@ -19,6 +19,7 @@ import { UserService } from './users/index';
       </div>
       <div class="top-bar-right">
         <ul class="menu">
+          <li><a [routerLinkActive]="['active', 'router-link-active']" [routerLink]="['dashboard']">Dashboard</a></li>
           <li><a [routerLinkActive]="['active', 'router-link-active']" [routerLink]="['']">Home</a></li>
           <li *ngIf="!(hasAuth$ | async)"><a data-open="RegisterModal">
             Create an Account</a>
