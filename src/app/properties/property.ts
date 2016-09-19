@@ -69,9 +69,13 @@ export class Property {
   public owner: Owner;
 }
 
-export interface Owner {
+export class Owner {
   owner_name: string;
   landlord_name: string;
   email: string;
   phone: string;
+
+  public get contactName() {
+    return this.landlord_name || this.owner_name;
+  }
 }

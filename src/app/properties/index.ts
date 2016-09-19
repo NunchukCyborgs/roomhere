@@ -7,6 +7,7 @@ import { PropertyActionsGroup } from './property-actions-group/component';
 import { PropertyEditImage } from './property-edit-image/component';
 import { PropertyEdit } from './property-edit/component';
 import { PropertyView } from './property-view/component';
+import { RentNow } from './rent-now/component';
 
 export { Amenity } from '../services/facets.service';
 export { Property, PropertyFacet, Type } from './property';
@@ -19,6 +20,8 @@ export { PropertyActionsGroup } from './property-actions-group/component';
 export { PropertyEditImage } from './property-edit-image/component';
 export { PropertyEdit } from './property-edit/component';
 export { PropertyView } from './property-view/component';
+export { RentNow } from './rent-now/component';
+
 export { PropertyActionStateService, PropertyActionState, PropertyActionMode } from './property-action-state.service';
 export { PropertyService } from './property.service';
 
@@ -32,6 +35,7 @@ export let ALL_COMPONENTS = [
   PropertyEditImage,
   PropertyEdit,
   PropertyView,
+  RentNow,
 ];
 
 export let COMPONENTS = { 
@@ -44,4 +48,5 @@ export let COMPONENTS = {
   PropertyEditImage: PropertyEditImage,
   PropertyEdit: PropertyEdit,
   PropertyView: PropertyView,
+  RentNow: RentNow,
 };
