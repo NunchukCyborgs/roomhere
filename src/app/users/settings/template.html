@@ -1,0 +1,36 @@
+<div>
+  <form [formGroup]="settingsForm" (ngSubmit)="onSubmit()">
+    <div class="form-group row collapse">
+      <div class="small-2 columns">
+        <span class="prefix"><i class="icon-mail"></i></span>
+      </div>
+      <div class="small-10  columns">
+        <input type="email" placeholder="email" formControlName="email" class="form-control" id="email">
+      </div>
+      <control-messages [control]="settingsForm.controls.email" class="alert">{{getEmailOrPhoneRequiredMessage()}}</control-messages>
+    </div>
+    <div class="form-group row collapse">
+      <div class="small-2 columns">
+        <span class="prefix"><i class="icon-mail"></i></span>
+      </div>
+      <div class="small-10  columns">
+        <input type="tel" placeholder="phone number" formControlName="phone" class="form-control" id="phone">
+      </div>
+      <control-messages [control]="settingsForm.controls.phone" class="alert">{{getEmailOrPhoneRequiredMessage()}}</control-messages>
+    </div>
+    <div class="form-group row collapse">
+      <div class="small-2 columns">
+        <span class="prefix"><i class="icon-hashtag"></i></span>
+      </div>
+      <div class="small-10  columns">
+        <input type="text" placeholder="License ID" formControlName="licenseId" class="form-control" id="licenseId"
+        [attr.disabled]="licenseId ? true : null">
+      </div>
+      <control-messages [control]="settingsForm.controls.licenseId" class="alert"></control-messages>
+    </div>
+    
+    <p class="text-center">
+      <button type="submit" class="button large" [attr.disabled]="!settingsForm.valid || getEmailOrPhoneRequiredMessage() ? true : null">submit</button>
+    </p>
+  </form>
+</div>

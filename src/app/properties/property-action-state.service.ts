@@ -42,8 +42,7 @@ export class PropertyActionStateService {
   public setState(user: User, property: Property): Observable<PropertyActionState> {
     if (this._isEditing) {
       this.actionState$.next(this._actionState = new PropertyActionState(PropertyActionMode.Editing, 'Update Property', 'success'));
-    } else if (property && user && user.email && (user.license_id === property.license_id || !property.license_id)) { // Remove this silly case when api is finished
-      // This will be simplified to prop && prop.can_edit
+    } else if (property && property.can_edit) {
       this.actionState$.next(this._actionState = new PropertyActionState(PropertyActionMode.Authorized, 'Edit Property'));
     } else {
       this.actionState$.next(this._actionState = new PropertyActionState(PropertyActionMode.NonAuthorized, 'Rent Now!'));

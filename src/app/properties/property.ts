@@ -17,7 +17,6 @@ export class PropertyFacet {
    public locations: Location[];
    public amenities: Amenity[];
    public types: string[];
-   public license_id: string;
 
    constructor() {
      this.min_price = 0;
@@ -28,7 +27,6 @@ export class PropertyFacet {
      this.locations = [];
      this.amenities = [];
      this.types = [];
-     this.license_id = null;
    }
 
    get formattedFacet() {
@@ -56,7 +54,6 @@ export class Property {
   public longitude: number;
   public locations: Location[] = [];
   public lease_length: number; // months
-  public license_id: string;
   public owner_id: number;
   public slug: string;
   public square_footage: number;
@@ -66,6 +63,7 @@ export class Property {
   public price: number;
   public amenities_attributes: Array<{id: number, _destroy?: boolean}>;
   public types_attributes: Array<{id: number, _destroy?: boolean}>;
+  public can_edit: boolean;
   public owner: Owner;
 }
 

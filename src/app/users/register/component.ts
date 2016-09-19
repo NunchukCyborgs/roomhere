@@ -27,7 +27,6 @@ export class Register {
   private init() {
     this.registerForm = this.formBuilder.group({
       'email': ['', [Validators.required, ValidationService.emailValidator]],
-      'licenseId': ['', Validators.required],
       'password': ['', [Validators.required, Validators.minLength(8)]],
       'confirmPassword': ['', [Validators.required, Validators.minLength(8)]],
     });
@@ -42,7 +41,6 @@ export class Register {
   public onSubmit() {
     const user = new User({
       email: this.registerForm.controls.email.value,
-      license_id: this.registerForm.controls.licenseId.value,
       password: this.registerForm.controls.password.value,
       password_confirmation: this.registerForm.controls.confirmPassword.value,
     });

@@ -50,6 +50,7 @@ app.get('/', ngApp);
 app.get('/faq', ngApp);
 app.get('/privacy-policy', ngApp);
 app.get('/dashboard', ngApp);
+app.get('/settings', ngApp);
 app.get('/properties/:slug', ngApp);
 
 app.get('*', function (req, res) {
