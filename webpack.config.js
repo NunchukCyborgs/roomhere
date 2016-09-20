@@ -7,9 +7,8 @@ var commonConfig = {
     extensions: ['', '.ts', '.js', '.json']
   },
   module: {
-    preLoaders: [],
     loaders: [
-      { test: /\.ts$/, loaders: ['ts-loader', 'angular2-template-loader'] },
+      { test: /\.ts$/, loaders: ['awesome-typescript-loader', 'angular2-template-loader'] },
       { test: /\.html$/, loader: 'raw-loader' },
       { test: /\.css$/, loader: 'raw-loader' },
       { test: /\.json$/, loader: 'raw-loader' },
@@ -20,16 +19,21 @@ var commonConfig = {
       { test: /\.svg[\?]?.*$/, loader: 'url-loader?limit=10000&mimetype=image/svg+xml' },
     ],
   },
-  sassLoader: {
-    includePaths: [path.resolve(__dirname, 'node_modules/foundation-sites/scss'), path.resolve(__dirname, 'node_modules/motion-ui/src')]
-  },
   plugins: [
     new webpack.ContextReplacementPlugin(
       // The (\\|\/) piece accounts for path separators in *nix and Windows
       /angular(\\|\/)core(\\|\/)src(\\|\/)linker/,
       root('./src'),
       resolveNgRoute(root('./src'))
-    )
+    ),
+    new webpack.LoaderOptionsPlugin({
+    options: {
+        sassLoader: {
+            includePaths: [path.resolve(__dirname, 'node_modules/foundation-sites/scss'), path.resolve(__dirname, 'node_modules/motion-ui/src')]
+        },
+        context: '/'
+    }
+}),
   ]
 };
 
