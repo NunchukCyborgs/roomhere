@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Response, ResponseOptions } from '@angular/http';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
+import { CookieService } from 'angular2-cookie/core';
 import 'rxjs/Rx';
 import { User } from './index';
 import { Contact } from './user';
@@ -20,7 +21,7 @@ export class UserService {
   private _licenseId: string = null;
   public hasAuth$: BehaviorSubject<boolean>;
 
-  constructor(private http: HttpService, private route: ActivatedRoute) {
+  constructor(private http: HttpService, private route: ActivatedRoute, private cookieService: CookieService) {
     this.user$ = new BehaviorSubject(this._user);
     this.user$.subscribe();
     this.hasAuth$ = new BehaviorSubject(false);
@@ -49,7 +50,7 @@ export class UserService {
 
   public logout() {
     this.http.setAuthHeaders();
-    isBrowser && sessionStorage.clear();
+    isBrowser && this.cookieService.removeAll();
     this.hasAuth$.next(false);
   }
 
@@ -124,7 +125,7 @@ export class UserService {
   }
 
   private checkForUser() {
-    const user = isBrowser && JSON.parse(sessionStorage.getItem('user'));
+    const user = isBrowser && JSON.parse(this.cookieService.get('user'));
     if (user && user.id) {
       this.user$.next(user);
     }
@@ -133,13 +134,13 @@ export class UserService {
   private storeUser() {
     this.user$.subscribe(i => {
       if (i.uid) {
-        isBrowser && sessionStorage.setItem('user', JSON.stringify(i));
+        isBrowser && this.cookieService.set('user', JSON.stringify(i));
       }
     });
   }
 
   private checkForSessionAuth() {
-    const headers = isBrowser && { token: sessionStorage.getItem('access-token'), client: sessionStorage.getItem('client'), uid: sessionStorage.getItem('uid') };
+    const headers = isBrowser && { token: this.cookieService.get('access-token'), client: this.cookieService.get('client'), uid: this.cookieService.get('uid') };
 
     if (headers && headers.token && headers.client && headers.uid) {
       this.http.setAuthHeaders(headers.token, headers.client, headers.uid);
