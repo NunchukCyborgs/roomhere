@@ -23,7 +23,10 @@ export class PropertyAccordion {
     if (isBrowser) {
       const accord$ = $('.accordion');
       new Foundation.Accordion(accord$);
-      this.readyForChanges && accord$.foundation('down', $(''));
+      if (this.readyForChanges) {
+        accord$.foundation('down', $(''));
+        this.readyForChanges = false;
+      }
     }
   }
 }

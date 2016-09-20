@@ -15,7 +15,7 @@ export class Dashboard {
   }
 
   public updateProperty(property: Property) {
-    console.log('need to update this here property', property);
+    this.propertyService.update(property).subscribe();
   }
 
   ngOnInit() {

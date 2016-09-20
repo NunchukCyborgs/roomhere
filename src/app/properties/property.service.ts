@@ -11,9 +11,9 @@ import { BASE_API_URL } from '../config';
 @Injectable()
 export class PropertyService {
   public propertyBySlug$: BehaviorSubject<Property>;
-  private _propertyBySlug: Property;
+  private _propertyBySlug: Property = new Property();
   public myProperties$: BehaviorSubject<Property[]>;
-  private _myProperties: Property[];
+  private _myProperties: Property[] = [];
 
   public lastPage$: BehaviorSubject<number> = new BehaviorSubject(Number.MAX_SAFE_INTEGER)
   private viewCaches: string[] = [];
@@ -30,39 +30,37 @@ export class PropertyService {
     const seq = this.http
       .get(`${BASE_API_URL}/properties/${slug}`)
       .map(i => i.json())
-      .flatMap(i => this.updateCollection(i, this._propertyBySlug, this.propertyBySlug$));
+      .do(i => this.propertyBySlug$.next(this._propertyBySlug = i));
 
-      seq.subscribe();
-      return seq;
+    seq.subscribe();
+    return seq
+      .flatMap(i => this.propertyBySlug$);
   }
 
   public getMyProperties$(): Observable<any> {
     const seq = this.http
       .get(`${BASE_API_URL}/me`)
       .map(i => i.json().properties)
-      .flatMap(i => this.updateCollection(i, this._myProperties, this.myProperties$));
+      .do(i => this.myProperties$.next(this._myProperties = i));
 
-      seq.subscribe();
-      return seq;
+    seq.subscribe();
+    return seq
+      .flatMap(i => this.myProperties$);
   }
 
   public update(property: Property): Observable<any> {
     property = this.updateAmenities(property);
     property = this.updateTypes(property);
-    return this.http.patch(`${BASE_API_URL}/properties/${property.slug}`, {property: property})
+    return this.http.patch(`${BASE_API_URL}/properties/${property.slug}`, { property: property })
       .map(i => i.json())
       .flatMap(i => this.updatePropertyBySlugLocal(i));
   }
 
   public updatePropertyBySlugLocal(property: Property): Observable<Property> {
-    return this.updateCollection(property, this._propertyBySlug, this.propertyBySlug$);
-  }
-
-  private updateCollection<T>(obj: T, collection: T, collection$: BehaviorSubject<T>): Observable<T> {
-    collection = obj;
-    collection$ = collection$ || new BehaviorSubject(collection);
-    collection$.next(collection);
-    return collection$;
+    const updatedProperties = this._myProperties.map(i => i.id === property.id ? property : i);
+    this.myProperties$.next(this._myProperties = updatedProperties);
+    this.propertyBySlug$.next(this._propertyBySlug = property);
+    return this.propertyBySlug$;
   }
 
   private updateAmenities(property: Property): Property {
@@ -71,7 +69,7 @@ export class PropertyService {
   }
 
   private updateTypes(property: Property): Property {
-    property.types_attributes = property.types.map(i => { return {id: i.id, _destroy: !i.active}; });
+    property.types_attributes = property.types.map(i => { return { id: i.id, _destroy: !i.active }; });
     return property;
   }
 
@@ -81,5 +79,8 @@ export class PropertyService {
       .flatMap(i => this.updatePropertyBySlugLocal(i));
   }
 
-  constructor(private http: HttpService) { }
+  constructor(private http: HttpService) {
+    this.myProperties$ = new BehaviorSubject(this._myProperties);
+    this.propertyBySlug$ = new BehaviorSubject(this._propertyBySlug);
+  }
 }
