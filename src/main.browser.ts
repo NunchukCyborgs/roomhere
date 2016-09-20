@@ -18,6 +18,7 @@ import { ALL_COMPONENTS as ALL_PROPERTY_COMPONENTS, PropertyActionStateService }
 import { ALL_SERVICES } from './app/services/index';
 
 import { PropertyService } from './app/properties/property.service';
+import { SimpleSearchPipe } from './app/pipes/simple-search.pipe'; 
 
 @NgModule({
   bootstrap: [App],
@@ -35,6 +36,7 @@ import { PropertyService } from './app/properties/property.service';
     PrivacyPolicy,
     Dashboard,
     Settings,
+    SimpleSearchPipe,
   ],
   imports: [
     UniversalModule,

@@ -18,6 +18,8 @@ import { ALL_COMPONENTS } from './app/components/index';
 import { ALL_COMPONENTS as ALL_PROPERTY_COMPONENTS, PropertyService, PropertyActionStateService } from './app/properties/index';
 import { ALL_SERVICES } from './app/services/index';
 
+import { SimpleSearchPipe } from './app/pipes/simple-search.pipe'; 
+
 @NgModule({
   bootstrap: [App],
   declarations: [
@@ -34,6 +36,7 @@ import { ALL_SERVICES } from './app/services/index';
     PrivacyPolicy,
     Dashboard,
     Settings,
+    SimpleSearchPipe,
   ],
   imports: [
     UniversalModule,
