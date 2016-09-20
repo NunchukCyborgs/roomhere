@@ -7,10 +7,10 @@
     "url": "https://github.com/NunchukCyborgs/roomhere.git"
   },
   "scripts": {
-    "watch": "webpack --watch",
-    "prebuild": "rimraf dist",
-    "build": "webpack",
-    "build:prod": "webpack --progress -p",
+    "watch": "node node_modules/webpack/bin/webpack.js --watch",
+    "prebuild": "node node_modules/rimraf/rimraf.js dist",
+    "build": "node node_modules/webpack/bin/webpack.js",
+    "build:prod": "node node_modules/webpack/bin/webpack.js --progress -p",
     "prestart": "npm run build",
     "server": "nodemon dist/server/index.js",
     "start": "npm run server",
