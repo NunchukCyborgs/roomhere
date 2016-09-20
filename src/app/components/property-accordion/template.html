@@ -6,7 +6,7 @@
       <i class="fa fa-times accordion-close"></i>
     </a>
     <div class="accordion-content" data-tab-content>
-      <property-edit *ngIf="activePropId === property.id" [property]="property" (submit)="update(property)"></property-edit>
+      <property-edit *ngIf="activePropId === property.id" class="row" [property]="property" (submit)="update(property)"></property-edit>
     </div>
   </li>
 </ul>

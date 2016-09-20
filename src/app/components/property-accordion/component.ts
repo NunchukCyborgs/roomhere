@@ -19,14 +19,16 @@ export class PropertyAccordion {
     this.readyForChanges = true;
   }
 
-  ngAfterViewChecked() {
+  ngOnChanges() {
     if (isBrowser) {
-      const accord$ = $('.accordion');
-      new Foundation.Accordion(accord$);
-      if (this.readyForChanges) {
-        accord$.foundation('down', $(''));
-        this.readyForChanges = false;
-      }
+      setTimeout(() => {
+        const accord$ = $('.accordion');
+        new Foundation.Accordion(accord$);
+        if (this.readyForChanges) {
+          accord$.foundation('down', $(''));
+          this.readyForChanges = false;
+        }
+      });
     }
   }
 }
