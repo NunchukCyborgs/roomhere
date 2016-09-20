@@ -1,16 +1,10 @@
 <div class="row">
-    <div [class.hide]="showMore || isEditing" *ngFor="let amen of featuredAmenities" class="column small-6 amenity">
-        <span class="amenity-size"><i class="{{amen.icon}}"></i> {{amen.name}}</span>
-    </div>
-
-    <div class="column small-12 medium-6 amenity" [class.hide]="showMore || isEditing"><a (click)="showMore = true">more <i class="icon-plus"></i></a></div>
-
-    <div [class.hide]="!showMore && !isEditing" *ngFor="let amen of prettyAmenities" class="column small-6 amenity">
+    <div *ngFor="let amen of prettyAmenities" class="column small-6 amenity">
         <div *ngIf="!isEditing" [class.non-active]="!amen.active" class="amenity-size">
-          <i *ngIf="amen.active" class="{{amen.icon}}"></i> <span>{{amen.name}}</span>
+            <i *ngIf="amen.active" class="{{amen.icon}}"></i> <span>{{amen.name}}</span>
         </div>
         <div *ngIf="isEditing">
-          <input type="checkbox" [checked]="amen.active" (change)="update(amen, $event)" />
-        {{amen.name}}</div>
+            <input type="checkbox" [checked]="amen.active" (change)="update(amen, $event)" /> {{amen.name}}
+        </div>
     </div>
 </div>

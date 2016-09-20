@@ -10,21 +10,13 @@ export class PropertyAmenities {
   @Input() isEditing: boolean;
   @Input() amenities: Amenity[];
   @Output() amenitiesChange: EventEmitter<any> = new EventEmitter();
-  public featuredAmenities: Amenity[];
-  public showMore: boolean;
 
   public prettyAmenities: Amenity[];
 
-  ngOnInit() {
+  ngOnChanges() {
     this.prettyAmenities = this
       .sortAmenities(this.amenities)
       .map(i => this.shortenAmenities(i));
-
-    this.featuredAmenities = this.prettyAmenities
-      .filter(i => i.active)
-      .slice(1, 4);
-
-    this.showMore = this.featuredAmenities.length === 0;
   }
 
   public update(amen: Amenity, $event: any) {

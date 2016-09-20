@@ -29,7 +29,7 @@
                     </div>
                     <div class="row column padding small-9 small-centered">
                         <div class="column padding">
-                            <property-amenities *ngIf="property?.amenities" [(amenities)]="property.amenities" [isEditing]="false"></property-amenities>
+                            <property-amenities *ngIf="property?.amenities?.length" [(amenities)]="property.amenities" [isEditing]="false"></property-amenities>
                         </div>
                     </div>
                     <div class="row column padding small-11 small-centered">
