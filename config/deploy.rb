@@ -6,7 +6,7 @@ set :repo_url, 'git@github.com:NunchukCyborgs/roomhere.git'
 
 set :deploy_to, '/var/www/roomhere'
 
-set :linked_dirs, %w{node_modules app/bower_components}
+set :linked_dirs, %w{app/bower_components}
 set :npm_flags, '--production'
 set :passenger_restart_with_touch, true
 
@@ -46,7 +46,7 @@ namespace :deploy do
 
   desc 'Restart application'
   task :restart do
-    on roles(:app) do 
+    on roles(:app) do
       execute "cd #{release_path}; pwd; npm cache clean; npm run build;"
     end
   end
@@ -54,5 +54,3 @@ namespace :deploy do
   after :publishing, :restart
   #after :publishing, :build_static
 end
-
-
