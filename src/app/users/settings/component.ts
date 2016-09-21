@@ -10,7 +10,7 @@ import { Contact } from '../user';
 
 @Component({
   selector: 'settings',
-  styles: [require('./styles.scss').toString()],
+  styles:[require('../modal/modal.component.scss').toString(), require('./styles.scss').toString()],
   templateUrl: 'template.html',
 })
 export class Settings {
