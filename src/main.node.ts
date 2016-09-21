@@ -51,7 +51,7 @@ import { SimpleSearchPipe } from './app/pipes/simple-search.pipe';
     UserService,
     PropertyService,
     PropertyActionStateService,
-    CookieService
+    CookieService,
   ],
 })
 export class MainModule {

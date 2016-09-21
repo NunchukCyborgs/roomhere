@@ -134,7 +134,7 @@ export class UserService {
   private storeUser() {
     this.user$.subscribe(i => {
       if (i.uid) {
-        isBrowser && this.cookieService.set('user', JSON.stringify(i));
+        isBrowser && this.cookieService.put('user', JSON.stringify(i));
       }
     });
   }
