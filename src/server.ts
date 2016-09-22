@@ -30,7 +30,7 @@ app.use(bodyParser.json());
 app.use('/assets', express.static(path.join(__dirname, 'assets'), { maxAge: 30 }));
 app.use(express.static(path.join(ROOT, 'dist/client'), { index: false }));
 
-const options: PrebootOptions = { appRoot: ['app'], uglify: true, buffer: true }; 
+const options: PrebootOptions = { appRoot: ['app'], uglify: true, buffer: true };
 
 function ngApp(req, res) {
   res.render('index', {
@@ -54,10 +54,18 @@ app.get('/settings', ngApp);
 app.get('/properties/:slug', ngApp);
 
 app.get('*', function (req, res) {
-  res.setHeader('Content-Type', 'application/json');
-  var pojo = { status: 404, message: 'No Content' };
-  var json = JSON.stringify(pojo, null, 2);
-  res.status(404).send(json);
+  res.status(404);
+
+  if (req.accepts('html')) {
+    // res.render('404', { url: req.url });
+    ngApp(req, res);
+  } else if (req.accepts('json')) {
+    res.setHeader('Content-Type', 'application/json');
+    res.send({ error: 'Not found' });
+  } else {
+    res.type('txt').send('Not found');
+  }
+
 });
 
 // Server

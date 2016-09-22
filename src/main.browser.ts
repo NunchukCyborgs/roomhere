@@ -12,6 +12,7 @@ import { FAQ } from './app/faq/component';
 import { PrivacyPolicy } from './app/privacy-policy/component';
 import { Dashboard } from './app/dashboard/component';
 import { Settings } from './app/users/settings/component';
+import { MissingResource } from './app/missing-resource/component';
 
 import { ALL_COMPONENTS } from './app/components/index';
 import { ALL_COMPONENTS as ALL_PROPERTY_COMPONENTS, PropertyActionStateService } from './app/properties/index';
@@ -36,6 +37,7 @@ import { SimpleSearchPipe } from './app/pipes/simple-search.pipe';
     PrivacyPolicy,
     Dashboard,
     Settings,
+    MissingResource,
     SimpleSearchPipe,
   ],
   imports: [
