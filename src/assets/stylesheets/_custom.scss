@@ -226,3 +226,39 @@ input[type=number]::-webkit-outer-spin-button {
 .button-group a.button.selected {
   opacity: .5;
 }
+/* Naviagtion CSS */
+#nav {
+    background-color: #28af6e;
+    color: #ffffff !important;
+}
+.title-bar {
+    background: #44254A;
+    color: #fefefe;
+    padding: 0.5rem;
+}
+.title-bar-title {
+    font-weight: bold;
+    vertical-align: middle;
+    display: inline-block;
+}
+@media screen and (max-width: 39.9375em) {
+  .upsellContainer {
+    width: 95%;
+    margin: 0px auto; }
+  #center {
+    margin: 0px auto; }
+  #upsellTwo {
+    padding-bottom: 40px; }
+  #nav {
+    height: auto;
+    padding-top: 15px; }
+    #nav a {
+      color: #44254a !important;
+      margin: 0px;
+      font-size: 11px;
+      vertical-align: middle; }
+    #nav img {
+      vertical-align: middle; }
+  .column:last-child:not(:first-child), .columns:last-child:not(:first-child), .columns:last-child:not(:first-child) {
+    float: none !important; }
+}
