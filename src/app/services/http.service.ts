@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Http, Headers, Response, ResponseOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+import { CookieService } from 'angular2-cookie/core';
 import 'rxjs';
 import { BASE_API_URL } from '../config';
 import { isBrowser } from 'angular2-universal';
@@ -9,7 +10,7 @@ import { isBrowser } from 'angular2-universal';
 export class HttpService {
   public headers: Headers;
 
-  constructor(private http: Http) {
+  constructor(private http: Http, private cookieService: CookieService) {
     this.headers = new Headers();
     this.headers.set('Content-Type', 'application/json');
     this.headers.set('Accept', 'application/json');
@@ -46,10 +47,10 @@ export class HttpService {
     this.headers.set('token-type', 'Bearer');
 
     if (isBrowser) {
-      sessionStorage.setItem('access-token', token || '');
-      sessionStorage.setItem('client', client || '');
-      sessionStorage.setItem('uid', uid || '');
-      sessionStorage.setItem('token-type', 'Bearer');
+      this.cookieService.put('access-token', token || '');
+      this.cookieService.put('client', client || '');
+      this.cookieService.put('uid', uid || '');
+      this.cookieService.put('token-type', 'Bearer');
     }
   }
 
@@ -57,7 +58,7 @@ export class HttpService {
     headers.forEach((values: string[], name: string) => {
       if (this.headers.keys().indexOf(name) !== -1) {
         this.headers.set(name, values[0]);
-        isBrowser && sessionStorage.setItem(name, values[0]);
+        isBrowser && this.cookieService.put(name, values[0]);
       }
     });
   }

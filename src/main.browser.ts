@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UniversalModule, isBrowser } from 'angular2-universal';
+import { CookieService } from 'angular2-cookie/services/cookies.service';
 
 import { App } from './app/app.component';
 import { routing } from './app.routes';
@@ -18,7 +19,7 @@ import { ALL_COMPONENTS as ALL_PROPERTY_COMPONENTS, PropertyActionStateService }
 import { ALL_SERVICES } from './app/services/index';
 
 import { PropertyService } from './app/properties/property.service';
-import { SimpleSearchPipe } from './app/pipes/simple-search.pipe'; 
+import { SimpleSearchPipe } from './app/pipes/simple-search.pipe';
 
 @NgModule({
   bootstrap: [App],
@@ -49,6 +50,7 @@ import { SimpleSearchPipe } from './app/pipes/simple-search.pipe';
     UserService,
     PropertyService,
     PropertyActionStateService,
+    CookieService,
   ],
 })
 export class MainModule {
