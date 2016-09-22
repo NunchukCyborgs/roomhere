@@ -1,4 +1,8 @@
 <div>
+<div class="row">
+    <div class="medium-10 medium-push-1 columns">
+      <div class="signup-panel">
+          <h4>Edit Your Settings</h4>
   <form [formGroup]="settingsForm" (ngSubmit)="onSubmit()">
     <div class="form-group row collapse">
       <div class="small-2 columns">
@@ -11,7 +15,7 @@
     </div>
     <div class="form-group row collapse">
       <div class="small-2 columns">
-        <span class="prefix"><i class="icon-mail"></i></span>
+        <span class="prefix"><i class="icon-phone"></i></span>
       </div>
       <div class="small-10  columns">
         <input type="tel" placeholder="phone number" formControlName="phone" class="form-control" id="phone">
@@ -33,4 +37,7 @@
       <button type="submit" class="button large" [attr.disabled]="!settingsForm.valid || getEmailOrPhoneRequiredMessage() ? true : null">submit</button>
     </p>
   </form>
+    </div>
+    </div>
+    </div>
 </div>
