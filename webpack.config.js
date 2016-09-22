@@ -12,7 +12,7 @@ var commonConfig = {
       { test: /\.html$/, loader: 'raw-loader' },
       { test: /\.css$/, loader: 'raw-loader' },
       { test: /\.json$/, loader: 'raw-loader' },
-      { test: /\.scss$/, loaders: ['css-loader', 'sass-loader']},
+      { test: /\.scss$/, loaders: ['css-loader', 'sass-loader'] },
       { test: /\.woff[\?]?.*$/, loader: 'url-loader?limit=10000&mimetype=application/font-woff' },
       { test: /\.ttf[\?]?.*$/, loader: 'url-loader?limit=10000&mimetype=application/octet-stream' },
       { test: /\.eot[\?]?.*$/, loader: 'file-loader' },
@@ -27,13 +27,13 @@ var commonConfig = {
       resolveNgRoute(root('./src'))
     ),
     new webpack.LoaderOptionsPlugin({
-    options: {
+      options: {
         sassLoader: {
-            includePaths: [path.resolve(__dirname, 'node_modules/foundation-sites/scss'), path.resolve(__dirname, 'node_modules/motion-ui/src')]
+          includePaths: [path.resolve(__dirname, 'node_modules/foundation-sites/scss'), path.resolve(__dirname, 'node_modules/motion-ui/src')]
         },
         context: '/'
-    }
-}),
+      }
+    }),
   ]
 };
 
