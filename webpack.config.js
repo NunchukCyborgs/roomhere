@@ -34,11 +34,6 @@ var commonConfig = {
         context: '/'
       }
     }),
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: true,
-      }
-    }),
   ]
 };
 
