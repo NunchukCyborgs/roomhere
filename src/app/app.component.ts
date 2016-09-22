@@ -30,7 +30,7 @@ import { UserService } from './users/index';
             
 
           <div class="top-bar-left">
-              <ul class="menu vertical large-horizontal dropdown" data-responsive-menu="drilldown medium-dropdown" role="menubar" data-dropdown-menu="mfvu74-dropdown-menu">
+              <ul class="menu nohover vertical large-horizontal dropdown" data-responsive-menu="drilldown medium-dropdown" role="menubar" data-dropdown-menu="mfvu74-dropdown-menu">
               <li role="menuitem">
                 <a class="aPadTop" [routerLink]="['']"><img src="/assets/images/logo_hor_dpPurp_205x58.png" alt="Roomhere"/></a>
               </li>

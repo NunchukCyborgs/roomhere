@@ -85,6 +85,9 @@ button[disabled], button[disabled]:hover {
     color: white !important;
     border-radius: 4px;
   }
+.nohover>li>:hover{
+    background-color:#fff !important;
+}
 
 .dropdown-pane {
     visibility: visible;
