@@ -77,6 +77,7 @@ export class ImageUploadService {
       h[name] = values[0];
     });
     delete h['Content-Type'];
+    delete h['content-type'];
     data.headers = h;
     data.submit();
   }
