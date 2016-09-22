@@ -19,14 +19,14 @@ import { UserService } from './users/index';
       </div>
       <div class="top-bar-right">
         <ul class="menu">
-          <li><a [routerLinkActive]="['active', 'router-link-active']" [routerLink]="['dashboard']">Dashboard</a></li>
+          <li *ngIf="hasAuth$ | async"><a [routerLinkActive]="['active', 'router-link-active']" [routerLink]="['dashboard']">Dashboard</a></li>
           <li><a [routerLinkActive]="['active', 'router-link-active']" [routerLink]="['']">Home</a></li>
           <li *ngIf="!(hasAuth$ | async)"><a data-open="RegisterModal">
             Create an Account</a>
           </li>
           <li *ngIf="!(hasAuth$ | async)"><a data-open="LoginModal">Login</a></li>
           <li *ngIf="hasAuth$ | async"><a (click)="logout()">Log Out</a></li>
-          <li><a [routerLinkActive]="['active', 'router-link-active']" [routerLink]="['settings']">Settings</a></li>
+          <li *ngIf="hasAuth$ | async"><a [routerLinkActive]="['active', 'router-link-active']" [routerLink]="['settings']">Settings</a></li>
         </ul>
       </div>
     </div>
@@ -39,6 +39,7 @@ import { UserService } from './users/index';
       <login class="reveal small" id="LoginModal" data-reveal></login>
       <forgot-password class="reveal small" id="ForgotPasswordModal" data-reveal></forgot-password>
       <reset-password class="reveal small" id="ResetPasswordModal" data-reveal></reset-password>
+      <settings *ngIf="hasAuth$ | async" class="reveal" id="SettingsModal" data-reveal></settings>
     </div>
     <sticky-footer></sticky-footer>
   `
@@ -51,10 +52,14 @@ export class App {
 
   ngOnInit() {
     this.router.events.subscribe(() => isBrowser && $('body').foundation())
-    this.route.queryParams
-      .subscribe(params => { 
-        if (params['reset_password'] === 'true') {
-          isBrowser && $('#ResetPasswordModal').foundation('open');
+    this.hasAuth$.flatMap(() => this.route.queryParams)
+      .subscribe(params => {
+        if (isBrowser && this.userService.hasAuth) {
+          if (params['reset_password'] === 'true') {
+            $('#ResetPasswordModal').foundation('open');
+          } else if (params['open_settings'] === 'true') {
+            $('#SettingsModal').foundation('open');
+          }
         }
       });
   }

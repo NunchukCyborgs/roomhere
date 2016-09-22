@@ -44,6 +44,7 @@ export class HttpService {
     this.headers.set('client', client);
     this.headers.set('uid', decodeURIComponent(uid));
     this.headers.set('token-type', 'Bearer');
+    console.log('setting header: ', token)
 
     if (isBrowser) {
       sessionStorage.setItem('access-token', token || '');
@@ -58,6 +59,9 @@ export class HttpService {
       if (this.headers.keys().indexOf(name) !== -1) {
         this.headers.set(name, values[0]);
         isBrowser && sessionStorage.setItem(name, values[0]);
+        if (name === 'access-token') {
+          console.log('updating header: ', values[0]);
+        }
       }
     });
   }
