@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: '404',
+  selector: 'missing-resource',
   styles: [require('./styles.scss').toString()],
   templateUrl: 'template.html'
 })
-export class 404  {
+export class MissingResource  {
 }
