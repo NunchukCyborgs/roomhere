@@ -24,9 +24,9 @@ var commonConfig = {
     loaders: [
       { test: /\.ts$/, loaders: ['awesome-typescript-loader', 'angular2-template-loader'] },
       { test: /\.html$/, loader: 'html-loader', query: htmlQuery },
-      { test: /\.css$/, loader: 'raw-loader' },
+      { test: /\.css$/, loaders: ['css-loader?minimize-autoprefixer', 'postcss-loader'] },
       { test: /\.json$/, loader: 'raw-loader' },
-      { test: /\.scss$/, loaders: ['css-loader', 'postcss-loader', 'sass-loader'] },
+      { test: /\.scss$/, loaders: ['css-loader?minimize-autoprefixer', 'postcss-loader', 'sass-loader'] },
       { test: /\.woff[\?]?.*$/, loader: 'url-loader?limit=10000&mimetype=application/font-woff' },
       { test: /\.ttf[\?]?.*$/, loader: 'url-loader?limit=10000&mimetype=application/octet-stream' },
       { test: /\.eot[\?]?.*$/, loader: 'file-loader' },
