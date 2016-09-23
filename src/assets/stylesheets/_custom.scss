@@ -1,4 +1,6 @@
 /* Resets and Global Helpers */
+$topbar-height: 42px;
+
 .flex-row {
   display: flex;
   flex-flow: row wrap;
@@ -92,12 +94,11 @@ button[disabled], button[disabled]:hover {
 .dropdown-pane {
     visibility: visible;
     position: fixed;
-    top: 74px;
+    top: $topbar-height;
     left: 15px;
     width: 58% !important;
     @include breakpoint(small only) {
       width: 97% !important;
-      top: 145px;
       left: 9px;
       overflow-y: scroll !important;
     }
@@ -108,7 +109,7 @@ button[disabled], button[disabled]:hover {
   overflow: scroll;
   overflow-x: hidden;
   position: fixed;
-  top: 74px;
+  top: $topbar-height;
   left: 0;
   width: 60%;
   padding-left: 30px;
@@ -117,7 +118,6 @@ button[disabled], button[disabled]:hover {
   max-width: none !important;
   @include breakpoint(small only) {
     width: 100% !important;
-    top: 145px;
     padding-left: 20px;
     padding-right: 20px;
     overflow-y: scroll !important;
@@ -127,7 +127,7 @@ button[disabled], button[disabled]:hover {
 #welcome-map {
   position: fixed !important;
   right: 0;
-  top: 74px;
+  top: $topbar-height;
   bottom: 40px;
   width: 40%;
   overflow: hidden;
@@ -264,4 +264,9 @@ input[type=number]::-webkit-outer-spin-button {
       vertical-align: middle; }
   .column:last-child:not(:first-child), .columns:last-child:not(:first-child), .columns:last-child:not(:first-child) {
     float: none !important; }
+}
+
+.top-bar {
+  position: relative;
+  z-index: 10;
 }
