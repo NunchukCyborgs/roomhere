@@ -10,7 +10,7 @@ import { UserService } from './users/index';
   selector: 'app',
   encapsulation: ViewEncapsulation.None,
   styles: [require('../assets/stylesheets/app.scss').toString()], // Styles here are global, be careful
-  templateUrl: 'template.html' 
+  templateUrl: 'template.html'
 })
 export class App {
   public hasAuth$: Observable<boolean>;
@@ -21,10 +21,17 @@ export class App {
   ngOnInit() {
     this.router.events.subscribe(() => isBrowser && $('body').foundation())
     this.route.queryParams
-      .subscribe(params => { 
-        if (params['reset_password'] === 'true') {
-          isBrowser && $('#ResetPasswordModal').foundation('open');
-        }
+      .subscribe(params => {
+        this.hasAuth$.flatMap(() => this.route.queryParams)
+          .subscribe(params => {
+            if (isBrowser && this.userService.hasAuth) {
+              if (params['reset_password'] === 'true') {
+                $('#ResetPasswordModal').foundation('open');
+              } else if (params['open_settings'] === 'true') {
+                $('#SettingsModal').foundation('open');
+              }
+            }
+          });
       });
   }
 
