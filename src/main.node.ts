@@ -3,7 +3,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { UniversalModule } from 'angular2-universal';
 
-import { App } from './app/app.component';
+import { App } from './app/component';
 import { routing } from './app.routes';
 
 import { Login, Register, ForgotPassword, ResetPassword, UserService } from './app/users/index';
