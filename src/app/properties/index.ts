@@ -34,7 +34,7 @@ export let ALL_COMPONENTS = [
   PropertyActionsGroup,
   PropertyEditImage,
   PropertyEdit,
-  PropertyView,
+  // PropertyView, // some reference problem with this guy
   RentNow,
 ];
 
