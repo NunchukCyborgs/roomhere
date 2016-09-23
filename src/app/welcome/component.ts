@@ -20,26 +20,18 @@ export class Welcome {
   public lastPage$: Observable<number>;
   public mapOptions: MapOptions;
   public showFilters: boolean = false;
-  public user$: Observable<User>;
 
   constructor(private propertyService: PropertyService, private userService: UserService) { }
 
   ngAfterViewInit() {
     this.applyFacet();
     this.lastPage$ = this.propertyService.lastPage$;
-    this.user$ = this.userService.user$;
     this.updateMapOptions();
-    this.updateOnUser();
   }
 
   public applyFacet() {
     this.properties$ = this.propertyService
       .getFilteredProperties$(this.facet, this.pageNumber);
-  }
-
-  private updateOnUser() {
-    this.user$
-      .subscribe(() => this.applyFacet());
   }
 
   private updateMapOptions() {

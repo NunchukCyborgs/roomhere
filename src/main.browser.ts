@@ -17,8 +17,10 @@ import { ALL_COMPONENTS } from './app/components/index';
 import { ALL_COMPONENTS as ALL_PROPERTY_COMPONENTS, PropertyActionStateService } from './app/properties/index';
 import { ALL_SERVICES } from './app/services/index';
 
+import { Cookie } from './app/services/cookies/cookie';
+import { CookieBrowser } from './app/services/cookies/cookie-browser';
 import { PropertyService } from './app/properties/property.service';
-import { SimpleSearchPipe } from './app/pipes/simple-search.pipe'; 
+import { SimpleSearchPipe } from './app/pipes/simple-search.pipe';
 
 @NgModule({
   bootstrap: [App],
@@ -49,6 +51,7 @@ import { SimpleSearchPipe } from './app/pipes/simple-search.pipe';
     UserService,
     PropertyService,
     PropertyActionStateService,
+    { provide: Cookie, useClass: CookieBrowser },
   ],
 })
 export class MainModule {

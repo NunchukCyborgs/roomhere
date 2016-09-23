@@ -18,6 +18,8 @@ import { ALL_COMPONENTS } from './app/components/index';
 import { ALL_COMPONENTS as ALL_PROPERTY_COMPONENTS, PropertyService, PropertyActionStateService } from './app/properties/index';
 import { ALL_SERVICES } from './app/services/index';
 
+import { Cookie } from './app/services/cookies/cookie';
+import { CookieNode } from './app/services/cookies/cookie-node';
 import { SimpleSearchPipe } from './app/pipes/simple-search.pipe'; 
 
 @NgModule({
@@ -50,6 +52,7 @@ import { SimpleSearchPipe } from './app/pipes/simple-search.pipe';
     UserService,
     PropertyService,
     PropertyActionStateService,
+    { provide: Cookie, useClass: CookieNode },
   ],
 })
 export class MainModule {
