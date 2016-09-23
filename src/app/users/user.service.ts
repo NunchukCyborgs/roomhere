@@ -107,7 +107,6 @@ export class UserService {
       .subscribe(params => {
         if (params['account_confirmation_success'] === 'true' || params['reset_password'] === 'true') {
           let headers = { token: params['token'], client: params['client_id'], uid: params['uid'] };
-          console.log('using query auth', headers.token);
           this.http.setAuthHeaders(headers.token, headers.client, headers.uid);
           this.hasAuth$.next(true);
         }
@@ -118,7 +117,6 @@ export class UserService {
     const headers = { token: this.persist.get('access-token'), client: this.persist.get('client'), uid: this.persist.get('uid') };
 
     if (headers && headers.token && headers.client && headers.uid) {
-      console.log('using session auth', headers.token);
       this.http.setAuthHeaders(headers.token, headers.client, headers.uid);
       this.hasAuth$.next(this._hasAuth = true);
     }
