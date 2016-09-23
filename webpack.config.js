@@ -1,6 +1,7 @@
 var webpack = require('webpack');
 var path = require('path');
 var resolveNgRoute = require('@angularclass/resolve-angular-routes');
+var autoprefixer = require('autoprefixer');
 
 var commonConfig = {
   resolve: {
@@ -12,7 +13,7 @@ var commonConfig = {
       { test: /\.html$/, loader: 'raw-loader' },
       { test: /\.css$/, loader: 'raw-loader' },
       { test: /\.json$/, loader: 'raw-loader' },
-      { test: /\.scss$/, loaders: ['css-loader', 'sass-loader'] },
+      { test: /\.scss$/, loaders: ['css-loader', 'postcss-loader', 'sass-loader'] },
       { test: /\.woff[\?]?.*$/, loader: 'url-loader?limit=10000&mimetype=application/font-woff' },
       { test: /\.ttf[\?]?.*$/, loader: 'url-loader?limit=10000&mimetype=application/octet-stream' },
       { test: /\.eot[\?]?.*$/, loader: 'file-loader' },
@@ -31,7 +32,10 @@ var commonConfig = {
         sassLoader: {
           includePaths: [path.resolve(__dirname, 'node_modules/foundation-sites/scss'), path.resolve(__dirname, 'node_modules/motion-ui/src')]
         },
-        context: '/'
+        context: '/',
+        postcss: [
+          autoprefixer
+        ],
       }
     }),
   ]
