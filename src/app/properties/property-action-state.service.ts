@@ -39,7 +39,7 @@ export class PropertyActionStateService {
     this.actionState$.subscribe();
   }
 
-  public setState(user: User, property: Property): Observable<PropertyActionState> {
+  public setState(property: Property): Observable<PropertyActionState> {
     if (this._isEditing) {
       this.actionState$.next(this._actionState = new PropertyActionState(PropertyActionMode.Editing, 'Update Property', 'success'));
     } else if (property && property.can_edit) {
@@ -51,7 +51,7 @@ export class PropertyActionStateService {
     return this.actionState$;
   }
 
-  public doAction(user: User, property: Property): void {
+  public doAction(property: Property): void {
     if (this._actionState.mode === PropertyActionMode.Editing) {
       this.isEditing$.next(this._isEditing = false);
     } else if (this._actionState.mode === PropertyActionMode.Authorized) {
@@ -60,7 +60,7 @@ export class PropertyActionStateService {
       isBrowser && $('#RentNow').foundation('open');
     }
 
-    this.setState(user, property);
+    this.setState(property);
   }
 
   public get actionState(): PropertyActionState {
