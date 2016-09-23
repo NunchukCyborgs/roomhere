@@ -65,7 +65,7 @@ export class PropertyView implements OnDestroy {
   }
 
   private doAction() {
-    this.actionStateService.doAction(this.userService.user, this.property);
+    this.actionStateService.doAction(this.property);
   }
 
   private updateMapOptions(property: Property) {
@@ -84,15 +84,13 @@ export class PropertyView implements OnDestroy {
     this.isEditing$ = this.actionStateService.isEditing$;
     this.actionState$ = this.actionStateService.actionState$;
 
-    this.userService.user$.subscribe(i => this.actionStateService.setState(i, this.property));
-
     this.sub = this.route.params
       .flatMap(params => this.propertyService.getPropertyBySlug$(params['slug']))
       .do((property: Property) => this.updateMapOptions(property))
       .do((property: Property) => this.property = property)
       .do((property: Property) => this.tweetText = this.socialService.makeTwitterUrl(property))
       .do((property: Property) => this.seoService.addPropertyTags(this.renderer, property))
-      .subscribe((property: Property) => this.actionStateService.setState(this.userService.user, property));
+      .subscribe((property: Property) => this.actionStateService.setState(property));
   }
 
   ngOnDestroy() {

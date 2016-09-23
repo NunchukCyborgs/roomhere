@@ -6,6 +6,7 @@ import { SeoService } from './seo.service';
 import { SocialService } from './social.service';
 import { UtilService } from './util.service';
 import { ValidationService } from './validation.service';
+import { PersistenceService } from './persistence.service';
 
 export let ALL_SERVICES = [
   FacetsService,
@@ -16,6 +17,7 @@ export let ALL_SERVICES = [
   SocialService,
   UtilService,
   ValidationService,
+  PersistenceService,
 ];
 
 export let SERVICES = { 
@@ -27,4 +29,5 @@ export let SERVICES = {
   SocialService: SocialService,
   UtilService: UtilService,
   ValidationService: ValidationService,
+  PersistenceService: PersistenceService,
 };
