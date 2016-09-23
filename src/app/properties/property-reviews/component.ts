@@ -4,7 +4,7 @@ import { PropertyService, Property } from '../index';
 @Component({
   selector: 'property-reviews',
   styles: [require('./styles.scss').toString()],
-  templateUrl: 'template.html',
+  template: require('./template.html').toString(),
 })
 export class PropertyReviews {
   @Input() property: Property;

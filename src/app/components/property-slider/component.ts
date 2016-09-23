@@ -6,7 +6,7 @@ import { FacetsService } from '../../services/facets.service';
 @Component({
   selector: 'property-slider',
   styles: [require('./styles.scss').toString()],
-  templateUrl: 'template.html'
+  template: require('./template.html').toString()
 })
 export class PropertySlider implements AfterViewInit {
   @Input() facet: PropertyFacet;

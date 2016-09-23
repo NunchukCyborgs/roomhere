@@ -10,7 +10,7 @@ import { UserService } from './users/index';
   selector: 'app',
   encapsulation: ViewEncapsulation.None,
   styles: [require('../assets/stylesheets/app.scss').toString()], // Styles here are global, be careful
-  templateUrl: 'template.html'
+  template: require('./template.html').toString()
 })
 export class App {
   public hasAuth$: Observable<boolean>;

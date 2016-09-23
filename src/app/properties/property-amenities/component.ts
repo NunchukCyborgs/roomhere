@@ -4,7 +4,7 @@ import { Amenity } from '../index';
 @Component({
   selector: 'property-amenities',
   styles: [require('./styles.scss').toString()],
-  templateUrl: 'template.html',
+  template: require('./template.html').toString(),
 })
 export class PropertyAmenities {
   @Input() isEditing: boolean;

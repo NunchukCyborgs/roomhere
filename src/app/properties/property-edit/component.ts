@@ -10,7 +10,7 @@ import { ImageUploadService, PendingFile } from '../../services/image-upload.ser
 @Component({
   selector: 'property-edit',
   styles: [require('./styles.scss').toString()],
-  templateUrl: 'template.html'
+  template: require('./template.html').toString()
 })
 export class PropertyEdit {
   @Output() submit: EventEmitter<any> = new EventEmitter();

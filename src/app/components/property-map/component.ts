@@ -17,7 +17,7 @@ export interface MapOptions {
 @Component({
   selector: 'property-map',
   styles: [require('./styles.scss').toString()],
-  templateUrl: 'template.html',
+  template: require('./template.html').toString(),
 })
 export class PropertyMap {
   @Input() properties: Property[];

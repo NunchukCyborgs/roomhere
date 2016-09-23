@@ -3,6 +3,19 @@ var path = require('path');
 var resolveNgRoute = require('@angularclass/resolve-angular-routes');
 var autoprefixer = require('autoprefixer');
 
+var htmlQuery = {
+  minimize: true,
+  removeAttributeQuotes: false,
+  caseSensitive: true,
+  // Teach html-minifier about Angular 2 syntax
+  customAttrSurround: [
+    [/#/, /(?:)/],
+    [/\*/, /(?:)/],
+    [/\[?\(?/, /(?:)/]
+  ],
+  customAttrAssign: [/\)?\]?=/]
+};
+
 var commonConfig = {
   resolve: {
     extensions: ['', '.ts', '.js', '.json']
@@ -10,7 +23,7 @@ var commonConfig = {
   module: {
     loaders: [
       { test: /\.ts$/, loaders: ['awesome-typescript-loader', 'angular2-template-loader'] },
-      { test: /\.html$/, loader: 'raw-loader' },
+      { test: /\.html$/, loader: 'html-loader', query: htmlQuery },
       { test: /\.css$/, loader: 'raw-loader' },
       { test: /\.json$/, loader: 'raw-loader' },
       { test: /\.scss$/, loaders: ['css-loader', 'postcss-loader', 'sass-loader'] },

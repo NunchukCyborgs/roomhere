@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 @Component({ 
   selector: 'privacy-policy',
   styles: [require('./styles.scss').toString()],
-  templateUrl: 'template.html'
+  template: require('./template.html').toString()
 })
 export class PrivacyPolicy  {
 }

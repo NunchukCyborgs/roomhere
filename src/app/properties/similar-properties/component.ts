@@ -4,7 +4,7 @@ import { PropertyService, Property } from '../index';
 @Component({
   selector: 'similar-properties',
   styles: [require('./styles.scss').toString()],
-  templateUrl: 'template.html',
+  template: require('./template.html').toString(),
 })
 export class SimilarProperties {
   @Input() property: Property;

@@ -5,7 +5,7 @@ import { PropertyService, Property } from '../properties/index';
 @Component({
   selector: 'dashboard',
   styles: [require('./styles.scss').toString()],
-  templateUrl: 'template.html'
+  template: require('./template.html').toString()
 })
 export class Dashboard {
   public properties$: Observable<Property[]>;

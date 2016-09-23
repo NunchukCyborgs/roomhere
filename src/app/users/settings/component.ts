@@ -11,7 +11,7 @@ import { Contact } from '../user';
 @Component({
   selector: 'settings',
   styles:[require('../modal/modal.component.scss').toString(), require('./styles.scss').toString()],
-  templateUrl: 'template.html',
+  template: require('./template.html').toString(),
 })
 export class Settings {
   public success: boolean;

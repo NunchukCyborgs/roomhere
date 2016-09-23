@@ -21,7 +21,7 @@ const HEIGHT: string = '350px';
 @Component({
   selector: 'property-view',
   styles: [require('./styles.scss').toString()],
-  templateUrl: 'template.html'
+  template: require('./template.html').toString()
 })
 export class PropertyView implements OnDestroy {
   public property: Property = new Property();

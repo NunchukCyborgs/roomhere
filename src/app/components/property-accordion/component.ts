@@ -6,7 +6,7 @@ import { Property } from '../../properties/index';
 @Component({
   selector: 'property-accordion',
   styles: [require('./styles.scss').toString()],
-  templateUrl: 'template.html'
+  template: require('./template.html').toString()
 })
 export class PropertyAccordion {
   @Input() properties: Property[];

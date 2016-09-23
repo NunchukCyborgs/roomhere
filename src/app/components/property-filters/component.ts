@@ -7,7 +7,7 @@ import { FacetsService, Location, Amenity } from '../../services/facets.service'
 @Component({
   selector: 'property-filters',
   styles:[require('./styles.scss').toString()],
-  templateUrl: 'template.html',
+  template: require('./template.html').toString(),
 })
 export class PropertyFilters {
   @Input() facet: PropertyFacet;

@@ -11,7 +11,7 @@ const MAP_ZOOM_LEVEL = 13;
 @Component({
   selector: 'welcome',
   styles: [require('./styles.scss').toString()],
-  templateUrl: 'template.html'
+  template: require('./template.html').toString()
 })
 export class Welcome {
   public properties$: Observable<Property[]>;

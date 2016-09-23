@@ -4,7 +4,7 @@ import { UserService } from '../users/user.service';
 
 @Component({
   selector: 'home-page',
-  templateUrl: 'template.html' 
+  template: require('./template.html').toString() 
 })
 export class HomePage {
   public hasAuth$: Observable<boolean>;
