@@ -18,9 +18,10 @@ export class UserService {
   public licenseId$: BehaviorSubject<string>;
   private _licenseId: string = null;
   public hasAuth$: BehaviorSubject<boolean>;
+  private _hasAuth: boolean = false;
 
   constructor(private http: HttpService, private route: ActivatedRoute, private persist: PersistenceService) {
-    this.hasAuth$ = new BehaviorSubject(false);
+    this.hasAuth$ = new BehaviorSubject(this._hasAuth);
     this.hasAuth$.subscribe();
     this.contacts$ = new BehaviorSubject(this._contacts);
     this.contacts$.subscribe();
@@ -82,15 +83,15 @@ export class UserService {
   }
 
   public loadContacts(): Observable<Contact[]> {
-    return this.http
-      .get(`${BASE_API_URL}/me`)
+    return this.hasAuth$.filter(i => i)
+      .flatMap(() => this.http.get(`${BASE_API_URL}/me`))
       .map(i => i.json().contacts)
       .do(i => this.contacts$.next(this._contacts = i));
   }
 
   public loadLicenseId(): Observable<string> {
-    return this.http
-      .get(`${BASE_API_URL}/me`)
+    return this.hasAuth$.filter(i => i)
+      .flatMap(() => this.http.get(`${BASE_API_URL}/me`))
       .map(i => i.json().license_id)
       .do(i => this.licenseId$.next(this._licenseId = i));
   }
@@ -101,11 +102,12 @@ export class UserService {
   }
 
   private checkForQueryAuth() {
-    this.route
-      .queryParams
+    this.hasAuth$.filter(i => !i)
+      .flatMap(() =>this.route.queryParams)
       .subscribe(params => {
         if (params['account_confirmation_success'] === 'true' || params['reset_password'] === 'true') {
           let headers = { token: params['token'], client: params['client_id'], uid: params['uid'] };
+          console.log('using query auth', headers.token);
           this.http.setAuthHeaders(headers.token, headers.client, headers.uid);
           this.hasAuth$.next(true);
         }
@@ -116,19 +118,24 @@ export class UserService {
     const headers = { token: this.persist.get('access-token'), client: this.persist.get('client'), uid: this.persist.get('uid') };
 
     if (headers && headers.token && headers.client && headers.uid) {
+      console.log('using session auth', headers.token);
       this.http.setAuthHeaders(headers.token, headers.client, headers.uid);
-      this.hasAuth$.next(true);
+      this.hasAuth$.next(this._hasAuth = true);
     }
   }
 
   private handleLogin(res: Response) {
     if (res.ok) {
       this.http.setAuthHeaders(res.headers.get('access-token'), res.headers.get('client'), res.headers.get('uid'));
-      this.hasAuth$.next(true);
+      this.hasAuth$.next(this._hasAuth = true);
     }
   }
 
   private getRedirectUrl(): string {
-    return isBrowser && window.location.origin + window.location.pathname;
+    return isBrowser && `${window.location.origin}/open_settings=true`
+  }
+
+  public get hasAuth() {
+    return this._hasAuth;
   }
 }

@@ -17,7 +17,7 @@
     <div class="top-bar-right margRight">
       <ul class="menu vertical large-horizontal dropdown" data-responsive-menu="medium-dropdown" role="menubar" data-dropdown-menu="pqvvce-dropdown-menu">
         <li role="menuitem">
-          <a class="aPadTop" [routerLinkActive]="['active', 'router-link-active']" [routerLink]="['dashboard']">Dashboard</a>
+          <a class="aPadTop" *ngIf="hasAuth$ | async" [routerLinkActive]="['active', 'router-link-active']" [routerLink]="['dashboard']">Dashboard</a>
         </li>
         <li role="menuitem">
           <a class="aPadTop" [routerLinkActive]="['active', 'router-link-active']" [routerLink]="['']">Home</a>
@@ -33,7 +33,7 @@
           <a class="aPadTop" (click)="logout()">Log Out</a>
         </li>
         <li role="menuitem">
-          <a class="aPadTop" [routerLinkActive]="['active', 'router-link-active']" [routerLink]="['settings']">Settings</a>
+          <a class="aPadTop" *ngIf="hasAuth$ | async" [routerLinkActive]="['active', 'router-link-active']" [routerLink]="['settings']">Settings</a>
         </li>
       </ul>
     </div>
@@ -47,5 +47,6 @@
     <login class="reveal small" id="LoginModal" data-reveal></login>
     <forgot-password class="reveal small" id="ForgotPasswordModal" data-reveal></forgot-password>
     <reset-password class="reveal small" id="ResetPasswordModal" data-reveal></reset-password>
+    <settings *ngIf="hasAuth$ | async" class="reveal" id="SettingsModal" data-reveal></settings>
   </div>
   <sticky-footer></sticky-footer>
