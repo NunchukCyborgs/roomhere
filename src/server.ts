@@ -23,6 +23,19 @@ app.engine('.html', createEngine({}));
 app.set('views', __dirname);
 app.set('view engine', 'html');
 
+
+app.use(require('express-minify-html')({
+  override: true,
+  htmlMinifier: {
+    removeComments: true,
+    collapseWhitespace: true,
+    collapseBooleanAttributes: true,
+    removeAttributeQuotes: true,
+    removeEmptyAttributes: true,
+    minifyJS: true
+  }
+}));
+
 app.use(cookieParser('Angular 2 Universal'));
 app.use(bodyParser.json());
 
@@ -30,7 +43,7 @@ app.use(bodyParser.json());
 app.use('/assets', express.static(path.join(__dirname, 'assets'), { maxAge: 30 }));
 app.use(express.static(path.join(ROOT, 'dist/client'), { index: false }));
 
-const options: PrebootOptions = { appRoot: ['app'], uglify: true, buffer: true }; 
+const options: PrebootOptions = { appRoot: ['app'], uglify: true, buffer: true };
 
 function ngApp(req, res) {
   res.render('index', {
