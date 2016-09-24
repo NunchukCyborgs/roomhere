@@ -32,6 +32,21 @@
         <li role="menuitem">
           <a class="aPadTop" *ngIf="hasAuth$ | async" [routerLinkActive]="['active', 'router-link-active']" [routerLink]="['settings']">Settings</a>
         </li>
+        <li role="menuitem" class="show-for-small-only">
+          <a [routerLink]="['/faq']">FAQ</a>
+        </li>
+        <li role="menuitem" class="show-for-small-only">
+          <a href="//blog.roomhere.io">Blog</a>
+        </li>
+        <li role="menuitem" class="show-for-small-only">
+          <a [routerLink]="['/privacy-policy']">Privacy Policy</a>
+        </li>
+        <li role="menuitem" class="show-for-small-only">
+          <a href="tel:5732902363">(573) 290-2363</a>
+        </li>
+        <li role="menuitem" class="show-for-small-only">
+          <a href="mailto:support@roomhere.io">support@roomhere.io</a>
+        </li>
       </ul>
     </div>
   </div>
