@@ -66,10 +66,17 @@ app.get('/settings', ngApp);
 app.get('/properties/*', ngApp);
 
 app.get('*', function (req, res) {
-  res.setHeader('Content-Type', 'application/json');
-  var pojo = { status: 404, message: 'No Content' };
-  var json = JSON.stringify(pojo, null, 2);
-  res.status(404).send(json);
+  res.status(404);
+
+  if (req.accepts('html')) {
+    ngApp(req, res);
+  } else if (req.accepts('json')) {
+    res.setHeader('Content-Type', 'application/json');
+    res.send({ error: 'Not found' });
+  } else {
+    res.type('txt').send('Not found');
+  }
+
 });
 
 // Server

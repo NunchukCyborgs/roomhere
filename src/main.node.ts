@@ -35,6 +35,7 @@ import { Welcome } from './app/welcome/component';
 import { FAQ } from './app/faq/component';
 import { PrivacyPolicy } from './app/privacy-policy/component';
 import { Dashboard } from './app/dashboard/component';
+import { MissingResource } from './app/missing-resource/component';
 import { HomePage } from './app/home-page/component';
 
 // Components
@@ -54,8 +55,8 @@ import { SimpleSearchPipe } from './app/pipes/simple-search.pipe';
 
 // Services
 import { UserService } from './app/users/user.service';
-import { PropertyService }  from './app/properties/property.service';
-import { PropertyActionStateService }  from './app/properties/property-action-state.service';
+import { PropertyService } from './app/properties/property.service';
+import { PropertyActionStateService } from './app/properties/property-action-state.service';
 import { FacetsService } from './app/services/facets.service';
 import { GoogleApiService } from './app/services/google-api.service';
 import { HttpService } from './app/services/http.service';
@@ -77,7 +78,8 @@ export const DECLARTIONS = [
   Login, Register, ForgotPassword, ResetPassword, Settings, PropertyView, PropertyImages, PropertyReviews,
   SimilarProperties, PropertyPreview, PropertyAmenities, PropertyActionsGroup, PropertyEditImage, PropertyEdit,
   RentNow, StickyFooter, Welcome, FAQ, PrivacyPolicy, Dashboard, HomePage, SimpleSearchPipe, Carousel, ControlMessages,
-  ImageUpload, NumberTicker, PropertyMap, Slide, UploadProgress, PropertySlider, PropertyFilters, PropertyAccordion, App
+  ImageUpload, NumberTicker, PropertyMap, Slide, UploadProgress, PropertySlider, PropertyFilters, PropertyAccordion, 
+  MissingResource, App
 ];
 
 export const PROVIDERS = [
