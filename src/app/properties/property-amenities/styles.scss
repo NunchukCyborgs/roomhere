@@ -6,6 +6,10 @@
   padding: 3px 0;
 }
 
+.strike {
+  text-decoration: line-through;
+}
+
 @media screen and (max-width: 480px) {
   .amenity-size {
     font-size: 80%;

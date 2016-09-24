@@ -25,6 +25,10 @@ export class PropertyAmenities {
     this.amenitiesChange.emit(this.amenities);
   }
 
+  public hasAnyAmenities(): boolean {
+    return this.prettyAmenities.filter(i => i.active).length > 0;
+  }
+
   private sortAmenities(amens: Amenity[]): Amenity[] {
     return amens.sort((a, b) => a.name.length < b.name.length ? -1 : 1);
   }
