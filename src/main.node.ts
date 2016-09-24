@@ -3,7 +3,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { UniversalModule } from 'angular2-universal';
 
-import { App } from './app/component';
 import { routing } from './app.routes';
 
 //////////////////////////////////////////
@@ -30,6 +29,7 @@ import { PropertyEdit } from './app/properties/property-edit/component';
 import { RentNow } from './app/properties/rent-now/component';
 
 // Other
+import { App } from './app/component';
 import { StickyFooter } from './app/footer/component';
 import { Welcome } from './app/welcome/component';
 import { FAQ } from './app/faq/component';
@@ -37,12 +37,25 @@ import { PrivacyPolicy } from './app/privacy-policy/component';
 import { Dashboard } from './app/dashboard/component';
 import { HomePage } from './app/home-page/component';
 
+// Components
+import { Carousel } from './app/components/carousel/component';
+import { ControlMessages } from './app/components/control-messages/component';
+import { ImageUpload } from './app/components/image-upload/component';
+import { NumberTicker } from './app/components/number-ticker/component';
+import { PropertyMap } from './app/components/property-map/component';
+import { Slide } from './app/components/slide/component';
+import { UploadProgress } from './app/components/upload-progress/component';
+import { PropertySlider } from './app/components/property-slider/component';
+import { PropertyFilters } from './app/components/property-filters/component';
+import { PropertyAccordion } from './app/components/property-accordion/component';
+
 // Pipes
 import { SimpleSearchPipe } from './app/pipes/simple-search.pipe';
 
 // Services
 import { UserService } from './app/users/user.service';
 import { PropertyService }  from './app/properties/property.service';
+import { PropertyActionStateService }  from './app/properties/property-action-state.service';
 import { FacetsService } from './app/services/facets.service';
 import { GoogleApiService } from './app/services/google-api.service';
 import { HttpService } from './app/services/http.service';
@@ -63,12 +76,13 @@ import { CookieNode } from './app/services/cookies/cookie-node';
 export const DECLARTIONS = [
   Login, Register, ForgotPassword, ResetPassword, Settings, PropertyView, PropertyImages, PropertyReviews,
   SimilarProperties, PropertyPreview, PropertyAmenities, PropertyActionsGroup, PropertyEditImage, PropertyEdit,
-  RentNow, StickyFooter, Welcome, FAQ, PrivacyPolicy, Dashboard, HomePage, SimpleSearchPipe
+  RentNow, StickyFooter, Welcome, FAQ, PrivacyPolicy, Dashboard, HomePage, SimpleSearchPipe, Carousel, ControlMessages,
+  ImageUpload, NumberTicker, PropertyMap, Slide, UploadProgress, PropertySlider, PropertyFilters, PropertyAccordion, App
 ];
 
 export const PROVIDERS = [
   UserService, PropertyService, FacetsService, GoogleApiService, HttpService, ImageUploadService, SeoService,
-  SocialService, UtilService, ValidationService, PersistenceService
+  SocialService, UtilService, ValidationService, PersistenceService, PropertyActionStateService
 ];
 
 export const IMPORTS = [
