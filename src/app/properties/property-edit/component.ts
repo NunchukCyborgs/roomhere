@@ -29,6 +29,10 @@ export class PropertyEdit {
     type.active = !type.active;
   }
 
+  public toggleAvailableAt(): void {
+    this.property.available_at = this.property.available_at ? null : new Date().toISOString(); 
+  }
+
   ngOnChanges() {
     this.FileUploadId = `FileUpload${this.property && this.property.id}`;
     this.pendingFiles$ = this.imageUploadService.pendingFiles$;

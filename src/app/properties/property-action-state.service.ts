@@ -23,8 +23,8 @@ export class PropertyActionState {
     this.className = className;
   }
 
-  public get shouldShow(): boolean {
-    return this.mode !== PropertyActionMode.NonAuthorized;
+  public shouldShow(property: Property): boolean {
+    return Boolean(this.mode !== PropertyActionMode.NonAuthorized || (property.isAvailable && property.isAvailable()));
   }
 }
 
@@ -42,7 +42,7 @@ export class PropertyActionStateService {
 
   public setState(property: Property): Observable<PropertyActionState> {
     if (this._isEditing) {
-      this.actionState$.next(this._actionState = new PropertyActionState(PropertyActionMode.Editing, 'Update Property', 'success'));
+      this.actionState$.next(this._actionState = new PropertyActionState(PropertyActionMode.Editing, 'Save Changes', 'success'));
     } else if (property && property.can_edit) {
       this.actionState$.next(this._actionState = new PropertyActionState(PropertyActionMode.Authorized, 'Edit Property'));
     } else {

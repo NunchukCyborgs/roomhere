@@ -58,17 +58,19 @@ export class Property {
   public slug: string;
   public square_footage: number;
   public types: Type[] = [];
-  public updated_at: Date;
+  public updated_at: string;
   public zipcode: string;
   public price: number;
   public amenities_attributes: Array<{id: number, _destroy?: boolean}>;
   public types_attributes: Array<{id: number, _destroy?: boolean}>;
   public can_edit: boolean;
   public owner: Owner;
-  public available_at: Date;
+  public available_at: string; // Maybe make a date wrapper of some sort? Hmm?
 
-  public get isAvailable(): boolean {
-    return this.available_at && this.available_at.getTime() < (new Date()).getTime();
+  public isAvailable(): boolean {
+    const time = this.available_at && new Date(this.available_at).getTime();
+    const now = new Date().getTime();
+    return time < now;
   }
 }
 
