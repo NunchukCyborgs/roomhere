@@ -57,7 +57,6 @@ app.get('*', function (req, res) {
   res.status(404);
 
   if (req.accepts('html')) {
-    // res.render('404', { url: req.url });
     ngApp(req, res);
   } else if (req.accepts('json')) {
     res.setHeader('Content-Type', 'application/json');
