@@ -81,6 +81,7 @@ export class PropertyMap {
   private setOptions() {
     const options: any = {
       disableDefaultUI: false,
+      mapTypeControlOptions: { position: 'RIGHT_CENTER' }, // Don't know how this works. This just removes it from view entirely. I guess I'm okay with that
       clickableIcons: true,
       draggable: true,
       scrollwheel: true,
