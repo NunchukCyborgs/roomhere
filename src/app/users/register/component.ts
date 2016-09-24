@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { Response } from '@angular/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
-import { User, UserService } from '../index';
+import { User } from '../user';
+import { UserService } from '../user.service';
 import { ValidationService } from '../../services/validation.service';
 import { isBrowser } from 'angular2-universal';
 import { ControlMessages } from '../../components/control-messages/component';
@@ -10,7 +11,7 @@ import { ControlMessages } from '../../components/control-messages/component';
 @Component({
   selector: 'register',
   styles:[require('../modal/modal.component.scss').toString(), require('./styles.scss').toString()],
-  templateUrl: 'template.html',
+  template: require('./template.html').toString(),
 })
 export class Register {
   public success: boolean = false;

@@ -3,7 +3,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { isBrowser } from 'angular2-universal';
 import { HttpService } from './http.service';
 import { BASE_API_URL } from '../config';
-import { Property } from '../properties/index';
+import { Property } from '../properties/property';
 import { PropertyService } from '../properties/property.service';
 
 export interface PendingFile {
@@ -77,6 +77,7 @@ export class ImageUploadService {
       h[name] = values[0];
     });
     delete h['Content-Type'];
+    delete h['content-type'];
     data.headers = h;
     data.submit();
   }

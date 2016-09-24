@@ -1,4 +1,7 @@
 /* Resets and Global Helpers */
+$topbar-height: 42px;
+$topbar-large-height: 96px;
+
 .flex-row {
   display: flex;
   flex-flow: row wrap;
@@ -85,16 +88,21 @@ button[disabled], button[disabled]:hover {
     color: white !important;
     border-radius: 4px;
   }
+.nohover>li>:hover{
+    background-color:#fff !important;
+}
 
 .dropdown-pane {
     visibility: visible;
     position: fixed;
-    top: 74px;
+    top: $topbar-height;
+    @include breakpoint(large only) {
+      top: $topbar-large-height;
+    }
     left: 15px;
     width: 58% !important;
     @include breakpoint(small only) {
       width: 97% !important;
-      top: 145px;
       left: 9px;
       overflow-y: scroll !important;
     }
@@ -105,7 +113,10 @@ button[disabled], button[disabled]:hover {
   overflow: scroll;
   overflow-x: hidden;
   position: fixed;
-  top: 74px;
+  top: $topbar-height;
+  @include breakpoint(large only) {
+    top: $topbar-large-height;
+  }
   left: 0;
   width: 60%;
   padding-left: 30px;
@@ -114,7 +125,6 @@ button[disabled], button[disabled]:hover {
   max-width: none !important;
   @include breakpoint(small only) {
     width: 100% !important;
-    top: 145px;
     padding-left: 20px;
     padding-right: 20px;
     overflow-y: scroll !important;
@@ -124,7 +134,10 @@ button[disabled], button[disabled]:hover {
 #welcome-map {
   position: fixed !important;
   right: 0;
-  top: 74px;
+  top: $topbar-height;
+  @include breakpoint(large only) {
+    top: $topbar-large-height;
+  }
   bottom: 40px;
   width: 40%;
   overflow: hidden;
@@ -225,4 +238,45 @@ input[type=number]::-webkit-outer-spin-button {
 
 .button-group a.button.selected {
   opacity: .5;
+}
+/* Naviagtion CSS */
+#nav {
+    background-color: #28af6e;
+    color: #ffffff !important;
+}
+.title-bar {
+    background: #44254A;
+    color: #fefefe;
+    padding: 0.5rem;
+}
+.title-bar-title {
+    font-weight: bold;
+    vertical-align: middle;
+    display: inline-block;
+}
+@media screen and (max-width: 39.9375em) {
+  .upsellContainer {
+    width: 95%;
+    margin: 0px auto; }
+  #center {
+    margin: 0px auto; }
+  #upsellTwo {
+    padding-bottom: 40px; }
+  #nav {
+    height: auto;
+    padding-top: 15px; }
+    #nav a {
+      color: #44254a !important;
+      margin: 0px;
+      font-size: 11px;
+      vertical-align: middle; }
+    #nav img {
+      vertical-align: middle; }
+  .column:last-child:not(:first-child), .columns:last-child:not(:first-child), .columns:last-child:not(:first-child) {
+    float: none !important; }
+}
+
+.top-bar {
+  position: relative;
+  z-index: 10;
 }

@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { PropertyService, Property, PropertyFacet } from '../properties/index';
+import { Property, PropertyFacet } from '../properties/property';
+import { PropertyService } from '../properties/property.service';
 import { MapOptions } from '../components/property-map/component';
-import { UserService, User } from '../users/index';
+import { User } from '../users/user';
+import { UserService } from '../users/user.service';
 import { CAPE_GIRARDEU_CENTER } from '../config';
 
 const MAP_HEIGHT = '100%';
@@ -11,7 +13,7 @@ const MAP_ZOOM_LEVEL = 13;
 @Component({
   selector: 'welcome',
   styles: [require('./styles.scss').toString()],
-  templateUrl: 'template.html'
+  template: require('./template.html').toString()
 })
 export class Welcome {
   public properties$: Observable<Property[]>;
@@ -20,26 +22,18 @@ export class Welcome {
   public lastPage$: Observable<number>;
   public mapOptions: MapOptions;
   public showFilters: boolean = false;
-  public user$: Observable<User>;
 
   constructor(private propertyService: PropertyService, private userService: UserService) { }
 
   ngAfterViewInit() {
     this.applyFacet();
     this.lastPage$ = this.propertyService.lastPage$;
-    this.user$ = this.userService.user$;
     this.updateMapOptions();
-    this.updateOnUser();
   }
 
   public applyFacet() {
     this.properties$ = this.propertyService
       .getFilteredProperties$(this.facet, this.pageNumber);
-  }
-
-  private updateOnUser() {
-    this.user$
-      .subscribe(() => this.applyFacet());
   }
 
   private updateMapOptions() {

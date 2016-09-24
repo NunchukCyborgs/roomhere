@@ -3,8 +3,8 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import { isBrowser } from 'angular2-universal';
 
-import { Property } from '../properties/index';
-import { User } from '../users/index';
+import { Property } from '../properties/property';
+import { User } from '../users/user';
 
 export enum PropertyActionMode {
   Editing,
@@ -22,6 +22,10 @@ export class PropertyActionState {
     this.text = text;
     this.className = className;
   }
+
+  public shouldShow(property: Property): boolean {
+    return Boolean(this.mode !== PropertyActionMode.NonAuthorized || (property.isAvailable && property.isAvailable()));
+  }
 }
 
 @Injectable()
@@ -33,15 +37,12 @@ export class PropertyActionStateService {
 
   constructor() {
     this.isEditing$ = new BehaviorSubject(this._isEditing);
-    this.isEditing$.subscribe();
-
     this.actionState$ = new BehaviorSubject(this._actionState);
-    this.actionState$.subscribe();
   }
 
-  public setState(user: User, property: Property): Observable<PropertyActionState> {
+  public setState(property: Property): Observable<PropertyActionState> {
     if (this._isEditing) {
-      this.actionState$.next(this._actionState = new PropertyActionState(PropertyActionMode.Editing, 'Update Property', 'success'));
+      this.actionState$.next(this._actionState = new PropertyActionState(PropertyActionMode.Editing, 'Save Changes', 'success'));
     } else if (property && property.can_edit) {
       this.actionState$.next(this._actionState = new PropertyActionState(PropertyActionMode.Authorized, 'Edit Property'));
     } else {
@@ -51,7 +52,7 @@ export class PropertyActionStateService {
     return this.actionState$;
   }
 
-  public doAction(user: User, property: Property): void {
+  public doAction(property: Property): void {
     if (this._actionState.mode === PropertyActionMode.Editing) {
       this.isEditing$.next(this._isEditing = false);
     } else if (this._actionState.mode === PropertyActionMode.Authorized) {
@@ -60,7 +61,7 @@ export class PropertyActionStateService {
       isBrowser && $('#RentNow').foundation('open');
     }
 
-    this.setState(user, property);
+    this.setState(property);
   }
 
   public get actionState(): PropertyActionState {

@@ -1,10 +1,10 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { PropertyActionState } from '../index';
+import { PropertyActionState } from '../property-action-state.service';
 
 @Component({
   selector: 'property-actions-group',
   styles: [require('./styles.scss').toString()],
-  templateUrl: 'template.html'
+  template: require('./template.html').toString()
 })
 export class PropertyActionsGroup  {
   @Input() actionState: PropertyActionState;

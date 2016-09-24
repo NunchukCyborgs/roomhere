@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { Response } from '@angular/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
-import { User, UserService } from '../index';
+import { User } from '../user';
+import { UserService } from '../user.service';
 import { ValidationService } from '../../services/validation.service';
 import { isBrowser } from 'angular2-universal';
 import { ControlMessages } from '../../components/control-messages/component';
@@ -11,7 +12,7 @@ import { Contact } from '../user';
 @Component({
   selector: 'settings',
   styles:[require('../modal/modal.component.scss').toString(), require('./styles.scss').toString()],
-  templateUrl: 'template.html',
+  template: require('./template.html').toString(),
 })
 export class Settings {
   public success: boolean;
@@ -23,12 +24,16 @@ export class Settings {
   ngOnInit() {
     this.initForm();
 
-    this.userService
-      .loadContacts()
+    this.userService.hasAuth$.filter(i => i)
+      .flatMap(() => this.userService.loadContacts())
       .do(i => this.contacts = i)
       .flatMap(i => this.userService.loadLicenseId())
       .do(i => this.licenseId = i)
-      .subscribe(i => this.initForm(this.contacts[0].email, this.contacts[0].phone, this.licenseId));
+      .subscribe(i => {
+        if (this.contacts && this.contacts.length && this.licenseId) {
+          this.initForm(this.contacts[0].email, this.contacts[0].phone, this.licenseId);
+        }
+      });
   }
 
   private initForm(email = '', phone = '', licenseId = '') {

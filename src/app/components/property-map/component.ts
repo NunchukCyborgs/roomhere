@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
-import { Property } from '../../properties/index';
+import { Property } from '../../properties/property';
 import { GoogleApiService } from '../../services/google-api.service';
 import { UtilService } from '../../services/util.service';
 import { isBrowser } from 'angular2-universal';
@@ -17,7 +17,7 @@ export interface MapOptions {
 @Component({
   selector: 'property-map',
   styles: [require('./styles.scss').toString()],
-  templateUrl: 'template.html',
+  template: require('./template.html').toString(),
 })
 export class PropertyMap {
   @Input() properties: Property[];
@@ -81,6 +81,7 @@ export class PropertyMap {
   private setOptions() {
     const options: any = {
       disableDefaultUI: false,
+      mapTypeControlOptions: { position: 'RIGHT_CENTER' }, // Don't know how this works. This just removes it from view entirely. I guess I'm okay with that
       clickableIcons: true,
       draggable: true,
       scrollwheel: true,

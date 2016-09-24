@@ -23,6 +23,19 @@ app.engine('.html', createEngine({}));
 app.set('views', __dirname);
 app.set('view engine', 'html');
 
+
+app.use(require('express-minify-html')({
+  override: true,
+  htmlMinifier: {
+    removeComments: true,
+    collapseWhitespace: true,
+    collapseBooleanAttributes: true,
+    removeAttributeQuotes: true,
+    removeEmptyAttributes: true,
+    minifyJS: true
+  }
+}));
+
 app.use(cookieParser('Angular 2 Universal'));
 app.use(bodyParser.json());
 
@@ -49,9 +62,8 @@ function ngApp(req, res) {
 app.get('/', ngApp);
 app.get('/faq', ngApp);
 app.get('/privacy-policy', ngApp);
-app.get('/dashboard', ngApp);
 app.get('/settings', ngApp);
-app.get('/properties/:slug', ngApp);
+app.get('/properties/*', ngApp);
 
 app.get('*', function (req, res) {
   res.status(404);

@@ -1,12 +1,12 @@
 import { Component, AfterViewInit, Input, Output, EventEmitter } from '@angular/core';
-import { PropertyFacet } from '../../properties/index';
+import { PropertyFacet } from '../../properties/property';
 import { isBrowser } from 'angular2-universal';
 import { FacetsService } from '../../services/facets.service';
 
 @Component({
   selector: 'property-slider',
   styles: [require('./styles.scss').toString()],
-  templateUrl: 'template.html'
+  template: require('./template.html').toString()
 })
 export class PropertySlider implements AfterViewInit {
   @Input() facet: PropertyFacet;

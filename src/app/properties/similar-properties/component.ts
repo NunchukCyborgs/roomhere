@@ -1,10 +1,10 @@
 import { Component, Input } from '@angular/core';
-import { PropertyService, Property } from '../index';
+import { Property } from '../property';
 
 @Component({
   selector: 'similar-properties',
   styles: [require('./styles.scss').toString()],
-  templateUrl: 'template.html',
+  template: require('./template.html').toString(),
 })
 export class SimilarProperties {
   @Input() property: Property;

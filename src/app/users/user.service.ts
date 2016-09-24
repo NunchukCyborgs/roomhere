@@ -4,26 +4,24 @@ import { Response, ResponseOptions } from '@angular/http';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/Rx';
-import { User } from './index';
+import { User } from './user';
 import { Contact } from './user';
 import { HttpService } from '../services/http.service';
 import { isBrowser } from 'angular2-universal';
 import { BASE_API_URL } from '../config';
+import { PersistenceService } from '../services/persistence.service';
 
 @Injectable()
 export class UserService {
-  public user$: BehaviorSubject<User>;
-  private _user: User = new User();
   public contacts$: BehaviorSubject<Contact[]>;
   private _contacts: Contact[] = [];
   public licenseId$: BehaviorSubject<string>;
   private _licenseId: string = null;
   public hasAuth$: BehaviorSubject<boolean>;
+  private _hasAuth: boolean = false;
 
-  constructor(private http: HttpService, private route: ActivatedRoute) {
-    this.user$ = new BehaviorSubject(this._user);
-    this.user$.subscribe();
-    this.hasAuth$ = new BehaviorSubject(false);
+  constructor(private http: HttpService, private route: ActivatedRoute, private persist: PersistenceService) {
+    this.hasAuth$ = new BehaviorSubject(this._hasAuth);
     this.hasAuth$.subscribe();
     this.contacts$ = new BehaviorSubject(this._contacts);
     this.contacts$.subscribe();
@@ -32,14 +30,8 @@ export class UserService {
 
     this.checkForSessionAuth();
     this.checkForQueryAuth();
-    this.checkForUser();
-    this.storeUser();
     this.loadLicenseId().subscribe();
     this.loadContacts().subscribe();
-  }
-
-  get user(): User {
-    return Object.assign({}, this._user);
   }
 
   public login(user: User) {
@@ -49,7 +41,6 @@ export class UserService {
 
   public logout() {
     this.http.setAuthHeaders();
-    isBrowser && sessionStorage.clear();
     this.hasAuth$.next(false);
   }
 
@@ -65,7 +56,7 @@ export class UserService {
 
   public resetPassword(user: User): Observable<Response> {
     user.redirect_url = this.getRedirectUrl();
-    user.email = this.http.headers.get('uid');
+    user.email = this.persist.get('uid');
     return this.http.patch(`${BASE_API_URL}/auth/password`, user);
   }
 
@@ -92,15 +83,15 @@ export class UserService {
   }
 
   public loadContacts(): Observable<Contact[]> {
-    return this.http
-      .get(`${BASE_API_URL}/me`)
+    return this.hasAuth$.filter(i => i)
+      .flatMap(() => this.http.get(`${BASE_API_URL}/me`))
       .map(i => i.json().contacts)
       .do(i => this.contacts$.next(this._contacts = i));
   }
 
   public loadLicenseId(): Observable<string> {
-    return this.http
-      .get(`${BASE_API_URL}/me`)
+    return this.hasAuth$.filter(i => i)
+      .flatMap(() => this.http.get(`${BASE_API_URL}/me`))
       .map(i => i.json().license_id)
       .do(i => this.licenseId$.next(this._licenseId = i));
   }
@@ -111,61 +102,38 @@ export class UserService {
   }
 
   private checkForQueryAuth() {
-    this.route
-      .queryParams
+    this.hasAuth$.filter(i => !i)
+      .flatMap(() =>this.route.queryParams)
       .subscribe(params => {
         if (params['account_confirmation_success'] === 'true' || params['reset_password'] === 'true') {
           let headers = { token: params['token'], client: params['client_id'], uid: params['uid'] };
           this.http.setAuthHeaders(headers.token, headers.client, headers.uid);
-          this.updateUser(headers.uid)
-            .subscribe(() => this.hasAuth$.next(true));
+          this.hasAuth$.next(true);
         }
       });
   }
 
-  private checkForUser() {
-    const user = isBrowser && JSON.parse(sessionStorage.getItem('user'));
-    if (user && user.id) {
-      this.user$.next(user);
-    }
-  }
-
-  private storeUser() {
-    this.user$.subscribe(i => {
-      if (i.uid) {
-        isBrowser && sessionStorage.setItem('user', JSON.stringify(i));
-      }
-    });
-  }
-
   private checkForSessionAuth() {
-    const headers = isBrowser && { token: sessionStorage.getItem('access-token'), client: sessionStorage.getItem('client'), uid: sessionStorage.getItem('uid') };
+    const headers = { token: this.persist.get('access-token'), client: this.persist.get('client'), uid: this.persist.get('uid') };
 
     if (headers && headers.token && headers.client && headers.uid) {
       this.http.setAuthHeaders(headers.token, headers.client, headers.uid);
-      this.hasAuth$.next(true);
+      this.hasAuth$.next(this._hasAuth = true);
     }
   }
 
   private handleLogin(res: Response) {
     if (res.ok) {
       this.http.setAuthHeaders(res.headers.get('access-token'), res.headers.get('client'), res.headers.get('uid'));
-      this.user$.next(this._user = res.json().data);
-      this.hasAuth$.next(true);
+      this.hasAuth$.next(this._hasAuth = true);
     }
   }
 
   private getRedirectUrl(): string {
-    return isBrowser && window.location.origin + window.location.pathname;
+    return isBrowser && `${window.location.origin}/open_settings=true`
   }
 
-  private updateUser(uid: string): Observable<User> {
-    // Add this back in when the route exists
-    // return this.http.get(`${BASE_API_URL}/users/${uid}`)
-    //   .map(i => i.json())
-    //   .do(i => console.log('user from server: ', i))
-    //   .do(i => this.user$.next(this._user = i));
-
-    return Observable.of(this.user);
+  public get hasAuth() {
+    return this._hasAuth;
   }
 }

@@ -6,7 +6,7 @@ import { Carousel }  from '../../components/carousel/component';
 @Component({
   selector: 'property-images',
   styles: [require('./styles.scss').toString()],
-  templateUrl: 'template.html'
+  template: require('./template.html').toString()
 })
 export class PropertyImages {
   @Input() images: Array<{id: number, url: string}>;

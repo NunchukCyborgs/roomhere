@@ -1,10 +1,10 @@
-import {Component, OnInit, OnDestroy, Input, HostBinding } from '@angular/core';
-import {Carousel, Direction} from  '../carousel/component';
+import { Component, OnInit, OnDestroy, Input, HostBinding } from '@angular/core';
+import { Carousel, Direction } from '../carousel/component';
 
 @Component({
   selector: 'slide',
   styles: [require('./styles.scss').toString()],
-  templateUrl: 'template.html',
+  template: require('./template.html').toString(),
 })
 export class Slide implements OnInit, OnDestroy {
   @Input() public index: number;

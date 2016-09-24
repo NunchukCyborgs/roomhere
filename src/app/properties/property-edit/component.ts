@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
-import { Property, PropertyAmenities, PropertyEditImage, Type } from '../index';
+import { Property, Type } from '../property';
 import { ImageUpload } from '../../components/image-upload/component';
 import { UploadProgress } from '../../components/upload-progress/component';
 import { NumberTicker } from '../../components/number-ticker/component';
@@ -10,12 +10,13 @@ import { ImageUploadService, PendingFile } from '../../services/image-upload.ser
 @Component({
   selector: 'property-edit',
   styles: [require('./styles.scss').toString()],
-  templateUrl: 'template.html'
+  template: require('./template.html').toString()
 })
 export class PropertyEdit {
   @Output() submit: EventEmitter<any> = new EventEmitter();
   @Input() property: Property;
   public pendingFiles$: Observable<PendingFile[]>;
+  public FileUploadId: string;
 
   constructor(private imageUploadService: ImageUploadService) { }
 
@@ -28,8 +29,13 @@ export class PropertyEdit {
     type.active = !type.active;
   }
 
+  public toggleAvailableAt(): void {
+    this.property.available_at = this.property.available_at ? null : new Date().toISOString(); 
+  }
+
   ngOnChanges() {
+    this.FileUploadId = `FileUpload${this.property && this.property.id}`;
     this.pendingFiles$ = this.imageUploadService.pendingFiles$;
-    this.imageUploadService.uploaderInit('FileUpload', this.property);
+    setTimeout(() => this.imageUploadService.uploaderInit(this.FileUploadId, this.property));
   }
 }

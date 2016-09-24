@@ -2,7 +2,7 @@ import { Renderer, Inject, Injectable } from '@angular/core';
 import { DOCUMENT } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { BASE_URL } from '../config';
-import { Property } from '../properties/index';
+import { Property } from '../properties/property';
 
 @Injectable()
 export class SeoService {

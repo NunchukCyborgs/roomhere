@@ -1,12 +1,12 @@
 <div class="property-view-container">
-    <div stick class="callout hide-for-small-only call-to-actions--top property-actions-group-top">
+    <div *ngIf="(actionState$ | async)?.shouldShow(property)" stick class="callout hide-for-small-only call-to-actions--top property-actions-group-top">
         <property-actions-group (submit)="updatePropertyAndActionState(propEdit.property)" [actionState]="actionState$ | async" (shareFacebook)="shareFacebook()"
             [tweetText]="tweetText"></property-actions-group>
     </div>
     <property-images [images]="property.images" [interval]="6500" *ngIf="property?.images"></property-images>
     <div class="row">
         <div class="small-12 medium-11 large-9 columns small-centered padding">
-            <div *ngIf="!(isEditing$ | async)" class="callout-card">
+            <div *ngIf="!(isEditing$ | async)" class="callout-card small-centered">
                 <div class="callout-card-content">
                     <div class="row column">
                         <div class="column padding large-5 small-text-center large-text-left">
@@ -48,10 +48,10 @@
             </fieldset>
         </div>
     </div>
-    <div class="row show-for-small-only callout-bottom sticky-actions">
+    <div *ngIf="(actionState$ | async)?.shouldShow(property)" class="row show-for-small-only callout-bottom sticky-actions">
         <div class="column">
-            <property-actions-group (submit)="updatePropertyAndActionState(propEdit.property)" [actionState]="actionState$ | async" (shareFacebook)="shareFacebook()"
-                [tweetText]="tweetText"></property-actions-group>
+            <property-actions-group (submit)="updatePropertyAndActionState(propEdit.property)" [actionState]="actionState$ | async"
+                (shareFacebook)="shareFacebook()" [tweetText]="tweetText"></property-actions-group>
         </div>
     </div>
     <property-map *ngIf="mapOptions" [properties]="[property]" [mapOptions]="mapOptions"></property-map>

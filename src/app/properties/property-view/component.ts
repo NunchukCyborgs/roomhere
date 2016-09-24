@@ -3,12 +3,12 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 
-import { UserService } from '../../users/index';
+import { UserService } from '../../users/user.service';
 import { MapOptions } from '../../components/property-map/component';
 import { SeoService } from '../../services/seo.service';
 import { SocialService } from '../../services/social.service';
-import { Property, PropertyImages, PropertyReviews, SimilarProperties, PropertyEditImage,
- PropertyAmenities, PropertyActionsGroup, PropertyEdit, PropertyActionState, PropertyActionMode } from '../index';
+import { Property } from '../property';
+import { PropertyActionState, PropertyActionMode } from '../property-action-state.service';
 import { BASE_API_URL } from '../../config'
 import { HttpService } from '../../services/http.service';
 import { ImageUploadService, PendingFile } from '../../services/image-upload.service';
@@ -21,9 +21,9 @@ const HEIGHT: string = '350px';
 @Component({
   selector: 'property-view',
   styles: [require('./styles.scss').toString()],
-  templateUrl: 'template.html'
+  template: require('./template.html').toString()
 })
-export class PropertyView implements OnDestroy {
+export class PropertyView {
   public property: Property = new Property();
   public mapOptions: MapOptions;
   public isEditing$: Observable<boolean>;
@@ -65,7 +65,7 @@ export class PropertyView implements OnDestroy {
   }
 
   private doAction() {
-    this.actionStateService.doAction(this.userService.user, this.property);
+    this.actionStateService.doAction(this.property);
   }
 
   private updateMapOptions(property: Property) {
@@ -84,18 +84,18 @@ export class PropertyView implements OnDestroy {
     this.isEditing$ = this.actionStateService.isEditing$;
     this.actionState$ = this.actionStateService.actionState$;
 
-    this.userService.user$.subscribe(i => this.actionStateService.setState(i, this.property));
-
     this.sub = this.route.params
       .flatMap(params => this.propertyService.getPropertyBySlug$(params['slug']))
       .do((property: Property) => this.updateMapOptions(property))
       .do((property: Property) => this.property = property)
       .do((property: Property) => this.tweetText = this.socialService.makeTwitterUrl(property))
       .do((property: Property) => this.seoService.addPropertyTags(this.renderer, property))
-      .subscribe((property: Property) => this.actionStateService.setState(this.userService.user, property));
+      .subscribe((property: Property) => this.actionStateService.setState(property));
   }
 
   ngOnDestroy() {
     this.sub.unsubscribe();
   }
+
+  
 }

@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { PropertyService, Property } from '../properties/index';
+import { Property } from '../properties/property';
+import { PropertyService } from '../properties/property.service';
 
 @Component({
   selector: 'dashboard',
   styles: [require('./styles.scss').toString()],
-  templateUrl: 'template.html'
+  template: require('./template.html').toString()
 })
 export class Dashboard {
   public properties$: Observable<Property[]>;

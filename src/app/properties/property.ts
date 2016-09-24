@@ -1,5 +1,5 @@
 import { Location, Amenity } from '../services/facets.service';
-import { User } from '../users/index';
+import { User } from '../users/user';
 
 export interface Type {
   name: string;
@@ -58,13 +58,20 @@ export class Property {
   public slug: string;
   public square_footage: number;
   public types: Type[] = [];
-  public updated_at: Date;
+  public updated_at: string;
   public zipcode: string;
   public price: number;
   public amenities_attributes: Array<{id: number, _destroy?: boolean}>;
   public types_attributes: Array<{id: number, _destroy?: boolean}>;
   public can_edit: boolean;
   public owner: Owner;
+  public available_at: string; // Maybe make a date wrapper of some sort? Hmm?
+
+  public isAvailable(): boolean {
+    const time = this.available_at && new Date(this.available_at).getTime();
+    const now = new Date().getTime();
+    return time < now;
+  }
 }
 
 export class Owner {

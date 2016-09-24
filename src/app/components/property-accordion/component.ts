@@ -1,12 +1,12 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { isBrowser } from 'angular2-universal';
 
-import { Property } from '../../properties/index';
+import { Property } from '../../properties/property';
 
 @Component({
   selector: 'property-accordion',
   styles: [require('./styles.scss').toString()],
-  templateUrl: 'template.html'
+  template: require('./template.html').toString()
 })
 export class PropertyAccordion {
   @Input() properties: Property[];

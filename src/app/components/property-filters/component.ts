@@ -1,13 +1,13 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { NgClass } from '@angular/common';
 import { Observable } from 'rxjs/Observable';
-import { PropertyPreview, PropertyService, Property, PropertyFacet } from '../../properties/index';
+import { PropertyFacet } from '../../properties/property';
 import { FacetsService, Location, Amenity } from '../../services/facets.service';
 
 @Component({
   selector: 'property-filters',
   styles:[require('./styles.scss').toString()],
-  templateUrl: 'template.html',
+  template: require('./template.html').toString(),
 })
 export class PropertyFilters {
   @Input() facet: PropertyFacet;
