@@ -1,5 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { isBrowser } from 'angular2-universal';
+import { Router } from '@angular/router';
 
 import { Property } from '../../properties/property';
 
@@ -31,4 +32,10 @@ export class PropertyAccordion {
       });
     }
   }
+
+  redirectToProperty(property: Property) {
+    this.router.navigate(['properties', property.slug]);
+  }
+
+  constructor(private router: Router) {}
 }

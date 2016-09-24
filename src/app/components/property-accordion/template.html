@@ -2,8 +2,11 @@
   <li class="accordion-item" data-accordion-item (click)="activePropId = property.id" *ngFor="let property of properties">
     <a class="accordion-title">
       {{property.address1}}
-      <span class="button small secondary accordion-open">Edit</span>
-      <i class="fa fa-times accordion-close"></i>
+      <span class="accordion-action-group">
+        <span (click)="redirectToProperty(property)" class="view">View</span>
+        <span class="button small secondary accordion-open">Edit</span>
+        <i class="fa fa-times accordion-close"></i>
+      </span>
     </a>
     <div class="accordion-content" data-tab-content>
       <property-edit *ngIf="activePropId === property.id" class="row" [property]="property" (submit)="update(property)"></property-edit>

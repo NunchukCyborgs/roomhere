@@ -3,8 +3,7 @@
     content: initial !important;
 }
 
-.accordion-open,
-.accordion-close {
+.accordion-action-group {
     position: absolute;
     right: 1rem;
     top: 20%;
@@ -23,7 +22,7 @@
     .accordion-close {
         display: block;
     }
-    .accordion-open {
+    .accordion-open, .view {
         display: none;
     }
 }
@@ -31,4 +30,8 @@
 .accordion-title {
     position: relative;
     font-size: 1.3em;
+}
+
+.view {
+    padding-right: 6px;
 }
