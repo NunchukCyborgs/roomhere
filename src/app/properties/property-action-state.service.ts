@@ -33,10 +33,7 @@ export class PropertyActionStateService {
 
   constructor() {
     this.isEditing$ = new BehaviorSubject(this._isEditing);
-    this.isEditing$.subscribe();
-
     this.actionState$ = new BehaviorSubject(this._actionState);
-    this.actionState$.subscribe();
   }
 
   public setState(property: Property): Observable<PropertyActionState> {

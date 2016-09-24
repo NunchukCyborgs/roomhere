@@ -7,7 +7,8 @@ import { UserService } from '../../users/user.service';
 import { MapOptions } from '../../components/property-map/component';
 import { SeoService } from '../../services/seo.service';
 import { SocialService } from '../../services/social.service';
-import { Property } from '../property'; // PropertyActionState, PropertyActionMode ?
+import { Property } from '../property';
+import { PropertyActionState, PropertyActionMode } from '../property-action-state.service';
 import { BASE_API_URL } from '../../config'
 import { HttpService } from '../../services/http.service';
 import { ImageUploadService, PendingFile } from '../../services/image-upload.service';
@@ -23,12 +24,12 @@ const HEIGHT: string = '350px';
   template: require('./template.html').toString()
 })
 export class PropertyView {
-  // public property: Property = new Property();
-  // public mapOptions: MapOptions;
-  // public isEditing$: Observable<boolean>;
-  // public actionState$: Observable<PropertyActionState>;
-  // public tweetText: string;
-  // private sub: Subscription;
+  public property: Property = new Property();
+  public mapOptions: MapOptions;
+  public isEditing$: Observable<boolean>;
+  public actionState$: Observable<PropertyActionState>;
+  public tweetText: string;
+  private sub: Subscription;
 
   constructor(
     private router: Router,
@@ -43,56 +44,56 @@ export class PropertyView {
   ) {
   }
 
-  // public shareFacebook() {
-  //   this.socialService.hasInit$.subscribe(isInit => {
-  //     if (isInit.facebook) {
-  //       this.socialService.facebookShare(this.router.url);
-  //     }
-  //   });
+  public shareFacebook() {
+    this.socialService.hasInit$.subscribe(isInit => {
+      if (isInit.facebook) {
+        this.socialService.facebookShare(this.router.url);
+      }
+    });
 
-  //   this.socialService.facebookInit();
-  // }
+    this.socialService.facebookInit();
+  }
 
-  // public updatePropertyAndActionState(property: Property) {
-  //   if (this.actionStateService.actionState.mode === PropertyActionMode.Editing) {
-  //     this.propertyService.update(property)
-  //       .do(i => this.property = i)
-  //       .subscribe(i => this.doAction());
-  //   } else {
-  //     this.doAction();
-  //   }
-  // }
+  public updatePropertyAndActionState(property: Property) {
+    if (this.actionStateService.actionState.mode === PropertyActionMode.Editing) {
+      this.propertyService.update(property)
+        .do(i => this.property = i)
+        .subscribe(i => this.doAction());
+    } else {
+      this.doAction();
+    }
+  }
 
-  // private doAction() {
-  //   this.actionStateService.doAction(this.property);
-  // }
+  private doAction() {
+    this.actionStateService.doAction(this.property);
+  }
 
-  // private updateMapOptions(property: Property) {
-  //   this.mapOptions = {
-  //     height: HEIGHT,
-  //     zoomLevel: ZOOM_LEVEL,
-  //     interactive: false,
-  //     center: {
-  //       latitude: property.latitude,
-  //       longitude: property.longitude
-  //     },
-  //   }
-  // }
+  private updateMapOptions(property: Property) {
+    this.mapOptions = {
+      height: HEIGHT,
+      zoomLevel: ZOOM_LEVEL,
+      interactive: false,
+      center: {
+        latitude: property.latitude,
+        longitude: property.longitude
+      },
+    }
+  }
 
-  // ngOnInit() {
-  //   // this.isEditing$ = this.actionStateService.isEditing$;
-  //   // this.actionState$ = this.actionStateService.actionState$;
+  ngOnInit() {
+    this.isEditing$ = this.actionStateService.isEditing$;
+    this.actionState$ = this.actionStateService.actionState$;
 
-  //   // this.sub = this.route.params
-  //   //   .flatMap(params => this.propertyService.getPropertyBySlug$(params['slug']))
-  //   //   .do((property: Property) => this.updateMapOptions(property))
-  //   //   .do((property: Property) => this.property = property)
-  //   //   .do((property: Property) => this.tweetText = this.socialService.makeTwitterUrl(property))
-  //   //   .do((property: Property) => this.seoService.addPropertyTags(this.renderer, property))
-  //   //   .subscribe((property: Property) => this.actionStateService.setState(property));
-  // }
+    this.sub = this.route.params
+      .flatMap(params => this.propertyService.getPropertyBySlug$(params['slug']))
+      .do((property: Property) => this.updateMapOptions(property))
+      .do((property: Property) => this.property = property)
+      .do((property: Property) => this.tweetText = this.socialService.makeTwitterUrl(property))
+      .do((property: Property) => this.seoService.addPropertyTags(this.renderer, property))
+      .subscribe((property: Property) => this.actionStateService.setState(property));
+  }
 
-  // ngOnDestroy() {
-  //   this.sub.unsubscribe();
-  // }
+  ngOnDestroy() {
+    this.sub.unsubscribe();
+  }
 }
