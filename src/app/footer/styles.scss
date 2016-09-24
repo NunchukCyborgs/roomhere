@@ -13,5 +13,9 @@ a {
     text-decoration: none;
     line-height: inherit;
     cursor: pointer;
-    padding-right: 20px;
+    margin-right: 20px;
+}
+a:hover{
+    color: lightgrey!important;
+    
 }
