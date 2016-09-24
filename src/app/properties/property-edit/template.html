@@ -1,71 +1,70 @@
-
-    <div class="columns small-12">
-        <div class="button-group secondary">
-            <div class="row">
-                <div class="column">
-                    <div class="filter-buttons column large-3 small-6" *ngFor="let type of property.types">
-                        <a class="button expanded" [ngClass]="{selected: type.active}" (click)="toggleType(type.name)">{{type.name}}</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row flex-row padding">
-            <div class="column medium-6">
-                <div class="row">
-                    <div class="small-12 columns ticker-icon-combo">
-                        <label>Bedrooms
-                            <number-ticker name="bedrooms" [(number)]="property.bedrooms" [min]="1" [max]="50"></number-ticker>
-                            <i class="large icon-bed"></i>
-                        </label>
-                    </div>
-                    <div class="small-12 columns ticker-icon-combo">
-                        <label>Bathrooms
-                            <number-ticker name="bathrooms" [(number)]="property.bathrooms" [min]="1" [max]="50"></number-ticker>
-                            <i class="large icon-shower"></i>
-                        </label>
-                    </div>
-                    <div class="small-12 columns ticker-icon-combo">
-                        <label>Price/mo
-                            <number-ticker name="price" [(number)]="property.price" [min]="0" [max]="99999"></number-ticker>
-                            <i class="large icon-dollar"></i>
-                        </label>
-                    </div>
-                    <div class="small-12 columns ticker-icon-combo">
-                        <label>Lease Length (months)
-                            <number-ticker name="lease_length" [(number)]="property.lease_length" [min]="0" [max]="120"></number-ticker>
-                            <i class="large icon-calendar-check-o"></i>
-                        </label>
-                    </div>
-                </div>
-            </div>
-            <div class="column medium-6">
-                <label>
-                    Description:
-                    <textarea [(ngModel)]="property.description"></textarea>
-                </label>
-            </div>
-        </div>
-        <div class="row flex-row">
-            <div class="column large-6 padding">
-                <div class="row column small-10 small-centered">
-                    <property-amenities [(amenities)]="property.amenities" [isEditing]="true"></property-amenities>
-                </div>
-            </div>
-            <div class="column large-6 padding">
-                <image-upload [id]="'FileUpload'"></image-upload>
-            </div>
-        </div>
+<div class="columns small-12">
+    <div class="button-group secondary">
         <div class="row">
-            <div *ngFor="let img of property.images" class="column small-6 medium-4 large-3 end">
-                <property-edit-image *ngIf="img.id" [(property)]="property" [(imageUrl)]="img.url" [(imageId)]="img.id"></property-edit-image>
-            </div>
-            <div *ngFor="let file of pendingFiles$ | async" class="column small-6 medium-4 large-3 end">
-                <upload-progress [fileName]="file.fileName" [progress]="file.progress"></upload-progress>
-            </div>
-        </div>
-        <div class="row">
-            <div class="column padding medium-offset-6 medium-6">
-                <button type="button" class="button success expanded large" (click)="onSubmit()">Save Changes</button>
+            <div class="column">
+                <div class="filter-buttons column large-3 small-6" *ngFor="let type of property.types">
+                    <a class="button expanded" [ngClass]="{selected: type.active}" (click)="toggleType(type.name)">{{type.name}}</a>
+                </div>
             </div>
         </div>
     </div>
+    <div class="row flex-row padding">
+        <div class="column medium-6">
+            <div class="row">
+                <div class="small-12 columns ticker-icon-combo">
+                    <label>Bedrooms
+                            <number-ticker name="bedrooms" [(number)]="property.bedrooms" [min]="1" [max]="50"></number-ticker>
+                            <i class="large icon-bed"></i>
+                        </label>
+                </div>
+                <div class="small-12 columns ticker-icon-combo">
+                    <label>Bathrooms
+                            <number-ticker name="bathrooms" [(number)]="property.bathrooms" [min]="1" [max]="50"></number-ticker>
+                            <i class="large icon-shower"></i>
+                        </label>
+                </div>
+                <div class="small-12 columns ticker-icon-combo">
+                    <label>Price/mo
+                            <number-ticker name="price" [(number)]="property.price" [min]="0" [max]="99999"></number-ticker>
+                            <i class="large icon-dollar"></i>
+                        </label>
+                </div>
+                <div class="small-12 columns ticker-icon-combo">
+                    <label>Lease Length (months)
+                            <number-ticker name="lease_length" [(number)]="property.lease_length" [min]="0" [max]="120"></number-ticker>
+                            <i class="large icon-calendar-check-o"></i>
+                        </label>
+                </div>
+            </div>
+        </div>
+        <div class="column medium-6">
+            <label>
+                    Description:
+                    <textarea [(ngModel)]="property.description"></textarea>
+                </label>
+        </div>
+    </div>
+    <div class="row flex-row">
+        <div class="column large-6 padding">
+            <div class="row column small-10 small-centered">
+                <property-amenities [(amenities)]="property.amenities" [isEditing]="true"></property-amenities>
+            </div>
+        </div>
+        <div class="column large-6 padding">
+            <image-upload *ngIf="FileUploadId" [id]="FileUploadId"></image-upload>
+        </div>
+    </div>
+    <div class="row">
+        <div *ngFor="let img of property.images" class="column small-6 medium-4 large-3 end">
+            <property-edit-image *ngIf="img.id" [(property)]="property" [(imageUrl)]="img.url" [(imageId)]="img.id"></property-edit-image>
+        </div>
+        <div *ngFor="let file of pendingFiles$ | async" class="column small-6 medium-4 large-3 end">
+            <upload-progress [fileName]="file.fileName" [progress]="file.progress"></upload-progress>
+        </div>
+    </div>
+    <div class="row">
+        <div class="column padding medium-offset-6 medium-6">
+            <button type="button" class="button success expanded large" (click)="onSubmit()">Save Changes</button>
+        </div>
+    </div>
+</div>

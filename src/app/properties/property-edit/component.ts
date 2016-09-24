@@ -16,6 +16,7 @@ export class PropertyEdit {
   @Output() submit: EventEmitter<any> = new EventEmitter();
   @Input() property: Property;
   public pendingFiles$: Observable<PendingFile[]>;
+  public FileUploadId: string;
 
   constructor(private imageUploadService: ImageUploadService) { }
 
@@ -29,7 +30,8 @@ export class PropertyEdit {
   }
 
   ngOnChanges() {
+    this.FileUploadId = `FileUpload${this.property && this.property.id}`;
     this.pendingFiles$ = this.imageUploadService.pendingFiles$;
-    this.imageUploadService.uploaderInit('FileUpload', this.property);
+    setTimeout(() => this.imageUploadService.uploaderInit(this.FileUploadId, this.property));
   }
 }
