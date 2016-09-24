@@ -22,6 +22,10 @@ export class PropertyActionState {
     this.text = text;
     this.className = className;
   }
+
+  public get shouldShow(): boolean {
+    return this.mode !== PropertyActionMode.NonAuthorized;
+  }
 }
 
 @Injectable()

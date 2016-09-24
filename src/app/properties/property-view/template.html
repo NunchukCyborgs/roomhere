@@ -1,5 +1,5 @@
 <div class="property-view-container">
-    <div *ngIf="(actionState$ | async)?.text" stick class="callout hide-for-small-only call-to-actions--top property-actions-group-top">
+    <div *ngIf="(actionState$ | async)?.shouldShow" stick class="callout hide-for-small-only call-to-actions--top property-actions-group-top">
         <property-actions-group (submit)="updatePropertyAndActionState(propEdit.property)" [actionState]="actionState$ | async" (shareFacebook)="shareFacebook()"
             [tweetText]="tweetText"></property-actions-group>
     </div>
@@ -48,7 +48,7 @@
             </fieldset>
         </div>
     </div>
-    <div *ngIf="(actionState$ | async)?.text" class="row show-for-small-only callout-bottom sticky-actions">
+    <div *ngIf="(actionState$ | async)?.shouldShow" class="row show-for-small-only callout-bottom sticky-actions">
         <div class="column">
             <property-actions-group (submit)="updatePropertyAndActionState(propEdit.property)" [actionState]="actionState$ | async"
                 (shareFacebook)="shareFacebook()" [tweetText]="tweetText"></property-actions-group>

@@ -96,4 +96,6 @@ export class PropertyView {
   ngOnDestroy() {
     this.sub.unsubscribe();
   }
+
+  
 }

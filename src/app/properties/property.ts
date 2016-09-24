@@ -65,6 +65,11 @@ export class Property {
   public types_attributes: Array<{id: number, _destroy?: boolean}>;
   public can_edit: boolean;
   public owner: Owner;
+  public available_at: Date;
+
+  public get isAvailable(): boolean {
+    return this.available_at && this.available_at.getTime() < (new Date()).getTime();
+  }
 }
 
 export class Owner {
