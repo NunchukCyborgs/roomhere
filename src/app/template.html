@@ -30,7 +30,7 @@
           <a class="aPadTop" (click)="logout()">Log Out</a>
         </li>
         <li role="menuitem">
-          <a class="aPadTop" *ngIf="hasAuth$ | async" [routerLinkActive]="['active', 'router-link-active']" [routerLink]="['settings']">Settings</a>
+          <a class="aPadTop" *ngIf="hasAuth$ | async" [routerLinkActive]="['active', 'router-link-active']" [routerLink]="['settings']"><i class="fa large fa-cog" aria-hidden="true"></i></a>
         </li>
         <li role="menuitem" class="show-for-small-only">
           <a [routerLink]="['/faq']">FAQ</a>
