@@ -1,5 +1,6 @@
 /* Resets and Global Helpers */
 $topbar-height: 42px;
+$topbar-large-height: 96px;
 
 .flex-row {
   display: flex;
@@ -95,6 +96,9 @@ button[disabled], button[disabled]:hover {
     visibility: visible;
     position: fixed;
     top: $topbar-height;
+    @include breakpoint(large only) {
+      top: $topbar-large-height;
+    }
     left: 15px;
     width: 58% !important;
     @include breakpoint(small only) {
@@ -110,6 +114,9 @@ button[disabled], button[disabled]:hover {
   overflow-x: hidden;
   position: fixed;
   top: $topbar-height;
+  @include breakpoint(large only) {
+    top: $topbar-large-height;
+  }
   left: 0;
   width: 60%;
   padding-left: 30px;
@@ -128,6 +135,9 @@ button[disabled], button[disabled]:hover {
   position: fixed !important;
   right: 0;
   top: $topbar-height;
+  @include breakpoint(large only) {
+    top: $topbar-large-height;
+  }
   bottom: 40px;
   width: 40%;
   overflow: hidden;
