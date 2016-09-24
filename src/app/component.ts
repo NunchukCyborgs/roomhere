@@ -4,7 +4,7 @@ import { FormBuilder } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import { isBrowser } from 'angular2-universal';
 
-import { UserService } from './users/index';
+import { UserService } from './users/user.service';
 
 @Component({
   selector: 'app',

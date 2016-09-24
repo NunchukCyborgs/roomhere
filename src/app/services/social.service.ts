@@ -3,7 +3,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { isBrowser } from 'angular2-universal';
 import { UtilService } from './util.service';
 import { BASE_URL } from '../config';
-import { Property } from '../properties/index';
+import { Property } from '../properties/property';
 import { SeoService } from './seo.service';
 
 declare let FB: any;

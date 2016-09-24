@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
-import { Property } from '../../properties/index';
+import { Property } from '../../properties/property';
 import { GoogleApiService } from '../../services/google-api.service';
 import { UtilService } from '../../services/util.service';
 import { isBrowser } from 'angular2-universal';

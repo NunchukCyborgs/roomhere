@@ -4,7 +4,7 @@ import { Response, ResponseOptions } from '@angular/http';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/Rx';
-import { User } from './index';
+import { User } from './user';
 import { Contact } from './user';
 import { HttpService } from '../services/http.service';
 import { isBrowser } from 'angular2-universal';

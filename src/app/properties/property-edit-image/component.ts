@@ -1,5 +1,5 @@
 import { Component, Input, AfterViewInit } from '@angular/core';
-import { Property } from '../index';
+import { Property } from '../property';
 import { PropertyService } from '../property.service';
 
 @Component({

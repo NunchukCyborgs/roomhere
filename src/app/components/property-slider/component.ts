@@ -1,5 +1,5 @@
 import { Component, AfterViewInit, Input, Output, EventEmitter } from '@angular/core';
-import { PropertyFacet } from '../../properties/index';
+import { PropertyFacet } from '../../properties/property';
 import { isBrowser } from 'angular2-universal';
 import { FacetsService } from '../../services/facets.service';
 

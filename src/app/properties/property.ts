@@ -1,5 +1,5 @@
 import { Location, Amenity } from '../services/facets.service';
-import { User } from '../users/index';
+import { User } from '../users/user';
 
 export interface Type {
   name: string;

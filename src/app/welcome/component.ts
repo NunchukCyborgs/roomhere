@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { PropertyService, Property, PropertyFacet } from '../properties/index';
+import { Property, PropertyFacet } from '../properties/property';
+import { PropertyService } from '../properties/property.service';
 import { MapOptions } from '../components/property-map/component';
-import { UserService, User } from '../users/index';
+import { User } from '../users/user';
+import { UserService } from '../users/user.service';
 import { CAPE_GIRARDEU_CENTER } from '../config';
 
 const MAP_HEIGHT = '100%';

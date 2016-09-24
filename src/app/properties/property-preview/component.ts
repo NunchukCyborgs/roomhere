@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Property, PropertyService } from '../index';
+import { Property } from '../property';
 import { BASE_API_URL } from '../../config';
 
 @Component({

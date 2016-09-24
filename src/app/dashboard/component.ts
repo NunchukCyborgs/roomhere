@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { PropertyService, Property } from '../properties/index';
+import { Property } from '../properties/property';
+import { PropertyService } from '../properties/property.service';
 
 @Component({
   selector: 'dashboard',

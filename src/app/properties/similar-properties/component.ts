@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { PropertyService, Property } from '../index';
+import { Property } from '../property';
 
 @Component({
   selector: 'similar-properties',
