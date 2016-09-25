@@ -133,7 +133,7 @@ button[disabled], button[disabled]:hover {
 
 #welcome-map {
   position: fixed !important;
-  right: 0;
+  right: 15px;
   top: $topbar-height;
   @include breakpoint(large) {
     top: $topbar-large-height;
