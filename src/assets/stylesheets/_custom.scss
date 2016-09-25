@@ -96,7 +96,7 @@ button[disabled], button[disabled]:hover {
     visibility: visible;
     position: fixed;
     top: $topbar-height;
-    @include breakpoint(large only) {
+    @include breakpoint(large) {
       top: $topbar-large-height;
     }
     left: 15px;
@@ -114,7 +114,7 @@ button[disabled], button[disabled]:hover {
   overflow-x: hidden;
   position: fixed;
   top: $topbar-height;
-  @include breakpoint(large only) {
+  @include breakpoint(large) {
     top: $topbar-large-height;
   }
   left: 0;
@@ -135,7 +135,7 @@ button[disabled], button[disabled]:hover {
   position: fixed !important;
   right: 0;
   top: $topbar-height;
-  @include breakpoint(large only) {
+  @include breakpoint(large) {
     top: $topbar-large-height;
   }
   bottom: 40px;
@@ -194,19 +194,19 @@ control-messages{
 }
 
 .large-text-right {
-  @include breakpoint(large only) {
+  @include breakpoint(large) {
     text-align: right;
   }
 }
 
 .large-text-center {
-  @include breakpoint(large only) {
+  @include breakpoint(large) {
     text-align: center;
   }
 }
 
 .large-text-left {
-  @include breakpoint(large only) {
+  @include breakpoint(large) {
     text-align: left;
   }
 }
