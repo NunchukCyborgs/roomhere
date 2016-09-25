@@ -1,0 +1,20 @@
+img {
+  width: 200px;
+  height: 56px;
+}
+
+.tagline {
+  text-transform: uppercase;
+  color: #44254a; // Todo: hook this up to some variable
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  text-align: right;
+  font-size: .5em;
+}
+
+.wrapper {
+  display: block;
+  position: relative;
+  height: 56px;
+}

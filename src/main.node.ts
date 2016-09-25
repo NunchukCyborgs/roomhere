@@ -49,6 +49,7 @@ import { UploadProgress } from './app/components/upload-progress/component';
 import { PropertySlider } from './app/components/property-slider/component';
 import { PropertyFilters } from './app/components/property-filters/component';
 import { PropertyAccordion } from './app/components/property-accordion/component';
+import { Logo } from './app/components/logo/component';
 
 // Pipes
 import { SimpleSearchPipe } from './app/pipes/simple-search.pipe';
@@ -79,7 +80,7 @@ export const DECLARTIONS = [
   SimilarProperties, PropertyPreview, PropertyAmenities, PropertyActionsGroup, PropertyEditImage, PropertyEdit,
   RentNow, StickyFooter, Welcome, FAQ, PrivacyPolicy, Dashboard, HomePage, SimpleSearchPipe, Carousel, ControlMessages,
   ImageUpload, NumberTicker, PropertyMap, Slide, UploadProgress, PropertySlider, PropertyFilters, PropertyAccordion, 
-  MissingResource, App
+  MissingResource, App, Logo
 ];
 
 export const PROVIDERS = [
