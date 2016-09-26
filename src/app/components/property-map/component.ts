@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
@@ -17,6 +17,7 @@ export interface MapOptions {
 @Component({
   selector: 'property-map',
   styles: [require('./styles.scss').toString()],
+  encapsulation: ViewEncapsulation.None, // Careful, global here
   template: require('./template.html').toString(),
 })
 export class PropertyMap {
