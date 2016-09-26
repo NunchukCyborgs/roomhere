@@ -58,7 +58,7 @@ export class PropertyActionStateService {
     } else if (this._actionState.mode === PropertyActionMode.Authorized) {
       this.isEditing$.next(this._isEditing = true);
     } else {
-      isBrowser && $('#RentNow').foundation('open');
+      isBrowser && $('#RentNowModal').foundation() && $('#RentNowModal').foundation('open');
     }
 
     this.setState(property);
