@@ -6,24 +6,24 @@
         <div class="medium-10 medium-push-1 columns">
             <div class="signup-panel">
                 <h4>{{owner?.contactName}}</h4>
-                <p class="text-center">To find out more information about renting this property use the contact information for {{owner?.contactName}}
+                <h5 class="text-center">To find out more information about renting this property use the contact information for {{owner?.contactName}}
                     below.
-                </p>
+                </h5>
                 <hr>
-                <div *ngIf="owner?.phone" class="form-group row">
-                    <div class="small-2 columns">
+                <div *ngIf="owner?.phone" class="form-group row vertical-align">
+                    <div class="small-2 columns vertical-align">
                         <i class="icon-phone"></i>
                     </div>
-                    <div class="small-10 columns">
-                        <p class="phone">{{owner.phone}}</p>
+                    <div class="small-10 columns vertical-align">
+                        <h5 class="phone margin-none">{{owner.phone}}</h5>
                     </div>
                 </div>
-                <div *ngIf="owner?.email" class="form-group row">
-                    <div class="small-2 columns">
+                <div *ngIf="owner?.email" class="form-group row vertical-align">
+                    <div class="small-2 columns vertical-align">
                         <i class="icon-mail"></i>
                     </div>
-                    <div class="small-10 columns">
-                        <p class="email">{{owner.email}}</p>
+                    <div class="small-10 columns vertical-align">
+                        <h5 class="email margin-none">{{owner.email}}</h5>
                     </div>
                 </div>
             </div>

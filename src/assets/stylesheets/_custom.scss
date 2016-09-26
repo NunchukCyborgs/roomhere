@@ -7,6 +7,15 @@ $topbar-large-height: 96px;
   flex-flow: row wrap;
 }
 
+.vertical-align {
+  display:flex;
+  align-items:center;
+}
+
+.margin-none {
+  margin: 0 !important;
+}
+
 .reveal-overlay {
   text-align: center;
 }
