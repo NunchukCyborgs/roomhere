@@ -28,8 +28,8 @@ export class FacetsService {
   public _amenities: Amenity[] = [];
   public locations$: BehaviorSubject<Location[]>;
   public _locations: Location[] = [];
-  public minPrice$: BehaviorSubject<number> = new BehaviorSubject(0);
-  public maxPrice$: BehaviorSubject<number> = new BehaviorSubject(5000);
+  public minPrice$: BehaviorSubject<number> = new BehaviorSubject(-1);
+  public maxPrice$: BehaviorSubject<number> = new BehaviorSubject(-1);
   public types$: BehaviorSubject<string[]> = new BehaviorSubject([]);
 
   constructor(private http: HttpService) {

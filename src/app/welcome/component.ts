@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Property, PropertyFacet } from '../properties/property';
 import { PropertyService } from '../properties/property.service';
 import { MapOptions } from '../components/property-map/component';
@@ -22,18 +23,27 @@ export class Welcome {
   public lastPage$: Observable<number>;
   public mapOptions: MapOptions;
   public showFilters: boolean = false;
+  public loadFilteredProperties$: BehaviorSubject<PropertyFacet>;
 
   constructor(private propertyService: PropertyService, private userService: UserService) { }
 
+  ngOnInit() {
+    this.loadFilteredProperties$ = new BehaviorSubject(this.facet);
+  }
+
   ngAfterViewInit() {
+    this.properties$ = this.loadFilteredProperties$
+      .map(i => JSON.stringify(i))
+      .distinct()
+      .flatMap(() => this.propertyService.getFilteredProperties$(this.facet, this.pageNumber));
+
     this.applyFacet();
     this.lastPage$ = this.propertyService.lastPage$;
     this.updateMapOptions();
   }
 
   public applyFacet() {
-    this.properties$ = this.propertyService
-      .getFilteredProperties$(this.facet, this.pageNumber);
+    this.loadFilteredProperties$.next(this.facet);
   }
 
   private updateMapOptions() {
