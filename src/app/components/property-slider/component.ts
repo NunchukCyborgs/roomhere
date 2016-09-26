@@ -32,7 +32,7 @@ export class PropertySlider implements AfterViewInit {
   private updateSlider(options: { start?: number, end?: number }) {
     this.maxPrice = options.end ? options.end : this.maxPrice;
     this.minPrice = options.start ? options.start : this.minPrice;
-    
+
     if (this.minPrice && this.maxPrice) {
       this.facet.min_price = this.minPrice;
       this.facet.max_price = this.maxPrice;
@@ -40,4 +40,5 @@ export class PropertySlider implements AfterViewInit {
       isBrowser && new Foundation.Slider($('.slider'), { start: this.minPrice, end: this.maxPrice });
     }
   }
+
 }

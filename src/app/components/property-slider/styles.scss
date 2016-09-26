@@ -1,3 +1,26 @@
 input {
   min-width: 60px;
 }
+
+.slider-handle.round {
+  border-radius: 50%;
+}
+
+.slider-output {
+  border: none;
+  box-shadow: none;
+  cursor: default;
+  background-color: transparent !important;
+}
+
+.right-output {
+  padding-right: 5px;
+}
+
+.slider {
+  margin-bottom: 1rem !important;
+}
+
+.columns:last-child:not(:first-child) {
+    float: right !important;
+}
