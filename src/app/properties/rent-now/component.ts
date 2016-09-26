@@ -7,7 +7,7 @@ import { Owner } from '../property';
 
 @Component({
   selector: 'rent-now',
-  styles:[require('../../users/modal/modal.component.scss').toString(), require('./styles.scss').toString()],
+  styles:[require('../../users/modal/modal.styles.scss').toString(), require('./styles.scss').toString()],
   template: require('./template.html').toString()
 })
 export class RentNow {
