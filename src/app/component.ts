@@ -8,6 +8,7 @@ import { UserService } from './users/user.service';
 
 // This generates the file, and we link to it in index.html
 require('../assets/stylesheets/app.scss');
+require('../assets/stylesheets/deferred.scss');
 
 @Component({
   selector: 'app',

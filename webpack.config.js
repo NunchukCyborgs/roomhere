@@ -4,7 +4,8 @@ var resolveNgRoute = require('@angularclass/resolve-angular-routes');
 var autoprefixer = require('autoprefixer');
 var purify = require('purifycss-webpack-plugin');
 var ExtractPlugin = require('extract-text-webpack-plugin')
-var extract = new ExtractPlugin('critical.css');
+var extractCritical = new ExtractPlugin('critical.css');
+var extractDeferred = new ExtractPlugin('deferred.css');
 
 var htmlQuery = {
   minimize: true,
@@ -29,7 +30,8 @@ var commonConfig = {
       { test: /\.html$/, loader: 'html-loader', query: htmlQuery },
       { test: /\.css$/, loaders: ['css-loader?minimize-autoprefixer', 'postcss-loader'] },
       { test: /\.json$/, loader: 'raw-loader' },
-      { test: /app\.scss$/, loader: extract.extract(['css-loader?minimize-autoprefixer', 'postcss-loader', 'sass-loader']) },
+      { test: /app\.scss$/, loader: extractCritical.extract(['css-loader?minimize-autoprefixer', 'postcss-loader', 'sass-loader']) },
+      { test: /deferred\.scss$/, loader: extractDeferred.extract(['css-loader?minimize-autoprefixer', 'postcss-loader', 'sass-loader']) },
       { test: /styles\.scss$/, loaders: ['css-loader?minimize-autoprefixer', 'postcss-loader', 'sass-loader'] },
       { test: /\.woff[\?]?.*$/, loader: 'url-loader?limit=10000&mimetype=application/font-woff' },
       { test: /\.ttf[\?]?.*$/, loader: 'url-loader?limit=10000&mimetype=application/octet-stream' },
@@ -55,7 +57,8 @@ var commonConfig = {
         ],
       }
     }),
-    extract,
+    extractCritical,
+    extractDeferred,
     new purify({
       basePath: __dirname,
       paths: [
