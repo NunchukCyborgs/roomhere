@@ -39,7 +39,7 @@
                     </div>
                 </div>
             </div>
-            <fieldset class="fieldset" [hidden]="!(isEditing$ | async)">
+            <fieldset class="fieldset" class="hide" [class.hide]="!(isEditing$ | async)">
                 <legend>
                     <h3>{{property.address1}}</h3>
                     <h3 *ngIf="property.address2">{{property.address2}}</h3>
