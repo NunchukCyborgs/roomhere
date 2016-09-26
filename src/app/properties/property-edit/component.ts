@@ -30,7 +30,7 @@ export class PropertyEdit {
   }
 
   public toggleAvailableAt(): void {
-    this.property.available_at = this.property.available_at ? null : new Date().toISOString(); 
+    this.property.available_at = this.property.available_at ? null : new Date().toISOString();
   }
 
   ngOnChanges() {

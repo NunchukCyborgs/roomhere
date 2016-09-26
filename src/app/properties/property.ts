@@ -67,11 +67,12 @@ export class Property {
   public owner: Owner;
   public available_at: string; // Maybe make a date wrapper of some sort? Hmm?
 
-  public isAvailable(): boolean {
-    const time = this.available_at && new Date(this.available_at).getTime();
-    const now = new Date().getTime();
-    return time < now;
-  }
+  // This is being generally shitty. For now, just going to treat available_at as a bool flag
+  // public isAvailable(): boolean {
+  //   const time = this.available_at && new Date(this.available_at).getTime();
+  //   const now = new Date().getTime();
+  //   return time < now;
+  // }
 }
 
 export class Owner {

@@ -24,7 +24,7 @@ export class PropertyActionState {
   }
 
   public shouldShow(property: Property): boolean {
-    return Boolean(this.mode !== PropertyActionMode.NonAuthorized || (property.isAvailable && property.isAvailable()));
+    return Boolean(this.mode !== PropertyActionMode.NonAuthorized || property.available_at);
   }
 }
 
