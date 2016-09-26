@@ -24,7 +24,8 @@ export class PropertyActionState {
   }
 
   public shouldShow(property: Property): boolean {
-    return Boolean(this.mode !== PropertyActionMode.NonAuthorized || property.available_at);
+    const hasContact = property.owner && property.owner.contactName && (property.owner.email || property.owner.phone);
+    return Boolean(this.mode !== PropertyActionMode.NonAuthorized || (property.available_at && hasContact));
   }
 }
 
