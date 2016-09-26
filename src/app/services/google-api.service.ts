@@ -12,7 +12,7 @@ const RICHMARKER_CALLBACK = 'richmarkerLoaded'; // Also hardcoded in richmarker.
 
 const API_KEY = 'AIzaSyCM0eNnm9QfX3XyNmTSPS5hJFTfbsC5qMc';
 const GOOGLE_MAP_URL = `https://maps.googleapis.com/maps/api/js?key=${API_KEY}&callback=${GOOGLE_MAP_CALLBACK}`;
-const RICHMARKER_URL = '/assets/javascript/richmarker.min.js';
+const RICHMARKER_URL = '/javascript/richmarker.min.js';
 
 @Injectable()
 export class GoogleApiService {
