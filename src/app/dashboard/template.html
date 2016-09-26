@@ -1,25 +1,28 @@
-<div class="row">
-  <div class="large-10 large-push-1 landlord-panel columns">
-    <h2>Dashboard</h2>
-    <div class="search-properties">
-      <div class="row collapse">
-        <div class="small-4 medium-1 columns">
-          <a><span class="prefix"><i class="icon-search"></i></span></a>
-        </div>
-        <div class="small-8 medium-6 end columns">
-          <input type="text" placeholder="Find Your Property" [(ngModel)]="query">
+<div class="container">
+  <div class="row">
+    <div class="small-centered medium-11 large-10 columns">
+      <h2>Dashboard</h2>
+
+      <div *ngIf="(properties$ | async)?.length > 5" class="search-properties">
+        <div class="row">
+          <div class="small-12 medium-6 large-5 column">
+            <div class="input-group">
+              <span class="input-group-label"><i class="icon-search"></i></span>
+              <input class="input-group-field" type="text" placeholder="Find Your Property" [(ngModel)]="query">
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-    <h3>Properties</h3>
-    <property-accordion *ngIf="(properties$ | async)?.length" [properties]="properties$ | async | simpleSearch:query:'address1'"
-      (updateProperty)="updateProperty($event)">
-    </property-accordion>
-    <div class="callout" *ngIf="!(properties$ | async)?.length">
-      <h4>No properties found</h4>
-      <p>
-        We're sorry, but we can't find any properties for you.
-      </p>
+
+      <property-accordion *ngIf="(properties$ | async)?.length" [properties]="properties$ | async | simpleSearch:query:'address1'"
+        (updateProperty)="updateProperty($event)">
+      </property-accordion>
+      <div class="callout" *ngIf="!(properties$ | async)?.length">
+        <h4>No properties found</h4>
+        <p>
+          We're sorry, but we can't find any properties for you.
+        </p>
+      </div>
     </div>
   </div>
 </div>
