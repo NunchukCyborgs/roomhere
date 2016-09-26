@@ -1,9 +1,9 @@
 <ul class="accordion" data-accordion data-allow-all-closed="true">
   <li class="accordion-item" data-accordion-item (click)="activePropId = property.id" *ngFor="let property of properties">
     <a class="accordion-title">
-      {{property.address1}}
+      <h5>{{property.address1}}</h5>
       <span class="accordion-action-group">
-        <span (click)="redirectToProperty(property)" class="view">View</span>
+        <h5 (click)="redirectToProperty(property)" class="view">View</h5>
         <span class="button small secondary accordion-open">Edit</span>
         <i class="fa fa-times accordion-close"></i>
       </span>
