@@ -6,10 +6,11 @@ import { isBrowser } from 'angular2-universal';
 
 import { UserService } from './users/user.service';
 
+// This generates the file, and we link to it in index.html
+require('../assets/stylesheets/app.scss');
+
 @Component({
   selector: 'app',
-  encapsulation: ViewEncapsulation.None,
-  styles: [require('../assets/stylesheets/app.scss').toString()], // Styles here are global, be careful
   template: require('./template.html').toString()
 })
 export class App {
