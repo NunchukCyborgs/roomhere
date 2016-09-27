@@ -8,7 +8,7 @@
   },
   "scripts": {
     "watch": "node node_modules/webpack/bin/webpack.js --watch",
-    "prebuild": "node node_modules/rimraf/rimraf.js dist",
+    "prebuild": "node node_modules/rimraf/bin.js dist",
     "build": "node node_modules/webpack/bin/webpack.js",
     "build:prod": "node node_modules/webpack/bin/webpack.js --progress -p --optimize-minimize",
     "prestart": "npm run build",
@@ -16,7 +16,8 @@
     "start": "npm run server",
     "predebug": "npm run build",
     "debug:build": "node-nightly --inspect --debug-brk node_modules/webpack/bin/webpack.js",
-    "debug": "node --debug-brk dist/server/index.js"
+    "debug": "node --debug-brk dist/server/index.js",
+    "restart": "node node_modules/rimraf/bin.js node_modules && npm cache clean && npm i && npm start"
   },
   "license": "MIT",
   "contributors": [
