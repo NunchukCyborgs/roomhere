@@ -10,8 +10,16 @@ export interface Tags {
   image: string;
 }
 
+interface Tag {
+  property: string;
+  content: string;
+  element?: any;
+}
+
 @Injectable()
 export class SeoService {
+  private tags: Tag[] = [];
+
   public getDescription(property: Property): string {
     return `Check out this rental property at ${property.address1} on Roomhere.io!`;
   }
@@ -33,7 +41,7 @@ export class SeoService {
   }
 
   public addTags(baseTags: Tags, renderer: Renderer): void {
-    const tags: Array<{ property: string, content: string }> = [
+    const tags: Tag[] = [
       { property: 'description', content: baseTags.description },
       { property: 'og:title', content: baseTags.title },
       { property: 'og:type', content: 'website' },
@@ -43,14 +51,17 @@ export class SeoService {
       { property: 'twitter:card', content: 'summary' },
       { property: 'twitter:site', content: '@roomhere' },
       { property: 'twitter:image', content: baseTags.image },
-      { property: 'description', content: baseTags.description },
       { property: 'twitter:title', content: baseTags.title },
     ];
 
     for (let tag of tags) {
-      const elem = renderer.createElement(this.document.head, 'meta');
+      const existingTag = this.tags.find(i => i.property === tag.property);
+      const elem = (existingTag && existingTag.element) || renderer.createElement(this.document.head, 'meta');
       renderer.setElementAttribute(elem, 'property', tag.property);
       renderer.setElementAttribute(elem, 'content', tag.content);
+      if (!existingTag) {
+        this.tags.push(Object.assign({}, tag, {element: elem}));
+      }
     }
   }
 
