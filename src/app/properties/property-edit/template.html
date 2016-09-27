@@ -27,7 +27,8 @@
                             <i class="large icon-dollar"></i>
                         </label>
                 </div>
-                <div class="small-12 columns ticker-icon-combo">
+                <div class="small-12 columns ticker-icon-combo" style="float: right !important">
+                    <!--Somebody fix this the right way please - JB -->
                     <label>Lease Length (months)
                             <number-ticker name="lease_length" [(number)]="property.lease_length" [min]="0" [max]="120"></number-ticker>
                             <i class="large icon-calendar-check-o"></i>
