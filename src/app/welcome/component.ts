@@ -39,8 +39,8 @@ export class Welcome {
 
   ngAfterViewInit() {
     this.properties$ = this.loadFilteredProperties$
-      .map(i => JSON.stringify(i))
-      .distinct()
+      .map(i => JSON.stringify(i) + this.pageNumber)
+      .distinctUntilChanged()
       .flatMap(() => this.propertyService.getFilteredProperties$(this.facet, this.pageNumber));
 
     this.applyFacet();
