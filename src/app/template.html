@@ -1,10 +1,10 @@
 <div>
-  <div class="title-bar" data-responsive-toggle="main-menu" data-hide-for="large" style="display: block;">
+  <div class="title-bar" data-responsive-toggle="main-menu" data-hide-for="large">
     <button class="menu-icon" type="button" data-toggle=""></button>
-    <div class="title-bar-title">Menu</div>
+      <div class="title-bar-title">Menu</div>
   </div>
 
-  <div class="top-bar" id="main-menu" style="display: none;">
+  <div class="top-bar" id="main-menu">
     <div class="top-bar-left">
       <ul class="menu nohover vertical large-horizontal dropdown" data-responsive-menu="drilldown medium-dropdown" role="menubar"
         data-dropdown-menu="mfvu74-dropdown-menu">
@@ -16,9 +16,12 @@
 
     <div class="top-bar-right margRight">
       <ul class="menu vertical large-horizontal dropdown" data-responsive-menu="medium-dropdown" role="menubar" data-dropdown-menu="pqvvce-dropdown-menu">
-        <li role="menuitem">
+        <li role="menuitem" *ngIf="!(hasAuth$ | async)">
           <a class="aPadTop" [routerLinkActive]="['active', 'router-link-active']" [routerLink]="['']">Home</a>
         </li>
+        <li role="menuitem" *ngIf="hasAuth$ | async">
+          <a class="aPadTop" [routerLinkActive]="['active', 'router-link-active']" [routerLink]="['']">Dashboard</a>
+        </li> 
         <li role="menuitem" *ngIf="!(hasAuth$ | async)">
           <a class="aPadTop" data-open="RegisterModal">
             Create an Account</a>
@@ -29,17 +32,15 @@
         <li role="meduitem" *ngIf="hasAuth$ | async">
           <a class="aPadTop" (click)="logout()">Log Out</a>
         </li>
-        <li role="menuitem" *ngIf="hasAuth$ | async">
-          <a class="aPadTop" [routerLinkActive]="['active', 'router-link-active']" [routerLink]="['settings']"><i class="fa large fa-cog"></i></a>
+        <li role="menuitem show-for-medium" *ngIf="hasAuth$ | async">
+          <a class="aPadTop hide-for-small-only" [routerLinkActive]="['active', 'router-link-active']" [routerLink]="['settings']"><i class="fa large fa-cog"></i></a>
+        <a class="aPadTop show-for-small-only" [routerLinkActive]="['active', 'router-link-active']" [routerLink]="['settings']">Settings</a>
         </li>
         <li role="menuitem" class="show-for-small-only">
           <a [routerLink]="['/faq']">FAQ</a>
         </li>
         <li role="menuitem" class="show-for-small-only">
           <a href="//blog.roomhere.io">Blog</a>
-        </li>
-        <li role="menuitem" class="show-for-small-only">
-          <a [routerLink]="['/privacy-policy']">Privacy Policy</a>
         </li>
         <li role="menuitem" class="show-for-small-only">
           <a href="tel:5732902363">(573) 290-2363</a>
