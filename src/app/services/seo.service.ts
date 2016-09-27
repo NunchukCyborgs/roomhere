@@ -4,6 +4,12 @@ import { Router } from '@angular/router';
 import { BASE_URL } from '../config';
 import { Property } from '../properties/property';
 
+export interface Tags {
+  description: string;
+  title: string;
+  image: string;
+}
+
 @Injectable()
 export class SeoService {
   public getDescription(property: Property): string {
@@ -15,18 +21,30 @@ export class SeoService {
     const title = `Roomhere.io property at ${property.address1}`;
     const imageUrl = property.images && property.images.length ? property.images[0].url : '';
 
+    this.addTags({ description: description, title: title, image: imageUrl }, renderer);
+  }
+
+  public addBaseTags(renderer: Renderer) {
+    const description = 'Roomhere is the rental property solution for Cape Girardeau, MO. Find the most complete rental listings of the area at Roomhere.';
+    const title = 'Roomhere: The Best Place to Find Home';
+    const imageUrl = '/images/white_logo_transparent_background.png';
+
+    this.addTags({ description: description, title: title, image: imageUrl }, renderer);
+  }
+
+  public addTags(baseTags: Tags, renderer: Renderer): void {
     const tags: Array<{ property: string, content: string }> = [
-      { property: 'description', content: description },
-      { property: 'og:title', content: title},
+      { property: 'description', content: baseTags.description },
+      { property: 'og:title', content: baseTags.title },
       { property: 'og:type', content: 'website' },
-      { property: 'og:description', content: description },
+      { property: 'og:description', content: baseTags.description },
       { property: 'og:url', content: BASE_URL + this.router.url },
-      { property: 'og:image', content: imageUrl },
+      { property: 'og:image', content: baseTags.image },
       { property: 'twitter:card', content: 'summary' },
       { property: 'twitter:site', content: '@roomhere' },
-      { property: 'twitter:image', content: imageUrl },
-      { property: 'description', content: description },
-      { property: 'twitter:title', content: title },
+      { property: 'twitter:image', content: baseTags.image },
+      { property: 'description', content: baseTags.description },
+      { property: 'twitter:title', content: baseTags.title },
     ];
 
     for (let tag of tags) {
@@ -39,6 +57,6 @@ export class SeoService {
   constructor(
     private router: Router,
     @Inject(DOCUMENT) private document: any
-    ) {
+  ) {
   }
 }

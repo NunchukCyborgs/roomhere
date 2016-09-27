@@ -1,10 +1,11 @@
-import { Component, Directive, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Directive, OnInit, ViewEncapsulation, Renderer } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import { isBrowser } from 'angular2-universal';
 
 import { UserService } from './users/user.service';
+import { SeoService } from './services/seo.service';
 
 // This generates the file, and we link to it in index.html
 require('../assets/stylesheets/app.scss');
@@ -16,8 +17,13 @@ require('../assets/stylesheets/deferred.scss');
 })
 export class App {
   public hasAuth$: Observable<boolean>;
-  constructor(private userService: UserService, private router: Router, private route: ActivatedRoute) {
+  constructor(private userService: UserService, private router: Router, 
+  private route: ActivatedRoute, private seoService: SeoService, private renderer: Renderer) {
     this.hasAuth$ = this.userService.hasAuth$;
+  }
+
+  ngOnInit() {
+      this.seoService.addBaseTags(this.renderer);   
   }
 
   ngAfterViewInit() {
