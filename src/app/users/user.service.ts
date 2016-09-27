@@ -130,7 +130,7 @@ export class UserService {
   }
 
   private getRedirectUrl(): string {
-    return isBrowser && `${window.location.origin}/open_settings=true`
+    return isBrowser && `${window.location.origin}/?open_settings=true`
   }
 
   public get hasAuth() {

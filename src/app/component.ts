@@ -21,19 +21,15 @@ export class App {
   }
 
   ngOnInit() {
-    this.router.events.subscribe(() => isBrowser && $('body').foundation())
-    this.route.queryParams
+    this.router.events.subscribe(() => isBrowser && $('body').foundation());
+    this.hasAuth$.filter(i => isBrowser && i)
+      .flatMap(() => this.route.queryParams)
       .subscribe(params => {
-        this.hasAuth$.flatMap(() => this.route.queryParams)
-          .subscribe(params => {
-            if (isBrowser && this.userService.hasAuth) {
-              if (params['reset_password'] === 'true') {
-                $('#ResetPasswordModal').foundation('open');
-              } else if (params['open_settings'] === 'true') {
-                $('#SettingsModal').foundation('open');
-              }
-            }
-          });
+        if (params['reset_password'] === 'true') {
+          $('#ResetPasswordModal').foundation('open');
+        } else if (params['open_settings'] === 'true') {
+          $('#SettingsModal').foundation('open');
+        }
       });
   }
 
