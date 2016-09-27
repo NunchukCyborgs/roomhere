@@ -30,7 +30,7 @@ export class App {
           if (params['reset_password'] === 'true') {
             $('#ResetPasswordModal').foundation('open');
           } else if (params['open_settings'] === 'true') {
-            debugger;
+            isBrowser && window.history.pushState(null, 'Roomhere', window.location.pathname);
             $('#SettingsModal').foundation('open');
           }
         }, 3500);
