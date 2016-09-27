@@ -13,29 +13,25 @@ export class PropertyAccordion {
   @Input() properties: Property[];
   @Output() updateProperty: EventEmitter<any> = new EventEmitter();
 
-  private readyForChanges: boolean = false;
+  private lastUpdatedProperty: Property;
 
   public update(property: Property) {
     this.updateProperty.emit(property);
-    this.readyForChanges = true;
+    this.lastUpdatedProperty = property;
   }
 
   ngOnChanges() {
-    if (isBrowser) {
-      setTimeout(() => {
-        const accord$ = $('.accordion');
-        new Foundation.Accordion(accord$);
-        if (this.readyForChanges) {
-          accord$.foundation('down', $(''));
-          this.readyForChanges = false;
-        }
-      });
-    }
+    isBrowser && setTimeout(() => this.initAccordion());
   }
 
-  redirectToProperty(property: Property) {
+  public redirectToProperty(property: Property) {
     this.router.navigate(['properties', property.slug]);
   }
 
-  constructor(private router: Router) {}
+  private initAccordion() {
+    const accord$ = $('.accordion');
+    new Foundation.Accordion(accord$);
+  }
+
+  constructor(private router: Router) { }
 }

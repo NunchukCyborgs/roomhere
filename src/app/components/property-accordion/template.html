@@ -1,15 +1,24 @@
 <ul class="accordion" data-accordion data-allow-all-closed="true">
-  <li class="accordion-item" data-accordion-item (click)="activePropId = property.id" *ngFor="let property of properties">
-    <a class="accordion-title">
+  <li class="accordion-item" data-accordion-item (click)="activePropId = property.id" *ngFor="let property of properties; trackBy: property?.id">
+    <a class="accordion-title property{{property.id}}">
       <h5>{{property.address1}}</h5>
       <span class="accordion-action-group">
         <h5 (click)="redirectToProperty(property)" class="view">View</h5>
         <span class="button small secondary accordion-open">Edit</span>
-        <i class="fa fa-times accordion-close"></i>
+      <i class="fa fa-times accordion-close"></i>
       </span>
     </a>
     <div class="accordion-content" data-tab-content>
-      <property-edit *ngIf="activePropId === property.id" class="row" [property]="property" (submit)="update(property)"></property-edit>
+      <div *ngIf="activePropId === property.id">
+        <property-edit class="row" [property]="property" (submit)="update(property)"></property-edit>
+        <div class="callout success" *ngIf="lastUpdatedProperty?.id === property.id">
+          <h3>Success</h3>
+
+          <p>
+            Your changes have been saved
+          </p>
+        </div>
+      </div>
     </div>
   </li>
 </ul>
