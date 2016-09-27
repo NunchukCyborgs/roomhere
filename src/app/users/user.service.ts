@@ -40,8 +40,8 @@ export class UserService {
   }
 
   public logout() {
-    this.http.setAuthHeaders();
     this.hasAuth$.next(false);
+    this.http.setAuthHeaders();
   }
 
   public register(user: User): Observable<Response> {

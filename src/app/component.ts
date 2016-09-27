@@ -22,22 +22,30 @@ export class App {
 
   ngAfterViewInit() {
     this.router.events.subscribe(() => isBrowser && $('body').foundation());
-    this.hasAuth$.filter(i => isBrowser && i)
-      .flatMap(() => this.route.queryParams)
+
+    this.route.queryParams
+      .flatMap(params => this.hasAuth$.filter(i => i).map(() => params))
+      .filter(i => isBrowser)
       .subscribe(params => {
-        setTimeout(() => {
-          // Something crazy happens here. Probably something about not loading jQuery/Foundation in time to fire this.
-          if (params['reset_password'] === 'true') {
-            $('#ResetPasswordModal').foundation('open');
-          } else if (params['open_settings'] === 'true') {
-            isBrowser && window.history.pushState(null, 'Roomhere', window.location.pathname);
-            $('#SettingsModal').foundation('open');
-          }
-        }, 3500);
+        if (params['reset_password'] === 'true') {
+          $('#ResetPasswordModal').foundation('open');
+        } else if (params['open_settings'] === 'true') {
+          window.history.pushState(null, 'Roomhere', window.location.pathname)
+          this.tryOpenSettingsModal();
+        }
       });
   }
 
   logout() {
     this.userService.logout();
+  }
+
+  private tryOpenSettingsModal() {
+    // Warning: dangerous recursion here!
+    setTimeout(() => {
+      const openLink = $('#SettingsModalOpen');
+      const modal = $('#SettingsModal');
+      openLink && modal ? openLink.click() : this.tryOpenSettingsModal();
+    }, 250)
   }
 }
