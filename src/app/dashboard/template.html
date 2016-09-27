@@ -29,7 +29,21 @@
           <i class="fa icon-spinner fa-spin"></i>
         </h1>
       </div>
-      <div class="callout">
+      <div class="callout" *ngIf="showLicenseIdAd">
+        <h3>Can't find your properties?</h3>
+
+        <p>
+          It looks like you haven't saved your license ID yet. This is your identification number from the city of Cape Girardeau.
+          We use this number to grant you access to your properties on Roomhere.
+        </p>
+
+        <p>
+          To save your license ID, tap the <span class="hide-for-small show-for-large"><i class="fa fa-cog"></i> icon</span>
+          <span class="hide-for-large">settings link</span> on the menu bar at the top of the screen.
+        </p>
+      </div>
+
+      <div class="callout"  *ngIf="showPicturesAd">
         <h3>Do you have pictures for your properties?</h3>
 
         <p>
