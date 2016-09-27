@@ -69,7 +69,7 @@ var commonConfig = {
         minify: true,
         // rejected: true,
         info: true,
-        whitelist: ['tooltip'],
+        whitelist: ['tooltip', 'foundation-mq'],
       }
     }),
   ]
