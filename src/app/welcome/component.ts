@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+
 import { Property, PropertyFacet } from '../properties/property';
 import { PropertyService } from '../properties/property.service';
+import { PersistenceService } from '../services/persistence.service';
 import { MapOptions } from '../components/property-map/component';
 import { User } from '../users/user';
 import { UserService } from '../users/user.service';
@@ -24,11 +26,15 @@ export class Welcome {
   public mapOptions: MapOptions;
   public showFilters: boolean = false;
   public loadFilteredProperties$: BehaviorSubject<PropertyFacet>;
+  public showSignupAd$: Observable<boolean>;
 
-  constructor(private propertyService: PropertyService, private userService: UserService) { }
+  constructor(private propertyService: PropertyService, private userService: UserService, private persist: PersistenceService) { }
 
   ngOnInit() {
     this.loadFilteredProperties$ = new BehaviorSubject(this.facet);
+    this.showSignupAd$ = this.userService.hasAuth$
+      .filter(i => !i)
+      .map(() => !this.persist.get('no_signup_ad'));
   }
 
   ngAfterViewInit() {
@@ -46,12 +52,17 @@ export class Welcome {
     this.loadFilteredProperties$.next(this.facet);
   }
 
+  public removeSignupAd() {
+    this.persist.set('no_signup_ad', new Date().getTime().toString());
+    this.showSignupAd$ = Observable.of(false);
+  }
+
   private updateMapOptions() {
     this.mapOptions = {
       interactive: true,
       height: MAP_HEIGHT,
       center: CAPE_GIRARDEU_CENTER,
       zoomLevel: MAP_ZOOM_LEVEL
-    }
+    };
   }
 }
