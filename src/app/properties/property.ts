@@ -80,8 +80,4 @@ export class Owner {
   landlord_name: string;
   email: string;
   phone: string;
-
-  public get contactName() {
-    return this.landlord_name || this.owner_name;
-  }
 }

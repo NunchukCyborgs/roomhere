@@ -5,8 +5,8 @@
     <div class="row">
         <div class="medium-10 medium-push-1 columns">
             <div class="signup-panel">
-                <h4>{{owner?.contactName}}</h4>
-                <h5 class="text-center">To find out more information about renting this property use the contact information for {{owner?.contactName}}
+                <h4 class="text-center">{{owner?.landlord_name || owner?.owner_name}}</h4>
+                <h5 class="text-center">To find out more information about renting this property use the contact information for {{owner?.landlord_name || owner?.owner_name}}
                     below.
                 </h5>
                 <hr>
