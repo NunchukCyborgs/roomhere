@@ -20,16 +20,20 @@ export class App {
     this.hasAuth$ = this.userService.hasAuth$;
   }
 
-  ngOnInit() {
+  ngAfterViewInit() {
     this.router.events.subscribe(() => isBrowser && $('body').foundation());
     this.hasAuth$.filter(i => isBrowser && i)
       .flatMap(() => this.route.queryParams)
       .subscribe(params => {
-        if (params['reset_password'] === 'true') {
-          $('#ResetPasswordModal').foundation('open');
-        } else if (params['open_settings'] === 'true') {
-          $('#SettingsModal').foundation('open');
-        }
+        setTimeout(() => {
+          // Something crazy happens here. Probably something about not loading jQuery/Foundation in time to fire this.
+          if (params['reset_password'] === 'true') {
+            $('#ResetPasswordModal').foundation('open');
+          } else if (params['open_settings'] === 'true') {
+            debugger;
+            $('#SettingsModal').foundation('open');
+          }
+        }, 3500);
       });
   }
 
