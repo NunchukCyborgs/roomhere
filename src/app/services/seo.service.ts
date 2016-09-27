@@ -15,23 +15,24 @@ export class SeoService {
     const title = `Roomhere.io property at ${property.address1}`;
     const imageUrl = property.images && property.images.length ? property.images[0].url : '';
 
-    const tags: Array<{ key: string, value: string }> = [
-      { key: 'description', value: description },
-      { key: 'og:title', value: title},
-      { key: 'og:type', value: 'website' },
-      { key: 'og:description', value: description },
-      { key: 'og:url', value: BASE_URL + this.router.url },
-      { key: 'og:image', value: imageUrl },
-      { key: 'twitter:card', value: 'summary' },
-      { key: 'twitter:site', value: '@roomhere' },
-      { key: 'twitter:image', value: imageUrl },
-      { key: 'description', value: description },
-      { key: 'twitter:title', value: title },
+    const tags: Array<{ property: string, content: string }> = [
+      { property: 'description', content: description },
+      { property: 'og:title', content: title},
+      { property: 'og:type', content: 'website' },
+      { property: 'og:description', content: description },
+      { property: 'og:url', content: BASE_URL + this.router.url },
+      { property: 'og:image', content: imageUrl },
+      { property: 'twitter:card', content: 'summary' },
+      { property: 'twitter:site', content: '@roomhere' },
+      { property: 'twitter:image', content: imageUrl },
+      { property: 'description', content: description },
+      { property: 'twitter:title', content: title },
     ];
 
     for (let tag of tags) {
       const elem = renderer.createElement(this.document.head, 'meta');
-      renderer.setElementAttribute(elem, tag.key, tag.value);
+      renderer.setElementAttribute(elem, 'property', tag.property);
+      renderer.setElementAttribute(elem, 'content', tag.content);
     }
   }
 
