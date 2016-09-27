@@ -46,9 +46,11 @@ export class Settings {
 
   public onSubmit() {
     const controls = this.settingsForm.controls;
+    
     this.userService
       .createUpdateContact(controls.email.value, controls.phone.value)
       .flatMap(() => this.userService.setLicenseId(controls.licenseId.value))
+      .do(i => console.log(i))
       .subscribe((res: Response) => this.success = res.ok);
   }
 

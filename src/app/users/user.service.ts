@@ -64,7 +64,7 @@ export class UserService {
     return this.loadLicenseId()
       .flatMap(existingId => {
         if (existingId) {
-          return Observable.of(new Response(new ResponseOptions({ body: licenseId })));
+          return Observable.of(new Response(new ResponseOptions({ body: licenseId, status: 200 })));
         } else {
           return this.http
             .post(`${BASE_API_URL}/users/licensing`, { license_id: licenseId });
