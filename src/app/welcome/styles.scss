@@ -34,6 +34,24 @@ p {
 
 .signup-ad {
     position: relative;
+    background: lighten(#502B57, 4%);
+    border:1px solid #cc9933;
+    h3{
+        color:#cc9933;
+    }
+    p{
+        color:#fff !important;
+    }
+    a {
+    background-color: transparent;
+    color:#cc9933;
+    text-decoration: none;
+    }
+    a:hover {
+    background-color: transparent;
+    color:lightgrey !important;
+    text-decoration: none;
+    }
 }
 
 .remove-signup-ad {
@@ -41,4 +59,5 @@ p {
     position: absolute;
     top: 5px;
     right: 5px;
+    color:#fff;
 }
