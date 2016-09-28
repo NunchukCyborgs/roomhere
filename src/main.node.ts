@@ -9,6 +9,9 @@ import { routing } from './app.routes';
 // DECLARTIONS                          //
 //////////////////////////////////////////
 
+// Super Users
+import { SuperUser } from './app/super/component';
+
 // Users
 import { Login } from './app/users/login/component';
 import { Register } from './app/users/register/component';
@@ -81,7 +84,7 @@ export const DECLARTIONS = [
   SimilarProperties, PropertyPreview, PropertyAmenities, PropertyActionsGroup, PropertyEditImage, PropertyEdit,
   RentNow, StickyFooter, Welcome, FAQ, PrivacyPolicy, Dashboard, HomePage, SimpleSearchPipe, Carousel, ControlMessages,
   ImageUpload, NumberTicker, PropertyMap, Slide, UploadProgress, PropertySlider, PropertyFilters, PropertyAccordion, 
-  MissingResource, App, Logo, TopBar
+  MissingResource, App, Logo, TopBar, SuperUser
 ];
 
 export const PROVIDERS = [

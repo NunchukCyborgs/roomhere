@@ -1,0 +1,29 @@
+<div class="container">
+  <div class="row">
+    <div class="small-centered medium-11 large-10 columns">
+      <h2>My Properties</h2>
+
+      <div *ngIf="(properties$ | async)?.length > 5" class="search-properties">
+        <div class="row">
+          <div class="small-12 medium-6 large-5 column">
+            <div class="input-group">
+              <span class="input-group-label"><i class="icon-search"></i></span>
+              <input class="input-group-field" type="text" placeholder="Find Your Property" [(ngModel)]="query">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <property-accordion *ngIf="(properties$ | async)?.length" [properties]="properties$ | async | simpleSearch:query:'address1'"
+        (updateProperty)="updateProperty($event)">
+      </property-accordion>
+
+      <div *ngIf="!(properties$ | async)">
+        <h4 class="inline">Loading Properties...</h4>
+        <h1 class="inline">
+          <i class="fa icon-spinner fa-spin"></i>
+        </h1>
+      </div>
+    </div>
+  </div>
+</div>

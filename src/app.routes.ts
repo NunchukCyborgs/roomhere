@@ -13,7 +13,7 @@ const routes: Routes = [
   { path: 'faq/:extra', component: FAQ },
   { path: 'privacy-policy', component: PrivacyPolicy },
   { path: 'properties/:slug', component: PropertyView },
-  { path: 'settings', component: Settings },  
+  { path: 'settings', component: Settings },
   { path: '**', component: MissingResource },
 ];
 
