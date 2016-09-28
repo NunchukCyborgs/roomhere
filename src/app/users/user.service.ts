@@ -11,6 +11,8 @@ import { isBrowser } from 'angular2-universal';
 import { BASE_API_URL } from '../config';
 import { PersistenceService } from '../services/persistence.service';
 
+declare let analytics: any;
+
 @Injectable()
 export class UserService {
   public contacts$: BehaviorSubject<Contact[]>;
@@ -109,6 +111,7 @@ export class UserService {
           let headers = { token: params['token'], client: params['client_id'], uid: params['uid'] };
           this.http.setAuthHeaders(headers.token, headers.client, headers.uid);
           this.hasAuth$.next(true);
+          this.identifyUser(headers.uid);
         }
       });
   }
@@ -119,14 +122,21 @@ export class UserService {
     if (headers && headers.token && headers.client && headers.uid) {
       this.http.setAuthHeaders(headers.token, headers.client, headers.uid);
       this.hasAuth$.next(this._hasAuth = true);
+      this.identifyUser(headers.uid);
     }
   }
 
   private handleLogin(res: Response) {
     if (res.ok) {
-      this.http.setAuthHeaders(res.headers.get('access-token'), res.headers.get('client'), res.headers.get('uid'));
+      const headers = { token: res.headers.get('access-token'), client: res.headers.get('client'), uid: res.headers.get('uid') };
+      this.http.setAuthHeaders(headers.token, headers.client, headers.uid);
       this.hasAuth$.next(this._hasAuth = true);
+      this.identifyUser(headers.uid);
     }
+  }
+
+  private identifyUser(uid: string) {
+    isBrowser && analytics.identify(uid);
   }
 
   private getRedirectUrl(): string {
