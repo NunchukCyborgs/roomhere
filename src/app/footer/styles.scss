@@ -1,7 +1,7 @@
 footer {
     position: absolute;
     right: 0;
-    bottom: 0;
+    bottom: -14px;
     left: 0;
     padding: .5rem !important;
     background-color: #44254a;
@@ -17,5 +17,4 @@ a {
 }
 a:hover{
     color: lightgrey!important;
-    
 }

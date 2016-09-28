@@ -34,11 +34,6 @@ div[class$="-centered"] {
   margin-right: auto !important;
 }
 
-/* Hot fix */
-body {
-  overflow: initial;
-}
-
 button[disabled], button[disabled]:hover {
   opacity: 0.65;
 }
@@ -196,6 +191,11 @@ body {
   position: relative;
   min-height: 100%;
   height: initial;
+  overflow: initial;
+
+ @include breakpoint(medium) {
+    padding-bottom: 40px;
+  }
 }
 
 input[type=number]::-webkit-inner-spin-button, 
