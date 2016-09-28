@@ -39,6 +39,13 @@ export class PropertyFacet {
    }
 }
 
+export interface Image {
+  id?: number;
+  url: string;
+  height: number;
+  width: number;
+}
+
 export class Property {
   public address1: string;
   public address2: string;
@@ -49,7 +56,7 @@ export class Property {
   public created_at: Date;
   public description: string;
   public id: number;
-  public images: Array<{id: number, url: string}> = [];
+  public images: Image[] = [];
   public latitude: number;
   public longitude: number;
   public locations: Location[] = [];
