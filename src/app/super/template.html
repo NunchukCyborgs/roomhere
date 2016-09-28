@@ -14,6 +14,26 @@
         </div>
       </div>
 
+      <div class="row">
+        <div class="medium-3 columns">
+          <label>Page Number
+        <input type="text" [(ngModel)]="pageNumber">
+      </label>
+        </div>
+        <div class="medium-3 columns">
+          <label>Per Page
+        <input type="text" [(ngModel)]="perPage">            
+      </label>
+        </div>
+        <div class="medium-6 columns">
+          <div class="button-group">
+            <button type="button" class="button" (click)="loadProperties()">Load Properties</button>
+            <button type="button" class="button" (click)="nextPage(-1); loadProperties()">Previous Page</button>
+            <button type="button" class="button success" (click)="nextPage(1); loadProperties()">Next Page</button>
+          </div>
+        </div>
+      </div>
+
       <property-accordion *ngIf="(properties$ | async)?.length" [properties]="properties$ | async | simpleSearch:query:'address1'"
         (updateProperty)="updateProperty($event)">
       </property-accordion>
@@ -23,6 +43,26 @@
         <h1 class="inline">
           <i class="fa icon-spinner fa-spin"></i>
         </h1>
+      </div>
+
+      <div class="row">
+        <div class="medium-3 columns">
+          <label>Page Number
+        <input type="text" [(ngModel)]="pageNumber">
+      </label>
+        </div>
+        <div class="medium-3 columns">
+          <label>Per Page
+        <input type="text" [(ngModel)]="perPage">            
+      </label>
+        </div>
+        <div class="medium-6 columns">
+          <div class="button-group">
+            <button type="button" class="button" (click)="loadProperties()">Load Properties</button>
+            <button type="button" class="button" (click)="nextPage(-1); loadProperties()">Previous Page</button>
+            <button type="button" class="button success" (click)="nextPage(1); loadProperties()">Next Page</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>

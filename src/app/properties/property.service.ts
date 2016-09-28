@@ -51,9 +51,9 @@ export class PropertyService {
       .flatMap(i => this.myProperties$);
   }
 
-  public getSuperProperties$(): Observable<any> {
+  public getSuperProperties$(pageNumber = 1, perPage = 100): Observable<any> {
     const seq = this.http
-      .get(`${BASE_API_URL}/properties`)
+      .get(`${BASE_API_URL}/properties?page=${pageNumber}&per_page=${perPage}`)
       .map(i => i.json())
       .do(i => this.superProperties$.next(this._superProperties = i));
 
