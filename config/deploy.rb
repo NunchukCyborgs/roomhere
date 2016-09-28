@@ -6,7 +6,7 @@ set :repo_url, 'git@github.com:NunchukCyborgs/roomhere.git'
 
 set :deploy_to, '/var/www/roomhere'
 
-set :linked_dirs, %w{node_modules app/bower_components}
+set :linked_dirs, %w{app/bower_components}
 set :npm_flags, '--production'
 set :passenger_restart_with_touch, true
 
