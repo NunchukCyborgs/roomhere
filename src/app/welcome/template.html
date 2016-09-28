@@ -50,14 +50,14 @@
             </ul>
           </div>
 
-          <div class="callout signup-ad" *ngIf="showSignupAd$ | async">
+          <div class="callout signup-ad ad" *ngIf="showSignupAd$ | async">
             <i class="fa fa-times remove-signup-ad" (click)="removeSignupAd()"></i>
             <h3>Want to list your properties here?</h3>
 
             <p>
               Roomhere has listings ready for every rental property registered in Cape Girardeau. To unlock your listings,
               <a
-                data-open="RegisterModal">Sign Up</a>
+                data-open="RegisterModal"><strong>Sign Up</strong></a>
                 with your license number issued by the city.
             </p>
           </div>
