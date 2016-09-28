@@ -9,6 +9,9 @@ GEM
       i18n
       rake (>= 10.0.0)
       sshkit (>= 1.9.0)
+    capistrano-bundler (1.1.4)
+      capistrano (~> 3.1)
+      sshkit (~> 1.2)
     capistrano-harrow (0.5.3)
     capistrano-npm (1.0.2)
       capistrano (>= 3.0.0)
@@ -29,6 +32,7 @@ PLATFORMS
 
 DEPENDENCIES
   capistrano
+  capistrano-bundler (~> 1.1.2)
   capistrano-npm
   capistrano-passenger
   honeybadger
