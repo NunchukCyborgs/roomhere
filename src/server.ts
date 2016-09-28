@@ -11,6 +11,16 @@ import { enableProdMode } from '@angular/core';
 import { createEngine } from 'angular2-express-engine';
 import { PrebootOptions } from 'preboot';
 
+const Honeybadger = require("honeybadger-js");
+
+Honeybadger.configure({
+  api_key: '5f8b6d96',
+  host: 'api.honeybadger.io',
+  ssl: true,
+  project_root: 'https://roomhere.io',
+});
+
+
 enableProdMode();
 
 const app = express();
