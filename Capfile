@@ -2,6 +2,8 @@
 require "capistrano/setup"
 
 # Include default deployment tasks
+
+require 'capistrano/rvm'
 require "capistrano/deploy"
 require 'capistrano/npm'
 require 'capistrano/passenger'
