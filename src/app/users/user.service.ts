@@ -18,19 +18,19 @@ export interface Me {
   contacts?: Contact[];
   license_id?: string;
   properties?: Property[];
-  isSuper?: boolean;
+  superuser?: boolean;
 }
 
 @Injectable()
 export class UserService {
-  public me: BehaviorSubject<Me>;
+  public me$: BehaviorSubject<Me>;
   private _me: Me = {};
   public hasAuth$: BehaviorSubject<boolean>;
   private _hasAuth: boolean = false;
 
   constructor(private http: HttpService, private route: ActivatedRoute, private persist: PersistenceService) {
     this.hasAuth$ = new BehaviorSubject(this._hasAuth);
-    this.me = new BehaviorSubject(this._me);
+    this.me$ = new BehaviorSubject(this._me);
 
     this.checkForSessionAuth();
     this.checkForQueryAuth();
@@ -88,15 +88,15 @@ export class UserService {
 
   public loadMe(): Observable<Me> {
     if (this._me.properties && this._me.license_id && this._me.contacts) {
-      return Observable.of(this.me);
+      return Observable.of(this.me$);
       // Just return if we already gots our things
     }
 
     return this.hasAuth$.filter(i => i)
       .flatMap(() => this.http.get(`${BASE_API_URL}/me`))
       .map(i => <Me>i.json())
-      .do(i => this.me.next(this._me = i))
-      .flatMap(i => this.me);
+      .do(i => this.me$.next(this._me = i))
+      .flatMap(i => this.me$);
   }
 
   public createUpdateContact(email?: string, phone?: string): Observable<Contact> {

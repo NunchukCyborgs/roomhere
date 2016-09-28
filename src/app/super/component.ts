@@ -22,6 +22,6 @@ export class SuperUser {
 
   ngOnInit() {
     this.properties$ = this.propertyService
-      .getMyProperties$();
+      .getSuperProperties$();
   }
 }

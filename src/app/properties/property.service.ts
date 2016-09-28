@@ -14,6 +14,8 @@ export class PropertyService {
   private _propertyBySlug: Property = new Property();
   public myProperties$: BehaviorSubject<Property[]>;
   private _myProperties: Property[] = [];
+  public superProperties$: BehaviorSubject<Property[]>;
+  private _superProperties: Property[] = [];
 
   public lastPage$: BehaviorSubject<number> = new BehaviorSubject(Number.MAX_SAFE_INTEGER)
   private viewCaches: string[] = [];
@@ -49,6 +51,17 @@ export class PropertyService {
       .flatMap(i => this.myProperties$);
   }
 
+  public getSuperProperties$(): Observable<any> {
+    const seq = this.http
+      .get(`${BASE_API_URL}/properties`)
+      .map(i => i.json())
+      .do(i => this.superProperties$.next(this._superProperties = i));
+
+    seq.subscribe();
+    return seq
+      .flatMap(i => this.superProperties$);
+  }
+
   public update(property: Property): Observable<any> {
     property = this.updateAmenities(property);
     property = this.updateTypes(property);
@@ -82,6 +95,7 @@ export class PropertyService {
 
   constructor(private http: HttpService) {
     this.myProperties$ = new BehaviorSubject(this._myProperties);
+    this.superProperties$ = new BehaviorSubject(this._superProperties);
     this.propertyBySlug$ = new BehaviorSubject(this._propertyBySlug);
   }
 }

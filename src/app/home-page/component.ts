@@ -8,7 +8,12 @@ import { UserService } from '../users/user.service';
 })
 export class HomePage {
   public hasAuth$: Observable<boolean>;
-  constructor(private userService: UserService) {
+  public superuser$: Observable<boolean>;
+  constructor(private userService: UserService) { }
+
+  ngOnInit() {
     this.hasAuth$ = this.userService.hasAuth$;
+    this.superuser$ = this.userService.me$.map(i => i.superuser);
+    this.userService.loadMe().subscribe();    
   }
 }
