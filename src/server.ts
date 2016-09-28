@@ -11,19 +11,17 @@ import { enableProdMode } from '@angular/core';
 import { createEngine } from 'angular2-express-engine';
 import { PrebootOptions } from 'preboot';
 
-const Honeybadger = require("honeybadger-js");
+const Honeybadger = require('honeybadger');
 
 Honeybadger.configure({
-  api_key: '5f8b6d96',
-  host: 'api.honeybadger.io',
-  ssl: true,
-  project_root: 'https://roomhere.io',
+  apiKey: '8807ffbf',
+  developmentEnvironments: ['dev', 'development', 'test'],
 });
-
 
 enableProdMode();
 
 const app = express();
+app.use(Honeybadger.requestHandler); // Use *before* all other app middleware.
 app.use(require('serve-favicon')(__dirname + '/assets/images/favicon.ico'));
 const ROOT = path.join(path.resolve(__dirname, '..'));
 
@@ -48,6 +46,7 @@ app.use(require('express-minify-html')({
 
 app.use(cookieParser('Angular 2 Universal'));
 app.use(bodyParser.json());
+app.use(Honeybadger.errorHandler);  // Use *after* all other app middleware.
 
 // Serve static files
 app.use('/', express.static(path.join(__dirname, 'assets'), { maxAge: 30 }));
