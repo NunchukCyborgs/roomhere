@@ -194,7 +194,6 @@ control-messages{
 
 body {
   position: relative;
-  padding-bottom: 6rem;
   min-height: 100%;
   height: initial;
 }
@@ -260,4 +259,25 @@ input[type='number'] {
 .top-bar {
   position: relative;
   z-index: 10;
+}
+
+.callout.ad {
+   background: #cc9933;
+   border:1px solid #44254a;
+    h1, h2, h3, h4, h5, h6 {
+        color:#44254a;
+    }
+    p {
+        color:#fff !important;
+    }
+    a {
+      background-color: transparent;
+      color:#44254a;
+      text-decoration: none;
+    }
+    a:hover {
+      background-color: transparent;
+      color:lightgrey !important;
+      text-decoration: none;
+    }
 }

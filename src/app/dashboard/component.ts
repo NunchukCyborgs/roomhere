@@ -26,9 +26,9 @@ export class Dashboard {
     this.properties$ = this.propertyService
       .getMyProperties$();
 
-    this.userService.loadLicenseId()
+    this.userService.loadMe()
       .subscribe(i => {
-        const hasLicenseId = Boolean(i);
+        const hasLicenseId = Boolean(i.license_id);
         this.showLicenseIdAd = !hasLicenseId;
         this.showPicturesAd = !this.showLicenseIdAd;
       });

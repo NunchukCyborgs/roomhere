@@ -11,6 +11,8 @@ import { UserService } from '../users/user.service';
 })
 export class SuperUser {
   public properties$: Observable<Property[]>;
+  public pageNumber: number = 1;
+  public perPage: number = 100;
 
   constructor(private propertyService: PropertyService, private userService: UserService) {
 
@@ -21,7 +23,16 @@ export class SuperUser {
   }
 
   ngOnInit() {
+    this.loadProperties();
+  }
+
+  public nextPage(increment: string) {
+    this.pageNumber += Number(increment);
+    this.loadProperties();
+  }
+
+  public loadProperties() {
     this.properties$ = this.propertyService
-      .getMyProperties$();
+      .getSuperProperties$(this.pageNumber, this.perPage);
   }
 }

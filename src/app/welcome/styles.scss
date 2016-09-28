@@ -16,7 +16,7 @@
 }
 
 #scrolldiv {
-    margin-bottom: 100px;
+    margin-bottom: 40px;
 }
 
 p {
@@ -30,6 +30,9 @@ p {
         margin-left:auto !important;
         margin-right:auto !important;
     }
+    #scrolldiv {
+        margin-bottom: 20px;
+}
 }
 
 .signup-ad {
@@ -41,4 +44,5 @@ p {
     position: absolute;
     top: 5px;
     right: 5px;
+    color:#fff;
 }

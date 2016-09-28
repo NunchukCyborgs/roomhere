@@ -17,7 +17,7 @@
       <property-accordion *ngIf="(properties$ | async)?.length" [properties]="properties$ | async | simpleSearch:query:'address1'"
         (updateProperty)="updateProperty($event)">
       </property-accordion>
-      <div class="callout" *ngIf="(properties$ | async)?.length === 0">
+      <div class="callout ad" *ngIf="(properties$ | async)?.length === 0">
         <h4>No properties found</h4>
         <p>
           We're sorry, but we can't find any properties for you.
@@ -29,7 +29,7 @@
           <i class="fa icon-spinner fa-spin"></i>
         </h1>
       </div>
-      <div class="callout" *ngIf="showLicenseIdAd">
+      <div class="callout ad" *ngIf="showLicenseIdAd">
         <h3>Can't find your properties?</h3>
 
         <p>
@@ -43,7 +43,7 @@
         </p>
       </div>
 
-      <div class="callout"  *ngIf="showPicturesAd">
+      <div class="callout ad"  *ngIf="showPicturesAd">
         <h3>Do you have pictures for your properties?</h3>
 
         <p>
