@@ -1,8 +1,6 @@
 @charset 'utf-8';
 
 @import 'settings';
-@import 'rental';
-@import 'login';
 @import 'foundation';
 @import 'motion-ui';
 
@@ -46,7 +44,8 @@
 @include motion-ui-transitions;
 @include motion-ui-animations;
 
+@import 'rental';
+@import 'login';
 @import "fonts";
 @import "custom";
-
-@import "_card";
+@import "card";
