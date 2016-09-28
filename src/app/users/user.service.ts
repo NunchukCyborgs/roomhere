@@ -10,30 +10,31 @@ import { HttpService } from '../services/http.service';
 import { isBrowser } from 'angular2-universal';
 import { BASE_API_URL } from '../config';
 import { PersistenceService } from '../services/persistence.service';
+import { Property } from '../properties/property';
 
 declare let analytics: any;
 
+export interface Me {
+  contacts?: Contact[];
+  license_id?: string;
+  properties?: Property[];
+  isSuper?: boolean;
+}
+
 @Injectable()
 export class UserService {
-  public contacts$: BehaviorSubject<Contact[]>;
-  private _contacts: Contact[] = [];
-  public licenseId$: BehaviorSubject<string>;
-  private _licenseId: string = null;
+  public me: BehaviorSubject<Me>;
+  private _me: Me = {};
   public hasAuth$: BehaviorSubject<boolean>;
   private _hasAuth: boolean = false;
 
   constructor(private http: HttpService, private route: ActivatedRoute, private persist: PersistenceService) {
     this.hasAuth$ = new BehaviorSubject(this._hasAuth);
-    this.hasAuth$.subscribe();
-    this.contacts$ = new BehaviorSubject(this._contacts);
-    this.contacts$.subscribe();
-    this.licenseId$ = new BehaviorSubject(this._licenseId);
-    this.licenseId$.subscribe();
+    this.me = new BehaviorSubject(this._me);
 
     this.checkForSessionAuth();
     this.checkForQueryAuth();
-    this.loadLicenseId().subscribe();
-    this.loadContacts().subscribe();
+    this.loadMe().subscribe();
   }
 
   public login(user: User) {
@@ -63,7 +64,8 @@ export class UserService {
   }
 
   public setLicenseId(licenseId: string): Observable<Response> {
-    return this.loadLicenseId()
+    return this.loadMe()
+      .map(i => i.license_id)
       .flatMap(existingId => {
         if (existingId) {
           return Observable.of(new Response(new ResponseOptions({ body: licenseId, status: 200 })));
@@ -84,22 +86,22 @@ export class UserService {
     return this.http.patch(`${BASE_API_URL}/contacts/${id}`, { contact: contact });
   }
 
-  public loadContacts(): Observable<Contact[]> {
-    return this.hasAuth$.filter(i => i)
-      .flatMap(() => this.http.get(`${BASE_API_URL}/me`))
-      .map(i => i.json().contacts)
-      .do(i => this.contacts$.next(this._contacts = i));
-  }
+  public loadMe(): Observable<Me> {
+    if (this._me.properties && this._me.license_id && this._me.contacts) {
+      return Observable.of(this.me);
+      // Just return if we already gots our things
+    }
 
-  public loadLicenseId(): Observable<string> {
     return this.hasAuth$.filter(i => i)
       .flatMap(() => this.http.get(`${BASE_API_URL}/me`))
-      .map(i => i.json().license_id)
-      .do(i => this.licenseId$.next(this._licenseId = i));
+      .map(i => <Me>i.json())
+      .do(i => this.me.next(this._me = i))
+      .flatMap(i => this.me);
   }
 
   public createUpdateContact(email?: string, phone?: string): Observable<Contact> {
-    return this.loadContacts()
+    return this.loadMe()
+      .map(i => i.contacts)
       .flatMap(i => i.length ? this.updateContact(i[0].id, email, phone) : this.createContact(email, phone));
   }
 
