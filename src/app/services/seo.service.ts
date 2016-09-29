@@ -35,7 +35,7 @@ export class SeoService {
     const description = 'Roomhere is the rental property solution for Cape Girardeau, MO. Find the most complete rental listings of the area at Roomhere.';
     const title = 'Roomhere: The Best Place to Find Home';
     const imageUrl = BASE_URL + '/images/white_logo_transparent_background.png';
-    const image: Image = { url: imageUrl, height: 187, width: 240 };
+    const image: Image = { url: imageUrl, height: '187', width: '240' };
 
     this.addTags({ description: description, title: title, image: image }, renderer);
   }
@@ -48,8 +48,8 @@ export class SeoService {
       { property: 'og:description', content: baseTags.description },
       { property: 'og:url', content: BASE_URL + this.router.url },
       { property: 'og:image', content: baseTags.image.url },
-      { property: 'og:image:width', content: baseTags.image.width.toString() },
-      { property: 'og:image:height', content: baseTags.image.height.toString() },
+      { property: 'og:image:width', content: baseTags.image.width },
+      { property: 'og:image:height', content: baseTags.image.height },
       { property: 'twitter:card', content: 'summary' },
       { property: 'twitter:site', content: '@roomhere' },
       { property: 'twitter:image', content: baseTags.image.url },

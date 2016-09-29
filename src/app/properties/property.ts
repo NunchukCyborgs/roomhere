@@ -42,8 +42,8 @@ export class PropertyFacet {
 export interface Image {
   id?: number;
   url: string;
-  height: number;
-  width: number;
+  height: string;
+  width: string;
 }
 
 export class Property {
