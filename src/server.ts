@@ -12,6 +12,7 @@ import { createEngine } from 'angular2-express-engine';
 import { PrebootOptions } from 'preboot';
 
 const Honeybadger = require('honeybadger');
+const request = require('request');
 
 Honeybadger.configure({
   apiKey: '8807ffbf',
@@ -66,15 +67,13 @@ function ngApp(req, res) {
   });
 }
 
-// Routes with html5pushstate
-// ensure routes match client-side-app
-app.get('/', ngApp);
-app.get('/faq', ngApp);
-app.get('/privacy-policy', ngApp);
-app.get('/settings', ngApp);
-app.get('/properties/*', ngApp);
+function propertiesRoute(req, res) {
+  request.head(`https://api.roomhere.io/${req.url}`, function (error, response, body) {
+      response.statusCode == 404 ? missingResource(req, res) : ngApp(req, res)
+  });
+}
 
-app.get('*', function (req, res) {
+function missingResource(req, res) {
   res.status(404);
 
   if (req.accepts('html')) {
@@ -85,8 +84,17 @@ app.get('*', function (req, res) {
   } else {
     res.type('txt').send('Not found');
   }
+}
 
-});
+// Routes with html5pushstate
+// ensure routes match client-side-app
+app.get('/', ngApp);
+app.get('/faq', ngApp);
+app.get('/privacy-policy', ngApp);
+app.get('/settings', ngApp);
+app.get('/properties/*', propertiesRoute);
+
+app.get('*', missingResource);
 
 // Server
 let server = app.listen(process.env.PORT || 3000, () => {

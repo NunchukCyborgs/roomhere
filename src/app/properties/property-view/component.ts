@@ -86,8 +86,9 @@ export class PropertyView {
 
     this.sub = this.route.params
       .flatMap(params => this.propertyService.getPropertyBySlug$(params['slug']))
-      .do((property: Property) => this.updateMapOptions(property))
       .do((property: Property) => this.property = property)
+      .filter(i => i)
+      .do((property: Property) => this.updateMapOptions(property))
       .do((property: Property) => this.tweetText = this.socialService.makeTwitterUrl(property))
       .do((property: Property) => this.seoService.addPropertyTags(this.renderer, property))
       .subscribe((property: Property) => this.actionStateService.setState(property));

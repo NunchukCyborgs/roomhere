@@ -33,7 +33,7 @@ export class PropertyService {
     const seq = this.http
       .get(`${BASE_API_URL}/properties/${slug}`)
       .map(i => i.json())
-      .do(i => this.propertyBySlug$.next(this._propertyBySlug = i));
+      .do(i => this.propertyBySlug$.next(this._propertyBySlug = i.id ? i : null));
 
     seq.subscribe();
     return seq
