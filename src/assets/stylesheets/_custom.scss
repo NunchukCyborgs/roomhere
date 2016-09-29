@@ -110,7 +110,7 @@ button[disabled], button[disabled]:hover {
   @include breakpoint(large) {
     top: $topbar-large-height;
   }
-  bottom: 40px;
+  bottom: 0;
   width: 40%;
   overflow: hidden;
   background-color: rgb(229, 227, 223);

@@ -17,13 +17,19 @@ require('../assets/stylesheets/deferred.scss');
 })
 export class App {
   public hasAuth$: Observable<boolean>;
-  constructor(private userService: UserService, private router: Router, 
-  private route: ActivatedRoute, private seoService: SeoService, private renderer: Renderer) {
-    this.hasAuth$ = this.userService.hasAuth$;
+  public noFooter$: Observable<boolean>;
+
+  constructor(private userService: UserService, private router: Router,
+    private route: ActivatedRoute, private seoService: SeoService, private renderer: Renderer) {
   }
 
   ngOnInit() {
-      this.seoService.addBaseTags(this.renderer);   
+    this.hasAuth$ = this.userService.hasAuth$;
+    this.seoService.addBaseTags(this.renderer);
+
+    this.noFooter$ = Observable.combineLatest(this.userService.hasAuth$, this.router.events)
+      .map(i => [i[0], i[1].url])
+      .map(i => !i[0] && i[1] === '/');
   }
 
   ngAfterViewInit() {
