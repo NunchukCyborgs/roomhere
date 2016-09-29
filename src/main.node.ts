@@ -33,7 +33,7 @@ import { RentNow } from './app/properties/rent-now/component';
 
 // Other
 import { App } from './app/component';
-import { StickyFooter } from './app/footer/component';
+import { BigFooter } from './app/footer/component';
 import { Welcome } from './app/welcome/component';
 import { FAQ } from './app/faq/component';
 import { PrivacyPolicy } from './app/privacy-policy/component';
@@ -82,7 +82,7 @@ import { CookieNode } from './app/services/cookies/cookie-node';
 export const DECLARTIONS = [
   Login, Register, ForgotPassword, ResetPassword, Settings, PropertyView, PropertyImages, PropertyReviews,
   SimilarProperties, PropertyPreview, PropertyAmenities, PropertyActionsGroup, PropertyEditImage, PropertyEdit,
-  RentNow, StickyFooter, Welcome, FAQ, PrivacyPolicy, Dashboard, HomePage, SimpleSearchPipe, Carousel, ControlMessages,
+  RentNow, BigFooter, Welcome, FAQ, PrivacyPolicy, Dashboard, HomePage, SimpleSearchPipe, Carousel, ControlMessages,
   ImageUpload, NumberTicker, PropertyMap, Slide, UploadProgress, PropertySlider, PropertyFilters, PropertyAccordion, 
   MissingResource, App, Logo, TopBar, SuperUser
 ];

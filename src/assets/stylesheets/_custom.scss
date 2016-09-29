@@ -192,10 +192,6 @@ body {
   min-height: 100%;
   height: initial;
   overflow: initial;
-
- @include breakpoint(medium) {
-    padding-bottom: 40px;
-  }
 }
 
 input[type=number]::-webkit-inner-spin-button, 
