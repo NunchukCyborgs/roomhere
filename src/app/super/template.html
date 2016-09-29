@@ -7,12 +7,25 @@
         <div class="row">
           <div class="small-12 medium-6 large-5 column">
             <div class="input-group">
-              <span class="input-group-label"><i class="icon-search"></i></span>
-              <input class="input-group-field" type="text" placeholder="Find Your Property" [(ngModel)]="query">
+              <label>Filter Results
+                <span class="input-group-label"><i class="icon-search"></i></span>
+                <input class="input-group-field" type="text" placeholder="Find Your Property" [(ngModel)]="localQuery">
+              </label>
             </div>
           </div>
         </div>
       </div>
+
+      <div class="row">
+          <div class="small-12 medium-6 large-5 column">
+            <div class="input-group">
+              <label>Search
+                <span class="input-group-label"><i class="icon-search"></i></span>
+                <input class="input-group-field" type="text" placeholder="Find Your Property" [(ngModel)]="query">
+              </label>
+            </div>
+          </div>
+        </div>
 
       <div class="row">
         <div class="medium-3 columns">
@@ -34,7 +47,7 @@
         </div>
       </div>
 
-      <property-accordion *ngIf="(properties$ | async)?.length" [properties]="properties$ | async | simpleSearch:query:'address1'"
+      <property-accordion *ngIf="(properties$ | async)?.length" [properties]="properties$ | async | simpleSearch:localQuery:'address1'"
         (updateProperty)="updateProperty($event)">
       </property-accordion>
 

@@ -13,6 +13,7 @@ export class SuperUser {
   public properties$: Observable<Property[]>;
   public pageNumber: number = 1;
   public perPage: number = 100;
+  public query: string = '';
 
   constructor(private propertyService: PropertyService, private userService: UserService) {
 
@@ -33,6 +34,6 @@ export class SuperUser {
 
   public loadProperties() {
     this.properties$ = this.propertyService
-      .getSuperProperties$(this.pageNumber, this.perPage);
+      .getSuperProperties$(this.pageNumber, this.perPage, this.query);
   }
 }
