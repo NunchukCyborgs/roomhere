@@ -1,6 +1,7 @@
 import { Renderer, Inject, Injectable } from '@angular/core';
 import { DOCUMENT } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { isBrowser, isNode } from 'angular2-universal';
 import { BASE_URL } from '../config';
 import { Property, Image } from '../properties/property';
 
@@ -28,7 +29,11 @@ export class SeoService {
     const description = this.getDescription(property);
     const title = `Roomhere.io property at ${property.address1}`;
 
-    this.addTags({ description: description, title: title, image: property.images[0] }, renderer);
+    try {
+      this.addTags({ description: description, title: title, image: property.images[0] }, renderer);
+    } catch (err) {
+      if (isNode) { throw new Error('no property images error. Property: ' + JSON.stringify(property)); }      
+    }
   }
 
   public addBaseTags(renderer: Renderer) {
