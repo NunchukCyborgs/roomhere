@@ -18,6 +18,10 @@
     Loading Roomhere ...
   </app>
   <script src="//js.honeybadger.io/v0.4/honeybadger.min.js" type="text/javascript" data-api_key="5f8b6d96"></script>
+  <!--WeakMap shim-->
+  <script>
+    "undefined"==typeof WeakMap&&(WeakMap=function(e){"use strict";function n(e,n){var r=Object.create(e),t=e.valueOf;return Object.defineProperty(e,"valueOf",{value:function(u){return u!=n||this!=e?t.apply(this,arguments):r},configurable:!0}),r}function r(){var e={};return function(r){var t=r.valueOf(e);return t!==r?t:n(r,e)}}function t(e){if(e!==Object(e))throw TypeError("value is not a non-null object");return e}function u(){var e=r();return Object.freeze(Object.create(u.prototype,{has:{value:function(n){return"value"in e(n)},configurable:!0,enumerable:!1,writable:!0},get:{value:function(n,r){return e(t(n)).value||r},configurable:!0,enumerable:!1,writable:!0},set:{value:function(n,r){e(t(n)).value=r},configurable:!0,enumerable:!1,writable:!0},"delete":{value:function(n){return delete e(t(n)).value},configurable:!0,enumerable:!1,writable:!0}}))}return e.WeakMap=u}(this));
+  </script>
   <script src="/index.js"></script>
   <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
     crossorigin="anonymous"></script>
