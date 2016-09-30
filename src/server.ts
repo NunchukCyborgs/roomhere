@@ -20,8 +20,6 @@ Honeybadger.configure({
   developmentEnvironments: ['dev', 'development', 'test', 'undefined'],
 });
 
-console.log('env: ', process.env.NODE_ENV);
-
 enableProdMode();
 
 const app = express();
