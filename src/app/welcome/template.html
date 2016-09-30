@@ -2,18 +2,19 @@
   <div class="row full-width left-margin-fix">
     <div class="medium-7 small-12 columns">
       <section id="scrolldiv">
-        <div class="row marg20top">
-          <div class="large-12 columns">
-            <p>Price Range</p>
+        <section class="filter-section">
+          <div class="row">
+            <div class="large-12 columns">
+              <p>Price Range</p>
+            </div>
+
+            <property-slider [facet]="facet" (applyFacet)="pageNumber = 1; applyFacet($event)"></property-slider>
+
+            <div class="large-12 columns">
+              <property-filters [(showFilters)]="showFilters" [facet]="facet" (applyFacet)="pageNumber = 1; applyFacet($event)"></property-filters>
+            </div>
           </div>
-
-          <property-slider [facet]="facet" (applyFacet)="pageNumber = 1; applyFacet($event)"></property-slider>
-
-          <div class="large-12 columns">
-            <property-filters [(showFilters)]="showFilters" [facet]="facet" (applyFacet)="pageNumber = 1; applyFacet($event)"></property-filters>
-          </div>
-
-        </div>
+        </section>
 
         <section [class.hide]="showFilters">
           <div class="row">
@@ -56,9 +57,7 @@
 
             <p>
               Roomhere has listings ready for every rental property registered in Cape Girardeau. To unlock your listings,
-              <a
-                data-open="RegisterModal"><strong>Sign Up</strong></a>
-                with your license number issued by the city.
+              <a data-open="RegisterModal"><strong>Sign Up</strong></a> with your license number issued by the city.
             </p>
           </div>
         </section>
