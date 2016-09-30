@@ -253,12 +253,15 @@ input[type='number'] {
 }
 
 .top-bar {
-    display: none; // To be removed in deferred
+    display: none; // To be removed by top-bar.js thing in foundation
 }
 
 @include breakpoint(large) {
   .top-bar {
     display: block;
+  }
+  .title-bar { 
+    display: none;
   }
 }
 
