@@ -253,8 +253,13 @@ input[type='number'] {
 }
 
 .top-bar {
-  position: relative;
-  z-index: 10;
+    display: none; // To be removed in deferred
+}
+
+@include breakpoint(large) {
+  .top-bar {
+    display: block;
+  }
 }
 
 .callout.ad {

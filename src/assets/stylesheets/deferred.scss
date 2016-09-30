@@ -1,1 +1,5 @@
-@import 'fa.min'
+@import 'fa.min';
+
+.top-bar {
+  display: block; // To be removed in deferred
+}
