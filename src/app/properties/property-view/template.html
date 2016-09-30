@@ -6,7 +6,7 @@
     <property-images [images]="property.images" [interval]="6500" *ngIf="property?.images"></property-images>
     <div class="row">
         <div class="small-12 medium-11 large-9 columns small-centered padding">
-            <div *ngIf="!(isEditing$ | async)" class="callout-card small-centered">
+            <div *ngIf="!(isEditing$ | async) && property?.bedrooms && property?.bathrooms && property?.price" class="callout-card small-centered">
                 <div class="callout-card-content">
                     <div class="row column marg">
                         <div class="column padding large-5 small-text-center large-text-left">
@@ -39,6 +39,7 @@
                     </div>
                 </div>
             </div>
+            <no-property-info *ngIf="!property?.bedrooms || !property?.bathrooms || !property?.price"></no-property-info>
             <fieldset class="fieldset" class="hide" [class.hide]="!(isEditing$ | async)">
                 <legend>
                     <h3>{{property.address1}}</h3>
