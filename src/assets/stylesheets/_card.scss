@@ -9,9 +9,8 @@ $font-color: #333;
 
 .callout-card {
     max-width: 1000px;
-    background: $secondary;
-    border: 1px solid #333;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    background: $bg;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
     margin: 1rem 0;
     overflow: hidden;
     .callout-card-content {
@@ -22,7 +21,7 @@ $font-color: #333;
     }
     .callout-card-content {
         padding: 20px;
-        background-color: $secondary;
+        background-color: $bg;
         p {
             margin-left: 20px;
         }
