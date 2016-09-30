@@ -2,6 +2,7 @@ import { Component, OnDestroy, Renderer } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
+import { isBrowser } from 'angular2-universal'; 
 
 import { UserService } from '../../users/user.service';
 import { MapOptions } from '../../components/property-map/component';
@@ -14,6 +15,7 @@ import { HttpService } from '../../services/http.service';
 import { ImageUploadService, PendingFile } from '../../services/image-upload.service';
 import { PropertyService } from '../property.service';
 import { PropertyActionStateService } from '../property-action-state.service';
+import { getHoneybadger } from '../../services/honeybadger';
 
 const ZOOM_LEVEL: number = 16;
 const HEIGHT: string = '350px';
@@ -42,6 +44,8 @@ export class PropertyView {
     private http: HttpService,
     private actionStateService: PropertyActionStateService
   ) {
+    getHoneybadger().setContext({view: 'property-view'});
+    // Maybe put this on the root component, let's play with it for a while first
   }
 
   public shareFacebook() {

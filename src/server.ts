@@ -16,8 +16,11 @@ const request = require('request');
 
 Honeybadger.configure({
   apiKey: '8807ffbf',
-  developmentEnvironments: ['dev', 'development', 'test'],
+  environment: process.env.NODE_ENV,
+  developmentEnvironments: ['dev', 'development', 'test', 'undefined'],
 });
+
+console.log('env: ', process.env.NODE_ENV);
 
 enableProdMode();
 

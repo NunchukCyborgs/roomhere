@@ -7,6 +7,7 @@ import 'rxjs/Rx';
 
 import { Property, PropertyFacet } from './property';
 import { BASE_API_URL } from '../config';
+import { getHoneybadger } from '../services/honeybadger';
 
 @Injectable()
 export class PropertyService {
@@ -97,5 +98,14 @@ export class PropertyService {
     this.myProperties$ = new BehaviorSubject(this._myProperties);
     this.superProperties$ = new BehaviorSubject(this._superProperties);
     this.propertyBySlug$ = new BehaviorSubject(this._propertyBySlug);
+
+    Observable.combineLatest(this.myProperties$, this.superProperties$, this.propertyBySlug$)
+      .subscribe(i => getHoneybadger(true)
+        .setContext({
+            myProperties: i[0],
+            superProperties: i[1],
+            propertyBySlug: i[2],
+        })
+      );
   }
 }
