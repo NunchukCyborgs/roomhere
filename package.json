@@ -10,7 +10,7 @@
     "watch": "node node_modules/webpack/bin/webpack.js --watch",
     "prebuild": "node node_modules/rimraf/bin.js dist",
     "build": "node node_modules/webpack/bin/webpack.js",
-    "build:prod": "NODE_ENV=production node node_modules/webpack/bin/webpack.js --progress -p --optimize-minimize",
+    "build:prod": "node node_modules/webpack/bin/webpack.js --progress -p --optimize-minimize",
     "prestart": "npm run build",
     "server": "nodemon dist/server/index.js",
     "start": "npm run server",
