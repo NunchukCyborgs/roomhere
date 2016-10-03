@@ -5,7 +5,7 @@
       -moz-transition: opacity 0.4s ease-in;
       -webkit-transition: opacity 0.4s ease-in;
     }
-    
+
     .item.carousel-item.active {
         opacity: 1;
         transition: opacity 0.4s ease-out;
@@ -45,3 +45,14 @@
         height: 300px !important;
       }
     }
+
+.featured {
+  width: 100%;
+  height: 400px;
+}
+
+.responsive-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

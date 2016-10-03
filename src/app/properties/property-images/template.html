@@ -1,5 +1,4 @@
-<carousel [interval]="interval" [noWrap]="noLoop">
-  <slide *ngFor="let slidez of slides; let i=index" [active]="slidez.active">
-    <div [style.background-image]="'url(' + slidez.image + ')'" class="image"></div>
-  </slide>
-</carousel>
+<div class="featured"><img [src]="this.slides[0] ? this.slides[0].image : ''" class="responsive-image" (click)="openGallery()" /></div>
+<div class="gallery" style="display:none" data-featherlight-gallery data-featherlight-filter="a">
+  <a *ngFor="let slidez of slides; let i = index" data-featherlight="image" [href]="slidez.image" [class]="i == 0 ? 'gallery-selector' : ''"><img /></a>
+</div>
