@@ -25,10 +25,11 @@ export class Settings {
     this.initForm();
 
     this.userService.hasAuth$.filter(i => i)
-      .flatMap(() => this.userService.loadContacts())
-      .do(i => this.contacts = i)
-      .flatMap(i => this.userService.loadLicenseId())
-      .do(i => this.licenseId = i)
+      .flatMap(() => this.userService.loadMe())
+      .map(i => {
+        this.contacts = i.contacts;
+        this.licenseId = i.license_id;
+      })
       .subscribe(i => {
         if (this.contacts && this.contacts.length && this.licenseId) {
           this.initForm(this.contacts[0].email, this.contacts[0].phone, this.licenseId);

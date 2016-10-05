@@ -2,10 +2,11 @@ import { Component, Directive, OnInit, ViewEncapsulation, Renderer } from '@angu
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
-import { isBrowser } from 'angular2-universal';
+import { isBrowser } from 'angular2-universal'
 
 import { UserService } from './users/user.service';
 import { SeoService } from './services/seo.service';
+import { getHoneybadger } from './services/honeybadger';
 
 // This generates the file, and we link to it in index.html
 require('../assets/stylesheets/app.scss');
@@ -17,13 +18,20 @@ require('../assets/stylesheets/deferred.scss');
 })
 export class App {
   public hasAuth$: Observable<boolean>;
-  constructor(private userService: UserService, private router: Router, 
-  private route: ActivatedRoute, private seoService: SeoService, private renderer: Renderer) {
-    this.hasAuth$ = this.userService.hasAuth$;
+  public noFooter$: Observable<boolean>;
+
+  constructor(private userService: UserService, private router: Router,
+    private route: ActivatedRoute, private seoService: SeoService, private renderer: Renderer) {
   }
 
   ngOnInit() {
-      this.seoService.addBaseTags(this.renderer);   
+    this.initHoneybadger();
+    this.hasAuth$ = this.userService.hasAuth$;
+    this.seoService.addBaseTags(this.renderer);
+
+    this.noFooter$ = Observable.combineLatest(this.userService.hasAuth$, this.router.events)
+      .map(i => [i[0], i[1].url])
+      .map(i => !i[0] && i[1] === '/');
   }
 
   ngAfterViewInit() {
@@ -53,5 +61,12 @@ export class App {
       const modal = $('#SettingsModal');
       openLink && modal ? openLink.click() : this.tryOpenSettingsModal();
     }, 250)
+  }
+
+  private initHoneybadger() {
+    getHoneybadger().configure({
+      api_key: '5f8b6d96',
+      environment: 'production' // This is set based on hostname === localhost
+    });
   }
 }

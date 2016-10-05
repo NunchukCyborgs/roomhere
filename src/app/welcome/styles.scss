@@ -15,10 +15,6 @@
     margin-top: 40px;
 }
 
-#scrolldiv {
-    margin-bottom: 100px;
-}
-
 p {
   color: #888;
   font-size: 13px;
@@ -42,4 +38,10 @@ p {
     top: 5px;
     right: 5px;
     color:#fff;
+}
+
+.filter-section {
+    margin: 0 -300px 10px -300px;
+    padding: 20px 300px 10px 300px;
+    background-color: #fff;
 }

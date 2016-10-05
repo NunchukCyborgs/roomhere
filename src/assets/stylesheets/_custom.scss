@@ -1,6 +1,7 @@
 /* Resets and Global Helpers */
 $topbar-height: 42px;
-$topbar-large-height: 96px;
+$topbar-large-height: 72px;
+$grey: #f2f2f2;
 
 .flex-row {
   display: flex;
@@ -32,11 +33,6 @@ div[class$="-centered"] {
   float: none !important;
   margin-left: auto !important;
   margin-right: auto !important;
-}
-
-/* Hot fix */
-body {
-  overflow: initial;
 }
 
 button[disabled], button[disabled]:hover {
@@ -97,7 +93,7 @@ button[disabled], button[disabled]:hover {
   left: 0;
   width: 60%;
   padding-left: 30px;
-  padding-right: 45px;
+  padding-right: 30px;
   bottom: 0;
   max-width: none !important;
   @include breakpoint(small only) {
@@ -106,16 +102,19 @@ button[disabled], button[disabled]:hover {
     padding-right: 20px;
     overflow-y: scroll !important;
   }
+
+  &::-webkit-scrollbar { 
+    display: none; 
+  }
 }
 
 #welcome-map {
   position: fixed !important;
-  right: 15px;
   top: $topbar-height;
   @include breakpoint(large) {
     top: $topbar-large-height;
   }
-  bottom: 40px;
+  bottom: 0;
   width: 40%;
   overflow: hidden;
   background-color: rgb(229, 227, 223);
@@ -196,6 +195,8 @@ body {
   position: relative;
   min-height: 100%;
   height: initial;
+  overflow: initial;
+  background: $grey;
 }
 
 input[type=number]::-webkit-inner-spin-button, 
@@ -257,8 +258,16 @@ input[type='number'] {
 }
 
 .top-bar {
-  position: relative;
-  z-index: 10;
+    display: none; // To be removed by top-bar.js thing in foundation
+}
+
+@include breakpoint(large) {
+  .top-bar {
+    display: block;
+  }
+  .title-bar { 
+    display: none;
+  }
 }
 
 .callout.ad {

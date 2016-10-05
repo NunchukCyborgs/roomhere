@@ -10,4 +10,4 @@
   <settings *ngIf="hasAuth$ | async" class="reveal" id="SettingsModal" data-reveal></settings>
   <a hidden data-open="SettingsModal" id="SettingsModalOpen"></a>
 </div>
-<sticky-footer></sticky-footer>
+<big-footer *ngIf="!(noFooter$ | async)"></big-footer>

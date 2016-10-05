@@ -1,21 +1,27 @@
 footer {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    left: 0;
     padding: .5rem !important;
     background-color: #44254a;
-    text-align: center;
-    height: 40px;
 }
+
 a {
-    color: #fefefe;
+    color: #f1f1f1;
     text-decoration: none;
     line-height: inherit;
     cursor: pointer;
     margin-right: 20px;
 }
+
 a:hover{
-    color: lightgrey!important;
-    
+    color: #fff;
+    text-decoration: underline;
+}
+
+img {
+    width: 150px;
+}
+
+.heading {
+    color: #fff;
+    margin: 10px 0;
+    display: inline-block;
 }

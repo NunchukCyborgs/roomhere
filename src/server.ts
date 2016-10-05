@@ -11,9 +11,19 @@ import { enableProdMode } from '@angular/core';
 import { createEngine } from 'angular2-express-engine';
 import { PrebootOptions } from 'preboot';
 
+const Honeybadger = require('honeybadger');
+const request = require('request');
+
+Honeybadger.configure({
+  apiKey: '8807ffbf',
+  environment: process.env.NODE_ENV,
+  developmentEnvironments: ['dev', 'development', 'test', 'undefined'],
+});
+
 enableProdMode();
 
 const app = express();
+app.use(Honeybadger.requestHandler); // Use *before* all other app middleware.
 app.use(require('serve-favicon')(__dirname + '/assets/images/favicon.ico'));
 const ROOT = path.join(path.resolve(__dirname, '..'));
 
@@ -38,6 +48,7 @@ app.use(require('express-minify-html')({
 
 app.use(cookieParser('Angular 2 Universal'));
 app.use(bodyParser.json());
+app.use(Honeybadger.errorHandler);  // Use *after* all other app middleware.
 
 // Serve static files
 app.use('/', express.static(path.join(__dirname, 'assets'), { maxAge: 30 }));
@@ -57,15 +68,13 @@ function ngApp(req, res) {
   });
 }
 
-// Routes with html5pushstate
-// ensure routes match client-side-app
-app.get('/', ngApp);
-app.get('/faq', ngApp);
-app.get('/privacy-policy', ngApp);
-app.get('/settings', ngApp);
-app.get('/properties/*', ngApp);
+function propertiesRoute(req, res) {
+  request.head(`https://api.roomhere.io/${req.url}`, function (error, response, body) {
+      response.statusCode == 404 ? missingResource(req, res) : ngApp(req, res)
+  });
+}
 
-app.get('*', function (req, res) {
+function missingResource(req, res) {
   res.status(404);
 
   if (req.accepts('html')) {
@@ -76,8 +85,17 @@ app.get('*', function (req, res) {
   } else {
     res.type('txt').send('Not found');
   }
+}
 
-});
+// Routes with html5pushstate
+// ensure routes match client-side-app
+app.get('/', ngApp);
+app.get('/faq', ngApp);
+app.get('/privacy-policy', ngApp);
+app.get('/settings', ngApp);
+app.get('/properties/*', propertiesRoute);
+
+app.get('*', missingResource);
 
 // Server
 let server = app.listen(process.env.PORT || 3000, () => {

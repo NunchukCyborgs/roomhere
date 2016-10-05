@@ -110,6 +110,7 @@ var serverConfig = {
 // Default config
 var defaultConfig = {
   context: __dirname,
+  devtool: 'source-map',
   resolve: {
     root: root('/src')
   },

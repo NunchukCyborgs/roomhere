@@ -7,6 +7,7 @@ import 'rxjs/Rx';
 
 import { Property, PropertyFacet } from './property';
 import { BASE_API_URL } from '../config';
+import { getHoneybadger } from '../services/honeybadger';
 
 @Injectable()
 export class PropertyService {
@@ -14,6 +15,8 @@ export class PropertyService {
   private _propertyBySlug: Property = new Property();
   public myProperties$: BehaviorSubject<Property[]>;
   private _myProperties: Property[] = [];
+  public superProperties$: BehaviorSubject<Property[]>;
+  private _superProperties: Property[] = [];
 
   public lastPage$: BehaviorSubject<number> = new BehaviorSubject(Number.MAX_SAFE_INTEGER)
   private viewCaches: string[] = [];
@@ -31,7 +34,7 @@ export class PropertyService {
     const seq = this.http
       .get(`${BASE_API_URL}/properties/${slug}`)
       .map(i => i.json())
-      .do(i => this.propertyBySlug$.next(this._propertyBySlug = i));
+      .do(i => this.propertyBySlug$.next(this._propertyBySlug = i.id ? i : null));
 
     seq.subscribe();
     return seq
@@ -47,6 +50,17 @@ export class PropertyService {
     seq.subscribe();
     return seq
       .flatMap(i => this.myProperties$);
+  }
+
+  public getSuperProperties$(pageNumber = 1, perPage = 100, query = ''): Observable<any> {
+    const seq = this.http
+      .get(`${BASE_API_URL}/properties?page=${pageNumber}&per_page=${perPage}&q=${query}`)
+      .map(i => i.json())
+      .do(i => this.superProperties$.next(this._superProperties = i));
+
+    seq.subscribe();
+    return seq
+      .flatMap(i => this.superProperties$);
   }
 
   public update(property: Property): Observable<any> {
@@ -82,6 +96,16 @@ export class PropertyService {
 
   constructor(private http: HttpService) {
     this.myProperties$ = new BehaviorSubject(this._myProperties);
+    this.superProperties$ = new BehaviorSubject(this._superProperties);
     this.propertyBySlug$ = new BehaviorSubject(this._propertyBySlug);
+
+    Observable.combineLatest(this.myProperties$, this.superProperties$, this.propertyBySlug$)
+      .subscribe(i => getHoneybadger(true)
+        .setContext({
+            myProperties: i[0],
+            superProperties: i[1],
+            propertyBySlug: i[2],
+        })
+      );
   }
 }

@@ -1,4 +1,4 @@
-<div class="property-view-container">
+<div class="property-view-container" *ngIf="property !== null">
     <div *ngIf="(actionState$ | async)?.shouldShow(property)" stick class="callout hide-for-small-only call-to-actions--top property-actions-group-top">
         <property-actions-group (submit)="updatePropertyAndActionState(propEdit.property)" [actionState]="actionState$ | async" (shareFacebook)="shareFacebook()"
             [tweetText]="tweetText"></property-actions-group>
@@ -51,10 +51,21 @@
     </div>
     <div *ngIf="(actionState$ | async)?.shouldShow(property)" class="row show-for-small-only callout-bottom sticky-actions">
         <div class="column">
-            <property-actions-group (submit)="updatePropertyAndActionState(propEdit.property)" [actionState]="actionState$ | async"
-                (shareFacebook)="shareFacebook()" [tweetText]="tweetText"></property-actions-group>
+            <property-actions-group (submit)="updatePropertyAndActionState(propEdit.property)" [actionState]="actionState$ | async" (shareFacebook)="shareFacebook()"
+                [tweetText]="tweetText"></property-actions-group>
         </div>
     </div>
     <property-map *ngIf="mapOptions" [properties]="[property]" [mapOptions]="mapOptions"></property-map>
 </div>
+<div *ngIf="property === null">
+    <div class="row">
+        <div class="column small-centered small-6">
+            <h1>Uh oh! I can't find this property!</h1>
+
+            <h5>I'm not sure how you got here, but I can help you escape! <a [routerLink]="['']">Follow me back home</a>!</h5>
+
+        </div>
+    </div>
+</div>
+
 <rent-now *ngIf="property?.owner" [owner]="property.owner" id="RentNowModal" class="reveal" data-reveal></rent-now>
