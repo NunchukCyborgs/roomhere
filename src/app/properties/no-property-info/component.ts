@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Property } from '../property';
 
 @Component({
   selector: 'no-property-info',
@@ -6,5 +7,5 @@ import { Component } from '@angular/core';
   template: require('./template.html').toString()
 })
 export class NoPropertyInfo {
-  
+  @Input() property: Property;
 }

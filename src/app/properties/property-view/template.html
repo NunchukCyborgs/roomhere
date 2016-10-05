@@ -39,7 +39,7 @@
                     </div>
                 </div>
             </div>
-            <no-property-info *ngIf="!property?.bedrooms || !property?.bathrooms || !property?.price"></no-property-info>
+            <no-property-info [property]="property" *ngIf="!property?.bedrooms || !property?.bathrooms || !property?.price"></no-property-info>
             <fieldset class="fieldset" class="hide" [class.hide]="!(isEditing$ | async)">
                 <legend>
                     <h3>{{property.address1}}</h3>

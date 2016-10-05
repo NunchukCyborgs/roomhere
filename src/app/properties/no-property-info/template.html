@@ -1,9 +1,31 @@
-<div class="row" id="noPropInfo">
-    <div class="large-7 columns">
-        <h2>Is This Your Property?</h2>
-        <p>If this is your property join Roomhere and claim your rental.  Then you can edit the information about this property in your Dashboard.<br>In addition to this you can respond to consumer reviews of your rental. Reach thousands of potential tenants with Roomhere.</p>
-    </div>
-    <div class="large-5 columns" id="tree">
-        <div><img src="/images/PaperNailed2tree.jpg"/></div>
+<div class="wrapper">
+    <div class="row">
+        <div class="large-6 columns">
+            <section *ngIf="!property.can_edit">
+                <h2>Is This Your Property?</h2>
+                <p>
+                    Tap the sign up link at the top to get started. Then you can edit the information about this property and any others that
+                    you own.
+                </p>
+            </section>
+            <section *ngIf="property.can_edit">
+                <h2>Show your property to the world!</h2>
+
+                <p>
+                    To show your property in Roomhere search results, we need at a minimum the <strong>number of bedrooms, bathrooms and price</strong>                    for the property. We filter out properties that lack this information because we want our listings to
+                    be immediately useful to our users.
+                </p>
+
+                <p>
+                    Simply tap "Edit Property" to get started.
+                </p>
+            </section>
+        </div>
+        <div class="large-6 columns float-right tree-image-wrapper" style="float: right !important;">
+            <img class="tree-image" src="/images/PaperNailed2tree.jpg" />
+            <div class="property-image-wrapper">
+                <img class="property-image" *ngIf="property?.images && property.images[0]?.url" [src]="property.images[0].url" />
+            </div>
+        </div>
     </div>
 </div>
