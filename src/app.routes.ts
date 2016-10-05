@@ -10,7 +10,6 @@ import { MissingResource } from './app/missing-resource/component';
 const routes: Routes = [
   { path: '', component: HomePage },
   { path: 'faq', component: FAQ },
-  { path: 'faq/:extra', component: FAQ },
   { path: 'privacy-policy', component: PrivacyPolicy },
   { path: 'properties/:slug', component: PropertyView },
   { path: 'settings', component: Settings },

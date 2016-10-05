@@ -30,6 +30,7 @@ import { PropertyActionsGroup } from './app/properties/property-actions-group/co
 import { PropertyEditImage } from './app/properties/property-edit-image/component';
 import { PropertyEdit } from './app/properties/property-edit/component';
 import { RentNow } from './app/properties/rent-now/component';
+import { NoPropertyInfo } from './app/properties/no-property-info/component';
 
 // Other
 import { App } from './app/component';
@@ -84,7 +85,7 @@ export const DECLARTIONS = [
   SimilarProperties, PropertyPreview, PropertyAmenities, PropertyActionsGroup, PropertyEditImage, PropertyEdit,
   RentNow, BigFooter, Welcome, FAQ, PrivacyPolicy, Dashboard, HomePage, SimpleSearchPipe, Carousel, ControlMessages,
   ImageUpload, NumberTicker, PropertyMap, Slide, UploadProgress, PropertySlider, PropertyFilters, PropertyAccordion, 
-  MissingResource, App, Logo, TopBar, SuperUser
+  MissingResource, App, Logo, TopBar, SuperUser, NoPropertyInfo
 ];
 
 export const PROVIDERS = [

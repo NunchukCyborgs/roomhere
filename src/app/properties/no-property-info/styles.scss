@@ -1,0 +1,27 @@
+.wrapper {
+    margin-top:50px;
+    margin-bottom:50px;
+}
+.tree-image-wrapper {
+    position: relative;
+    text-align: center;
+    .tree-image {
+
+    }
+
+    .property-image-wrapper {
+        padding-top: 12%;
+    }
+
+    .property-image {
+        position: absolute;
+        width: 50%;
+        left: 0;
+        right: 0;
+        margin: auto auto;
+        top: 0;
+        bottom: 0;
+        border-radius: 5%;
+        transform: rotate(2deg);
+    }
+}
