@@ -1,4 +1,4 @@
 <div class="featured"><img [src]="this.slides[0] ? this.slides[0].image : ''" class="responsive-image" (click)="openGallery()" /></div>
 <div class="gallery" style="display:none" data-featherlight-gallery data-featherlight-filter="a">
-  <a *ngFor="let slidez of slides; let i = index" data-featherlight="image" [href]="slidez.image" [class]="i == 0 ? 'gallery-selector' : ''"><img /></a>
+  <a *ngFor="let slidez of slides; let i = index" [href]="slidez.image" [class]="i == 0 ? 'gallery-selector' : ''"><img /></a>
 </div>
