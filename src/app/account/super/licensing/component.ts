@@ -30,7 +30,7 @@ export class SuperLicensing {
       .do(i => this.loadedContacts = Boolean(i !== undefined))
       .do(i => this.contacts = i)
       .filter(() => Boolean(this.contacts && this.contacts.length))
-      .subscribe(() => this.initForm(this.contacts[0].email, this.contacts[0].phone));
+      .subscribe(() => this.initForm(this.contacts[0].email || '', this.contacts[0].phone || ''));
   }
 
   private initForm(email = '', phone = '') {
