@@ -2,6 +2,21 @@ footer {
     padding: .5rem !important;
     background-color: #44254a;
 }
+.fa{
+    background-color: #fff;
+    border-radius: 30px;
+    color:#44254a;
+    display: inline-block;
+    height: 30px;
+    line-height: 30px;
+    margin: auto 3px;
+    width: 30px;
+    font-size: 18px;
+    text-align: center;
+}
+.fa:hover{
+    background-color:#44254a;
+}
 
 a {
     color: #f1f1f1;
@@ -24,4 +39,20 @@ img {
     color: #fff;
     margin: 10px 0;
     display: inline-block;
+    border-bottom:1px solid #efefef;
+}
+i{
+    font-size: 21px;
+}
+.social [class*="fa fa-"] {
+    background-color: #333;
+    border-radius: 30px;
+    color: #fff;
+    display: inline-block;
+    height: 30px;
+    line-height: 30px;
+    margin: auto 3px;
+    width: 30px;
+    font-size: 15px;
+    text-align: center;
 }
