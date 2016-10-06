@@ -1,5 +1,5 @@
 <div class="image-wrapper overlay-fade-in">
-    <a target="_blank" [href]="'/properties/' + property.slug">
+    <a target="_blank" [href]="propertyUrl">
       <div class="chrome-wrap-fix">
         <div class="responsive-image">
           <img *ngIf="property?.images[0]?.url" class="property-image" [src]="property.images[0].url">
