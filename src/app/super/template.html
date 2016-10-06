@@ -3,46 +3,52 @@
     <div class="small-centered medium-11 large-10 columns">
       <h2>Super Properties!</h2>
 
-      <div *ngIf="(properties$ | async)?.length > 5" class="search-properties">
-        <div class="row">
-          <div class="small-12 medium-6 large-5 column">
-            <div class="input-group">
-              <label>Filter Results
+      <super-licensing></super-licensing>
+
+      <div class="callout-card">
+        <div class="callout-card-content">
+          <div *ngIf="(properties$ | async)?.length > 5" class="search-properties">
+            <div class="row">
+              <div class="small-12 medium-6 large-5 column">
+                <div class="input-group">
+                  <label>Filter Results
                 <span class="input-group-label"><i class="icon-search"></i></span>
                 <input class="input-group-field" type="text" placeholder="Find Your Property" [(ngModel)]="localQuery">
               </label>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
 
-      <div class="row">
-          <div class="small-12 medium-6 large-5 column">
-            <div class="input-group">
-              <label>Search
+          <div class="row">
+            <div class="small-12 medium-6 large-5 column">
+              <div class="input-group">
+                <label>Search
                 <span class="input-group-label"><i class="icon-search"></i></span>
                 <input class="input-group-field" type="text" placeholder="Find Your Property" [(ngModel)]="query">
               </label>
+              </div>
             </div>
           </div>
-        </div>
 
-      <div class="row">
-        <div class="medium-3 columns">
-          <label>Page Number
+          <div class="row">
+            <div class="medium-3 columns">
+              <label>Page Number
         <input type="text" [(ngModel)]="pageNumber">
       </label>
-        </div>
-        <div class="medium-3 columns">
-          <label>Per Page
+            </div>
+            <div class="medium-3 columns">
+              <label>Per Page
         <input type="text" [(ngModel)]="perPage">            
       </label>
-        </div>
-        <div class="medium-6 columns">
-          <div class="button-group">
-            <button type="button" class="button" (click)="loadProperties()">Load Properties</button>
-            <button type="button" class="button" (click)="nextPage(-1); loadProperties()">Previous Page</button>
-            <button type="button" class="button success" (click)="nextPage(1); loadProperties()">Next Page</button>
+            </div>
+            <div class="medium-6 columns">
+              <div class="button-group">
+                <button type="button" class="button" (click)="loadProperties()">Load Properties</button>
+                <button type="button" class="button" (click)="nextPage(-1); loadProperties()">Previous Page</button>
+                <button type="button" class="button success" (click)="nextPage(1); loadProperties()">Next Page</button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -59,21 +65,25 @@
       </div>
 
       <div class="row">
-        <div class="medium-3 columns">
-          <label>Page Number
+        <div class="callout-card">
+          <div class="callout-card-content">
+            <div class="medium-3 columns">
+              <label>Page Number
         <input type="text" [(ngModel)]="pageNumber">
       </label>
-        </div>
-        <div class="medium-3 columns">
-          <label>Per Page
+            </div>
+            <div class="medium-3 columns">
+              <label>Per Page
         <input type="text" [(ngModel)]="perPage">            
       </label>
-        </div>
-        <div class="medium-6 columns">
-          <div class="button-group">
-            <button type="button" class="button" (click)="loadProperties()">Load Properties</button>
-            <button type="button" class="button" (click)="nextPage(-1); loadProperties()">Previous Page</button>
-            <button type="button" class="button success" (click)="nextPage(1); loadProperties()">Next Page</button>
+            </div>
+            <div class="medium-6 columns">
+              <div class="button-group">
+                <button type="button" class="button" (click)="loadProperties()">Load Properties</button>
+                <button type="button" class="button" (click)="nextPage(-1); loadProperties()">Previous Page</button>
+                <button type="button" class="button success" (click)="nextPage(1); loadProperties()">Next Page</button>
+              </div>
+            </div>
           </div>
         </div>
       </div>

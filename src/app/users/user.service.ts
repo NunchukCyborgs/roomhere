@@ -63,6 +63,13 @@ export class UserService {
     return this.http.patch(`${BASE_API_URL}/auth/password`, user);
   }
 
+  public loadContactsByLicenseId(licenseId: string): Observable<Contact[]> {
+    // Super only API
+    return this.http.get(`${BASE_API_URL}/licenses/${licenseId}`)
+      .map(i => i.json())
+      .map(i => Array.isArray ? i : [i]);
+  }
+
   public setLicenseId(licenseId: string): Observable<Response> {
     return this.loadMe()
       .map(i => i.license_id)
@@ -76,12 +83,12 @@ export class UserService {
       });
   }
 
-  private createContact(email?: string, phone?: string): Observable<Response> {
+  public createContact(email?: string, phone?: string): Observable<Response> {
     const contact = Object.assign({}, email ? { email: email } : {}, phone ? { phone: phone } : {});
     return this.http.post(`${BASE_API_URL}/contacts`, { contact: contact });
   }
 
-  private updateContact(id: number, email?: string, phone?: string): Observable<Response> {
+  public updateContact(id: number, email?: string, phone?: string): Observable<Response> {
     const contact = Object.assign({}, email ? { email: email } : {}, phone ? { phone: phone } : {});
     return this.http.patch(`${BASE_API_URL}/contacts/${id}`, { contact: contact });
   }

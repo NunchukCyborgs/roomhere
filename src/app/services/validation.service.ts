@@ -34,7 +34,7 @@ export class ValidationService {
 
   static phoneNumberValidator(control) {
     const match = control.value.match(/\d/g); 
-    if (match && (match.length === 10 || match.length === 11 || control.value.length === 0)) {
+    if (control.value.length === 0 || (match && (match.length === 10 || match.length === 11))) {
       return null;
     } else {
       return { 'invalidPhoneNumber': true };
@@ -43,7 +43,7 @@ export class ValidationService {
 
   static emailValidator(control) {
     // RFC 2822 compliant regex
-    if (control.value.match(/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/)) {
+    if (!control.value.length || control.value.match(/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/)) {
       return null;
     } else {
       return { 'invalidEmailAddress': true };

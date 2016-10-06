@@ -1,0 +1,45 @@
+<div class="row">
+  <div class="column small-3">
+    <input type="text" [(ngModel)]="licenseId" />
+    <button type="button" (click)="loadContacts()" class="button success">Load Contacts</button>
+  </div>
+  <div class="column small-9">
+    <form [formGroup]="settingsForm" (ngSubmit)="onSubmit()">
+      <div class="form-group row collapse">
+        <div class="small-2 columns">
+          <span class="prefix"><i class="icon-mail"></i></span>
+        </div>
+        <div class="small-10  columns">
+          <input type="email" placeholder="email" formControlName="email" class="form-control" id="email">
+        </div>
+        <control-messages [control]="settingsForm.controls.email" class="alert">{{getEmailOrPhoneRequiredMessage()}}</control-messages>
+      </div>
+      <div class="form-group row collapse">
+        <div class="small-2 columns">
+          <span class="prefix"><i class="icon-phone"></i></span>
+        </div>
+        <div class="small-10  columns">
+          <input type="tel" placeholder="phone number" formControlName="phone" class="form-control" id="phone">
+        </div>
+        <control-messages [control]="settingsForm.controls.phone" class="alert">{{getEmailOrPhoneRequiredMessage()}}</control-messages>
+      </div>
+
+      <p class="text-center">
+        <button type="submit" class="button large" [attr.disabled]="!settingsForm.valid || getEmailOrPhoneRequiredMessage() ? true : null">submit</button>
+      </p>
+
+      <h6>
+        Please enter the contact information you would like to show to potential renters. You can leave the email or phone blank
+        if you prefer one method over the other.
+      </h6>
+
+      <div *ngIf="success" class="callout success">
+        <h3>Success!</h3>
+
+        <p>
+          Your settings have been updated
+        </p>
+      </div>
+    </form>
+  </div>
+</div>

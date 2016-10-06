@@ -11,6 +11,7 @@ import { routing } from './app.routes';
 
 // Super Users
 import { SuperUser } from './app/super/component';
+import { SuperLicensing } from './app/super/licensing/component';
 
 // Users
 import { Login } from './app/users/login/component';
@@ -85,7 +86,7 @@ export const DECLARTIONS = [
   SimilarProperties, PropertyPreview, PropertyAmenities, PropertyActionsGroup, PropertyEditImage, PropertyEdit,
   RentNow, BigFooter, Welcome, FAQ, PrivacyPolicy, Dashboard, HomePage, SimpleSearchPipe, Carousel, ControlMessages,
   ImageUpload, NumberTicker, PropertyMap, Slide, UploadProgress, PropertySlider, PropertyFilters, PropertyAccordion, 
-  MissingResource, App, Logo, TopBar, SuperUser, NoPropertyInfo
+  MissingResource, App, Logo, TopBar, SuperUser, NoPropertyInfo, SuperLicensing
 ];
 
 export const PROVIDERS = [

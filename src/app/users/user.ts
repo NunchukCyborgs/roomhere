@@ -17,7 +17,7 @@ export class User {
 }
 
 export interface Contact {
-  id: number;
+  id?: number;
   email: string;
   phone: string;
 }
