@@ -14,9 +14,10 @@ import { ValidationService } from '../../services/validation.service';
   template: require('./template.html').toString()
 })
 export class SuperLicensing {
+  public loadedContacts: boolean;
   public success: boolean;
   public settingsForm: any;
-  public contacts: Contact[];
+  public contacts: Contact[] = null;
   public licenseId: string = '';
   constructor(private userService: UserService, private formBuilder: FormBuilder) { }
 
@@ -26,8 +27,9 @@ export class SuperLicensing {
 
   public loadContacts() {
     this.userService.loadContactsByLicenseId(this.licenseId)
+      .do(i => this.loadedContacts = Boolean(i !== undefined))
       .do(i => this.contacts = i)
-      .filter(() => Boolean(this.contacts.length))
+      .filter(() => Boolean(this.contacts && this.contacts.length))
       .subscribe(() => this.initForm(this.contacts[0].email, this.contacts[0].phone));
   }
 
@@ -43,7 +45,7 @@ export class SuperLicensing {
     const email = controls.email.value;
     const phone = controls.phone.value;
 
-    const seq = this.contacts.length ? this.userService.createContact(email, phone) : this.userService.updateContact(this.contacts[0].id, email, phone);
+    const seq = this.contacts.length ? this.userService.updateContact(this.contacts[0].id, email, phone) : this.userService.createContact(email, phone, this.licenseId);
     seq.subscribe(i => this.success = i.ok);
   }
 
