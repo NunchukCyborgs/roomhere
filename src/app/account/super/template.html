@@ -3,7 +3,11 @@
     <div class="small-centered medium-11 large-10 columns">
       <h2>Super Properties!</h2>
 
-      <super-licensing></super-licensing>
+      <div class="callout-card">
+        <div class="callout-card-content">
+          <super-licensing></super-licensing>
+        </div>
+      </div>
 
       <div class="callout-card">
         <div class="callout-card-content">
@@ -64,25 +68,23 @@
         </h1>
       </div>
 
-      <div class="row">
-        <div class="callout-card">
-          <div class="callout-card-content">
-            <div class="medium-3 columns">
-              <label>Page Number
+      <div class="callout-card">
+        <div class="callout-card-content">
+          <div class="medium-3 columns">
+            <label>Page Number
         <input type="text" [(ngModel)]="pageNumber">
       </label>
-            </div>
-            <div class="medium-3 columns">
-              <label>Per Page
+          </div>
+          <div class="medium-3 columns">
+            <label>Per Page
         <input type="text" [(ngModel)]="perPage">            
       </label>
-            </div>
-            <div class="medium-6 columns">
-              <div class="button-group">
-                <button type="button" class="button" (click)="loadProperties()">Load Properties</button>
-                <button type="button" class="button" (click)="nextPage(-1); loadProperties()">Previous Page</button>
-                <button type="button" class="button success" (click)="nextPage(1); loadProperties()">Next Page</button>
-              </div>
+          </div>
+          <div class="medium-6 columns">
+            <div class="button-group">
+              <button type="button" class="button" (click)="loadProperties()">Load Properties</button>
+              <button type="button" class="button" (click)="nextPage(-1); loadProperties()">Previous Page</button>
+              <button type="button" class="button success" (click)="nextPage(1); loadProperties()">Next Page</button>
             </div>
           </div>
         </div>

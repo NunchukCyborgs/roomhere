@@ -66,8 +66,7 @@ export class UserService {
   public loadContactsByLicenseId(licenseId: string): Observable<Contact[]> {
     // Super only API
     return this.http.get(`${BASE_API_URL}/licenses/${licenseId}`)
-      .map(i => i.json())
-      .map(i => Array.isArray ? i : [i]);
+      .map(i => i.json().contacts);
   }
 
   public setLicenseId(licenseId: string): Observable<Response> {
@@ -83,9 +82,9 @@ export class UserService {
       });
   }
 
-  public createContact(email?: string, phone?: string): Observable<Response> {
+  public createContact(email?: string, phone?: string, licenseId?: string): Observable<Response> {
     const contact = Object.assign({}, email ? { email: email } : {}, phone ? { phone: phone } : {});
-    return this.http.post(`${BASE_API_URL}/contacts`, { contact: contact });
+    return this.http.post(`${BASE_API_URL}/${licenseId ? `licenses/${licenseId}/` : ''}contacts`, { contact: contact });
   }
 
   public updateContact(id: number, email?: string, phone?: string): Observable<Response> {

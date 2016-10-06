@@ -10,7 +10,7 @@ import * as cookieParser from 'cookie-parser';
 import { enableProdMode } from '@angular/core';
 import { createEngine } from 'angular2-express-engine';
 import { PrebootOptions } from 'preboot';
-import { DEFAULT_TENENT } from './app/config';
+import { DEFAULT_TENANT } from './app/config';
 
 const Honeybadger = require('honeybadger');
 const request = require('request');
@@ -70,7 +70,7 @@ function ngApp(req, res) {
 }
 
 function propertiesRoute(req, res) {
-  request.head(`https://api.roomhere.io/${req.url.replace(`${DEFAULT_TENENT}/`, 'properties/')}`, function (error, response, body) {
+  request.head(`https://api.roomhere.io/${req.url.replace(`${DEFAULT_TENANT}/`, 'properties/')}`, function (error, response, body) {
       response.statusCode == 404 ? missingResource(req, res) : ngApp(req, res)
   });
 }
@@ -94,7 +94,7 @@ app.get('/', ngApp);
 app.get('/faq', ngApp);
 app.get('/privacy-policy', ngApp);
 app.get('/settings', ngApp);
-app.get(`/${DEFAULT_TENENT}/*`, propertiesRoute);
+app.get(`/${DEFAULT_TENANT}/*`, propertiesRoute);
 
 app.get('*', missingResource);
 

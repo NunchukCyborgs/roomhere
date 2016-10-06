@@ -2,9 +2,15 @@
   <div class="column small-3">
     <input type="text" [(ngModel)]="licenseId" />
     <button type="button" (click)="loadContacts()" class="button success">Load Contacts</button>
+    <div class="callout success" *ngIf="loadedContacts">
+      Loaded Contacts!
+    </div>
+    <div class="callout warning" *ngIf="loadedContacts === false">
+      Failed to load contacts
+    </div>
   </div>
   <div class="column small-9">
-    <form [formGroup]="settingsForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="settingsForm">
       <div class="form-group row collapse">
         <div class="small-2 columns">
           <span class="prefix"><i class="icon-mail"></i></span>
@@ -25,7 +31,7 @@
       </div>
 
       <p class="text-center">
-        <button type="submit" class="button large" [attr.disabled]="!settingsForm.valid || getEmailOrPhoneRequiredMessage() ? true : null">submit</button>
+        <button type="button" (click)="onSubmit()" class="button large" [attr.disabled]="!settingsForm.valid || getEmailOrPhoneRequiredMessage() ? true : null">submit</button>
       </p>
 
       <h6>
