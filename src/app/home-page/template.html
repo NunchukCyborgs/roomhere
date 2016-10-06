@@ -1,3 +1,0 @@
-<welcome *ngIf="!(hasAuth$ | async)"></welcome>
-<dashboard *ngIf="(hasAuth$ | async) && !(superuser$ | async)"></dashboard>
-<super-user *ngIf="(hasAuth$ | async) && (superuser$ | async)"></super-user>

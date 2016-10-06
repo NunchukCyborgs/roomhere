@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { Property } from '../properties/property';
-import { PropertyService } from '../properties/property.service';
-import { UserService } from '../users/user.service';
+import { Property } from '../../properties/property';
+import { PropertyService } from '../../properties/property.service';
+import { UserService } from '../../users/user.service';
 
 @Component({
   selector: 'super-user',

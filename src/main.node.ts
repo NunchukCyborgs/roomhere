@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
 import { UniversalModule } from 'angular2-universal';
-
 import { routing } from './app.routes';
 
 //////////////////////////////////////////
@@ -10,8 +8,8 @@ import { routing } from './app.routes';
 //////////////////////////////////////////
 
 // Super Users
-import { SuperUser } from './app/super/component';
-import { SuperLicensing } from './app/super/licensing/component';
+import { SuperUser } from './app/account/super/component';
+import { SuperLicensing } from './app/account/super/licensing/component';
 
 // Users
 import { Login } from './app/users/login/component';
@@ -39,9 +37,9 @@ import { BigFooter } from './app/footer/component';
 import { Welcome } from './app/welcome/component';
 import { FAQ } from './app/faq/component';
 import { PrivacyPolicy } from './app/privacy-policy/component';
-import { Dashboard } from './app/dashboard/component';
+import { Dashboard } from './app/account/dashboard/component';
 import { MissingResource } from './app/missing-resource/component';
-import { HomePage } from './app/home-page/component';
+import { AccountPage } from './app/account/component';
 
 // Components
 import { Carousel } from './app/components/carousel/component';
@@ -84,7 +82,7 @@ import { CookieNode } from './app/services/cookies/cookie-node';
 export const DECLARTIONS = [
   Login, Register, ForgotPassword, ResetPassword, Settings, PropertyView, PropertyImages, PropertyReviews,
   SimilarProperties, PropertyPreview, PropertyAmenities, PropertyActionsGroup, PropertyEditImage, PropertyEdit,
-  RentNow, BigFooter, Welcome, FAQ, PrivacyPolicy, Dashboard, HomePage, SimpleSearchPipe, Carousel, ControlMessages,
+  RentNow, BigFooter, Welcome, FAQ, PrivacyPolicy, Dashboard, AccountPage, SimpleSearchPipe, Carousel, ControlMessages,
   ImageUpload, NumberTicker, PropertyMap, Slide, UploadProgress, PropertySlider, PropertyFilters, PropertyAccordion, 
   MissingResource, App, Logo, TopBar, SuperUser, NoPropertyInfo, SuperLicensing
 ];

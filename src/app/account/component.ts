@@ -3,10 +3,10 @@ import { Observable } from 'rxjs/Observable';
 import { UserService } from '../users/user.service';
 
 @Component({
-  selector: 'home-page',
+  selector: 'account-page',
   template: require('./template.html').toString() 
 })
-export class HomePage {
+export class AccountPage {
   public hasAuth$: Observable<boolean>;
   public superuser$: Observable<boolean>;
   constructor(private userService: UserService) { }
