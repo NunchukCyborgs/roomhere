@@ -1,4 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Router } from '@angular/router';
 import { isBrowser } from 'angular2-universal';
 
 @Component({
@@ -10,4 +11,12 @@ export class TopBar {
   @Input() hasAuth: boolean;
   @Input() isLandlord: boolean;
   @Output() logout: EventEmitter<any> = new EventEmitter();
+
+  constructor(private router: Router) {}
+
+  ngOnInit() {
+    if (isBrowser) {
+      this.router.events.subscribe(() => $('.top-bar a').on('click', () => $('.title-bar button[data-toggle]').click()));
+    }
+  }
 }
