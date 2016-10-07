@@ -25,9 +25,6 @@
         <li role="menuitem" *ngIf="!hasAuth">
           <a class="aPadTop" data-open="LoginModal">Login</a>
         </li>
-        <li role="menuitem" *ngIf="hasAuth">
-          <a class="aPadTop" (click)="logout.emit(true)">Log Out</a>
-        </li>
         <li class="is-dropdown-submenu-parent" *ngIf="hasAuth">
           <a class="aPadTop" [routerLinkActive]="['active', 'router-link-active']" [routerLink]="['settings']">
             <span class="hide-for-small show-for-large"><i class="fa large fa-cog"></i></span>
