@@ -19,12 +19,17 @@
         <li role="menuitem">
           <a class="aPadTop" [routerLinkActive]="['active', 'router-link-active']" [routerLink]="['']">Home</a>
         </li>
-        <li role="menuitem">
-          <a *ngIf="hasAuth" class="aPadTop" [routerLinkActive]="['active', 'router-link-active']" [routerLink]="['dashboard']">Dashboard</a>
+        <li role="menuitem" *ngIf="hasAuth && isLandlord">
+          <a class="aPadTop" [routerLinkActive]="['active', 'router-link-active']" [routerLink]="['dashboard']">Dashboard</a>
+        </li>
+        <li role="menuitem" *ngIf="hasAuth && !isLandlord">
+          <a class="aPadTop" [routerLinkActive]="['active', 'router-link-active']" [routerLink]="['settings']">
+            <span>Become a Landlord</span>
+          </a>
         </li>
         <li role="menuitem" *ngIf="!hasAuth">
           <a class="aPadTop" data-open="RegisterModal">
-            Landlord Sign Up
+            Sign Up
           </a>
         </li>
         <li role="menuitem" *ngIf="!hasAuth">
@@ -33,7 +38,7 @@
         <li role="meduitem" *ngIf="hasAuth">
           <a class="aPadTop" (click)="logout.emit(true)">Log Out</a>
         </li>
-        <li role="menuitem" *ngIf="hasAuth">
+        <li role="menuitem" *ngIf="hasAuth && isLandlord">
           <a class="aPadTop" [routerLinkActive]="['active', 'router-link-active']" [routerLink]="['settings']">
             <span class="hide-for-small show-for-large"><i class="fa large fa-cog"></i></span>
             <span class="hide-for-large">Settings</span>

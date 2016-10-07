@@ -4,7 +4,7 @@ import { FormBuilder } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import { isBrowser } from 'angular2-universal'
 
-import { UserService } from './users/user.service';
+import { UserService, Me } from './users/user.service';
 import { SeoService } from './services/seo.service';
 import { getHoneybadger } from './services/honeybadger';
 
@@ -18,6 +18,7 @@ require('../assets/stylesheets/deferred.scss');
 })
 export class App {
   public hasAuth$: Observable<boolean>;
+  public me$: Observable<Me>;
   public noFooter$: Observable<boolean>;
 
   constructor(private userService: UserService, private router: Router,
@@ -27,6 +28,7 @@ export class App {
   ngOnInit() {
     this.initHoneybadger();
     this.hasAuth$ = this.userService.hasAuth$;
+    this.me$ = this.userService.me$
     this.seoService.addBaseTags(this.renderer);
 
     this.noFooter$ = Observable.combineLatest(this.userService.hasAuth$, this.router.events)

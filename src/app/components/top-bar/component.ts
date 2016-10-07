@@ -8,5 +8,6 @@ import { isBrowser } from 'angular2-universal';
 })
 export class TopBar {
   @Input() hasAuth: boolean;
+  @Input() isLandlord: boolean;
   @Output() logout: EventEmitter<any> = new EventEmitter();
 }
