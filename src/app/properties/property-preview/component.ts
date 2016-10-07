@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Property } from '../property';
-import { BASE_API_URL, DEFAULT_TENANT } from '../../config';
+import { DEFAULT_TENANT } from '../../config';
 
 @Component({
   selector: 'property-preview',

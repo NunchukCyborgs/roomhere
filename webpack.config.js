@@ -1,13 +1,16 @@
-var webpack = require('webpack');
-var path = require('path');
-var resolveNgRoute = require('@angularclass/resolve-angular-routes');
-var autoprefixer = require('autoprefixer');
-var purify = require('purifycss-webpack-plugin');
-var ExtractPlugin = require('extract-text-webpack-plugin')
-var extractCritical = new ExtractPlugin('critical.css');
-var extractDeferred = new ExtractPlugin('deferred.css');
+const webpack = require('webpack');
+const path = require('path');
+const resolveNgRoute = require('@angularclass/resolve-angular-routes');
+const autoprefixer = require('autoprefixer');
+const purify = require('purifycss-webpack-plugin');
+const ExtractPlugin = require('extract-text-webpack-plugin')
+const extractCritical = new ExtractPlugin('critical.css');
+const extractDeferred = new ExtractPlugin('deferred.css');
 
-var htmlQuery = {
+const BASE_API_URL = process.env.NODE_ENV === 'production' ? 'https://api.roomhere.io' : 'https://test-api.roomhere.io';
+const BASE_URL = process.env.NODE_ENV === 'production' ? 'https://roomhere.io' : 'http://localhost:3000';
+
+const htmlQuery = {
   minimize: true,
   removeAttributeQuotes: false,
   caseSensitive: true,
@@ -20,7 +23,7 @@ var htmlQuery = {
   customAttrAssign: [/\)?\]?=/]
 };
 
-var commonConfig = {
+const commonConfig = {
   resolve: {
     extensions: ['', '.ts', '.js', '.json']
   },
@@ -40,6 +43,10 @@ var commonConfig = {
     ],
   },
   plugins: [
+    new webpack.DefinePlugin({
+      BASE_API_URL: JSON.stringify(BASE_API_URL),
+      BASE_URL: JSON.stringify(BASE_URL),
+    }),
     new webpack.ContextReplacementPlugin(
       // The (\\|\/) piece accounts for path separators in *nix and Windows
       /angular(\\|\/)core(\\|\/)src(\\|\/)linker/,

@@ -62,4 +62,5 @@ declare let $: (string) => any;
 declare let Foundation: any;
 declare let google: any;
 declare let RichMarker: any;
-// declare let require: (string) => string;
+declare let BASE_API_URL: string;
+declare let BASE_URL: string;

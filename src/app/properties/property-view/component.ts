@@ -10,7 +10,6 @@ import { SeoService } from '../../services/seo.service';
 import { SocialService } from '../../services/social.service';
 import { Property } from '../property';
 import { PropertyActionState, PropertyActionMode } from '../property-action-state.service';
-import { BASE_API_URL } from '../../config'
 import { HttpService } from '../../services/http.service';
 import { ImageUploadService, PendingFile } from '../../services/image-upload.service';
 import { PropertyService } from '../property.service';

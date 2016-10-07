@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { BASE_API_URL } from '../../config';
 import { Slide } from '../../components/slide/component';
 import { Carousel }  from '../../components/carousel/component';
 import { isBrowser } from 'angular2-universal';

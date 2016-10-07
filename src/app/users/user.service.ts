@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Response, ResponseOptions } from '@angular/http';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
@@ -8,7 +8,6 @@ import { User } from './user';
 import { Contact } from './user';
 import { HttpService } from '../services/http.service';
 import { isBrowser } from 'angular2-universal';
-import { BASE_API_URL } from '../config';
 import { PersistenceService } from '../services/persistence.service';
 import { Property } from '../properties/property';
 
@@ -28,7 +27,8 @@ export class UserService {
   public hasAuth$: BehaviorSubject<boolean>;
   private _hasAuth: boolean = false;
 
-  constructor(private http: HttpService, private route: ActivatedRoute, private persist: PersistenceService) {
+  constructor(private http: HttpService, private route: ActivatedRoute, private persist: PersistenceService,
+  private router: Router) {
     this.hasAuth$ = new BehaviorSubject(this._hasAuth);
     this.me$ = new BehaviorSubject(this._me);
 
@@ -39,7 +39,9 @@ export class UserService {
 
   public login(user: User) {
     return this.http.post(`${BASE_API_URL}/auth/sign_in`, user)
-      .do((i: Response) => this.handleLogin(i));
+      .do((i: Response) => this.handleLogin(i))
+      .flatMap(() => this.me$)
+      .do(i => this.redirectLandlord(i));
   }
 
   public logout() {
@@ -140,6 +142,12 @@ export class UserService {
       this.http.setAuthHeaders(headers.token, headers.client, headers.uid);
       this.hasAuth$.next(this._hasAuth = true);
       this.identifyUser(headers.uid);
+    }
+  }
+
+  private redirectLandlord(me: Me) {
+    if (me.license_id) {
+      this.router.navigate(['dashboard']);
     }
   }
 

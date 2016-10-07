@@ -2,7 +2,6 @@ import { Renderer, Inject, Injectable } from '@angular/core';
 import { DOCUMENT } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { isBrowser, isNode } from 'angular2-universal';
-import { BASE_URL } from '../config';
 import { Property, Image } from '../properties/property';
 
 export interface Tags {

@@ -6,7 +6,6 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/Rx';
 
 import { Property, PropertyFacet } from './property';
-import { BASE_API_URL } from '../config';
 import { getHoneybadger } from '../services/honeybadger';
 
 @Injectable()

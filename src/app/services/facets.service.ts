@@ -1,7 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpService } from '../services/http.service';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { BASE_API_URL } from '../config';
 
 export interface Amenity {
   // This should probably be defined somewhere else..

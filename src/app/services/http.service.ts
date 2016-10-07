@@ -2,7 +2,6 @@ import { Injectable } from "@angular/core";
 import { Http, Headers, Response, ResponseOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs';
-import { BASE_API_URL } from '../config';
 import { isBrowser } from 'angular2-universal';
 import { PersistenceService } from './persistence.service'
 
