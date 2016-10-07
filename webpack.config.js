@@ -7,8 +7,8 @@ const ExtractPlugin = require('extract-text-webpack-plugin')
 const extractCritical = new ExtractPlugin('critical.css');
 const extractDeferred = new ExtractPlugin('deferred.css');
 
-const BASE_API_URL = process.env.NODE_ENV === 'production' ? 'https://api.roomhere.io' : 'https://test-api.roomhere.io';
-const BASE_URL = process.env.NODE_ENV === 'production' ? 'https://roomhere.io' : 'http://localhost:3000';
+const BASE_API_URL = process.env.NODE_ENV === 'production' || true ? 'https://api.roomhere.io' : 'https://test-api.roomhere.io';
+const BASE_URL = process.env.NODE_ENV === 'production' || true ? 'https://roomhere.io' : 'http://localhost:3000';
 
 const htmlQuery = {
   minimize: true,
@@ -148,3 +148,5 @@ function root(args) {
   args = Array.prototype.slice.call(arguments, 0);
   return path.join.apply(path, [__dirname].concat(args));
 }
+
+throw new Error(process.env);
