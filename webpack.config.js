@@ -149,4 +149,4 @@ function root(args) {
   return path.join.apply(path, [__dirname].concat(args));
 }
 
-throw new Error(process.env);
+throw new Error(JSON.stringify(process.env));
