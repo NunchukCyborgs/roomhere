@@ -7,8 +7,8 @@ const ExtractPlugin = require('extract-text-webpack-plugin')
 const extractCritical = new ExtractPlugin('critical.css');
 const extractDeferred = new ExtractPlugin('deferred.css');
 
-const BASE_API_URL = process.env.NODE_ENV !== 'development' ? 'https://api.roomhere.io' : 'https://test-api.roomhere.io';
-const BASE_URL = process.env.NODE_ENV !== 'development' ? 'https://roomhere.io' : 'http://localhost:3000';
+const BASE_API_URL = process.env.NODE_ENV === 'production' ? 'https://api.roomhere.io' : 'https://test-api.roomhere.io';
+const BASE_URL = process.env.NODE_ENV === 'production' ? 'https://roomhere.io' : 'http://localhost:3000';
 
 const htmlQuery = {
   minimize: true,
@@ -46,7 +46,6 @@ const commonConfig = {
     new webpack.DefinePlugin({
       BASE_API_URL: JSON.stringify(BASE_API_URL),
       BASE_URL: JSON.stringify(BASE_URL),
-      NODE_ENV: JSON.stringify(process.env.NODE_ENV),
     }),
     new webpack.ContextReplacementPlugin(
       // The (\\|\/) piece accounts for path separators in *nix and Windows

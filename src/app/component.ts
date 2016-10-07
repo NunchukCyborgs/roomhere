@@ -12,8 +12,6 @@ import { getHoneybadger } from './services/honeybadger';
 require('../assets/stylesheets/app.scss');
 require('../assets/stylesheets/deferred.scss');
 
-declare let NODE_ENV: string;
-
 @Component({
   selector: 'app',
   template: require('./template.html').toString()
@@ -27,8 +25,6 @@ export class App {
   }
 
   ngOnInit() {
-    console.log('node ENV ', NODE_ENV);
-
     this.initHoneybadger();
     this.hasAuth$ = this.userService.hasAuth$;
     this.seoService.addBaseTags(this.renderer);
