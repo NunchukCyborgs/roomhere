@@ -46,6 +46,7 @@ const commonConfig = {
     new webpack.DefinePlugin({
       BASE_API_URL: JSON.stringify(BASE_API_URL),
       BASE_URL: JSON.stringify(BASE_URL),
+      NODE_ENV: JSON.stringify(process.env.NODE_ENV),
     }),
     new webpack.ContextReplacementPlugin(
       // The (\\|\/) piece accounts for path separators in *nix and Windows
