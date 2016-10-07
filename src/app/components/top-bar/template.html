@@ -18,6 +18,8 @@
       <ul class="menu vertical large-horizontal dropdown" data-responsive-menu="medium-dropdown" role="menubar" data-dropdown-menu="pqvvce-dropdown-menu">
         <li role="menuitem">
           <a class="aPadTop" [routerLinkActive]="['active', 'router-link-active']" [routerLink]="['']">Home</a>
+        </li>
+        <li role="menuitem">
           <a *ngIf="hasAuth" class="aPadTop" [routerLinkActive]="['active', 'router-link-active']" [routerLink]="['dashboard']">Dashboard</a>
         </li>
         <li role="menuitem" *ngIf="!hasAuth">
