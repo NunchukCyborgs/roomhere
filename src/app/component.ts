@@ -29,9 +29,7 @@ export class App {
     this.hasAuth$ = this.userService.hasAuth$;
     this.seoService.addBaseTags(this.renderer);
 
-    this.noFooter$ = Observable.combineLatest(this.userService.hasAuth$, this.router.events)
-      .map(i => [i[0], i[1].url])
-      .map(i => !i[0] && i[1] === '/');
+    this.noFooter$ = this.router.events.map(i => i.url).map(i => i === '/');
   }
 
   ngAfterViewInit() {
