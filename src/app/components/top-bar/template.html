@@ -3,7 +3,6 @@
     <button class="menu-icon" type="button" data-toggle=""></button>
     <div class="title-bar-title">Menu</div>
   </div>
-
   <div class="top-bar" id="main-menu">
     <div class="top-bar-left">
       <ul class="menu nohover vertical large-horizontal dropdown" data-responsive-menu="drilldown medium-dropdown" role="menubar"
@@ -13,28 +12,31 @@
         </li>
       </ul>
     </div>
-
     <div class="top-bar-right margRight">
-      <ul class="menu vertical large-horizontal dropdown" data-responsive-menu="medium-dropdown" role="menubar" data-dropdown-menu="pqvvce-dropdown-menu">
+      <ul class="menu vertical large-horizontal dropdown-menu" data-responsive-menu="medium-dropdown" role="menubar" data-dropdown-menu data-dropdown-menu="pqvvce-dropdown-menu">
         <li role="menuitem">
           <a class="aPadTop" [routerLinkActive]="['active', 'router-link-active']" [routerLink]="['']">{{hasAuth ? 'Dashboard' : 'Home'}}</a>
         </li>
         <li role="menuitem" *ngIf="!hasAuth">
           <a class="aPadTop" data-open="RegisterModal">
-            Landlord Sign Up
+            Sign Up
           </a>
         </li>
         <li role="menuitem" *ngIf="!hasAuth">
           <a class="aPadTop" data-open="LoginModal">Login</a>
         </li>
-        <li role="meduitem" *ngIf="hasAuth">
+        <li role="menuitem" *ngIf="hasAuth">
           <a class="aPadTop" (click)="logout.emit(true)">Log Out</a>
         </li>
-        <li role="menuitem" *ngIf="hasAuth">
+        <li class="is-dropdown-submenu-parent" *ngIf="hasAuth">
           <a class="aPadTop" [routerLinkActive]="['active', 'router-link-active']" [routerLink]="['settings']">
             <span class="hide-for-small show-for-large"><i class="fa large fa-cog"></i></span>
-            <span class="hide-for-large">Settings</span>
+            <span class="show-for-small hide-for-medium" [routerLinkActive]="['active', 'router-link-active']" [routerLink]="['settings']">Settings</span>
           </a>
+          <ul class="menu hide-for-small">
+            <li><a (click)="logout.emit(true)">Logout</a></li>
+            <li><a [routerLinkActive]="['active', 'router-link-active']" [routerLink]="['settings']">Settings</a></li>
+          </ul>
         </li>
         <li role="menuitem" class="show-for-small-only">
           <a [routerLink]="['/faq']">FAQ</a>
