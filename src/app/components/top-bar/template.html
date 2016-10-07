@@ -17,7 +17,8 @@
     <div class="top-bar-right margRight">
       <ul class="menu vertical large-horizontal dropdown" data-responsive-menu="medium-dropdown" role="menubar" data-dropdown-menu="pqvvce-dropdown-menu">
         <li role="menuitem">
-          <a class="aPadTop" [routerLinkActive]="['active', 'router-link-active']" [routerLink]="['']">{{hasAuth ? 'Dashboard' : 'Home'}}</a>
+          <a class="aPadTop" [routerLinkActive]="['active', 'router-link-active']" [routerLink]="['']">Home</a>
+          <a *ngIf="hasAuth" class="aPadTop" [routerLinkActive]="['active', 'router-link-active']" [routerLink]="['dashboard']">Dashboard</a>
         </li>
         <li role="menuitem" *ngIf="!hasAuth">
           <a class="aPadTop" data-open="RegisterModal">
