@@ -40,8 +40,7 @@ export class UserService {
   public login(user: User) {
     return this.http.post(`${BASE_API_URL}/auth/sign_in`, user)
       .do((i: Response) => this.handleLogin(i))
-      .flatMap(() => this.me$)
-      .do(i => this.redirectLandlord(i));
+      .do(() => this.me$.subscribe(i => this.redirectLandlord(i)));
   }
 
   public logout() {
