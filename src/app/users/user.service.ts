@@ -49,7 +49,7 @@ export class UserService {
   }
 
   public register(user: User): Observable<Response> {
-    user.confirm_success_url = this.getRedirectUrl();
+    user.confirm_success_url = `${BASE_URL}/registration-success`;
     return this.http.post(`${BASE_API_URL}/auth`, user);
   }
 
@@ -155,7 +155,7 @@ export class UserService {
   }
 
   private getRedirectUrl(): string {
-    return isBrowser && `${window.location.origin}/?open_settings=true`
+    return isBrowser && `${BASE_URL}/registration-success`
   }
 
   public get hasAuth() {
