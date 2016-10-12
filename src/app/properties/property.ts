@@ -9,34 +9,34 @@ export interface Type {
 };
 
 export class PropertyFacet {
-   public min_price: number;
-   public max_price: number;
-   public min_bedrooms: number;
-   public min_bathrooms: number;
-   public max_lease_length: number;
-   public locations: Location[];
-   public amenities: Amenity[];
-   public types: string[];
+  public min_price: number;
+  public max_price: number;
+  public min_bedrooms: number;
+  public min_bathrooms: number;
+  public max_lease_length: number;
+  public locations: Location[];
+  public amenities: Amenity[];
+  public types: string[];
 
-   constructor() {
-     this.min_price = 0;
-     this.max_price = 25000;
-     this.min_bedrooms = 0;
-     this.min_bathrooms = .5;
-     this.max_lease_length = null;
-     this.locations = [];
-     this.amenities = [];
-     this.types = [];
-   }
+  constructor() {
+    this.min_price = 0;
+    this.max_price = 25000;
+    this.min_bedrooms = 0;
+    this.min_bathrooms = .5;
+    this.max_lease_length = null;
+    this.locations = [];
+    this.amenities = [];
+    this.types = [];
+  }
 
-   get formattedFacet() {
-     let formatted = {};
-     for (let key of Object.keys(this)) {
-          formatted[`facets[${key}]`] = this[key];
-     }
-     
-     return formatted;
-   }
+  get formattedFacet() {
+    let formatted = {};
+    for (let key of Object.keys(this)) {
+      formatted[`facets[${key}]`] = this[key];
+    }
+
+    return formatted;
+  }
 }
 
 export interface Image {
@@ -68,12 +68,29 @@ export class Property {
   public updated_at: string;
   public zipcode: string;
   public price: number;
-  public amenities_attributes: Array<{id: number, _destroy?: boolean}>;
-  public types_attributes: Array<{id: number, _destroy?: boolean}>;
+  public amenities_attributes: Array<{ id: number, _destroy?: boolean }>;
+  public types_attributes: Array<{ id: number, _destroy?: boolean }>;
   public can_edit: boolean;
   public owner: Owner;
   public available_at: string; // Maybe make a date wrapper of some sort? Hmm?
 
+  constructor(property?: Property) {
+    if (property) {
+      for (let propertyName in property) {
+        if (property.hasOwnProperty(propertyName)) {
+          this[propertyName] = property[propertyName];
+        }
+      }
+
+      console.log(property.amenities)
+
+      if (property.amenities) {
+        this.amenities = property.amenities.map(i => new Amenity(i));
+      }
+    }
+  }
+
+  // **** Property object must be newed up for getters to work. Should try again now ****
   // This is being generally shitty. For now, just going to treat available_at as a bool flag
   // public isAvailable(): boolean {
   //   const time = this.available_at && new Date(this.available_at).getTime();

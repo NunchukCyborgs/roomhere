@@ -16,7 +16,7 @@ export class PropertyFilters {
   @Output() showFiltersChange: EventEmitter<any> = new EventEmitter();
 
   public locations$: Observable<Location[]>;
-  public amenities$: Observable<Amenity[]>;
+  public amenities$: Observable<string[]>;
   public types$: Observable<string[]>;
 
   constructor(private facetsService: FacetsService) { }

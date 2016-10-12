@@ -33,6 +33,7 @@ export class PropertyService {
     const seq = this.http
       .get(`${BASE_API_URL}/properties/${slug}`)
       .map(i => i.json())
+      .map(i => new Property(i))
       .do(i => this.propertyBySlug$.next(this._propertyBySlug = i.id ? i : null));
 
     seq.subscribe();
@@ -44,6 +45,7 @@ export class PropertyService {
     const seq = this.http
       .get(`${BASE_API_URL}/me`)
       .map(i => i.json().properties)
+      .map(properties => properties.map(i => new Property(i)))
       .do(i => this.myProperties$.next(this._myProperties = i));
 
     seq.subscribe();
@@ -55,6 +57,7 @@ export class PropertyService {
     const seq = this.http
       .get(`${BASE_API_URL}/properties?page=${pageNumber}&per_page=${perPage}&q=${query}`)
       .map(i => i.json())
+      .map(properties => properties.map(i => new Property(i)))
       .do(i => this.superProperties$.next(this._superProperties = i));
 
     seq.subscribe();
