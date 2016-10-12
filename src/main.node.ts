@@ -17,6 +17,7 @@ import { Register } from './app/users/register/component';
 import { ForgotPassword } from './app/users/forgot-password/component';
 import { ResetPassword } from './app/users/reset-password/component';
 import { Settings } from './app/users/settings/component';
+import { UserSplash } from './app/users/user-splash/component';
 
 // Properties
 import { PropertyView } from './app/properties/property-view/component';
@@ -84,7 +85,7 @@ export const DECLARTIONS = [
   SimilarProperties, PropertyPreview, PropertyAmenities, PropertyActionsGroup, PropertyEditImage, PropertyEdit,
   RentNow, BigFooter, Welcome, FAQ, PrivacyPolicy, Dashboard, AccountPage, SimpleSearchPipe, Carousel, ControlMessages,
   ImageUpload, NumberTicker, PropertyMap, Slide, UploadProgress, PropertySlider, PropertyFilters, PropertyAccordion, 
-  MissingResource, App, Logo, TopBar, SuperUser, NoPropertyInfo, SuperLicensing
+  MissingResource, App, Logo, TopBar, SuperUser, NoPropertyInfo, SuperLicensing, UserSplash
 ];
 
 export const PROVIDERS = [
