@@ -12,11 +12,10 @@ export class TopBar {
   @Input() isLandlord: boolean;
   @Output() logout: EventEmitter<any> = new EventEmitter();
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) { }
 
-  ngOnInit() {
-    if (isBrowser) {
-      this.router.events.subscribe(() => $('.top-bar a').on('click', () => $('.title-bar button[data-toggle]').click()));
-    }
+  public closeMenu() {
+    console.log('closing menu')
+    isBrowser && $('.title-bar button[data-toggle]').click();
   }
 }
