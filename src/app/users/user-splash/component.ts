@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   template: require('./template.html').toString()
 })
 export class UserSplash  {
-  
+  // should robots - no index on this page
 }
