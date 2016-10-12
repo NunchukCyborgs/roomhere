@@ -1,3 +1,4 @@
+import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { AccountPage } from './app/account/component';
@@ -11,18 +12,26 @@ import { UserSplash } from './app/users/user-splash/component';
 
 import { DEFAULT_TENANT } from './app/config';
 
-const routes: Routes = [
-  { path: '', component: Welcome },
-  { path: 'dashboard', component: AccountPage },
-  { path: 'faq', component: FAQ },
-  { path: 'privacy-policy', component: PrivacyPolicy },
-  { path: `${DEFAULT_TENANT}/:slug`, component: PropertyView },
-  { path: 'settings', component: Settings },
-  { path: 'registration-success', component: UserSplash },
-  /*
-   * For front end route auth, maybe move all auth routes nested under AccountPage?
-  */
-  { path: '**', component: MissingResource },
-];
+@NgModule({
+  imports: [
+    RouterModule.forRoot([
+      { path: '', component: Welcome },
+      // { path: 'account', component: AccountPage }, // account
+      { path: 'faq', component: FAQ },
+      { path: 'privacy-policy', component: PrivacyPolicy },
+      { path: `${DEFAULT_TENANT}/:slug`, component: PropertyView },
+      { path: 'settings', component: Settings }, // account
+      { path: 'registration-success', component: UserSplash }, // account
 
-export const routing = RouterModule.forRoot(routes);
+      /*
+      * For front end route auth, maybe move all auth routes nested under AccountPage?
+      */ 
+      // { path: '**', component: MissingResource }, TODO: Add back 404ing
+    ])
+  ],
+  exports: [
+    RouterModule
+  ]
+})
+export class AppRoutingModule {}
+

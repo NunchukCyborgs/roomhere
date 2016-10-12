@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 
 import { App } from './app/component';
-import { DECLARTIONS, PROVIDERS, IMPORTS } from './main.node';
+import { PROVIDERS, IMPORTS } from './main.node';
 import { Cookie } from './app/services/cookies/cookie';
 import { CookieBrowser } from './app/services/cookies/cookie-browser';
 
 @NgModule({
   bootstrap: [App],
-  declarations: DECLARTIONS,
+  declarations: [],
   imports: IMPORTS,
   providers: [
     ...PROVIDERS,

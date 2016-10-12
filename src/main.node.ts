@@ -1,14 +1,17 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UniversalModule } from 'angular2-universal';
-import { routing } from './app.routes';
+import { AppRoutingModule } from './app.routes';
+import { AccountModule } from './app/account/account.module';
+import { SharedModule } from './app/shared/shared.module';
 
 //////////////////////////////////////////
 // DECLARTIONS                          //
 //////////////////////////////////////////
 
 // Super Users
-import { SuperUser } from './app/account/super/component';
+// import { SuperUser } from './app/account/super/component';
 import { SuperLicensing } from './app/account/super/licensing/component';
 
 // Users
@@ -38,9 +41,9 @@ import { BigFooter } from './app/footer/component';
 import { Welcome } from './app/welcome/component';
 import { FAQ } from './app/faq/component';
 import { PrivacyPolicy } from './app/privacy-policy/component';
-import { Dashboard } from './app/account/dashboard/component';
+// import { Dashboard } from './app/account/dashboard/component';
 import { MissingResource } from './app/missing-resource/component';
-import { AccountPage } from './app/account/component';
+// import { AccountPage } from './app/account/component';
 
 // Components
 import { Carousel } from './app/components/carousel/component';
@@ -80,29 +83,20 @@ import { PersistenceService } from './app/services/persistence.service';
 import { Cookie } from './app/services/cookies/cookie';
 import { CookieNode } from './app/services/cookies/cookie-node';
 
-export const DECLARTIONS = [
-  Login, Register, ForgotPassword, ResetPassword, Settings, PropertyView, PropertyImages, PropertyReviews,
-  SimilarProperties, PropertyPreview, PropertyAmenities, PropertyActionsGroup, PropertyEditImage, PropertyEdit,
-  RentNow, BigFooter, Welcome, FAQ, PrivacyPolicy, Dashboard, AccountPage, SimpleSearchPipe, Carousel, ControlMessages,
-  ImageUpload, NumberTicker, PropertyMap, Slide, UploadProgress, PropertySlider, PropertyFilters, PropertyAccordion, 
-  MissingResource, App, Logo, TopBar, SuperUser, NoPropertyInfo, SuperLicensing, UserSplash
-];
-
 export const PROVIDERS = [
   UserService, PropertyService, FacetsService, GoogleApiService, HttpService, ImageUploadService, SeoService,
   SocialService, UtilService, ValidationService, PersistenceService, PropertyActionStateService
 ];
 
 export const IMPORTS = [
-  FormsModule,
-  ReactiveFormsModule,
-  routing,
-  UniversalModule,
+  SharedModule,
+  AccountModule,
+  // AppRoutingModule, Will have to pull out some sort of root routing here. With 404 stuff here. 
 ];
 
 @NgModule({
   bootstrap: [App],
-  declarations: DECLARTIONS,
+  declarations: [],
   imports: IMPORTS,
   providers: [
     ...PROVIDERS,
