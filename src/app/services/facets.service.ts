@@ -14,7 +14,7 @@ export class Amenity {
     this.active = active;
   }
 
-  public get icon2() {
+  public get icon() {
     const iconSet = {
       'Pet Friendly': 'fa fa-paw',
       'Wheelchair Accessible': 'fa fa-wheelchair-alt',

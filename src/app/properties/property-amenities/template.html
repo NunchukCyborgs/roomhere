@@ -1,7 +1,7 @@
 <div class="row">
     <div *ngFor="let amen of prettyAmenities" class="column small-6 amenity">
         <div *ngIf="!isEditing" [class.non-active]="!amen.active" class="amenity-size">
-            <i *ngIf="amen.active" class="{{amen.icon2}}" ></i> <span [class.strike]="!hasAnyAmenities()">{{amen.shortName}}</span>
+            <i *ngIf="amen.active" class="{{amen.icon}}" ></i> <span [class.strike]="!hasAnyAmenities()">{{amen.shortName}}</span>
         </div>
         <div *ngIf="isEditing">
             <input type="checkbox" [checked]="amen.active" (change)="update(amen, $event)" /> {{amen.shortName}}
