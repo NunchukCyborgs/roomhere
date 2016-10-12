@@ -7,8 +7,9 @@ const ExtractPlugin = require('extract-text-webpack-plugin')
 const extractCritical = new ExtractPlugin('critical.css');
 const extractDeferred = new ExtractPlugin('deferred.css');
 
-const BASE_API_URL = process.env.NODE_ENV === 'production' ? 'https://api.roomhere.io' : 'https://test-api.roomhere.io';
-const BASE_URL = process.env.NODE_ENV === 'production' ? 'https://roomhere.io' : 'http://localhost:3000';
+const IS_PROD = Boolean(process.env.NODE_ENV === 'production');
+const BASE_API_URL = IS_PROD ? 'https://api.roomhere.io' : 'https://test-api.roomhere.io';
+const BASE_URL = IS_PROD ? 'https://roomhere.io' : 'http://localhost:3000';
 
 const htmlQuery = {
   minimize: true,
@@ -65,6 +66,7 @@ const commonConfig = {
   },
   plugins: [
     new webpack.DefinePlugin({
+      IS_PROD: IS_PROD,
       BASE_API_URL: JSON.stringify(BASE_API_URL),
       BASE_URL: JSON.stringify(BASE_URL),
     }),

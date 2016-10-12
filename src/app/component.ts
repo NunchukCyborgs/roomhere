@@ -26,6 +26,7 @@ export class App {
   }
 
   ngOnInit() {
+    this.hideConsoleMessages();
     this.initHoneybadger();
     this.hasAuth$ = this.userService.hasAuth$;
     this.me$ = this.userService.me$
@@ -61,6 +62,12 @@ export class App {
       const modal = $('#SettingsModal');
       openLink && modal ? openLink.click() : this.tryOpenSettingsModal();
     }, 250)
+  }
+
+  private hideConsoleMessages() {
+    if (IS_PROD) {
+      console.log = console.warn = console.error = () => { }
+    }
   }
 
   private initHoneybadger() {

@@ -64,3 +64,4 @@ declare let google: any;
 declare let RichMarker: any;
 declare let BASE_API_URL: string;
 declare let BASE_URL: string;
+declare let IS_PROD: boolean;
