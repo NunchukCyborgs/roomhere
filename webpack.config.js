@@ -23,6 +23,25 @@ const htmlQuery = {
   customAttrAssign: [/\)?\]?=/]
 };
 
+const whitelist = [
+  'tooltip', 
+  'foundation-mq',
+
+  // Amenity icon shit. Accessed programatically
+  'fa fa-paw',
+  'fa fa-wheelchair-alt',
+  'icon-washer-dryer-2',
+  'icon-electricity',
+  'icon-gas',
+  'icon-tint',
+  'fa fa-trash',
+  'icon-central-air-alt',
+  'fa fa-fire',
+  'icon-smoking-allowed',
+  'icon-garage-512',
+  'icon-lawn-mower',
+];
+
 const commonConfig = {
   resolve: {
     extensions: ['', '.ts', '.js', '.json']
@@ -76,7 +95,7 @@ const commonConfig = {
         minify: true,
         // rejected: true,
         info: true,
-        whitelist: ['tooltip', 'foundation-mq'],
+        whitelist: whitelist,
       }
     }),
   ]
