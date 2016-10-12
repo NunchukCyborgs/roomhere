@@ -40,6 +40,8 @@ const whitelist = [
   'icon-smoking-allowed',
   'icon-garage-512',
   'icon-lawn-mower',
+  'fa fa-television',
+  'fa fa-wifi',
 ];
 
 const commonConfig = {

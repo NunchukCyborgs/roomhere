@@ -28,6 +28,8 @@ export class Amenity {
       'Smoking Allowed': 'icon-smoking-allowed',
       'Garage': 'icon-garage-512',
       'Lawn Care': 'icon-lawn-mower',
+      'Internet Included': 'fa fa-wifi',
+      'Cable Included': 'fa fa-television',
     };
 
     return iconSet[this.name] || 'fa fa-certificate';
