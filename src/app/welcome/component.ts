@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 import { Property, PropertyFacet } from '../properties/property';
-import { PropertyService } from '../properties/property.service';
-import { PersistenceService } from '../services/persistence.service';
-import { MapOptions } from '../components/property-map/component';
+import { PropertyService } from '../shared/services/property.service';
+import { PersistenceService } from '../shared/services/persistence.service';
+import { MapOptions } from '../shared/components/property-map/component';
 import { User } from '../users/user';
-import { UserService } from '../users/user.service';
+import { UserService } from '../shared/services/user.service';
 import { CAPE_GIRARDEU_CENTER } from '../config';
 
 const MAP_HEIGHT = '100%';
@@ -28,7 +29,8 @@ export class Welcome {
   public loadFilteredProperties$: BehaviorSubject<PropertyFacet>;
   public showSignupAd$: Observable<boolean>;
 
-  constructor(private propertyService: PropertyService, private userService: UserService, private persist: PersistenceService) { }
+  constructor(private propertyService: PropertyService, private userService: UserService, private persist: PersistenceService,
+    private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.loadFilteredProperties$ = new BehaviorSubject(this.facet);
@@ -38,10 +40,19 @@ export class Welcome {
   }
 
   ngAfterViewInit() {
-    this.properties$ = this.loadFilteredProperties$
+    let filteredProperties$: BehaviorSubject<Property[]>;
+
+    this.route.data.forEach((data: { properties: Property[] }) => {
+      filteredProperties$ = new BehaviorSubject(data.properties);
+    });
+
+    this.properties$ = filteredProperties$;
+
+    this.loadFilteredProperties$
       .map(i => JSON.stringify(i) + this.pageNumber)
       .distinctUntilChanged()
-      .flatMap(() => this.propertyService.getFilteredProperties$(this.facet, this.pageNumber));
+      .flatMap(() => this.propertyService.getFilteredProperties$(this.facet, this.pageNumber))
+      .subscribe(i => filteredProperties$.next(i));
 
     this.applyFacet();
     this.lastPage$ = this.propertyService.lastPage$;

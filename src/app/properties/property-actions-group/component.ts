@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { PropertyActionState } from '../property-action-state.service';
+import { PropertyActionState } from '../../shared/services/property-action-state.service';
 
 @Component({
   selector: 'property-actions-group',

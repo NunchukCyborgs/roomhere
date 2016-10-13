@@ -93,7 +93,8 @@ function missingResource(req, res) {
 app.get('/', ngApp);
 app.get('/faq', ngApp);
 app.get('/privacy-policy', ngApp);
-app.get('/settings', ngApp);
+app.get('/account/', ngApp);
+app.get('/account/*', ngApp);
 app.get(`/${DEFAULT_TENANT}/*`, propertiesRoute);
 
 app.get('*', missingResource);

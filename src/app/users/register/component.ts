@@ -3,14 +3,14 @@ import { Response } from '@angular/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import { User } from '../user';
-import { UserService } from '../user.service';
-import { ValidationService } from '../../services/validation.service';
+import { UserService } from '../../shared/services/user.service';
+import { ValidationService } from '../../shared/services/validation.service';
 import { isBrowser } from 'angular2-universal';
-import { ControlMessages } from '../../components/control-messages/component';
+import { ControlMessages } from '../../shared/components/control-messages/component';
 
 @Component({
   selector: 'register',
-  styles:[require('../modal/modal.styles.scss').toString(), require('./styles.scss').toString()],
+  styles:[require('./styles.scss').toString()],
   template: require('./template.html').toString(),
 })
 export class Register {
