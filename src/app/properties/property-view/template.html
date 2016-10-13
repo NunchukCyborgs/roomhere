@@ -68,4 +68,4 @@
     </div>
 </div>
 
-<rent-now *ngIf="property?.owner" [owner]="property.owner" id="RentNowModal" class="reveal" data-reveal></rent-now>
+<modal *ngIf="property?.owner" id="RentNowModal" class="reveal" data-reveal><rent-now [owner]="property.owner"></rent-now></modal>

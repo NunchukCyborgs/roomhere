@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'become-landlord',
-  styles:[require('./styles.scss').toString()],
+  selector: 'modal',
+  styles: [require('./styles.scss').toString()],
   template: require('./template.html').toString(),
 })
-export class BecomeLandlord {
-  
+export class Modal {
 }

@@ -1,56 +1,47 @@
-<div>
-  <button class="close-button register-modal__close-button" data-close aria-label="Close modal" type="button">
-        <span aria-hidden="true">&times;</span>
-    </button>
-  <div class="row">
-    <div class="medium-10 medium-push-1 columns">
-      <div class="signup-panel">
-        <h4> Welcome to Roomhere!</h4>
-        <form [class.hide]="success" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-          <div class="form-group row collapse">
-            <div class="small-2 columns">
-              <span class="prefix"><i class="icon-mail"></i></span>
-            </div>
-            <div class="small-10  columns">
-              <input type="email" placeholder="email" formControlName="email" class="form-control" id="email">
-            </div>
-            <control-messages [control]="registerForm.controls.email" class="alert"></control-messages>
-          </div>
-          <div class="form-group row collapse">
-            <div class="small-2 columns ">
-              <span class="prefix"><i class="icon-lock"></i></span>
-            </div>
-            <div class="small-10 columns ">
-              <input placeholder="password" formControlName="password" type="password" class="form-control" id="password">
-            </div>
-            <control-messages [control]="registerForm.controls.password"></control-messages>
-          </div>
-          <div class="form-group row collapse">
-            <div class="small-2 columns ">
-              <span class="prefix"><i class="icon-lock"></i></span>
-            </div>
-            <div class="small-10 columns ">
-              <input placeholder="confirm password" formControlName="confirmPassword" type="password" class="form-control" id="confirmPassword">
-            </div>
-            <control-messages [control]="registerForm.controls.confirmPassword">{{getConfirmPasswordMatchMessage()}}</control-messages>
-          </div>
-          <p class="text-center">
-            <button type="submit" class="button large" [attr.disabled]="!registerForm.valid||getConfirmPasswordMatchMessage()?true:null">Create an Account!</button>
-          </p>
-        </form>
-        <p class="text-center" [class.hide]="success">Already have an account? <a data-open="LoginModal" (click)="closeModal()">Login here</a>
-        </p>
-        <div [class.hide]="!success || serverErrors.length" class="callout success">
-          <h5>Success!</h5>
-          <p>Alright, there's one last step to create an account. Please check your email for a magic activation link and click
-            to confirm you are as human as we think you are.
-          </p>
-        </div>
-        <div [class.hide]="!serverErrors.length || success" class="callout alert">
-          <h6>Uh oh! We had a problem logging you in with those credentials.</h6>
-          <span *ngFor="let error of serverErrors">{{error}}. </span>
-        </div>
+<section>
+  <h4> Welcome to Roomhere!</h4>
+  <form [class.hide]="success" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <div class="form-group row collapse">
+      <div class="small-2 columns">
+        <span class="prefix"><i class="icon-mail"></i></span>
       </div>
+      <div class="small-10  columns">
+        <input type="email" placeholder="email" formControlName="email" class="form-control" id="email">
+      </div>
+      <control-messages [control]="registerForm.controls.email" class="alert"></control-messages>
     </div>
+    <div class="form-group row collapse">
+      <div class="small-2 columns ">
+        <span class="prefix"><i class="icon-lock"></i></span>
+      </div>
+      <div class="small-10 columns ">
+        <input placeholder="password" formControlName="password" type="password" class="form-control" id="password">
+      </div>
+      <control-messages [control]="registerForm.controls.password"></control-messages>
+    </div>
+    <div class="form-group row collapse">
+      <div class="small-2 columns ">
+        <span class="prefix"><i class="icon-lock"></i></span>
+      </div>
+      <div class="small-10 columns ">
+        <input placeholder="confirm password" formControlName="confirmPassword" type="password" class="form-control" id="confirmPassword">
+      </div>
+      <control-messages [control]="registerForm.controls.confirmPassword">{{getConfirmPasswordMatchMessage()}}</control-messages>
+    </div>
+    <p class="text-center">
+      <button type="submit" class="button large" [attr.disabled]="!registerForm.valid||getConfirmPasswordMatchMessage()?true:null">Create an Account!</button>
+    </p>
+  </form>
+  <p class="text-center" [class.hide]="success">Already have an account? <a data-open="LoginModal" (click)="closeModal()">Login here</a>
+  </p>
+  <div [class.hide]="!success || serverErrors.length" class="callout success">
+    <h5>Success!</h5>
+    <p>Alright, there's one last step to create an account. Please check your email for a magic activation link and click to
+      confirm you are as human as we think you are.
+    </p>
   </div>
-</div>
+  <div [class.hide]="!serverErrors.length || success" class="callout alert">
+    <h6>Uh oh! We had a problem logging you in with those credentials.</h6>
+    <span *ngFor="let error of serverErrors">{{error}}. </span>
+  </div>
+</section>

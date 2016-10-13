@@ -53,6 +53,7 @@ import { PropertyFilters } from '../../app/components/property-filters/component
 import { PropertyAccordion } from '../../app/components/property-accordion/component';
 import { Logo } from '../../app/components/logo/component';
 import { TopBar } from '../../app/components/top-bar/component';
+import { Modal } from '../../app/components/modal/component';
 
 // Pipes
 import { SimpleSearchPipe } from '../../app/pipes/simple-search.pipe';
@@ -63,7 +64,7 @@ export const DECLARTIONS = [
   SimilarProperties, PropertyPreview, PropertyAmenities, PropertyActionsGroup, PropertyEditImage, PropertyEdit,
   RentNow, BigFooter, Welcome, FAQ, PrivacyPolicy, PropertyMap, Slide, PropertySlider, PropertyFilters, PropertyAccordion,
   MissingResource, App, Logo, TopBar, NoPropertyInfo, SuperLicensing,
-  SimpleSearchPipe, Carousel, ControlMessages, ImageUpload, NumberTicker, UploadProgress,
+  SimpleSearchPipe, Carousel, ControlMessages, ImageUpload, NumberTicker, UploadProgress, Modal,
   // Dashboard, AccountPage, SuperUser, Settings, UserSplash
 ];
 

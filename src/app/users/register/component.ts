@@ -10,7 +10,7 @@ import { ControlMessages } from '../../components/control-messages/component';
 
 @Component({
   selector: 'register',
-  styles:[require('../modal/modal.styles.scss').toString(), require('./styles.scss').toString()],
+  styles:[require('./styles.scss').toString()],
   template: require('./template.html').toString(),
 })
 export class Register {
