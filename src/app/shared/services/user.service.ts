@@ -150,7 +150,7 @@ export class UserService {
   }
 
   private identifyUser(uid: string) {
-    isBrowser && analytics.identify(uid);
+    IS_PROD && isBrowser && analytics.identify(uid);
   }
 
   private getRedirectUrl(): string {
