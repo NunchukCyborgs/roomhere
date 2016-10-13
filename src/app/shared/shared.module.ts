@@ -50,6 +50,9 @@ import { Modal } from './components/modal/component';
 // Pipes
 import { SimpleSearchPipe } from './pipes/simple-search.pipe';
 
+// Services?
+import { WelcomeResolve } from '../welcome/welcome-resolve.service';
+
 
 export const DECLARTIONS = [
   Login, Register, ForgotPassword, ResetPassword, PropertyView, PropertyImages, PropertyReviews,
@@ -75,6 +78,9 @@ export const DECLARTIONS = [
     FormsModule,
     ReactiveFormsModule,
     UniversalModule,
-  ]
+  ],
+  providers: [
+    WelcomeResolve
+  ],
 })
 export class SharedModule { }

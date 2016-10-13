@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
@@ -28,7 +29,8 @@ export class Welcome {
   public loadFilteredProperties$: BehaviorSubject<PropertyFacet>;
   public showSignupAd$: Observable<boolean>;
 
-  constructor(private propertyService: PropertyService, private userService: UserService, private persist: PersistenceService) { }
+  constructor(private propertyService: PropertyService, private userService: UserService, private persist: PersistenceService,
+    private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.loadFilteredProperties$ = new BehaviorSubject(this.facet);
@@ -38,10 +40,19 @@ export class Welcome {
   }
 
   ngAfterViewInit() {
-    this.properties$ = this.loadFilteredProperties$
+    let filteredProperties$: BehaviorSubject<Property[]>;
+
+    this.route.data.forEach((data: { properties: Property[] }) => {
+      filteredProperties$ = new BehaviorSubject(data.properties);
+    });
+
+    this.properties$ = filteredProperties$;
+
+    this.loadFilteredProperties$
       .map(i => JSON.stringify(i) + this.pageNumber)
       .distinctUntilChanged()
-      .flatMap(() => this.propertyService.getFilteredProperties$(this.facet, this.pageNumber));
+      .flatMap(() => this.propertyService.getFilteredProperties$(this.facet, this.pageNumber))
+      .subscribe(i => filteredProperties$.next(i));
 
     this.applyFacet();
     this.lastPage$ = this.propertyService.lastPage$;

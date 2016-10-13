@@ -9,15 +9,15 @@ import { PropertyView } from '../properties/property-view/component';
 import { MissingResource } from '../missing-resource/component';
 
 import { DEFAULT_TENANT } from '../config';
+import { WelcomeResolve } from '../welcome/welcome-resolve.service';
 
 @NgModule({
   imports: [
     RouterModule.forChild([
-      { path: '', component: Welcome }, // Welcome Module
+      { path: '', component: Welcome, resolve: { properties: WelcomeResolve } }, // Welcome Module
       { path: `${DEFAULT_TENANT}/:slug`, component: PropertyView }, // Property Module
       { path: 'faq', component: FAQ }, // General
       { path: 'privacy-policy', component: PrivacyPolicy }, // General
-      // { path: '**', component: MissingResource }, TODO: Add back 404ing
     ])
   ],
   exports: [
