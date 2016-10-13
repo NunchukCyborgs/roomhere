@@ -9,7 +9,7 @@ export class AccountAuthGuard implements CanActivate {
   constructor(private router: Router, private userService: UserService) {}
 
   public canActivate() {
-    this.userService.hasAuth && this.redirectUser();
+    !this.userService.hasAuth && this.redirectUser();
     return this.userService.hasAuth;
   }
 
