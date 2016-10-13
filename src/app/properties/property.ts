@@ -82,8 +82,6 @@ export class Property {
         }
       }
 
-      console.log(property.amenities)
-
       if (property.amenities) {
         this.amenities = property.amenities.map(i => new Amenity(i));
       }

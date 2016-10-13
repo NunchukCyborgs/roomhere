@@ -15,7 +15,6 @@ export class TopBar {
   constructor(private router: Router) { }
 
   public closeMenu() {
-    console.log('closing menu')
     isBrowser && $('.title-bar button[data-toggle]').click();
   }
 }
