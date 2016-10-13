@@ -15,10 +15,10 @@
     <div class="top-bar-right margRight">
       <ul class="dropdown menu" data-dropdown-menu>
         <li role="menuitem">
-          <a (click)="closeMenu()" class="aPadTop" [routerLinkActive]="['active', 'router-link-active']" [routerLink]="['']">Home</a>
+          <a (click)="closeMenu()" class="aPadTop" [routerLinkActive]="['active', 'router-link-active']" [routerLink]="['/']">Home</a>
         </li>
         <li role="menuitem" *ngIf="hasAuth && isLandlord">
-          <a (click)="closeMenu()" class="aPadTop" [routerLinkActive]="['active', 'router-link-active']" [routerLink]="['/account']">Dashboard</a>
+          <a (click)="closeMenu()" class="aPadTop" [routerLinkActive]="['active', 'router-link-active']" [routerLink]="['/account/dashboard']">Dashboard</a>
         </li>
         <li role="menuitem" *ngIf="hasAuth && !isLandlord">
           <a (click)="closeMenu()" class="aPadTop" [routerLinkActive]="['active', 'router-link-active']" [routerLink]="['/account/landlord-settings']">
@@ -30,18 +30,6 @@
             Sign Up
           </a>
         </li>
-        <li role="menuitem" *ngIf="!hasAuth">
-          <a (click)="closeMenu()" class="aPadTop" data-open="LoginModal">Login</a>
-        </li>
-        <li role="meduitem" *ngIf="hasAuth">
-          <a (click)="closeMenu(); logout.emit(true)" class="aPadTop">Log Out</a>
-        </li>
-        <li role="menuitem" *ngIf="hasAuth && isLandlord">
-          <a (click)="closeMenu()" class="aPadTop" [routerLinkActive]="['active', 'router-link-active']" [routerLink]="['/account/landlord-settings']">
-            <span class="hide-for-small show-for-large"><i class="fa large fa-cog"></i></span>
-            <span class="hide-for-large">Settings</span>
-          </a>
-        </li>
         <li>
           <a class="fa fa-cog"></a>
           <ul class="menu">
@@ -49,12 +37,8 @@
             <li><a *ngIf="hasAuth" (click)="logout.emit(true)">Logout</a></li>
             <li><a *ngIf="!hasAuth" class="aPadTop" data-open="LoginModal">Login</a></li>
           </ul>
-
-          <!--<ul class="menu hide-for-small">
-            <li><a (click)="logout.emit(true)">Logout</a></li>
-            <li><a [routerLinkActive]="['active', 'router-link-active']" [routerLink]="['settings']">Settings</a></li>
-          </ul>-->
         </li>
+
         <li role="menuitem" class="show-for-small-only">
           <a (click)="closeMenu()" [routerLink]="['/faq']">FAQ</a>
         </li>
