@@ -44,7 +44,7 @@ export class Login {
 
   private closeModal(res?: Response) {
     if (!res || res.ok) {
-      isBrowser && $('login .close-button').click();
+      isBrowser && $('modal .close-button').click();
     }
   }
 }
