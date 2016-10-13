@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Response } from '@angular/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { User } from '../user';
 import { UserService } from '../../shared/services/user.service';
@@ -10,14 +11,14 @@ import { ControlMessages } from '../../shared/components/control-messages/compon
 
 @Component({
   selector: 'login',
-  styles:[require('./styles.scss').toString()],
+  styles: [require('./styles.scss').toString()],
   template: require('./template.html').toString()
 })
 export class Login {
   public serverErrors: string[] = [];
   public loginForm: any;
 
-  constructor(private userService: UserService, private formBuilder: FormBuilder) { }
+  constructor(private router: Router, private userService: UserService, private formBuilder: FormBuilder) { }
 
   ngOnInit() {
     this.init();
@@ -36,15 +37,15 @@ export class Login {
       email: this.loginForm.controls.email.value,
       password: this.loginForm.controls.password.value,
     });
-    
+
     this.userService.login(user)
       .do((res: Response) => this.serverErrors = ValidationService.getAuthErrors(res))
-      .subscribe((res: Response) => this.closeModal(res));
+      .filter((res: Response) => !res || res.ok)
+      .do((res: Response) => this.closeModal(res))
+      .subscribe(() => this.router.navigate(['/account/dashboard']));
   }
 
   private closeModal(res?: Response) {
-    if (!res || res.ok) {
-      isBrowser && $('modal .close-button').click();
-    }
+    isBrowser && $('modal .close-button').click();
   }
 }
