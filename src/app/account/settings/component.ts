@@ -3,10 +3,10 @@ import { Response } from '@angular/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import { User } from '../../users/user';
-import { UserService } from '../../services/user.service';
-import { ValidationService } from '../../services/validation.service';
+import { UserService } from '../../shared/services/user.service';
+import { ValidationService } from '../../shared/services/validation.service';
 import { isBrowser } from 'angular2-universal';
-import { ControlMessages } from '../../components/control-messages/component';
+import { ControlMessages } from '../../shared/components/control-messages/component';
 import { Contact } from '../../users/user';
 
 @Component({

@@ -13,25 +13,25 @@ import { SharedModule } from './app/shared/shared.module';
 import { App } from './app/component';
 
 // Services
-import { UserService } from './app/services/user.service';
-import { PropertyService } from './app/services/property.service';
-import { PropertyActionStateService } from './app/services/property-action-state.service';
-import { FacetsService } from './app/services/facets.service';
-import { GoogleApiService } from './app/services/google-api.service';
-import { HttpService } from './app/services/http.service';
-import { ImageUploadService } from './app/services/image-upload.service';
-import { SeoService } from './app/services/seo.service';
-import { SocialService } from './app/services/social.service';
-import { UtilService } from './app/services/util.service';
-import { ValidationService } from './app/services/validation.service';
-import { PersistenceService } from './app/services/persistence.service';
+import { UserService } from './app/shared/services/user.service';
+import { PropertyService } from './app/shared/services/property.service';
+import { PropertyActionStateService } from './app/shared/services/property-action-state.service';
+import { FacetsService } from './app/shared/services/facets.service';
+import { GoogleApiService } from './app/shared/services/google-api.service';
+import { HttpService } from './app/shared/services/http.service';
+import { ImageUploadService } from './app/shared/services/image-upload.service';
+import { SeoService } from './app/shared/services/seo.service';
+import { SocialService } from './app/shared/services/social.service';
+import { UtilService } from './app/shared/services/util.service';
+import { ValidationService } from './app/shared/services/validation.service';
+import { PersistenceService } from './app/shared/services/persistence.service';
 
 //////////////////////////////////////////
 // NODE SPECIFIC                        //
 //////////////////////////////////////////
 
-import { Cookie } from './app/services/cookies/cookie';
-import { CookieNode } from './app/services/cookies/cookie-node';
+import { Cookie } from './app/shared/services/cookies/cookie';
+import { CookieNode } from './app/shared/services/cookies/cookie-node';
 
 export const PROVIDERS = [
   UserService, PropertyService, FacetsService, GoogleApiService, HttpService, ImageUploadService, SeoService,

@@ -4,17 +4,17 @@ import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { isBrowser } from 'angular2-universal'; 
 
-import { UserService } from '../../services/user.service';
-import { MapOptions } from '../../components/property-map/component';
-import { SeoService } from '../../services/seo.service';
-import { SocialService } from '../../services/social.service';
+import { UserService } from '../../shared/services/user.service';
+import { MapOptions } from '../../shared/components/property-map/component';
+import { SeoService } from '../../shared/services/seo.service';
+import { SocialService } from '../../shared/services/social.service';
 import { Property } from '../property';
-import { PropertyActionState, PropertyActionMode } from '../../services/property-action-state.service';
-import { HttpService } from '../../services/http.service';
-import { ImageUploadService, PendingFile } from '../../services/image-upload.service';
-import { PropertyService } from '../../services/property.service';
-import { PropertyActionStateService } from '../../services/property-action-state.service';
-import { getHoneybadger } from '../../services/honeybadger';
+import { PropertyActionState, PropertyActionMode } from '../../shared/services/property-action-state.service';
+import { HttpService } from '../../shared/services/http.service';
+import { ImageUploadService, PendingFile } from '../../shared/services/image-upload.service';
+import { PropertyService } from '../../shared/services/property.service';
+import { PropertyActionStateService } from '../../shared/services/property-action-state.service';
+import { getHoneybadger } from '../../shared/services/honeybadger';
 
 const ZOOM_LEVEL: number = 16;
 const HEIGHT: string = '350px';

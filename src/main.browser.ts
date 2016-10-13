@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 
 import { App } from './app/component';
 import { PROVIDERS, IMPORTS } from './main.node';
-import { Cookie } from './app/services/cookies/cookie';
-import { CookieBrowser } from './app/services/cookies/cookie-browser';
+import { Cookie } from './app/shared/services/cookies/cookie';
+import { CookieBrowser } from './app/shared/services/cookies/cookie-browser';
 
 @NgModule({
   bootstrap: [App],

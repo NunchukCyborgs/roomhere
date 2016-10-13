@@ -1,4 +1,4 @@
-import { Location, Amenity } from '../services/facets.service';
+import { Location, Amenity } from '../shared/services/facets.service';
 import { User } from '../users/user';
 
 export interface Type {

@@ -3,10 +3,10 @@ import { FormBuilder } from '@angular/forms';
 import { Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { Property } from '../../../properties/property';
-import { PropertyService } from '../../../services/property.service';
-import { UserService } from '../../../services/user.service';
+import { PropertyService } from '../../../shared/services/property.service';
+import { UserService } from '../../../shared/services/user.service';
 import { Contact } from '../../../users/user';
-import { ValidationService } from '../../../services/validation.service';
+import { ValidationService } from '../../../shared/services/validation.service';
 
 @Component({
   selector: 'super-licensing',

@@ -4,9 +4,9 @@ import { FormBuilder } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import { isBrowser } from 'angular2-universal'
 
-import { UserService, Me } from './services/user.service';
-import { SeoService } from './services/seo.service';
-import { getHoneybadger } from './services/honeybadger';
+import { UserService, Me } from './shared/services/user.service';
+import { SeoService } from './shared/services/seo.service';
+import { getHoneybadger } from './shared/services/honeybadger';
 
 // This generates the file, and we link to it in index.html
 require('../assets/stylesheets/app.scss');

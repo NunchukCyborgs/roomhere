@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { Slide } from '../../components/slide/component';
-import { Carousel }  from '../../components/carousel/component';
+import { Slide } from '../../shared/components/slide/component';
+import { Carousel }  from '../../shared/components/carousel/component';
 import { isBrowser } from 'angular2-universal';
 
 declare let $ : any;

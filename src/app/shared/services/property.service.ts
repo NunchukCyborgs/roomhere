@@ -1,12 +1,12 @@
 import { Renderer, Inject, Injectable } from "@angular/core";
-import { HttpService } from '../services/http.service';
+import { HttpService } from './http.service';
 
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/Rx';
 
-import { Property, PropertyFacet } from '../properties/property';
-import { getHoneybadger } from '../services/honeybadger';
+import { Property, PropertyFacet } from '../../properties/property';
+import { getHoneybadger } from './honeybadger';
 
 @Injectable()
 export class PropertyService {

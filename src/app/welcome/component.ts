@@ -3,11 +3,11 @@ import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 import { Property, PropertyFacet } from '../properties/property';
-import { PropertyService } from '../services/property.service';
-import { PersistenceService } from '../services/persistence.service';
-import { MapOptions } from '../components/property-map/component';
+import { PropertyService } from '../shared/services/property.service';
+import { PersistenceService } from '../shared/services/persistence.service';
+import { MapOptions } from '../shared/components/property-map/component';
 import { User } from '../users/user';
-import { UserService } from '../services/user.service';
+import { UserService } from '../shared/services/user.service';
 import { CAPE_GIRARDEU_CENTER } from '../config';
 
 const MAP_HEIGHT = '100%';

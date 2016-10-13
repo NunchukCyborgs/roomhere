@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { isBrowser } from 'angular2-universal';
-import { Cookie } from '../services/cookies/cookie';
+import { Cookie } from './cookies/cookie';
 
 @Injectable()
 export class PersistenceService {

@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { NgClass } from '@angular/common';
 import { Observable } from 'rxjs/Observable';
-import { PropertyFacet } from '../../properties/property';
+import { PropertyFacet } from '../../../properties/property';
 import { FacetsService, Location, Amenity } from '../../services/facets.service';
 
 @Component({

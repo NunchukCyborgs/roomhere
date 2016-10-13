@@ -2,7 +2,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { isBrowser } from 'angular2-universal';
 import { Router } from '@angular/router';
 
-import { Property } from '../../properties/property';
+import { Property } from '../../../properties/property';
 
 @Component({
   selector: 'property-accordion',

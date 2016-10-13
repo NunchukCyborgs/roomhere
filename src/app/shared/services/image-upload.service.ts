@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { isBrowser } from 'angular2-universal';
 import { HttpService } from './http.service';
-import { Property } from '../properties/property';
-import { PropertyService } from '../services/property.service';
+import { Property } from '../../properties/property';
+import { PropertyService } from './property.service';
 
 export interface PendingFile {
   fileName: string,
