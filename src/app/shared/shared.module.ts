@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UniversalModule } from 'angular2-universal';
 
-import { AppRoutingModule } from '../../app.routes'
+import { SharedRoutingModule } from './shared-routing.module'
 
 // Users
 import { Login } from '../../app/users/login/component';
@@ -66,7 +66,7 @@ export const DECLARTIONS = [
     FormsModule,
     ReactiveFormsModule,
     UniversalModule,
-    AppRoutingModule,
+    SharedRoutingModule,
   ],
   declarations: DECLARTIONS,
   exports: [
