@@ -1,8 +1,7 @@
 import { Component, OnDestroy, Renderer } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
-import { isBrowser } from 'angular2-universal'; 
+import { isBrowser } from 'angular2-universal';
 
 import { UserService } from '../../shared/services/user.service';
 import { MapOptions } from '../../shared/components/property-map/component';
@@ -30,7 +29,6 @@ export class PropertyView {
   public isEditing$: Observable<boolean>;
   public actionState$: Observable<PropertyActionState>;
   public tweetText: string;
-  private sub: Subscription;
 
   constructor(
     private router: Router,
@@ -43,7 +41,7 @@ export class PropertyView {
     private http: HttpService,
     private actionStateService: PropertyActionStateService
   ) {
-    getHoneybadger().setContext({view: 'property-view'});
+    getHoneybadger().setContext({ view: 'property-view' });
     // Maybe put this on the root component, let's play with it for a while first
   }
 
@@ -87,17 +85,14 @@ export class PropertyView {
     this.isEditing$ = this.actionStateService.isEditing$;
     this.actionState$ = this.actionStateService.actionState$;
 
-    this.sub = this.route.params
-      .flatMap(params => this.propertyService.getPropertyBySlug$(params['slug']))
-      .do((property: Property) => this.property = property)
-      .filter(i => i)
-      .do((property: Property) => this.updateMapOptions(property))
-      .do((property: Property) => this.tweetText = this.socialService.makeTwitterUrl(property))
-      .do((property: Property) => this.seoService.addPropertyTags(this.renderer, property))
-      .subscribe((property: Property) => this.actionStateService.setState(property));
-  }
+    this.route.data.forEach((data: { property: Property }) => {
+      this.property = data.property;
+    });
+      console.log('prop: ', this.property);
 
-  ngOnDestroy() {
-    this.sub.unsubscribe();
+    this.updateMapOptions(this.property);
+    this.tweetText = this.socialService.makeTwitterUrl(this.property);
+    this.seoService.addPropertyTags(this.renderer, this.property);
+    this.actionStateService.setState(this.property);
   }
 }

@@ -30,15 +30,11 @@ export class PropertyService {
   }
 
   public getPropertyBySlug$(slug: string): Observable<any> {
-    const seq = this.http
+    return this.http
       .get(`${BASE_API_URL}/properties/${slug}`)
       .map(i => i.json())
       .map(i => new Property(i))
       .do(i => this.propertyBySlug$.next(this._propertyBySlug = i.id ? i : null));
-
-    seq.subscribe();
-    return seq
-      .flatMap(i => this.propertyBySlug$);
   }
 
   public getMyProperties$(): Observable<any> {

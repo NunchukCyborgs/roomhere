@@ -52,7 +52,7 @@ import { SimpleSearchPipe } from './pipes/simple-search.pipe';
 
 // Services?
 import { WelcomeResolve } from '../welcome/welcome-resolve.service';
-
+import { PropertyViewResolve } from '../properties/property-view/property-resolve.service';
 
 export const DECLARTIONS = [
   Login, Register, ForgotPassword, ResetPassword, PropertyView, PropertyImages, PropertyReviews,
@@ -80,7 +80,8 @@ export const DECLARTIONS = [
     UniversalModule,
   ],
   providers: [
-    WelcomeResolve
+    WelcomeResolve,
+    PropertyViewResolve,
   ],
 })
 export class SharedModule { }
