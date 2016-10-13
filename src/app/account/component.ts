@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { UserService } from '../users/user.service';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'account-page',

@@ -1,6 +1,6 @@
 import { Component, Input, AfterViewInit } from '@angular/core';
 import { Property } from '../property';
-import { PropertyService } from '../property.service';
+import { PropertyService } from '../../services/property.service';
 
 @Component({
   selector: 'property-edit-image',

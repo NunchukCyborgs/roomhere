@@ -3,7 +3,7 @@ import { Response } from '@angular/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import { User } from '../../users/user';
-import { UserService } from '../../users/user.service';
+import { UserService } from '../../services/user.service';
 import { ValidationService } from '../../services/validation.service';
 import { isBrowser } from 'angular2-universal';
 import { ControlMessages } from '../../components/control-messages/component';

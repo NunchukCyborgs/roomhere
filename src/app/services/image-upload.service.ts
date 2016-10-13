@@ -3,7 +3,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { isBrowser } from 'angular2-universal';
 import { HttpService } from './http.service';
 import { Property } from '../properties/property';
-import { PropertyService } from '../properties/property.service';
+import { PropertyService } from '../services/property.service';
 
 export interface PendingFile {
   fileName: string,

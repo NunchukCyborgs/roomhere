@@ -4,7 +4,7 @@ import { FormBuilder } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import { isBrowser } from 'angular2-universal'
 
-import { UserService, Me } from './users/user.service';
+import { UserService, Me } from './services/user.service';
 import { SeoService } from './services/seo.service';
 import { getHoneybadger } from './services/honeybadger';
 
