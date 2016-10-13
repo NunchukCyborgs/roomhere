@@ -4,9 +4,9 @@ import { FormBuilder } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import { isBrowser } from 'angular2-universal'
 
-import { UserService } from './users/user.service';
-import { SeoService } from './services/seo.service';
-import { getHoneybadger } from './services/honeybadger';
+import { UserService, Me } from './shared/services/user.service';
+import { SeoService } from './shared/services/seo.service';
+import { getHoneybadger } from './shared/services/honeybadger';
 
 // This generates the file, and we link to it in index.html
 require('../assets/stylesheets/app.scss');
@@ -18,6 +18,7 @@ require('../assets/stylesheets/deferred.scss');
 })
 export class App {
   public hasAuth$: Observable<boolean>;
+  public me$: Observable<Me>;
   public noFooter$: Observable<boolean>;
 
   constructor(private userService: UserService, private router: Router,
@@ -25,13 +26,13 @@ export class App {
   }
 
   ngOnInit() {
+    this.hideConsoleMessages();
     this.initHoneybadger();
     this.hasAuth$ = this.userService.hasAuth$;
+    this.me$ = this.userService.me$
     this.seoService.addBaseTags(this.renderer);
 
-    this.noFooter$ = Observable.combineLatest(this.userService.hasAuth$, this.router.events)
-      .map(i => [i[0], i[1].url])
-      .map(i => !i[0] && i[1] === '/');
+    this.noFooter$ = this.router.events.map(i => i.url).map(i => i === '/');
   }
 
   ngAfterViewInit() {
@@ -43,9 +44,6 @@ export class App {
       .subscribe(params => {
         if (params['reset_password'] === 'true') {
           $('#ResetPasswordModal').foundation('open');
-        } else if (params['open_settings'] === 'true') {
-          window.history.pushState(null, 'Roomhere', window.location.pathname)
-          this.tryOpenSettingsModal();
         }
       });
   }
@@ -54,13 +52,10 @@ export class App {
     this.userService.logout();
   }
 
-  private tryOpenSettingsModal() {
-    // Warning: dangerous recursion here!
-    setTimeout(() => {
-      const openLink = $('#SettingsModalOpen');
-      const modal = $('#SettingsModal');
-      openLink && modal ? openLink.click() : this.tryOpenSettingsModal();
-    }, 250)
+  private hideConsoleMessages() {
+    if (IS_PROD) {
+      console.log = console.warn = console.error = () => { }
+    }
   }
 
   private initHoneybadger() {

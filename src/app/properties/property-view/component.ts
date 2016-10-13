@@ -1,21 +1,19 @@
 import { Component, OnDestroy, Renderer } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
-import { isBrowser } from 'angular2-universal'; 
+import { isBrowser } from 'angular2-universal';
 
-import { UserService } from '../../users/user.service';
-import { MapOptions } from '../../components/property-map/component';
-import { SeoService } from '../../services/seo.service';
-import { SocialService } from '../../services/social.service';
+import { UserService } from '../../shared/services/user.service';
+import { MapOptions } from '../../shared/components/property-map/component';
+import { SeoService } from '../../shared/services/seo.service';
+import { SocialService } from '../../shared/services/social.service';
 import { Property } from '../property';
-import { PropertyActionState, PropertyActionMode } from '../property-action-state.service';
-import { BASE_API_URL } from '../../config'
-import { HttpService } from '../../services/http.service';
-import { ImageUploadService, PendingFile } from '../../services/image-upload.service';
-import { PropertyService } from '../property.service';
-import { PropertyActionStateService } from '../property-action-state.service';
-import { getHoneybadger } from '../../services/honeybadger';
+import { PropertyActionState, PropertyActionMode } from '../../shared/services/property-action-state.service';
+import { HttpService } from '../../shared/services/http.service';
+import { ImageUploadService, PendingFile } from '../../shared/services/image-upload.service';
+import { PropertyService } from '../../shared/services/property.service';
+import { PropertyActionStateService } from '../../shared/services/property-action-state.service';
+import { getHoneybadger } from '../../shared/services/honeybadger';
 
 const ZOOM_LEVEL: number = 16;
 const HEIGHT: string = '350px';
@@ -31,7 +29,6 @@ export class PropertyView {
   public isEditing$: Observable<boolean>;
   public actionState$: Observable<PropertyActionState>;
   public tweetText: string;
-  private sub: Subscription;
 
   constructor(
     private router: Router,
@@ -44,7 +41,7 @@ export class PropertyView {
     private http: HttpService,
     private actionStateService: PropertyActionStateService
   ) {
-    getHoneybadger().setContext({view: 'property-view'});
+    getHoneybadger().setContext({ view: 'property-view' });
     // Maybe put this on the root component, let's play with it for a while first
   }
 
@@ -88,17 +85,14 @@ export class PropertyView {
     this.isEditing$ = this.actionStateService.isEditing$;
     this.actionState$ = this.actionStateService.actionState$;
 
-    this.sub = this.route.params
-      .flatMap(params => this.propertyService.getPropertyBySlug$(params['slug']))
-      .do((property: Property) => this.property = property)
-      .filter(i => i)
-      .do((property: Property) => this.updateMapOptions(property))
-      .do((property: Property) => this.tweetText = this.socialService.makeTwitterUrl(property))
-      .do((property: Property) => this.seoService.addPropertyTags(this.renderer, property))
-      .subscribe((property: Property) => this.actionStateService.setState(property));
-  }
+    this.route.data.forEach((data: { property: Property }) => {
+      this.property = data.property;
+    });
+      console.log('prop: ', this.property);
 
-  ngOnDestroy() {
-    this.sub.unsubscribe();
+    this.updateMapOptions(this.property);
+    this.tweetText = this.socialService.makeTwitterUrl(this.property);
+    this.seoService.addPropertyTags(this.renderer, this.property);
+    this.actionStateService.setState(this.property);
   }
 }

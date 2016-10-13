@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { Amenity } from '../../services/facets.service';
+import { Amenity } from '../../shared/services/facets.service';
 
 @Component({
   selector: 'property-amenities',
@@ -16,7 +16,6 @@ export class PropertyAmenities {
   ngOnChanges() {
     this.prettyAmenities = this
       .sortAmenities(this.amenities)
-      .map(i => this.shortenAmenities(i));
   }
 
   public update(amen: Amenity, $event: any) {
@@ -31,10 +30,5 @@ export class PropertyAmenities {
 
   private sortAmenities(amens: Amenity[]): Amenity[] {
     return amens.sort((a, b) => a.name.length < b.name.length ? -1 : 1);
-  }
-
-  private shortenAmenities(amen: Amenity): Amenity {
-    amen.name = amen.name.replace(' Included', ' Incl.').replace(' Allowed', '');
-    return amen;
   }
 }

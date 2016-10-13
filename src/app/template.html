@@ -1,13 +1,11 @@
-<top-bar [hasAuth]="hasAuth$ | async" (logout)="logout()"></top-bar>
+<top-bar [hasAuth]="hasAuth$ | async" [isLandlord]="(me$ | async)?.licenseId" (logout)="logout()"></top-bar>
 <main>
   <router-outlet></router-outlet>
 </main>
 <div hidden>
-  <register class="reveal small" id="RegisterModal" data-reveal></register>
-  <login class="reveal small" id="LoginModal" data-reveal></login>
-  <forgot-password class="reveal small" id="ForgotPasswordModal" data-reveal></forgot-password>
-  <reset-password class="reveal small" id="ResetPasswordModal" data-reveal></reset-password>
-  <settings *ngIf="hasAuth$ | async" class="reveal" id="SettingsModal" data-reveal></settings>
-  <a hidden data-open="SettingsModal" id="SettingsModalOpen"></a>
+  <modal class="reveal small" id="RegisterModal" data-reveal><register></register></modal>
+  <modal class="reveal small" id="LoginModal" data-reveal><login></login></modal>
+  <modal class="reveal small" id="ForgotPasswordModal" data-reveal><forgot-password></forgot-password></modal>
+  <modal class="reveal small" id="ResetPasswordModal" data-reveal><reset-password></reset-password></modal>
 </div>
 <big-footer *ngIf="!(noFooter$ | async)"></big-footer>

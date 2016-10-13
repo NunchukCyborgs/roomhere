@@ -51,6 +51,6 @@ namespace :deploy do
     end
   end
 
-  after :publishing, :restart
+  before :publishing, :restart
   #after :publishing, :build_static
 end

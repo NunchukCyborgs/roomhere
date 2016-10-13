@@ -1,9 +1,9 @@
 <div>
   <a class="button expanded large rent-now {{actionState.className}}" (click)="submit.emit(true)">{{actionState.text}}</a>
   <div class="secondary expanded button-group">
-    <button type="button" (click)="shareFacebook.emit(true)" class="button"><i class="large icon-facebook"></i></button>
+    <button type="button" (click)="shareFacebook.emit(true)" class="button"><i class="large fa fa-facebook"></i></button>
     <a target="_blank" [href]="tweetText" class="button">
-      <i class="large icon-twitter"></i>
+      <i class="large fa fa-twitter"></i>
     </a>
   </div>
 </div>

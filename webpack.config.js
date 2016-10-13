@@ -1,13 +1,17 @@
-var webpack = require('webpack');
-var path = require('path');
-var resolveNgRoute = require('@angularclass/resolve-angular-routes');
-var autoprefixer = require('autoprefixer');
-var purify = require('purifycss-webpack-plugin');
-var ExtractPlugin = require('extract-text-webpack-plugin')
-var extractCritical = new ExtractPlugin('critical.css');
-var extractDeferred = new ExtractPlugin('deferred.css');
+const webpack = require('webpack');
+const path = require('path');
+const resolveNgRoute = require('@angularclass/resolve-angular-routes');
+const autoprefixer = require('autoprefixer');
+const purify = require('purifycss-webpack-plugin');
+const ExtractPlugin = require('extract-text-webpack-plugin')
+const extractCritical = new ExtractPlugin('critical.css');
+const extractDeferred = new ExtractPlugin('deferred.css');
 
-var htmlQuery = {
+const IS_PROD = Boolean(process.env.NODE_ENV === 'production');
+const BASE_API_URL = IS_PROD ? 'https://api.roomhere.io' : 'https://test-api.roomhere.io';
+const BASE_URL = IS_PROD ? 'https://roomhere.io' : 'http://localhost:3000';
+
+const htmlQuery = {
   minimize: true,
   removeAttributeQuotes: false,
   caseSensitive: true,
@@ -20,7 +24,42 @@ var htmlQuery = {
   customAttrAssign: [/\)?\]?=/]
 };
 
-var commonConfig = {
+const whitelist = [
+  'tooltip', 
+  'foundation-mq',
+
+  // Amenity icon shit. Accessed programatically
+  'fa fa-paw',
+  'fa fa-wheelchair-alt',
+  'icon-washer-dryer-2',
+  'icon-electricity',
+  'icon-gas',
+  'icon-tint',
+  'fa fa-trash',
+  'icon-central-air-alt',
+  'fa fa-fire',
+  'icon-smoking-allowed',
+  'icon-garage-512',
+  'icon-lawn-mower',
+  'fa fa-television',
+  'fa fa-wifi',
+
+  // Topbar dropdown stuff
+  'tooltip',
+  'foundation-mq',
+  'vertical',
+  'first-sub',
+  'is-dropdown-submenu-parent',
+  'opens-left',
+  'is-active',
+  'submenu',
+  'is-dropdown-submenu',
+  'js-dropdown-active',
+  'is-submenu-item',
+  'is-dropdown-submenu-item',
+];
+
+const commonConfig = {
   resolve: {
     extensions: ['', '.ts', '.js', '.json']
   },
@@ -40,6 +79,11 @@ var commonConfig = {
     ],
   },
   plugins: [
+    new webpack.DefinePlugin({
+      IS_PROD: IS_PROD,
+      BASE_API_URL: JSON.stringify(BASE_API_URL),
+      BASE_URL: JSON.stringify(BASE_URL),
+    }),
     new webpack.ContextReplacementPlugin(
       // The (\\|\/) piece accounts for path separators in *nix and Windows
       /angular(\\|\/)core(\\|\/)src(\\|\/)linker/,
@@ -69,20 +113,7 @@ var commonConfig = {
         minify: true,
         // rejected: true,
         info: true,
-        whitelist: [
-          'tooltip',
-          'foundation-mq',
-          'vertical',
-          'first-sub',
-          'is-dropdown-submenu-parent',
-          'opens-left',
-          'is-active',
-          'submenu',
-          'is-dropdown-submenu',
-          'js-dropdown-active',
-          'is-submenu-item',
-          'is-dropdown-submenu-item',
-        ],
+        whitelist: whitelist,
       }
     }),
   ]
