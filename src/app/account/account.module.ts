@@ -1,6 +1,7 @@
 import { NgModule }       from '@angular/core';
 import { SharedModule } from '../shared/shared.module';
 
+import { AccountAuthGuard } from './account.auth-guard'; 
 import { AccountPage } from './component';
 import { SuperUser } from './super/component';
 import { SuperLicensing } from './super/licensing/component';
@@ -20,6 +21,7 @@ import { BecomeLandlord } from './become-landlord/component';
     Dashboard, SuperUser, AccountPage, SuperUser, Settings, UserSplash, LandlordSettings, BecomeLandlord, SuperLicensing,
   ],
   providers: [
+    AccountAuthGuard
   ]
 })
 export class AccountModule {}

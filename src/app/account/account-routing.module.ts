@@ -7,6 +7,7 @@ import { Settings } from './settings/component';
 import { UserSplash } from './user-splash/component';
 import { LandlordSettings } from './landlord-settings/component';
 import { BecomeLandlord } from './become-landlord/component';
+import { AccountAuthGuard } from './account.auth-guard';
 
 @NgModule({
   imports: [
@@ -14,6 +15,7 @@ import { BecomeLandlord } from './become-landlord/component';
       {
         path: 'account',
         component: AccountPage,
+        canActivate: [AccountAuthGuard],
         children: [
           { path: '', redirectTo: 'dashboard' },
           { path: 'dashboard', component: Dashboard },
