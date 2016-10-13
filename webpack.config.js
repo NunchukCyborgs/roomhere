@@ -8,7 +8,7 @@ const extractCritical = new ExtractPlugin('critical.css');
 const extractDeferred = new ExtractPlugin('deferred.css');
 
 const IS_PROD = Boolean(process.env.NODE_ENV === 'production');
-const BASE_API_URL = IS_PROD || true ? 'https://api.roomhere.io' : 'https://test-api.roomhere.io';
+const BASE_API_URL = IS_PROD ? 'https://api.roomhere.io' : 'https://test-api.roomhere.io';
 const BASE_URL = IS_PROD ? 'https://roomhere.io' : 'http://localhost:3000';
 
 const htmlQuery = {
