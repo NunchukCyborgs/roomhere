@@ -69,7 +69,20 @@ var commonConfig = {
         minify: true,
         // rejected: true,
         info: true,
-        whitelist: ['tooltip', 'foundation-mq', 'vertical', 'first-sub'],
+        whitelist: [
+          'tooltip',
+          'foundation-mq',
+          'vertical',
+          'first-sub',
+          'is-dropdown-submenu-parent',
+          'opens-left',
+          'is-active',
+          'submenu',
+          'is-dropdown-submenu',
+          'js-dropdown-active',
+          'is-submenu-item',
+          'is-dropdown-submenu-item',
+        ],
       }
     }),
   ]
