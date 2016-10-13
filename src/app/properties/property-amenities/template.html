@@ -3,8 +3,8 @@
         <div *ngIf="!isEditing" [class.non-active]="!amen.active" class="amenity-size">
             <i *ngIf="amen.active" class="{{amen.icon}}" ></i> <span [class.strike]="!hasAnyAmenities()">{{amen.shortName}}</span>
         </div>
-        <div *ngIf="isEditing">
-            <input type="checkbox" [checked]="amen.active" (change)="update(amen, $event)" /> {{amen.shortName}}
+        <div *ngIf="isEditing" class="switch tiny">
+            <input type="checkbox" class="switch-input" [checked]="amen.active" (change)="update(amen, $event)" /> {{amen.shortName}}
         </div>
     </div>
 </div>
