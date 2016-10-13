@@ -5,6 +5,8 @@ import { Dashboard } from './dashboard/component';
 import { SuperUser } from './super/component';
 import { Settings } from './settings/component';
 import { UserSplash } from './user-splash/component';
+import { LandlordSettings } from './landlord-settings/component';
+import { BecomeLandlord } from './become-landlord/component';
 
 @NgModule({
   imports: [
@@ -16,8 +18,9 @@ import { UserSplash } from './user-splash/component';
           { path: '', redirectTo: 'dashboard' },
           { path: 'dashboard', component: Dashboard },
           { path: 'super', component: SuperUser },
-          { path: 'settings', component: Settings },
           { path: 'registration-success', component: UserSplash },
+          { path: 'landlord-settings', component: LandlordSettings },
+          { path: 'become-a-landlord', component: BecomeLandlord },
         ]
       }
     ])
