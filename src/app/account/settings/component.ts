@@ -2,16 +2,16 @@ import { Component } from '@angular/core';
 import { Response } from '@angular/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
-import { User } from '../user';
-import { UserService } from '../user.service';
+import { User } from '../../users/user';
+import { UserService } from '../../users/user.service';
 import { ValidationService } from '../../services/validation.service';
 import { isBrowser } from 'angular2-universal';
 import { ControlMessages } from '../../components/control-messages/component';
-import { Contact } from '../user';
+import { Contact } from '../../users/user';
 
 @Component({
   selector: 'settings',
-  styles:[require('../modal/modal.styles.scss').toString(), require('./styles.scss').toString()],
+  // styles:[require('../modal/modal.styles.scss').toString(), require('./styles.scss').toString()],
   template: require('./template.html').toString(),
 })
 export class Settings {

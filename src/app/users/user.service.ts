@@ -49,7 +49,7 @@ export class UserService {
   }
 
   public register(user: User): Observable<Response> {
-    user.confirm_success_url = `${BASE_URL}/registration-success`;
+    user.confirm_success_url = `${BASE_URL}/account/registration-success`;
     return this.http.post(`${BASE_API_URL}/auth`, user);
   }
 

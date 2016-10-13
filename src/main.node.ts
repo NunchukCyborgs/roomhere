@@ -19,8 +19,8 @@ import { Login } from './app/users/login/component';
 import { Register } from './app/users/register/component';
 import { ForgotPassword } from './app/users/forgot-password/component';
 import { ResetPassword } from './app/users/reset-password/component';
-import { Settings } from './app/users/settings/component';
-import { UserSplash } from './app/users/user-splash/component';
+// import { Settings } from './app/users/settings/component';
+// import { UserSplash } from './app/users/user-splash/component';
 
 // Properties
 import { PropertyView } from './app/properties/property-view/component';

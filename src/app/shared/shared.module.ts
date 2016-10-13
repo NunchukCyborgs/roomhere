@@ -14,8 +14,8 @@ import { Login } from '../../app/users/login/component';
 import { Register } from '../../app/users/register/component';
 import { ForgotPassword } from '../../app/users/forgot-password/component';
 import { ResetPassword } from '../../app/users/reset-password/component';
-import { Settings } from '../../app/users/settings/component';
-import { UserSplash } from '../../app/users/user-splash/component';
+// import { Settings } from '../../app/users/settings/component';
+// import { UserSplash } from '../../app/users/user-splash/component';
 
 // Properties
 import { PropertyView } from '../../app/properties/property-view/component';
@@ -59,12 +59,12 @@ import { SimpleSearchPipe } from '../../app/pipes/simple-search.pipe';
 
 
 export const DECLARTIONS = [
-  Login, Register, ForgotPassword, ResetPassword, Settings, PropertyView, PropertyImages, PropertyReviews,
+  Login, Register, ForgotPassword, ResetPassword, PropertyView, PropertyImages, PropertyReviews,
   SimilarProperties, PropertyPreview, PropertyAmenities, PropertyActionsGroup, PropertyEditImage, PropertyEdit,
   RentNow, BigFooter, Welcome, FAQ, PrivacyPolicy, PropertyMap, Slide, PropertySlider, PropertyFilters, PropertyAccordion,
-  MissingResource, App, Logo, TopBar, NoPropertyInfo, SuperLicensing, UserSplash,
+  MissingResource, App, Logo, TopBar, NoPropertyInfo, SuperLicensing,
   SimpleSearchPipe, Carousel, ControlMessages, ImageUpload, NumberTicker, UploadProgress,
-  // Dashboard, AccountPage, SuperUser
+  // Dashboard, AccountPage, SuperUser, Settings, UserSplash
 ];
 
 @NgModule({
