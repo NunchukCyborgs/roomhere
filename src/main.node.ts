@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { UniversalModule } from 'angular2-universal';
+import { UniversalModule } from 'angular2-universal/node';
 import { AppRoutingModule } from './app-routing.module';
 import { AccountModule } from './app/account/account.module';
 import { SharedModule } from './app/shared/shared.module';
@@ -40,8 +40,9 @@ export const PROVIDERS = [
 
 export const IMPORTS = [
   SharedModule,
+  UniversalModule,
   AccountModule,
-  AppRoutingModule, 
+  AppRoutingModule,
 ];
 
 @NgModule({

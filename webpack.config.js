@@ -61,7 +61,7 @@ const whitelist = [
 
 const commonConfig = {
   resolve: {
-    extensions: ['', '.ts', '.js', '.json']
+    extensions: ['.ts', '.js', '.json']
   },
   module: {
     loaders: [
@@ -88,7 +88,7 @@ const commonConfig = {
       // The (\\|\/) piece accounts for path separators in *nix and Windows
       /angular(\\|\/)core(\\|\/)src(\\|\/)linker/,
       root('./src'),
-      resolveNgRoute(root('./src'))
+      {}
     ),
     new webpack.LoaderOptionsPlugin({
       options: {
@@ -141,7 +141,6 @@ var serverConfig = {
     path: root('dist/server'),
     libraryTarget: 'commonjs2'
   },
-  externals: checkNodeImport,
   node: {
     global: true,
     __dirname: true,
@@ -154,15 +153,12 @@ var serverConfig = {
 // Default config
 var defaultConfig = {
   context: __dirname,
-  devtool: 'source-map',
-  resolve: {
-    root: root('/src')
-  },
+  devtool: 'sourceMap',
   output: {
     publicPath: path.resolve(__dirname),
     filename: 'index.js'
   }
-}
+};
 
 var webpackMerge = require('webpack-merge');
 module.exports = [
@@ -171,15 +167,7 @@ module.exports = [
 
   // Server
   webpackMerge({}, defaultConfig, commonConfig, serverConfig)
-]
-
-// Helpers
-function checkNodeImport(context, request, cb) {
-  if (!path.isAbsolute(request) && request.charAt(0) !== '.') {
-    cb(null, 'commonjs ' + request); return;
-  }
-  cb();
-}
+];
 
 function root(args) {
   args = Array.prototype.slice.call(arguments, 0);

@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { UniversalModule } from 'angular2-universal';
 
 import { SharedRoutingModule } from './shared-routing.module'
 
@@ -68,7 +67,6 @@ export const DECLARTIONS = [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    UniversalModule,
     SharedRoutingModule,
   ],
   declarations: DECLARTIONS,
@@ -77,7 +75,6 @@ export const DECLARTIONS = [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    UniversalModule,
   ],
   providers: [
     WelcomeResolve,
