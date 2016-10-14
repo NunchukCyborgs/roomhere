@@ -42,10 +42,16 @@ export class Login {
       .do((res: Response) => this.serverErrors = ValidationService.getAuthErrors(res))
       .filter((res: Response) => !res || res.ok)
       .do((res: Response) => this.closeModal(res))
-      .subscribe(() => this.router.navigate(['/account/dashboard']));
+      .subscribe(() => this.redirectUser());
   }
 
   private closeModal(res?: Response) {
     isBrowser && $('modal .close-button').click();
+  }
+
+  private redirectUser() {
+    this.userService.loadMe()
+      .filter(i => Boolean(i.license_ids && i.license_ids.length))
+      .subscribe(() => this.router.navigate(['/account/dashboard']))
   }
 }
