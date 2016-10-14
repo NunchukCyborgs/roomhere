@@ -73,6 +73,14 @@ export class UserService {
     return this.http.post(`${BASE_API_URL}/users/licensing`, { license_id: licenseId });
   }
 
+  public setLicenseIds(licenseIds: string[]): Observable<Response> {
+    return Observable.combineLatest(licenseIds.map(i => this.setLicenseId(i)))
+      .do(i => console.log(1, i))
+      .filter(all => all.every(i => i && i.ok))
+      .do(() => this.loadMe()) // Update necessary things
+      .map(all => all[0]); // Just return one copy of the response
+  }
+
   public createContact(email?: string, phone?: string, licenseId?: string): Observable<Response> {
     const contact = Object.assign({}, email ? { email: email } : {}, phone ? { phone: phone } : {});
     return this.http.post(`${BASE_API_URL}/${licenseId ? `licenses/${licenseId}/` : ''}contacts`, { contact: contact });

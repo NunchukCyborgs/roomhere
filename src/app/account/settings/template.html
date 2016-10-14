@@ -2,7 +2,6 @@
   <div class="row">
     <div class="medium-10 medium-push-1 columns">
       <div class="signup-panel">
-        <h4>Edit Your Settings</h4>
         <form [formGroup]="settingsForm" (ngSubmit)="onSubmit()">
           <div class="form-group row collapse">
             <div class="small-2 columns">
@@ -27,17 +26,19 @@
               <span class="prefix"><i class="fa fa-hashtag"></i></span>
             </div>
             <div class="small-10  columns">
-              <input type="text" placeholder="License Number" class="form-control" [attr.disabled]="license.editable ? null : true" [(ngModel)]="license.value" />
+              <input type="text" placeholder="License Number" class="form-control" [attr.disabled]="license.editable ? null : true" [(ngModel)]="license.value"
+                [ngModelOptions]="{standalone: true}" />
             </div>
-            <control-messages [control]="settingsForm.controls.licenseId" class="alert"></control-messages>
           </div>
           <div class="form-group row collapse">
             <div class="small-12 text-center columns">
-              <button class="secondary hollow expanded button" (click)="addLicense()">Add Another License Number To Your Account</button>
+              <button type="button" class="secondary hollow expanded button" (click)="addLicense()" [attr.disabled]="canAddLicense() ? null : true">
+                Add Another License Number To Your Account
+                </button>
             </div>
           </div>
 
-          
+
           <p class="text-center">
             <button type="submit" class="button large" [attr.disabled]="!settingsForm.valid || getEmailOrPhoneRequiredMessage() ? true : null">submit</button>
           </p>

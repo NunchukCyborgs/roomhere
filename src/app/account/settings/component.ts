@@ -21,7 +21,7 @@ export class Settings {
   public licenses: Array<{editable: boolean, value: string}> = [];
   constructor(private userService: UserService, private formBuilder: FormBuilder) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.initForm();
 
     this.userService.hasAuth$.filter(i => i)
@@ -41,30 +41,34 @@ export class Settings {
       });
   }
 
-  private initForm(email = '', phone = '') {
+  private initForm(email = '', phone = ''): void {
     this.settingsForm = this.formBuilder.group({
       'email': [email, ValidationService.emailValidator],
       'phone': [phone, ValidationService.phoneNumberValidator],
     });
   }
 
-  public onSubmit() {
+  public onSubmit(): void {
     const controls = this.settingsForm.controls;
     
     this.userService
       .createUpdateContact(controls.email.value, controls.phone.value)
-      .flatMap(() => this.userService.setLicenseId(controls.licenseId.value))
+      .flatMap(() => this.userService.setLicenseIds(this.licenses.filter(i => i.editable).map(i => i.value)))
       .do(i => console.log(i))
       .subscribe((res: Response) => this.success = res.ok);
   }
 
-  public getEmailOrPhoneRequiredMessage() {
+  public getEmailOrPhoneRequiredMessage(): string {
     const email = this.settingsForm.controls.email;
     const phone = this.settingsForm.controls.phone;
     return !email.value && !phone.value && email.touched && phone.touched ? 'Email or Phone is required. ' : '';
   }
 
-  public addLicense() {
+  public addLicense(): void {
     this.licenses.push({editable: true, value: ''});
+  }
+
+  public canAddLicense(): boolean {
+    return this.licenses.filter(i => !i.value).length < 1;
   }
 }
