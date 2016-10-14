@@ -6,7 +6,7 @@
         <form [formGroup]="settingsForm" (ngSubmit)="onSubmit()">
           <div class="form-group row collapse">
             <div class="small-2 columns">
-              <span class="prefix"><i class="icon-mail"></i></span>
+              <span class="prefix"><i class="fa fa-envelope"></i></span>
             </div>
             <div class="small-10  columns">
               <input type="email" placeholder="email" formControlName="email" class="form-control" id="email">
@@ -15,43 +15,41 @@
           </div>
           <div class="form-group row collapse">
             <div class="small-2 columns">
-              <span class="prefix"><i class="icon-phone"></i></span>
+              <span class="prefix"><i class="fa fa-phone"></i></span>
             </div>
             <div class="small-10  columns">
               <input type="tel" placeholder="phone number" formControlName="phone" class="form-control" id="phone">
             </div>
             <control-messages [control]="settingsForm.controls.phone" class="alert">{{getEmailOrPhoneRequiredMessage()}}</control-messages>
           </div>
-          <div class="form-group row collapse">
+          <div class="form-group row collapse" *ngFor="let license of licenses">
             <div class="small-2 columns">
-              <span class="prefix"><i class="icon-hashtag"></i></span>
+              <span class="prefix"><i class="fa fa-hashtag"></i></span>
             </div>
             <div class="small-10  columns">
-              <input type="text" placeholder="License Number" formControlName="licenseId" class="form-control" id="licenseId" [attr.disabled]="licenseId ? true : null">
+              <input type="text" placeholder="License Number" class="form-control" [attr.disabled]="license.editable ? null : true" [(ngModel)]="license.value" />
             </div>
             <control-messages [control]="settingsForm.controls.licenseId" class="alert"></control-messages>
           </div>
+          <div class="form-group row collapse">
+            <div class="small-12 text-center columns">
+              <button class="secondary hollow expanded button" (click)="addLicense()">Add Another License Number To Your Account</button>
+            </div>
+          </div>
 
+          
           <p class="text-center">
             <button type="submit" class="button large" [attr.disabled]="!settingsForm.valid || getEmailOrPhoneRequiredMessage() ? true : null">submit</button>
           </p>
-
-          <h6>
-            Please enter the contact information you would like to show to potential renters. You can leave the email or phone blank
-            if you prefer one method over the other.
-          </h6>
-
-          <h6>
-            Your license number is your identification number from the city of Cape Girardeau. We use this number to grant you access to
-            your properties on Roomhere.
-          </h6>
+          <div *ngIf="!success"><span data-tooltip aria-haspopup="true" class="has-tip top" data-disable-hover="false" tabindex="2" title="Please enter the contact information you would like to show to potential renters. You can leave the email or phone blank
+            if you prefer one method over the other.">Help?</span></div>
+          <div><span data-tooltip aria-haspopup="true" class="has-tip top" data-disable-hover="false" tabindex="2" title="Your license number is your identification number from the city of Cape Girardeau. We use this number to grant you access to
+            your properties on Roomhere.">License Number Help?</span></div>
         </form>
-
         <div *ngIf="success" class="callout success">
           <h3>Success!</h3>
-
           <p>
-            Your settings have been updated
+            Your settings have been updated.
           </p>
         </div>
       </div>

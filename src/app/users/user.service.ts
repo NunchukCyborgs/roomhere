@@ -15,7 +15,7 @@ declare let analytics: any;
 
 export interface Me {
   contacts?: Contact[];
-  license_id?: string;
+  license_ids?: string[];
   properties?: Property[];
   superuser?: boolean;
 }

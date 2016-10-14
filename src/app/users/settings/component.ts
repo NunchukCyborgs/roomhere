@@ -3,7 +3,7 @@ import { Response } from '@angular/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import { User } from '../user';
-import { UserService } from '../user.service';
+import { UserService, Me } from '../user.service';
 import { ValidationService } from '../../services/validation.service';
 import { isBrowser } from 'angular2-universal';
 import { ControlMessages } from '../../components/control-messages/component';
@@ -18,7 +18,7 @@ export class Settings {
   public success: boolean;
   public settingsForm: any;
   public contacts: Contact[];
-  public licenseId: string;
+  public licenses: Array<{editable: boolean, value: string}> = [];
   constructor(private userService: UserService, private formBuilder: FormBuilder) { }
 
   ngOnInit() {
@@ -26,22 +26,25 @@ export class Settings {
 
     this.userService.hasAuth$.filter(i => i)
       .flatMap(() => this.userService.loadMe())
-      .map(i => {
-        this.contacts = i.contacts;
-        this.licenseId = i.license_id;
+      .do((me: Me) => {
+        this.contacts = me.contacts;
+        this.licenses = me.license_ids.map(i => ({editable: false, value: i}));
       })
       .subscribe(i => {
-        if (this.contacts && this.contacts.length && this.licenseId) {
-          this.initForm(this.contacts[0].email, this.contacts[0].phone, this.licenseId);
+        if (this.contacts && this.contacts.length) {
+          this.initForm(this.contacts[0].email, this.contacts[0].phone);
+        }
+
+        if (this.licenses.length === 0) {
+          this.addLicense();
         }
       });
   }
 
-  private initForm(email = '', phone = '', licenseId = '') {
+  private initForm(email = '', phone = '') {
     this.settingsForm = this.formBuilder.group({
       'email': [email, ValidationService.emailValidator],
       'phone': [phone, ValidationService.phoneNumberValidator],
-      'licenseId': [licenseId, Validators.required],
     });
   }
 
@@ -59,5 +62,9 @@ export class Settings {
     const email = this.settingsForm.controls.email;
     const phone = this.settingsForm.controls.phone;
     return !email.value && !phone.value && email.touched && phone.touched ? 'Email or Phone is required. ' : '';
+  }
+
+  public addLicense() {
+    this.licenses.push({editable: true, value: ''});
   }
 }
