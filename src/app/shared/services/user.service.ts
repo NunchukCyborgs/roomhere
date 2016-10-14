@@ -12,11 +12,18 @@ import { Property } from '../../properties/property';
 
 declare let analytics: any;
 
+export interface License {
+  id?: number;
+  value?: string;
+  editable?: boolean;
+}
+
 export interface Me {
   contacts?: Contact[];
-  license_id?: string;
+  licenses?: License[];
   properties?: Property[];
   superuser?: boolean;
+  verified_at?: string;
 }
 
 @Injectable()
@@ -27,7 +34,7 @@ export class UserService {
   private _hasAuth: boolean = false;
 
   constructor(private http: HttpService, private route: ActivatedRoute, private persist: PersistenceService,
-  private router: Router) {
+    private router: Router) {
     this.hasAuth$ = new BehaviorSubject(this._hasAuth);
     this.me$ = new BehaviorSubject(this._me);
 
@@ -70,16 +77,13 @@ export class UserService {
   }
 
   public setLicenseId(licenseId: string): Observable<Response> {
-    return this.loadMe()
-      .map(i => i.license_id)
-      .flatMap(existingId => {
-        if (existingId) {
-          return Observable.of(new Response(new ResponseOptions({ body: licenseId, status: 200 })));
-        } else {
-          return this.http
-            .post(`${BASE_API_URL}/users/licensing`, { license_id: licenseId });
-        }
-      });
+    return this.http.post(`${BASE_API_URL}/users/licensing`, { license_id: licenseId });
+  }
+
+  public setLicenseIds(licenseIds: string[]): Observable<Response[]> {
+    return Observable.combineLatest(licenseIds.map(i => this.setLicenseId(i)))
+      .filter(all => (<Response[]>all).every(i => Boolean(i)))
+      .do(() => this.loadMe()); // Update necessary things
   }
 
   public createContact(email?: string, phone?: string, licenseId?: string): Observable<Response> {
@@ -93,8 +97,8 @@ export class UserService {
   }
 
   public loadMe(): Observable<Me> {
-    if (this._me.properties && this._me.license_id && this._me.contacts) {
-      return Observable.of(this.me$);
+    if (this._me.properties && this._me.contacts && this._me.licenses && this._me.licenses.length) {
+      return this.me$;
       // Just return if we already gots our things
     }
 
@@ -105,7 +109,7 @@ export class UserService {
       .flatMap(i => this.me$);
   }
 
-  public createUpdateContact(email?: string, phone?: string): Observable<Contact> {
+  public createUpdateContact(email?: string, phone?: string): Observable<Response> {
     return this.loadMe()
       .map(i => i.contacts)
       .flatMap(i => i.length ? this.updateContact(i[0].id, email, phone) : this.createContact(email, phone));
@@ -113,7 +117,7 @@ export class UserService {
 
   private checkForQueryAuth() {
     this.hasAuth$.filter(i => !i)
-      .flatMap(() =>this.route.queryParams)
+      .flatMap(() => this.route.queryParams)
       .subscribe(params => {
         if (params['account_confirmation_success'] === 'true' || params['reset_password'] === 'true') {
           let headers = { token: params['token'], client: params['client_id'], uid: params['uid'] };
@@ -144,7 +148,7 @@ export class UserService {
   }
 
   private redirectLandlord(me: Me) {
-    if (me.license_id) {
+    if (me.licenses && me.licenses.length) {
       this.router.navigate(['dashboard']);
     }
   }

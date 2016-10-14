@@ -3,9 +3,37 @@
     <div class="small-12 columns small-centered">
       <div class="callout-card small-centered">
         <div class="callout-card-content">
-          <h1>Become a Landlord</h1>
 
-          <settings></settings>
+          <section *ngIf="!isLandlord">
+            <h2>Become a Landlord</h2>
+            <settings (success)="redirectUser()"></settings>
+          </section>
+
+          <section *ngIf="isLandlord">
+            <div class="row">
+              <div class="small-8 medium-6 columns small-centered">
+                <div class="callout ad">
+                  <h2>Congrats, you're a landlord!</h2>
+
+                  <p>
+                    You can now use the <a [routerLink]="['/account/dashboard']">Dashboard</a> to view all your properties registered
+                    with Roomhere.
+                  </p>
+
+                  <p>
+                    Before you can make any changes, we'd like to personally welcome you to Roomhere and verify your account details. We will
+                    reach out to you shortly (usually within the hour) with the contact details your provided.
+                  </p>
+
+                  <p>
+                    We understand that properly advertising properties is essential to finding quality tenants for your rentals. We take this
+                    precaution to secure your account from any unauthorized, or even malicious advertising.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+
         </div>
       </div>
     </div>

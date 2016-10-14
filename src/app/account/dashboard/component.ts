@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { Property } from '../../properties/property';
 import { PropertyService } from '../../shared/services/property.service';
-import { UserService } from '../../shared/services/user.service';
+import { UserService, Me } from '../../shared/services/user.service';
 
 @Component({
   selector: 'dashboard',
@@ -11,12 +12,10 @@ import { UserService } from '../../shared/services/user.service';
 })
 export class Dashboard {
   public properties$: Observable<Property[]>;
-  public showLicenseIdAd: boolean = false;
+  public showUnverifiedAd: boolean = false;
   public showPicturesAd: boolean = true;
 
-  constructor(private propertyService: PropertyService, private userService: UserService) {
-
-  }
+  constructor(private propertyService: PropertyService, private userService: UserService, private router: Router) { }
 
   public updateProperty(property: Property) {
     this.propertyService.update(property).subscribe();
@@ -27,10 +26,15 @@ export class Dashboard {
       .getMyProperties$();
 
     this.userService.loadMe()
-      .subscribe(i => {
-        const hasLicenseId = Boolean(i.license_id);
-        this.showLicenseIdAd = !hasLicenseId;
-        this.showPicturesAd = !this.showLicenseIdAd;
+      .do(i => this.redirectUser(i))
+      .subscribe((i: Me) => {
+        this.showUnverifiedAd = !Boolean(i.verified_at);
+        this.showPicturesAd = !this.showUnverifiedAd;
       });
+  }
+
+  public redirectUser(me: Me) {
+    // Should be implemented as an auth guard, as soon as auth guards + minification + observables work
+    me.licenses && !me.licenses.length && this.router.navigate(['/account/become-a-landlord']); 
   }
 }
