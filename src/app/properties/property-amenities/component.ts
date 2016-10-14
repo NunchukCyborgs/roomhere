@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { Amenity } from '../../services/facets.service';
+import { Amenity } from '../../shared/services/facets.service';
 
 @Component({
   selector: 'property-amenities',

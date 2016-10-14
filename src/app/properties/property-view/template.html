@@ -14,7 +14,7 @@
                             <h3 *ngIf="property?.address2">{{property?.address2}}</h3>
                         </div>
                         <div class="column padding large-2 medium-3 small-6 stat text-center">
-                            <span><i class="icon-bed"></i></span>
+                            <span><i class="fa fa-bed"></i></span>
                             <span>{{property?.bedrooms}}</span>
                         </div>
                         <div class="column padding large-2 medium-3 small-6 stat text-center">
@@ -68,4 +68,4 @@
     </div>
 </div>
 
-<rent-now *ngIf="property?.owner" [owner]="property.owner" id="RentNowModal" class="reveal" data-reveal></rent-now>
+<modal *ngIf="property?.owner" id="RentNowModal" class="reveal" data-reveal><rent-now [owner]="property.owner"></rent-now></modal>

@@ -2,10 +2,10 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
 import { Property, Type } from '../property';
-import { ImageUpload } from '../../components/image-upload/component';
-import { UploadProgress } from '../../components/upload-progress/component';
-import { NumberTicker } from '../../components/number-ticker/component';
-import { ImageUploadService, PendingFile } from '../../services/image-upload.service';
+import { ImageUpload } from '../../shared/components/image-upload/component';
+import { UploadProgress } from '../../shared/components/upload-progress/component';
+import { NumberTicker } from '../../shared/components/number-ticker/component';
+import { ImageUploadService, PendingFile } from '../../shared/services/image-upload.service';
 
 @Component({
   selector: 'property-edit',

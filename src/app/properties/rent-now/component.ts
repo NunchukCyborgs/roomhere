@@ -7,7 +7,7 @@ import { Owner } from '../property';
 
 @Component({
   selector: 'rent-now',
-  styles:[require('../../users/modal/modal.styles.scss').toString(), require('./styles.scss').toString()],
+  styles:[require('./styles.scss').toString()],
   template: require('./template.html').toString()
 })
 export class RentNow {
@@ -15,7 +15,7 @@ export class RentNow {
 
   private closeModal(res?: Response) {
     if (!res || res.ok) {
-      isBrowser && $('rent-now .close-button').click();
+      isBrowser && $('modal .close-button').click();
     }
   }
 }

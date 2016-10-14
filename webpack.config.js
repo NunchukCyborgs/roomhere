@@ -43,6 +43,20 @@ const whitelist = [
   'icon-lawn-mower',
   'fa fa-television',
   'fa fa-wifi',
+
+  // Topbar dropdown stuff
+  'tooltip',
+  'foundation-mq',
+  'vertical',
+  'first-sub',
+  'is-dropdown-submenu-parent',
+  'opens-left',
+  'is-active',
+  'submenu',
+  'is-dropdown-submenu',
+  'js-dropdown-active',
+  'is-submenu-item',
+  'is-dropdown-submenu-item',
 ];
 
 const commonConfig = {
