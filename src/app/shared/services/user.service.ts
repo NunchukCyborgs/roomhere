@@ -27,7 +27,7 @@ export class UserService {
   private _hasAuth: boolean = false;
 
   constructor(private http: HttpService, private route: ActivatedRoute, private persist: PersistenceService,
-  private router: Router) {
+    private router: Router) {
     this.hasAuth$ = new BehaviorSubject(this._hasAuth);
     this.me$ = new BehaviorSubject(this._me);
 
@@ -70,16 +70,7 @@ export class UserService {
   }
 
   public setLicenseId(licenseId: string): Observable<Response> {
-    return this.loadMe()
-      .map(i => i.license_id)
-      .flatMap(existingId => {
-        if (existingId) {
-          return Observable.of(new Response(new ResponseOptions({ body: licenseId, status: 200 })));
-        } else {
-          return this.http
-            .post(`${BASE_API_URL}/users/licensing`, { license_id: licenseId });
-        }
-      });
+    return this.http.post(`${BASE_API_URL}/users/licensing`, { license_id: licenseId });
   }
 
   public createContact(email?: string, phone?: string, licenseId?: string): Observable<Response> {
@@ -93,7 +84,7 @@ export class UserService {
   }
 
   public loadMe(): Observable<Me> {
-    if (this._me.properties && this._me.license_id && this._me.contacts) {
+    if (this._me.properties && this._me.contacts && this._me.license_ids && this._me.license_ids.length) {
       return Observable.of(this.me$);
       // Just return if we already gots our things
     }
@@ -113,7 +104,7 @@ export class UserService {
 
   private checkForQueryAuth() {
     this.hasAuth$.filter(i => !i)
-      .flatMap(() =>this.route.queryParams)
+      .flatMap(() => this.route.queryParams)
       .subscribe(params => {
         if (params['account_confirmation_success'] === 'true' || params['reset_password'] === 'true') {
           let headers = { token: params['token'], client: params['client_id'], uid: params['uid'] };
@@ -144,7 +135,7 @@ export class UserService {
   }
 
   private redirectLandlord(me: Me) {
-    if (me.license_id) {
+    if (me.license_ids && me.license_ids.length) {
       this.router.navigate(['dashboard']);
     }
   }

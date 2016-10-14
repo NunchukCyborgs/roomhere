@@ -28,7 +28,7 @@ export class Dashboard {
 
     this.userService.loadMe()
       .subscribe(i => {
-        const hasLicenseId = Boolean(i.license_id);
+        const hasLicenseId = Boolean(i.license_ids.length);
         this.showLicenseIdAd = !hasLicenseId;
         this.showPicturesAd = !this.showLicenseIdAd;
       });
