@@ -6,7 +6,7 @@
 
           <section *ngIf="!isLandlord">
             <h2>Become a Landlord</h2>
-            <settings></settings>
+            <settings (success)="redirectUser()"></settings>
           </section>
 
           <section *ngIf="isLandlord">

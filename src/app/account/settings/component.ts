@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { Response } from '@angular/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
@@ -15,8 +15,9 @@ import { Contact } from '../../users/user';
   template: require('./template.html').toString(),
 })
 export class Settings {
+  @Output() success: EventEmitter<any> = new EventEmitter<any>();
   public licenseError: boolean = false;
-  public success: boolean;
+  public saveSuccess: boolean;
   public settingsForm: any;
   public contacts: Contact[];
   public licenses: License[] = [];
@@ -52,10 +53,14 @@ export class Settings {
   public onSubmit(): void {
     const controls = this.settingsForm.controls;
 
-    this.userService.setLicenseIds(this.licenses.filter(i => i.editable && i.value).map(i => i.value))
-      .do((i: Response[]) => this.handleLicenseResponses(i))
-      .flatMap(() => this.userService.createUpdateContact(controls.email.value, controls.phone.value))
-      .subscribe((res: Response) => this.success = res.ok);
+    this.userService.createUpdateContact(controls.email.value, controls.phone.value)
+      .filter((res: Response) => res.ok)
+      .do(() => this.saveSuccess = true)
+      .flatMap(() => this.userService.setLicenseIds(this.licenses.filter(i => i.editable && i.value).map(i => i.value)))
+      .map((i: Response[]) => this.handleLicenseResponses(i))
+      .filter((res: Response) => res.ok)
+      .do((i) => this.success.emit(true))
+      .subscribe();
   }
 
   public getEmailOrPhoneRequiredMessage(): string {
@@ -72,8 +77,8 @@ export class Settings {
     return this.licenses.filter(i => !i.value).length < 1;
   }
 
-  public handleLicenseResponses(responses: Response[]) {
-    for(let response of responses) {
+  public handleLicenseResponses(responses: Response[]): Response {
+    for (let response of responses) {
       const license = this.licenses.find(i => i.value === response.json().license_id);
       if (response.ok) {
         license.editable = false;
@@ -81,5 +86,6 @@ export class Settings {
         this.licenseError = true;
       }
     }
+    return responses.every(i => i.ok) ? responses.find(i => i.ok) : responses.find(i => !i.ok);
   }
 }

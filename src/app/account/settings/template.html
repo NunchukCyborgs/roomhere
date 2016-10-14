@@ -42,12 +42,12 @@
           <p class="text-center">
             <button type="submit" class="button large" [attr.disabled]="!settingsForm.valid || getEmailOrPhoneRequiredMessage() ? true : null">submit</button>
           </p>
-          <div *ngIf="!success"><span data-tooltip aria-haspopup="true" class="has-tip top" data-disable-hover="false" tabindex="2" title="Please enter the contact information you would like to show to potential renters. You can leave the email or phone blank
+          <div *ngIf="!saveSuccess"><span data-tooltip aria-haspopup="true" class="has-tip top" data-disable-hover="false" tabindex="2" title="Please enter the contact information you would like to show to potential renters. You can leave the email or phone blank
             if you prefer one method over the other.">Help?</span></div>
           <div><span data-tooltip aria-haspopup="true" class="has-tip top" data-disable-hover="false" tabindex="2" title="Your license number is your identification number from the city of Cape Girardeau. We use this number to grant you access to
             your properties on Roomhere.">License Number Help?</span></div>
         </form>
-        <div *ngIf="success" class="callout success">
+        <div *ngIf="saveSuccess && !licenseError" class="callout success">
           <h3>Success!</h3>
           <p>
             Your settings have been updated.
