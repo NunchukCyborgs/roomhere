@@ -53,6 +53,13 @@
             Your settings have been updated.
           </p>
         </div>
+        <div *ngIf="licenseError" class="callout alert">
+          <h3>Error!</h3>
+          <p>
+            We had a problem processing your license number. Please double check your number and try again, or contact the Roomhere team
+            for help.
+          </p>
+        </div>
       </div>
     </div>
   </div>

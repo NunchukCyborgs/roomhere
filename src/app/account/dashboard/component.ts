@@ -27,7 +27,7 @@ export class Dashboard {
 
     this.userService.loadMe()
       .do(i => this.redirectUser(i))
-      .subscribe(i => {
+      .subscribe((i: Me) => {
         this.showUnverifiedAd = !Boolean(i.verified_at);
         this.showPicturesAd = !this.showUnverifiedAd;
       });
@@ -35,6 +35,6 @@ export class Dashboard {
 
   public redirectUser(me: Me) {
     // Should be implemented as an auth guard, as soon as auth guards + minification + observables work
-    me.license_ids && !me.license_ids.length && this.router.navigate(['/account/become-a-landlord']); 
+    me.licenses && !me.licenses.length && this.router.navigate(['/account/become-a-landlord']); 
   }
 }

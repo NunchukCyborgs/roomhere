@@ -51,7 +51,7 @@ export class Login {
 
   private redirectUser() {
     this.userService.loadMe()
-      .filter(i => Boolean(i.license_ids && i.license_ids.length))
+      .filter(i => Boolean(i.licenses && i.licenses.length))
       .subscribe(() => this.router.navigate(['/account/dashboard']))
   }
 }
