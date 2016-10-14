@@ -17,6 +17,7 @@ export interface Me {
   license_ids?: string[];
   properties?: Property[];
   superuser?: boolean;
+  verified_at?: string;
 }
 
 @Injectable()

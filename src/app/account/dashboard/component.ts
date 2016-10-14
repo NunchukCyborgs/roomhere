@@ -11,12 +11,10 @@ import { UserService } from '../../shared/services/user.service';
 })
 export class Dashboard {
   public properties$: Observable<Property[]>;
-  public showLicenseIdAd: boolean = false;
+  public showUnverifiedAd: boolean = false;
   public showPicturesAd: boolean = true;
 
-  constructor(private propertyService: PropertyService, private userService: UserService) {
-
-  }
+  constructor(private propertyService: PropertyService, private userService: UserService) { }
 
   public updateProperty(property: Property) {
     this.propertyService.update(property).subscribe();
@@ -28,9 +26,8 @@ export class Dashboard {
 
     this.userService.loadMe()
       .subscribe(i => {
-        const hasLicenseId = Boolean(i.license_ids.length);
-        this.showLicenseIdAd = !hasLicenseId;
-        this.showPicturesAd = !this.showLicenseIdAd;
+        this.showUnverifiedAd = !Boolean(i.verified_at);
+        this.showPicturesAd = !this.showUnverifiedAd;
       });
   }
 }

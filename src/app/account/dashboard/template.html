@@ -29,21 +29,21 @@
           <i class="fa icon-spinner fa-spin"></i>
         </h1>
       </div>
-      <div class="callout ad" *ngIf="showLicenseIdAd">
-        <h3>Can't find your properties?</h3>
+      <div class="callout warning" *ngIf="showUnverifiedAd">
+        <h3>Account is Pending Verification</h3>
 
         <p>
-          It looks like you haven't saved your license number yet. This is your identification number from the city of Cape Girardeau.
-          We use this number to grant you access to your properties on Roomhere.
+          Before you can make any changes, we'd like to personally welcome you to Roomhere and verify your account details. We will
+          reach out to you shortly (usually within the hour) with the contact details your provided.
         </p>
 
         <p>
-          To save your license number, tap the <span class="hide-for-small show-for-large"><i class="fa fa-cog"></i> icon</span>
-          <span class="hide-for-large">settings link</span> on the menu bar at the top of the screen.
+          We understand that properly advertising properties is essential to finding quality tenants for your rentals. We take this
+          precaution to secure your account from any unauthorized, or even malicious advertising.
         </p>
       </div>
 
-      <div class="callout ad"  *ngIf="showPicturesAd">
+      <div class="callout ad" *ngIf="showPicturesAd">
         <h3>Do you have pictures for your properties?</h3>
 
         <p>
