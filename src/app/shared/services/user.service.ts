@@ -23,7 +23,7 @@ export interface Me {
   licenses?: License[];
   properties?: Property[];
   superuser?: boolean;
-  verified_at?: string;
+  is_verified?: boolean;
 }
 
 @Injectable()

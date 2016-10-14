@@ -28,7 +28,7 @@ export class Dashboard {
     this.userService.loadMe()
       .do(i => this.redirectUser(i))
       .subscribe((i: Me) => {
-        this.showUnverifiedAd = !Boolean(i.verified_at);
+        this.showUnverifiedAd = !Boolean(i.is_verified);
         this.showPicturesAd = !this.showUnverifiedAd;
       });
   }
