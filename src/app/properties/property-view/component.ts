@@ -90,7 +90,6 @@ export class PropertyView {
     this.route.data.forEach((data: { property: Property }) => {
       this.property = data.property;
     });
-      console.log('prop: ', this.property);
 
     this.updateMapOptions(this.property);
     this.tweetText = this.socialService.makeTwitterUrl(this.property);

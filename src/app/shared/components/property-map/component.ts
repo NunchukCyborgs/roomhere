@@ -38,11 +38,12 @@ export class PropertyMap {
     if (this.properties) {
       this.properties.map(property => {
         if (this.markers.map(marker => <number>marker.propertyid).indexOf(property.id) === -1) {
+          const content = property.price ? `$${property.price}` : '';
           let marker = new RichMarker({
             map: this.map,
             position: new google.maps.LatLng(property.latitude, property.longitude),
             anchor: new google.maps.Size(-20, -30),
-            content: `<span class="map-marker tooltip top" title="">$${property.price}</span>`,
+            content: `<span class="map-marker tooltip top" title="">${content}</span>`,
             propertyid: property.id
           });
 
