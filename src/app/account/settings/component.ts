@@ -74,7 +74,7 @@ export class Settings {
   }
 
   public canAddLicense(): boolean {
-    return this.licenses.filter(i => !i.value).length < 1;
+    return this.licenses && this.licenses.filter(i => !i.value).length < 1;
   }
 
   public handleLicenseResponses(responses: Response[]): Response {
