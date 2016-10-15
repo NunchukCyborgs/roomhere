@@ -2,6 +2,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { isBrowser } from 'angular2-universal';
 import { Router } from '@angular/router';
 
+import { DEFAULT_TENANT } from '../../../config';
 import { Property } from '../../../properties/property';
 
 @Component({
@@ -25,7 +26,7 @@ export class PropertyAccordion {
   }
 
   public redirectToProperty(property: Property) {
-    this.router.navigate(['properties', property.slug]);
+    this.router.navigate([DEFAULT_TENANT, property.slug]);
   }
 
   private initAccordion() {
