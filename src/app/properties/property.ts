@@ -73,6 +73,8 @@ export class Property {
   public can_edit: boolean;
   public owner: Owner;
   public available_at: string; // Maybe make a date wrapper of some sort? Hmm?
+  public is_owner?: boolean;
+  public is_claimed?: boolean;
 
   constructor(property?: Property) {
     if (property) {

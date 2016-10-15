@@ -1,13 +1,6 @@
 <div class="wrapper">
     <div class="row">
         <div class="large-6 columns">
-            <section *ngIf="!property.can_edit">
-                <h2>Is This Your Property?</h2>
-                <p>
-                    Tap the sign up link at the top to get started. Then you can edit the information about this property and any others that
-                    you own.
-                </p>
-            </section>
             <section *ngIf="property.can_edit">
                 <h2>Show your property to the world!</h2>
 
@@ -18,6 +11,45 @@
 
                 <p>
                     Simply tap "Edit Property" to get started.
+                </p>
+            </section>
+
+            <section *ngIf="!property.can_edit && !hasAuth">
+                <h2>Is This Your Property?</h2>
+                <p>
+                    Tap the sign up link at the top to get started. Then you can edit the information about this property and any others that
+                    you own.
+                </p>
+            </section>
+
+            <section *ngIf="!property.can_edit && hasAuth && property.is_owner">
+                <h2>Account is Pending Verification</h2>
+
+                <p>
+                    Before you can make any changes, we'd like to personally welcome you to Roomhere and verify your account details. We will
+                    reach out to you shortly (usually within the hour) with the contact details your provided.
+                </p>
+
+                <p>
+                    We understand that properly advertising properties is essential to finding quality tenants for your rentals. We take this
+                    precaution to secure your account from any unauthorized, or even malicious advertising.
+                </p>
+            </section>
+
+            <section *ngIf="!property.can_edit && hasAuth && !property.is_owner && property.is_claimed">
+                not your property
+                <h2>This property needs some more information</h2>
+
+                <p>The owner of this property hasn't listed the basic details of this property.</p>
+                <p>To show this property in Roomhere search results, we need at a minimum the <strong>number of bedrooms, bathrooms and price</strong>                    for the property. We filter out properties that lack this information because we want our listings to
+                    be immediately useful to our users.
+                </p>
+            </section>
+
+            <section *ngIf="!property.can_edit && hasAuth && !property.is_owner && !property.is_claimed">
+                <h2>Is This Your Property?</h2>
+                <p>
+                    If you own the license number for this property you can enter that in your <a [routerLink]="['/account/landlord-settings']">Landlord Settings</a>                    page.
                 </p>
             </section>
         </div>

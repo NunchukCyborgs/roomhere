@@ -29,6 +29,7 @@ export class PropertyView {
   public isEditing$: Observable<boolean>;
   public actionState$: Observable<PropertyActionState>;
   public tweetText: string;
+  public hasAuth$: Observable<boolean>;
 
   constructor(
     private router: Router,
@@ -40,10 +41,7 @@ export class PropertyView {
     private socialService: SocialService,
     private http: HttpService,
     private actionStateService: PropertyActionStateService
-  ) {
-    getHoneybadger().setContext({ view: 'property-view' });
-    // Maybe put this on the root component, let's play with it for a while first
-  }
+  ) { }
 
   public shareFacebook() {
     this.socialService.hasInit$.subscribe(isInit => {
@@ -82,8 +80,12 @@ export class PropertyView {
   }
 
   ngOnInit() {
+    getHoneybadger().setContext({ view: 'property-view' });
+    // Maybe put this on the root component, let's play with it for a while first
+
     this.isEditing$ = this.actionStateService.isEditing$;
     this.actionState$ = this.actionStateService.actionState$;
+    this.hasAuth$ = this.userService.hasAuth$;
 
     this.route.data.forEach((data: { property: Property }) => {
       this.property = data.property;

@@ -8,4 +8,5 @@ import { Property } from '../property';
 })
 export class NoPropertyInfo {
   @Input() property: Property;
+  @Input() hasAuth: boolean;
 }
