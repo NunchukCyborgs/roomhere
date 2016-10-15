@@ -52,6 +52,7 @@ export class UserService {
   public logout() {
     this.hasAuth$.next(false);
     this.http.setAuthHeaders();
+    this.router.navigate(['/']);
   }
 
   public register(user: User): Observable<Response> {
