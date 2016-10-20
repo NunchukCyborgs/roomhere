@@ -1,4 +1,4 @@
-Sitemap: https://api.roomhere.io/sitemap.xml.gz
+Sitemap: https://roomhere.io/sitemap.xml.gz
 
 User-Agent: *
 Disallow: 
