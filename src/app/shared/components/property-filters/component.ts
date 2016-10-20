@@ -6,7 +6,7 @@ import { FacetsService, Location, Amenity } from '../../services/facets.service'
 
 @Component({
   selector: 'property-filters',
-  styles:[require('./styles.scss').toString()],
+  styles: [require('./styles.scss').toString()],
   template: require('./template.html').toString(),
 })
 export class PropertyFilters {
@@ -16,14 +16,14 @@ export class PropertyFilters {
   @Output() showFiltersChange: EventEmitter<any> = new EventEmitter();
 
   public locations$: Observable<Location[]>;
-  public amenities$: Observable<string[]>;
+  public amenities: Amenity[];
   public types$: Observable<string[]>;
 
   constructor(private facetsService: FacetsService) { }
 
   ngOnInit() {
     this.locations$ = this.facetsService.locations$;
-    this.amenities$ = this.facetsService.amenities$;
+    this.facetsService.amenities$.subscribe(i => this.amenities = i);
     this.types$ = this.facetsService.types$;
   }
 
@@ -33,10 +33,6 @@ export class PropertyFilters {
 
   public toggleLocation(location: string) {
     this.toggleString('locations', location);
-  }
-
-  public toggleAmenity(amenity: string) {
-    this.toggleString('amenities', amenity);
   }
 
   private toggleString(property: string, s: string) {
@@ -50,7 +46,9 @@ export class PropertyFilters {
   }
 
   public apply() {
-    this.applyFacet.emit(this.facet);
+    const activeAmenities = this.amenities.filter(i => i.active);
+    const facet = Object.assign({}, this.facet, { amenities: activeAmenities });
+    this.applyFacet.emit(facet);
     this.toggleShowFilters();
   }
 

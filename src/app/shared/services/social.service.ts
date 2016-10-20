@@ -1,7 +1,6 @@
 import { Component, Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { isBrowser } from 'angular2-universal';
-import { UtilService } from './util.service';
 import { Property } from '../../properties/property';
 import { SeoService } from './seo.service';
 
@@ -12,7 +11,7 @@ export class SocialService {
   public hasInit$: BehaviorSubject<{ facebook: boolean }>;
   private hasInit: { facebook: boolean } = { facebook: false };
 
-  constructor(private utilService: UtilService, private seoService: SeoService) {
+  constructor(private seoService: SeoService) {
     this.hasInit$ = new BehaviorSubject(this.hasInit);
   }
 

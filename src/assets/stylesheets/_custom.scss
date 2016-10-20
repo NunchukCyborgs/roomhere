@@ -29,6 +29,10 @@ $grey: #f2f2f2;
   font-size: 1.5em;
 }
 
+.expanded {
+    width: 100% !important;
+}
+
 div[class$="-centered"] {
   float: none !important;
   margin-left: auto !important;

@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { Property } from '../../../properties/property';
 import { GoogleApiService } from '../../services/google-api.service';
-import { UtilService } from '../../services/util.service';
+import { generateGUID } from '../../services/util';
 import { isBrowser } from 'angular2-universal';
 
 export interface MapOptions {
@@ -29,8 +29,7 @@ export class PropertyMap {
   private markers: any[] = [];
   private computedCenter: any;
 
-  constructor(private router: Router, private googleApi: GoogleApiService,
-    private utilService: UtilService) { }
+  constructor(private router: Router, private googleApi: GoogleApiService) { }
 
   public noop() { }
 
@@ -106,7 +105,7 @@ export class PropertyMap {
   }
 
   ngOnInit() {
-    this.id = `map${this.utilService.generateGUID()}`;
+    this.id = `map${generateGUID()}`;
 
     if (isBrowser) {
       this.init = this.googleApi.initMap().then(() => {

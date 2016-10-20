@@ -4,10 +4,14 @@ section {
     h6{
         line-height: 1rem;
     }
-    .button{
-        margin: 0px auto;
-    }
     .has-tip{
         display:inline !important;
     }
 }
+
+.button.hollow.secondary:focus, .button.hollow.secondary:hover {
+    border-color: #3c3c3c !important;
+    background-color:#fff !important;
+    color: #3c3c3c !important;
+}
+
