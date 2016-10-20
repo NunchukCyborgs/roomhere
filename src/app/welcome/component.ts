@@ -54,13 +54,13 @@ export class Welcome {
       .flatMap(() => this.propertyService.getFilteredProperties$(this.facet, this.pageNumber))
       .subscribe(i => filteredProperties$.next(i));
 
-    this.applyFacet();
+    this.applyFacet(this.facet);
     this.lastPage$ = this.propertyService.lastPage$;
     this.updateMapOptions();
   }
 
-  public applyFacet() {
-    this.loadFilteredProperties$.next(this.facet);
+  public applyFacet(facet: PropertyFacet) {
+    this.loadFilteredProperties$.next(this.facet = facet);
   }
 
   public removeSignupAd() {

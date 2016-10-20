@@ -28,15 +28,6 @@ export class PropertyFacet {
     this.amenities = [];
     this.types = [];
   }
-
-  get formattedFacet() {
-    let formatted = {};
-    for (let key of Object.keys(this)) {
-      formatted[`facets[${key}]`] = this[key];
-    }
-
-    return formatted;
-  }
 }
 
 export interface Image {

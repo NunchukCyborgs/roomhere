@@ -6,7 +6,7 @@ import { FacetsService, Location, Amenity } from '../../services/facets.service'
 
 @Component({
   selector: 'property-filters',
-  styles:[require('./styles.scss').toString()],
+  styles: [require('./styles.scss').toString()],
   template: require('./template.html').toString(),
 })
 export class PropertyFilters {
@@ -35,10 +35,6 @@ export class PropertyFilters {
     this.toggleString('locations', location);
   }
 
-  public toggleAmenity(amenity: string) {
-    this.toggleString('amenities', amenity);
-  }
-
   private toggleString(property: string, s: string) {
     const index = this.facet[property].indexOf(s);
 
@@ -50,7 +46,9 @@ export class PropertyFilters {
   }
 
   public apply() {
-    this.applyFacet.emit(this.facet);
+    const activeAmenities = this.amenities.filter(i => i.active);
+    const facet = Object.assign({}, this.facet, { amenities: activeAmenities });
+    this.applyFacet.emit(facet);
     this.toggleShowFilters();
   }
 
