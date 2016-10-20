@@ -6,6 +6,7 @@ import { Property } from '../../../properties/property';
 import { GoogleApiService } from '../../services/google-api.service';
 import { generateGUID } from '../../services/util';
 import { isBrowser } from 'angular2-universal';
+import { DEFAULT_TENANT } from '../../../config';
 
 export interface MapOptions {
   zoomLevel: number;
@@ -48,7 +49,7 @@ export class PropertyMap {
 
           if (this.mapOptions.interactive) {
             marker.addListener('click', () => {
-              let link = `/properties/${property.slug}`;
+              let link = `/${DEFAULT_TENANT}/${property.slug}`;
               let win = isBrowser && window.open(link, '_blank');
               win.focus();
             });
