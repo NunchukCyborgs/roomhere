@@ -1,6 +1,4 @@
 .panel{
-  border-radius: 5px;
-  border: 1px solid #ccc;
   padding: 15px;
   margin-top: 30px;
     i{
@@ -9,10 +7,10 @@
         color: #999;
     }
     form input{
-        height: 50px;
+        height: 50px !important;
     }
     form span{
-        height: 50px;
+        height: 50px !important;
     }
     .welcom{
         font-size: 26px;
