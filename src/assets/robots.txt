@@ -1,0 +1,5 @@
+Sitemap: https://api.roomhere.io/sitemap.xml.gz
+
+User-Agent: *
+Disallow: 
+Disallow: /account/
