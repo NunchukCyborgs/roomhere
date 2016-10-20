@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from '../services/http.service';
 import { Observable } from 'rxjs/Observable';
-import { UtilService } from './util.service';
+import { loadScript } from './util';
 import { isBrowser } from 'angular2-universal';
 
 declare let google: any;
@@ -18,14 +18,14 @@ const RICHMARKER_URL = '/javascript/richmarker.min.js';
 export class GoogleApiService {
   private loadMap;
 
-  constructor(private http: HttpService, private utilService: UtilService) {
+  constructor(private http: HttpService) {
     if (isBrowser) {
       let resolve;
       this.loadMap = new Promise(i => resolve = i);
 
       window[GOOGLE_MAP_CALLBACK] = () => {
         window[GOOGLE_MAP_CALLBACK] = undefined;
-        this.utilService.loadScript(RICHMARKER_URL);
+        loadScript(RICHMARKER_URL);
       }
       window[RICHMARKER_CALLBACK] = () => {
         window[RICHMARKER_CALLBACK] = undefined;
@@ -33,7 +33,7 @@ export class GoogleApiService {
       }
 
       if (window[GOOGLE_MAP_CALLBACK]) {
-        this.utilService.loadScript(GOOGLE_MAP_URL);
+        loadScript(GOOGLE_MAP_URL);
       }
     }
   }

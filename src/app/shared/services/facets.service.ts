@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from '../services/http.service';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { generateGUID } from './util.service';
+import { generateGUID } from './util';
 
 export class Amenity {
   // This should probably be defined somewhere else..

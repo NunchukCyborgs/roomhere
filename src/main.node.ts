@@ -22,7 +22,6 @@ import { HttpService } from './app/shared/services/http.service';
 import { ImageUploadService } from './app/shared/services/image-upload.service';
 import { SeoService } from './app/shared/services/seo.service';
 import { SocialService } from './app/shared/services/social.service';
-import { UtilService } from './app/shared/services/util.service';
 import { ValidationService } from './app/shared/services/validation.service';
 import { PersistenceService } from './app/shared/services/persistence.service';
 
@@ -35,7 +34,7 @@ import { CookieNode } from './app/shared/services/cookies/cookie-node';
 
 export const PROVIDERS = [
   UserService, PropertyService, FacetsService, GoogleApiService, HttpService, ImageUploadService, SeoService,
-  SocialService, UtilService, ValidationService, PersistenceService, PropertyActionStateService
+  SocialService, ValidationService, PersistenceService, PropertyActionStateService
 ];
 
 export const IMPORTS = [
