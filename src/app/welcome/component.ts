@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 import { Property, PropertyFacet } from '../properties/property';
 import { PropertyService } from '../shared/services/property.service';
+import { SeoService } from '../shared/services/seo.service';
 import { PersistenceService } from '../shared/services/persistence.service';
 import { MapOptions } from '../shared/components/property-map/component';
 import { User } from '../users/user';
@@ -30,7 +31,7 @@ export class Welcome {
   public showSignupAd$: Observable<boolean>;
 
   constructor(private propertyService: PropertyService, private userService: UserService, private persist: PersistenceService,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute, private seoService: SeoService, private renderer: Renderer) { }
 
   ngOnInit() {
     this.loadFilteredProperties$ = new BehaviorSubject(this.facet);
@@ -52,6 +53,7 @@ export class Welcome {
       .map(i => JSON.stringify(i) + this.pageNumber)
       .distinctUntilChanged()
       .flatMap(() => this.propertyService.getFilteredProperties$(this.facet, this.pageNumber))
+      .do(i => this.seoService.addSchema(this.renderer, i))
       .subscribe(i => filteredProperties$.next(i));
 
     this.applyFacet(this.facet);
