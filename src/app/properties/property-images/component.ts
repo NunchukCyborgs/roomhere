@@ -21,6 +21,11 @@ export class PropertyImages {
     this.slides = this.images.map(i => {
         return {image: i.url, text: ''};
       });
+    if(isBrowser) {
+      $('property-images div.gallery').featherlightGallery({
+        type: 'image'
+      });
+    }
   }
 
   openGallery() {
