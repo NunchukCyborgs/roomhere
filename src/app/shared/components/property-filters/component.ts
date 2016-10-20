@@ -16,14 +16,14 @@ export class PropertyFilters {
   @Output() showFiltersChange: EventEmitter<any> = new EventEmitter();
 
   public locations$: Observable<Location[]>;
-  public amenities$: Observable<string[]>;
+  public amenities: Amenity[];
   public types$: Observable<string[]>;
 
   constructor(private facetsService: FacetsService) { }
 
   ngOnInit() {
     this.locations$ = this.facetsService.locations$;
-    this.amenities$ = this.facetsService.amenities$;
+    this.facetsService.amenities$.subscribe(i => this.amenities = i);
     this.types$ = this.facetsService.types$;
   }
 

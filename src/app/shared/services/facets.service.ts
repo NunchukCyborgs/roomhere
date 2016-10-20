@@ -1,15 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from '../services/http.service';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { generateGUID } from './util.service';
 
 export class Amenity {
   // This should probably be defined somewhere else..
-  id: number;
+  id: any;
   name: string;
   active: boolean;
 
   constructor({id, name, active}: {id?: number, name?: string, active?: boolean}) {
-    this.id = id;
+    this.id = id || generateGUID();
     this.name = name;
     this.active = active;
   }
@@ -53,8 +54,8 @@ export interface Location {
 
 @Injectable()
 export class FacetsService {
-  public amenities$: BehaviorSubject<string[]>;
-  public _amenities: string[] = [];
+  public amenities$: BehaviorSubject<Amenity[]>;
+  public _amenities: Amenity[] = [];
   public locations$: BehaviorSubject<Location[]>;
   public _locations: Location[] = [];
   public minPrice$: BehaviorSubject<number> = new BehaviorSubject(-1);
@@ -72,8 +73,8 @@ export class FacetsService {
         this._amenities = this._amenities || [];
         this._locations = this._locations || [];
         let json = res.json();
-        for (let amenityName of json.amenities) {
-          this._amenities.push(amenityName);
+        for (let amenity of json.amenities) {
+          this._amenities.push(new Amenity(amenity));
         }
         for (let location of json.locations) {
           this._locations.push(location);

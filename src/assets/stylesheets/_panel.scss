@@ -1,0 +1,78 @@
+.panel{
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  padding: 15px;
+  margin-top: 30px;
+    i{
+        font-size: 30px;
+        line-height: 50px;
+        color: #999;
+    }
+    form input{
+        height: 50px;
+    }
+    form span{
+        height: 50px;
+    }
+    .welcom{
+        font-size: 26px;
+        text-align: center;
+        margin-left: 0;
+    }
+    p{
+        font-size: 13px;
+        font-weight: 200;
+    }
+    .button{
+       width: 50%; 
+    }
+    span.prefix{
+        background: #f2f2f2;
+        border-color: #d9d9d9;
+        border-right: none;
+        color: #333;
+    }
+    label.prefix{
+        background: #f2f2f2;
+        border-color: #d9d9d9;
+        border-right: none;
+        color: #333;
+    }
+    .prefix{
+        display: block;
+        position: relative;
+        z-index: 2;
+        text-align: center;
+        width: 100%;
+        padding-top: 0;
+        padding-bottom: 0;
+        border-style: solid;
+        border-width: 1px;
+        overflow: hidden;
+        font-size: 0.875em;
+        height: 2.3125em;
+        line-height: 2.3125em;
+    }
+    .postfix{
+        display: block;
+        position: relative;
+        z-index: 2;
+        text-align: center;
+        width: 100%;
+        padding-top: 0;
+        padding-bottom: 0;
+        border-style: solid;
+        border-width: 1px;
+        overflow: hidden;
+        font-size: 0.875em;
+        height: 2.3125em;
+        line-height: 2.3125em;
+    } 
+}
+@media screen and (max-width: 39.9375em) {
+.panel  {
+        .button{
+            width: 90%;
+        } 
+    }
+}
