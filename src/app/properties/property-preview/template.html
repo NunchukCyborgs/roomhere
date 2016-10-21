@@ -1,19 +1,19 @@
-<div class="image-wrapper overlay-fade-in">
+<div class="image-wrapper">
     <a target="_blank" [href]="propertyUrl">
       <div class="chrome-wrap-fix">
         <div class="responsive-image">
           <img *ngIf="property?.images[0]?.url" class="property-image" [src]="property.images[0].url">
         </div>
       </div>
-
-      <div class="image-overlay-content">
-          <h2 class="js-description">
-            <div>{{property.bedrooms}} Bedroom</div>
-            <div>{{property.bathrooms}} Bath</div>
-          </h2>
-          <p class="js-price price">{{ property.price | currency : "USD" : true : "1.0-0" }}</p><a class="js-property-link button large" >View Now</a>
+      <div class="small-3 text-left column no-padding">
+        <p class="js-price">{{ property.price | currency : "USD" : true : "1.0-0" }}/mon.</p>
       </div>
-    <h5 class="js-address-line-1">{{property.address1}}</h5>
-    <h5 class="js-address-line-2" *ngIf="property.address2">{{property.address2}}</h5>
+      <div class="small-5 text-left column no-padding">
+          <p class="addy js-address-line-1">{{property.address1}}</p>
+          <p class="addy js-address-line-2" *ngIf="property.address2">{{property.address2}}</p>
+      </div>
+      <div class="small-4 text-left column no-padding">
+        <p class="js-description">{{property.bedrooms}} <i class="fa fa-bed"></i> {{property.bathrooms}} <i class="icon-shower"></i></p>
+      </div>
     </a>
-  </div>
+</div>
