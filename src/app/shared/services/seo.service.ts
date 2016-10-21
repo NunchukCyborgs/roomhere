@@ -25,7 +25,6 @@ interface KVP {
 
 class PostalAddress {
   '@type': string = 'PostalAddress';
-
   addressCountry?: string;
   streetAddress?: string;
   postalCode?: string;
@@ -39,14 +38,19 @@ class GeoCoordinates {
   longitude: string;
 }
 
-class PropertySchema {
+class SingleFamilyResidence {
   '@context': string = 'https://schema.org';
-  '@type': string = 'Residence';
+  '@type': string = 'SingleFamilyResidence';
 
+  numberOfRooms?: number;
+  occupancy?: number;
+  amenityFeature?: KVP[];
+  floorSize?: string;
+  permittedUsage?: string;
+  petsAllowed?: boolean;
   additionalProperty?: string;
   address?: PostalAddress;
   aggregateRating?: string;
-  amenityFeature?: KVP[];
   branchCode?: string;
   containedInPlace?: string;
   containsPlace?: string;
@@ -81,14 +85,14 @@ export class SeoService {
   private tags: Tag[] = [];
   private propertySchema: {
     tag?: any,
-    schema: PropertySchema[]
+    schema: SingleFamilyResidence[]
   } = { schema: [] };
 
   public addSchema(renderer: Renderer, properties: Property[]): void {
     this.propertySchema.schema = [];
 
     for (let p of properties) {
-      const schema = Object.assign(new PropertySchema(), {
+      const schema = Object.assign(new SingleFamilyResidence(), {
         address: Object.assign(new PostalAddress(), {
           addressCountry: 'US',
           addressLocality: DEFAULT_TENANT.replace('-', ' '),
@@ -96,18 +100,20 @@ export class SeoService {
           streetAddress: p.address1,
         }),
         photo: p.images[0].url,
-        amenityFeature: p.amenities.map(i => ({ name: i.name, value: String(i.active) })),
+        amenityFeature: p.amenities.map(i => ({ name: i.name, value: Boolean(i.active) })),
         geo: Object.assign(new GeoCoordinates(), { latitude: p.latitude, longitude: p.longitude }),
         smokingAllowed: Boolean(p.amenities.find(i => i.name === 'Smoking Allowed')),
+        petsAllowed: Boolean(p.amenities.find(i => i.name === 'Pet Friendly')),
         description: p.description,
         url: `${BASE_URL}/${DEFAULT_TENANT}/${p.slug}`,
+        numberOfRooms: p.bedrooms
       });
 
       this.propertySchema.schema.push(schema);
     }
 
     this.propertySchema.tag = this.propertySchema.tag || renderer.createElement(this.document.head, 'script');
-    
+
     renderer.setElementAttribute(this.propertySchema.tag, 'type', 'application/ld+json');
     renderer.setText(this.propertySchema.tag, JSON.stringify(this.propertySchema.schema));
   }
