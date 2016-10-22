@@ -8,12 +8,12 @@
 
       <div class="image-overlay-content">
           <h2 class="js-description">
-            <div>{{property.bedrooms}} Bedroom</div>
-            <div>{{property.bathrooms}} Bath</div>
+            <div>
+            <h5 class="js-address-line-1">{{property.address1}}</h5>
+            <h5 class="js-address-line-2" *ngIf="property.address2">{{property.address2}}</h5>
+            <p>{{property.bedrooms}} <i class="fa fa-bed"></i> {{property.bathrooms}} <i class="icon-shower"></i> {{ property.price | currency : "USD" : true : "1.0-0" }}/month</p></div>
           </h2>
-          <p class="js-price price">{{ property.price | currency : "USD" : true : "1.0-0" }}</p><a class="js-property-link button large" >View Now</a>
       </div>
-    <h5 class="js-address-line-1">{{property.address1}}</h5>
-    <h5 class="js-address-line-2" *ngIf="property.address2">{{property.address2}}</h5>
+      
     </a>
   </div>
