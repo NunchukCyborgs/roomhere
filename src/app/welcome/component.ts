@@ -61,8 +61,9 @@ export class Welcome {
     this.updateMapOptions();
   }
 
-  public applyFacet(facet: PropertyFacet) {
-    this.loadFilteredProperties$.next(this.facet = facet);
+  public applyFacet(facet?: PropertyFacet) {
+    this.facet = facet ? facet : this.facet;
+    this.loadFilteredProperties$.next(this.facet);
   }
 
   public removeSignupAd() {
