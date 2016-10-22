@@ -1,4 +1,4 @@
-<top-bar [hasAuth]="hasAuth$ | async" [isLandlord]="(me$ | async)?.licenseId" (logout)="logout()"></top-bar>
+<top-bar [hasAuth]="hasAuth$ | async" [isLandlord]="(me$ | async)?.licenses?.length" (logout)="logout()"></top-bar>
 <main>
   <router-outlet></router-outlet>
 </main>
