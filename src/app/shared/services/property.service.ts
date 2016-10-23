@@ -107,3 +107,13 @@ export class PropertyService {
       );
   }
 }
+
+
+interface Pocket {
+  moneiez: number;
+  dollabills: number;
+}
+
+function haveChipotle(pockets: Pocket) {
+  return pockets.dollabills > 6;
+}
