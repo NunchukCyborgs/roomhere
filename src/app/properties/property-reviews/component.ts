@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Property } from '../property';
+import { Property, Review } from '../property';
 
 @Component({
   selector: 'property-reviews',
@@ -8,4 +8,7 @@ import { Property } from '../property';
 })
 export class PropertyReviews {
   @Input() property: Property;
+
+  public review: Review = new Review();
+
 }

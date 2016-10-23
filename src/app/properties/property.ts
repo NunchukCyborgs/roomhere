@@ -1,6 +1,17 @@
 import { Location, Amenity } from '../shared/services/facets.service';
 import { User } from '../users/user';
 
+export class Review {
+  public id: number;
+  public user: User;
+  public property: Property;
+  public title: string;
+  public body: string;
+  public rating: number;
+  public created_at: string;
+  public updated_at: string;
+}
+
 export interface Type {
   name: string;
   id: number;
@@ -66,6 +77,7 @@ export class Property {
   public available_at: string; // Maybe make a date wrapper of some sort? Hmm?
   public is_owner?: boolean;
   public is_claimed?: boolean;
+  public reviews?: Review[];
 
   constructor(property?: Property) {
     if (property) {
