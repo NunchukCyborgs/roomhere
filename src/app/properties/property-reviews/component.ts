@@ -10,5 +10,15 @@ export class PropertyReviews {
   @Input() property: Property;
 
   public review: Review = new Review();
-
+  ngOnInIt() {
+	const fakeReview = new Review();
+	fakeReview.title = 'super title review'
+	// fill out other properties
+  fakeReview.landlord_rating = 3
+  fakeReview.property_rating = 3
+  fakeReview.body = 'some text document.txt'
+	this.property.reviews = [
+		fakeReview, fakeReview, fakeReview
+	]
+}
 }

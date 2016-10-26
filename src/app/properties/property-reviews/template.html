@@ -2,25 +2,41 @@
 	<div class="column small-6">
 		<div class="callout-card">
 			<div class="callout-card-content">
-				<h1>title"reviews" </h1>
-				<p>stuff2</p>
+				<h1>ad about plz review</h1>
 			</div>
 		</div>
 	</div>
 	<div class="column small-6">
 		<div class="callout-card">
 			<div class="callout-card-content">
-				<h1>ad about plz review</h1>
+				<h1> 1 review</h1>
+
+				<div>"property_rating landlord_rating"</div>
+				<div>"By anonomous" {{review.title}}</div>
+				<div>{{review.body}}</div>
 			</div>
 		</div>
 	</div>
-
+	<div class="column small-6">
+		<div class="callout-card">
+			<div class="callout-card-content">
+				<h1>2 review</h1>
+			</div>
+		</div>
+	</div>
+	<div class="column small-6">
+		<div class="callout-card">
+			<div class="callout-card-content">
+				<h1>3 review</h1>
+			</div>
+		</div>
+	</div>
 	<div class="column small-12">
 		<div class="callout-card">
 			<div class="callout-card-content">
-                <input type="text" placeholder="Title" [(ngModel)]="review.title" />
-                <textarea placeholder="describe review" [(ngModel)]="review.body"></textarea>
-            </div>
+				<input type="text" placeholder="Title" [(ngModel)]="review.title" />
+				<textarea placeholder="describe review" [(ngModel)]="review.property_body"></textarea>
+			</div>
 		</div>
 	</div>
 </div>

@@ -3,13 +3,17 @@ import { User } from '../users/user';
 
 export class Review {
   public id: number;
-  public user: User;
-  public property: Property;
   public title: string;
+  public landlord_body: string;
   public body: string;
-  public rating: number;
-  public created_at: string;
+  public landlord_rating: number;
+  public property_rating: number;
+  public is_owned?: boolean;
+  public duration: number; // Whole number of months the tenant has stayed there
+  public is_current_tenant?: boolean; // Do they currently live there
+  public is_anonymous: boolean;
   public updated_at: string;
+  public created_at: string;
 }
 
 export interface Type {
