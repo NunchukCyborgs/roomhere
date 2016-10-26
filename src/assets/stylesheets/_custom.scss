@@ -95,7 +95,7 @@ button[disabled], button[disabled]:hover {
     top: $topbar-large-height;
   }
   left: 0;
-  width: 60%;
+  width: calc(60% - 15px);
   padding-left: 30px;
   padding-right: 30px;
   bottom: 0;
@@ -107,9 +107,9 @@ button[disabled], button[disabled]:hover {
     overflow-y: scroll !important;
   }
 
-  &::-webkit-scrollbar { 
-    display: none; 
-  }
+  // &::-webkit-scrollbar { 
+  //   display: none; 
+  // }
 }
 
 #welcome-map {
