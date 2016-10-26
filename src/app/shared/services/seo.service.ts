@@ -1,8 +1,10 @@
+// $('.definition-table tbody.supertype tr th a').map(function(i, a) { return a.text})
 import { Renderer, Inject, Injectable } from '@angular/core';
 import { DOCUMENT } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { isBrowser, isNode } from 'angular2-universal';
 import { Property, Image } from '../../properties/property';
+import { DEFAULT_TENANT } from '../../config';
 
 export interface Tags {
   description: string;
@@ -16,9 +18,105 @@ interface Tag {
   element?: any;
 }
 
+interface KVP {
+  name: string,
+  value: string
+}
+
+class PostalAddress {
+  '@type': string = 'PostalAddress';
+  addressCountry?: string;
+  streetAddress?: string;
+  postalCode?: string;
+  addressRegion?: string;
+  addressLocality?: string;
+}
+
+class GeoCoordinates {
+  '@type': string = 'GeoCoordinates';
+  latitude: string;
+  longitude: string;
+}
+
+class SingleFamilyResidence {
+  '@context': string = 'https://schema.org';
+  '@type': string = 'SingleFamilyResidence';
+
+  numberOfRooms?: number;
+  occupancy?: number;
+  amenityFeature?: KVP[];
+  floorSize?: string;
+  permittedUsage?: string;
+  petsAllowed?: boolean;
+  additionalProperty?: string;
+  address?: PostalAddress;
+  aggregateRating?: string;
+  branchCode?: string;
+  containedInPlace?: string;
+  containsPlace?: string;
+  event?: string;
+  faxNumber?: string;
+  geo?: GeoCoordinates;
+  globalLocationNumber?: string;
+  hasMap?: string;
+  isicV4?: string;
+  logo?: string;
+  openingHoursSpecification?: string;
+  photo?: string;
+  review?: string;
+  smokingAllowed?: string;
+  specialOpeningHoursSpecification?: string;
+  telephone?: string;
+  Thing?: string;
+  additionalType?: string;
+  alternateName?: string;
+  description?: string;
+  disambiguatingDescription?: string;
+  image?: string;
+  mainEntityOfPage?: string;
+  name?: string;
+  potentialAction?: string;
+  sameAs?: string;
+  url?: string;
+}
+
 @Injectable()
 export class SeoService {
   private tags: Tag[] = [];
+  private propertySchema: {
+    tag?: any,
+    schema: SingleFamilyResidence[]
+  } = { schema: [] };
+
+  public addSchema(renderer: Renderer, properties: Property[]): void {
+    this.propertySchema.schema = [];
+
+    for (let p of properties) {
+      const schema = Object.assign(new SingleFamilyResidence(), {
+        address: Object.assign(new PostalAddress(), {
+          addressCountry: 'US',
+          addressLocality: DEFAULT_TENANT.replace('-', ' '),
+          postalCode: p.zipcode,
+          streetAddress: p.address1,
+        }),
+        photo: p.images[0].url,
+        amenityFeature: p.amenities.map(i => ({ name: i.name, value: Boolean(i.active) })),
+        geo: Object.assign(new GeoCoordinates(), { latitude: p.latitude, longitude: p.longitude }),
+        smokingAllowed: Boolean(p.amenities.find(i => i.name === 'Smoking Allowed')),
+        petsAllowed: Boolean(p.amenities.find(i => i.name === 'Pet Friendly')),
+        description: p.description,
+        url: `${BASE_URL}/${DEFAULT_TENANT}/${p.slug}`,
+        numberOfRooms: p.bedrooms
+      });
+
+      this.propertySchema.schema.push(schema);
+    }
+
+    this.propertySchema.tag = this.propertySchema.tag || renderer.createElement(this.document.head, 'script');
+
+    renderer.setElementAttribute(this.propertySchema.tag, 'type', 'application/ld+json');
+    renderer.setText(this.propertySchema.tag, JSON.stringify(this.propertySchema.schema));
+  }
 
   public getDescription(property: Property): string {
     return `Check out this rental property at ${property.address1} on Roomhere.io!`;
@@ -31,7 +129,7 @@ export class SeoService {
     try {
       this.addTags({ description: description, title: title, image: property.images[0] }, renderer);
     } catch (err) {
-      if (isNode) { throw new Error('no property images error. Property: ' + JSON.stringify(property)); }      
+      if (isNode) { throw new Error('no property images error. Property: ' + JSON.stringify(property)); }
     }
   }
 
