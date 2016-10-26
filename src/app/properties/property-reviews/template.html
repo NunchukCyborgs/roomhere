@@ -1,41 +1,39 @@
-<div class="row">
-	<div class="column small-6">
+<div class="row flex-row">
+	<div class="column small-6" *ngIf="!myReview.id && !isEditing">
 		<div class="callout-card">
-			<div class="callout-card-content">
-				<h1>ad about plz review</h1>
+			<div class="callout-card-content text-center" (click)="isEditing = true">
+				<h1 class="upper-case">Have you stayed here?</h1>
+				<h4 class="upper-case">We encourage you to eave a review about your experience</h4>
+
+				<i class="fa fa-plus large"></i>
 			</div>
 		</div>
 	</div>
-	<div class="column small-6">
+	<div class="column small-6" *ngIf="!myReview.id && !otherReviews.length && !isEditing">
 		<div class="callout-card">
 			<div class="callout-card-content">
-				<h1> 1 review</h1>
+				<h1>awkward ad filler that we show if we don't have any reviews</h1>
+			</div>
+		</div>
+	</div>
+	<div class="column small-12" *ngIf="isEditing">
+		<div class="callout-card">
+			<div class="callout-card-content">
+				<input type="text" placeholder="Title" [(ngModel)]="myReview.title" />
+				<textarea placeholder="describe review" [(ngModel)]="myReview.property_body"></textarea>
+
+				<button type="button" class="button success" (click)="submitReview()">{{myReview.id ? 'Update Review' : 'Create Review'}}</button>
+			</div>
+		</div>
+	</div>
+	<div class="column small-6" *ngFor="let review of otherReviews">
+		<div class="callout-card">
+			<div class="callout-card-content">
+				<h1>{{review.title}}</h1>
 
 				<div>"property_rating landlord_rating"</div>
 				<div>"By anonomous" {{review.title}}</div>
 				<div>{{review.body}}</div>
-			</div>
-		</div>
-	</div>
-	<div class="column small-6">
-		<div class="callout-card">
-			<div class="callout-card-content">
-				<h1>2 review</h1>
-			</div>
-		</div>
-	</div>
-	<div class="column small-6">
-		<div class="callout-card">
-			<div class="callout-card-content">
-				<h1>3 review</h1>
-			</div>
-		</div>
-	</div>
-	<div class="column small-12">
-		<div class="callout-card">
-			<div class="callout-card-content">
-				<input type="text" placeholder="Title" [(ngModel)]="review.title" />
-				<textarea placeholder="describe review" [(ngModel)]="review.property_body"></textarea>
 			</div>
 		</div>
 	</div>
