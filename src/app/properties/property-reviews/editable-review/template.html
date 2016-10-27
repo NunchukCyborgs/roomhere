@@ -1,0 +1,47 @@
+<div class="callout-card">
+	<div class="callout-card-content">
+		<h4>Tell us about yourself</h4>
+
+		<div class="row">
+			<div class="column small-6">
+				<input type="text" placeholder="Title" [(ngModel)]="review.title" />
+				<label>How long did you live here?
+            <select [(ngModel)]="review.duration">
+              <option value="3">3 Months</option>
+              <option value="6">6 Months</option>
+              <option value="12">1 Year</option>
+              <option value="24">2 Years</option>
+              <option value="36">3+ Years</option>
+              <option value="60">5+ Years</option>
+            </select>
+          </label>
+			</div>
+
+			<div class="column small-6">
+				<div><input id="IsCurrentTenant" type="checkbox" [(ngModel)]="review.is_current_tenant"><label for="IsCurrentTenant">I currently live here</label></div>
+				<div><input id="IsAnon" type="checkbox" [(ngModel)]="review.is_anonymous"><label for="IsAnon">Keep me anonymous</label></div>
+				<small>Text about privacy. Text about privacy. Text about privacy. Text about privacy. Text about privacy. Text about privacy. Text about privacy. </small>
+			</div>
+		</div>
+
+		<hr />
+
+		<div class="row">
+			<div class="column medium-6">
+				<h4>Tell us about your landlord</h4>
+				property-rating [(rating)]="review.landlord_rating"
+				<textarea placeholder="I would recommend my landlord because of ..." [(ngModel)]="review.landlord_body"></textarea>
+			</div>
+			<div class="column medium-6">
+				<h4>Tell us about your property</h4>
+				property-rating [(rating)]="review.property_rating"
+				<textarea placeholder="The thing I love most about my home is ..." [(ngModel)]="review.body"></textarea>
+			</div>
+		</div>
+
+		<div class="button-group float-right">
+			<button type="button" class="button secondary" (click)="cancel.emit(true)">Cancel</button>
+			<button type="button" class="button success" (click)="save.emit(review)">{{review.id ? 'Update Review' : 'Create Review'}}</button>
+		</div>
+	</div>
+</div>

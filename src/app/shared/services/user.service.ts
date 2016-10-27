@@ -150,7 +150,7 @@ export class UserService {
 
   private redirectLandlord(me: Me) {
     if (me.licenses && me.licenses.length) {
-      this.router.navigate(['dashboard']);
+      this.router.navigate(['/account/dashboard']);
     }
   }
 

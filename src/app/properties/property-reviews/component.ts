@@ -12,6 +12,7 @@ export class PropertyReviews {
   public myReview: Review;
   public otherReviews: Review[];
   public isEditing: boolean = false;
+  public showError: boolean = false;
 
   constructor(private reviewsService: ReviewsService) { }
 
@@ -22,14 +23,22 @@ export class PropertyReviews {
     // temp
     const fakeReview = new Review();
     fakeReview.title = 'super title review';
+    fakeReview.landlord_body = 'The landlord seems alright. But you know, could be better yo.' 
     fakeReview.landlord_rating = 3;
-    fakeReview.property_rating = 3;
+    fakeReview.property_rating = 4;
+    fakeReview.duration = 3;
+    fakeReview.is_anonymous = false;
+    fakeReview.id = 2;
+    fakeReview.is_owned = false;
     fakeReview.body = 'some text document.txt. some text document.txt. some text document.txt. some text document.txt. some text document.txt. some text document.txtsome text document.txtsome text document.txtsome text document.txt';
     this.otherReviews.push(fakeReview, fakeReview, fakeReview)
   }
 
-  public submitReview() {
+  public save() {
     const stream = this.myReview.id ? this.reviewsService.updateReview(this.myReview) : this.reviewsService.addReview(this.myReview);
-    stream.subscribe(() => this.isEditing = false);
+    stream
+      .do(i => this.showError = !i.id)
+      .filter(i => Boolean(i.id))
+      .subscribe(() => this.isEditing = false);
   }
 }

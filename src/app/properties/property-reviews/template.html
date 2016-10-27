@@ -2,10 +2,10 @@
 	<div class="column small-6" *ngIf="!myReview.id && !isEditing">
 		<div class="callout-card">
 			<div class="callout-card-content text-center" (click)="isEditing = true">
-				<h1 class="upper-case">Have you stayed here?</h1>
-				<h4 class="upper-case">We encourage you to eave a review about your experience</h4>
+				<h3 class="upper-case">Have you stayed here?</h3>
+				<h5 class="upper-case">We encourage you to eave a review about your experience</h5>
 
-				<i class="fa fa-plus large"></i>
+				<i class="fa fa-plus jumbo"></i>
 			</div>
 		</div>
 	</div>
@@ -16,24 +16,31 @@
 			</div>
 		</div>
 	</div>
-	<div class="column small-12" *ngIf="isEditing">
-		<div class="callout-card">
-			<div class="callout-card-content">
-				<input type="text" placeholder="Title" [(ngModel)]="myReview.title" />
-				<textarea placeholder="describe review" [(ngModel)]="myReview.property_body"></textarea>
+	<div class="column small-12">
+		<editable-review [review]="myReview" *ngIf="isEditing" (save)="save($event)" (cancel)="isEditing = false"></editable-review>
+		<div class="callout alert" *ngIf="showError">
+			<h3>Uh oh! Something went wrong!</h3>
 
-				<button type="button" class="button success" (click)="submitReview()">{{myReview.id ? 'Update Review' : 'Create Review'}}</button>
-			</div>
+			<p>
+				We had a problem saving your review. Please try again
+			</p>
 		</div>
 	</div>
 	<div class="column small-6" *ngFor="let review of otherReviews">
 		<div class="callout-card">
 			<div class="callout-card-content">
-				<h1>{{review.title}}</h1>
+				property-rating [rating]="review.property_rating"
 
-				<div>"property_rating landlord_rating"</div>
-				<div>"By anonomous" {{review.title}}</div>
-				<div>{{review.body}}</div>
+				<!--What about landlord_rating?-->
+				<h6>{{review.title}}</h6>
+
+				<blockquote>
+					<p>{{review.body}}</p>
+					<footer>
+						<!--or anonymous monkey-->
+						<cite>User mcUser-muffin, tenant for {{review.duration}} months</cite>
+					</footer>
+				</blockquote>
 			</div>
 		</div>
 	</div>

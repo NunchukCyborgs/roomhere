@@ -10,10 +10,35 @@ export class Review {
   public property_rating: number;
   public is_owned?: boolean;
   public duration: number; // Whole number of months the tenant has stayed there
-  public is_current_tenant?: boolean; // Do they currently live there
-  public is_anonymous: boolean;
+  public is_current_tenant?: boolean = true; // Do they currently live there
+  public is_anonymous: boolean = false;
   public updated_at: string;
   public created_at: string;
+
+  constructor(review: IReview = {}) {
+    if (review) {
+      for (let propertyName in review) {
+        if (review.hasOwnProperty(propertyName)) {
+          this[propertyName] = review[propertyName];
+        }
+      }
+    }
+  }
+}
+
+interface IReview {
+  id?: number;
+  title?: string;
+  landlord_body?: string;
+  body?: string;
+  landlord_rating?: number;
+  property_rating?: number;
+  is_owned?: boolean;
+  duration?: number;
+  is_current_tenant?: boolean;
+  is_anonymous?: boolean;
+  updated_at?: string;
+  created_at?: string;
 }
 
 export interface Type {
@@ -24,25 +49,14 @@ export interface Type {
 };
 
 export class PropertyFacet {
-  public min_price: number;
-  public max_price: number;
-  public min_bedrooms: number;
-  public min_bathrooms: number;
-  public max_lease_length: number;
-  public locations: Location[];
-  public amenities: Amenity[];
-  public types: string[];
-
-  constructor() {
-    this.min_price = 0;
-    this.max_price = 25000;
-    this.min_bedrooms = 0;
-    this.min_bathrooms = .5;
-    this.max_lease_length = null;
-    this.locations = [];
-    this.amenities = [];
-    this.types = [];
-  }
+  public min_price: number = 0;
+  public max_price: number = 25000;
+  public min_bedrooms: number = 0;
+  public min_bathrooms: number = .5;
+  public max_lease_length: number = null;
+  public locations: Location[] = [];
+  public amenities: Amenity[] = [];
+  public types: string[] = [];
 }
 
 export interface Image {
@@ -93,6 +107,9 @@ export class Property {
 
       if (property.amenities) {
         this.amenities = property.amenities.map(i => new Amenity(i));
+      }
+      if (property.reviews) {
+        this.reviews = property.reviews.map(i => new Review(i));
       }
     }
   }
