@@ -14,6 +14,8 @@ export class Review {
   public is_anonymous: boolean = false;
   public updated_at: string;
   public created_at: string;
+  public approved_at: string;
+  public name?: string;
 
   constructor(review: IReview = {}) {
     if (review) {
@@ -39,6 +41,8 @@ interface IReview {
   is_anonymous?: boolean;
   updated_at?: string;
   created_at?: string;
+  approved_at?: string;
+  name?: string;
 }
 
 export interface Type {

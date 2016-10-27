@@ -29,7 +29,7 @@
 	<div class="column small-6" *ngFor="let review of otherReviews">
 		<div class="callout-card">
 			<div class="callout-card-content">
-				property-rating [rating]="review.property_rating"
+				<star-rating [rating]="review.property_rating"></star-rating>
 
 				<!--What about landlord_rating?-->
 				<h6>{{review.title}}</h6>

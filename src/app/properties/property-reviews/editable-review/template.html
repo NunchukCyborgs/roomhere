@@ -29,12 +29,12 @@
 		<div class="row">
 			<div class="column medium-6">
 				<h4>Tell us about your landlord</h4>
-				property-rating [(rating)]="review.landlord_rating"
+				<star-rating [(rating)]="review.landlord_rating" [isEditable]="true"></star-rating>
 				<textarea placeholder="I would recommend my landlord because of ..." [(ngModel)]="review.landlord_body"></textarea>
 			</div>
 			<div class="column medium-6">
 				<h4>Tell us about your property</h4>
-				property-rating [(rating)]="review.property_rating"
+				<star-rating [(rating)]="review.property_rating" [isEditable]="true"></star-rating>
 				<textarea placeholder="The thing I love most about my home is ..." [(ngModel)]="review.body"></textarea>
 			</div>
 		</div>

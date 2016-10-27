@@ -47,6 +47,7 @@ import { PropertyAccordion } from './components/property-accordion/component';
 import { Logo } from './components/logo/component';
 import { TopBar } from './components/top-bar/component';
 import { Modal } from './components/modal/component';
+import { StarRating } from './components/star-rating/component';
 
 // Pipes
 import { SimpleSearchPipe } from './pipes/simple-search.pipe';
@@ -60,7 +61,7 @@ export const DECLARTIONS = [
   SimilarProperties, PropertyPreview, PropertyAmenities, PropertyActionsGroup, PropertyEditImage, PropertyEdit,
   RentNow, BigFooter, Welcome, FAQ, PrivacyPolicy, PropertyMap, Slide, PropertySlider, PropertyFilters, PropertyAccordion,
   MissingResource, App, Logo, TopBar, NoPropertyInfo,
-  SimpleSearchPipe, Carousel, ControlMessages, ImageUpload, NumberTicker, UploadProgress, Modal,
+  SimpleSearchPipe, Carousel, ControlMessages, ImageUpload, NumberTicker, UploadProgress, Modal, StarRating,
   // Dashboard, AccountPage, SuperUser, Settings, UserSplash
 ];
 

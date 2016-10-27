@@ -1,0 +1,10 @@
+<div class="wrapper purple" [style.width]="maxRating + 'em'">
+	<div class="filled stars" [style.width]="rating + 'em'">
+		<i class="fa fa-star star" *ngFor="let star of stars" [style.cursor]="isEditable ? 'pointer' : null" (click)="save(star)"
+    [style.left]="(star - 1) + 'em'" [class.selected]="rating > 0" (mouseover)="preview(star)" (mouseleave)="preview(0)"></i>
+	</div>
+	<div class="empty stars" [style.width]="maxRating + 'em'">
+		<i class="fa fa-star-o star" *ngFor="let star of stars" [style.cursor]="isEditable ? 'pointer' : null" (click)="save(maxRating + 1 - star)"
+    [style.right]="(star - 1) + 'em'" (mouseover)="preview(maxRating + 1 - star)" (mouseleave)="preview(0)"></i>
+	</div>
+</div>

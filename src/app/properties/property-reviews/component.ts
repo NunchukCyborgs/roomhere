@@ -31,7 +31,7 @@ export class PropertyReviews {
     fakeReview.id = 2;
     fakeReview.is_owned = false;
     fakeReview.body = 'some text document.txt. some text document.txt. some text document.txt. some text document.txt. some text document.txt. some text document.txtsome text document.txtsome text document.txtsome text document.txt';
-    this.otherReviews.push(fakeReview, fakeReview, fakeReview)
+    this.otherReviews.push(fakeReview, Object.assign({}, fakeReview, {property_rating: 3.5}), fakeReview)
   }
 
   public save() {
