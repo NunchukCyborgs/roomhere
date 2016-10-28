@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { PropertyFacet } from '../../properties/property';
+import { PropertyFacet } from '../../shared/dtos/facets';
 
 @Component({
   selector: 'welcome-filters',

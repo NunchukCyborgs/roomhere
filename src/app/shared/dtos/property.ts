@@ -1,41 +1,5 @@
-import { Location, Amenity } from '../shared/services/facets.service';
-import { User } from '../users/user';
-
-export interface Type {
-  name: string;
-  id: number;
-  active: boolean;
-  _destroy?: boolean;
-};
-
-export class PropertyFacet {
-  public min_price: number;
-  public max_price: number;
-  public min_bedrooms: number;
-  public min_bathrooms: number;
-  public max_lease_length: number;
-  public locations: Location[];
-  public amenities: Amenity[];
-  public types: string[];
-
-  constructor() {
-    this.min_price = 0;
-    this.max_price = 25000;
-    this.min_bedrooms = 0;
-    this.min_bathrooms = .5;
-    this.max_lease_length = null;
-    this.locations = [];
-    this.amenities = [];
-    this.types = [];
-  }
-}
-
-export interface Image {
-  id?: number;
-  url: string;
-  height: string;
-  width: string;
-}
+import { generateGUID } from '../services/util';
+import { User } from './user';
 
 export class Property {
   public address1: string;
@@ -95,4 +59,66 @@ export class Owner {
   landlord_name: string;
   email: string;
   phone: string;
+}
+
+export class Amenity {
+  id: any;
+  name: string;
+  active: boolean;
+
+  constructor({id, name, active}: {id?: number, name?: string, active?: boolean}) {
+    this.id = id || generateGUID();
+    this.name = name;
+    this.active = active;
+  }
+
+  public get icon() {
+    const iconSet = {
+      'Pet Friendly': 'fa fa-paw',
+      'Wheelchair Accessible': 'fa fa-wheelchair-alt',
+      'Washer/Dryer': 'icon-washer-dryer-2',
+      'Electricity Included': 'icon-electricity',
+      'Gas Included': 'icon-gas',
+      'Water Included': 'icon-tint',
+      'Trash Included': 'fa fa-trash',
+      'Central Air': 'icon-central-air-alt',
+      'Indoor Fireplace': 'fa fa-fire',
+      'Smoking Allowed': 'icon-smoking-allowed',
+      'Garage': 'icon-garage-512',
+      'Lawn Care': 'icon-lawn-mower',
+      'Internet Included': 'fa fa-wifi',
+      'Cable Included': 'fa fa-television',
+    };
+
+    return iconSet[this.name] || 'fa fa-certificate';
+  }
+
+  public get shortName() {
+    return this.name.replace(' Included', ' Incl.').replace(' Allowed', '');
+  }
+}
+
+export interface Location {
+  id: number;
+  full_name: string;
+  facet_name: string;
+  data_name: string;
+  latitude: number;
+  longitude: number;
+  created_at: Date;
+  updated_at: Date;
+}
+
+export interface Type {
+  name: string;
+  id: number;
+  active: boolean;
+  _destroy?: boolean;
+};
+
+export interface Image {
+  id?: number;
+  url: string;
+  height: string;
+  width: string;
 }

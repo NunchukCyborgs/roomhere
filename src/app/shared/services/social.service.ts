@@ -1,7 +1,7 @@
 import { Component, Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { isBrowser } from 'angular2-universal';
-import { Property } from '../../properties/property';
+import { Property } from '../../shared/dtos/property';
 import { SeoService } from './seo.service';
 
 declare let FB: any;

@@ -4,11 +4,11 @@ import { Response, ResponseOptions } from '@angular/http';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/Rx';
-import { User, Contact } from '../../users/user';
+import { User, Contact } from '../../shared/dtos/user';
 import { HttpService } from './http.service';
 import { isBrowser } from 'angular2-universal';
 import { PersistenceService } from './persistence.service';
-import { Property } from '../../properties/property';
+import { Property } from '../../shared/dtos/property';
 
 declare let analytics: any;
 

@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Resolve } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
-import { Property, PropertyFacet } from '../properties/property';
+import { Property } from '../shared/dtos/property';
+import { PropertyFacet } from '../shared/dtos/facets';
+
 import { PropertyService } from '../shared/services/property.service';
 
 @Injectable()

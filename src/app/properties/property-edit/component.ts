@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
-import { Property, Type } from '../property';
+import { Property, Type } from '../../shared/dtos/property';
 import { ImageUpload } from '../../shared/components/image-upload/component';
 import { UploadProgress } from '../../shared/components/upload-progress/component';
 import { NumberTicker } from '../../shared/components/number-ticker/component';

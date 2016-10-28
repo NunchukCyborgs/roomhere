@@ -3,7 +3,7 @@ import { Response } from '@angular/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
-import { User } from '../user';
+import { User } from '../../shared/dtos/user';
 import { UserService } from '../../shared/services/user.service';
 import { isBrowser } from 'angular2-universal';
 import { ValidationService } from '../../shared/services/validation.service';
