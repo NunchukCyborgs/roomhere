@@ -1,7 +1,7 @@
 <div class="row flex-row">
 	<div class="flex-row column medium-6" *ngIf="!myReview.id && !isEditing">
 		<div class="callout-card">
-			<div class="callout-card-content text-center" (click)="isEditing = true">
+			<div class="callout-card-content text-center" (click)="editReview()">
 				<h3 class="upper-case">Have you stayed here?</h3>
 				<h5 class="upper-case">We encourage you to leave a review about your experience</h5>
 
@@ -12,7 +12,14 @@
 	<div class="column medium-6" *ngIf="!myReview.id && !otherReviews.length && !isEditing">
 		<div class="callout-card">
 			<div class="callout-card-content">
-				<h1>awkward ad filler that we show if we don't have any reviews</h1>
+				<h4>Reviews help renters like you find a better home</h4>
+
+				<ol>
+					<li>Review comments offer huge insights into the quality of a residence</li>
+					<li>Properties and Landlords with higher ratings show first in search results</li>
+					<li>Unhelpful or derogatory reviews will not be shown on Roomhere</li>
+				</ol>
+
 			</div>
 		</div>
 	</div>
@@ -32,15 +39,19 @@
 				<star-rating [rating]="review.property_rating"></star-rating>
 
 				<!--What about landlord_rating?-->
-				<h6>{{review.title}}</h6>
+				<h6 class="title">{{review.title}}</h6>
 
 				<blockquote>
 					<p>{{review.body}}</p>
 					<footer>
-						<!--or anonymous monkey-->
 						<cite>{{review.displayName}}, tenant for {{review.duration}} months</cite>
 					</footer>
 				</blockquote>
+
+				<h5>Comments about the landlord</h5>
+				<p>
+					{{review.landlord_body}}
+				</p>
 			</div>
 		</div>
 	</div>

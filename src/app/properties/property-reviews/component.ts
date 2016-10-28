@@ -1,6 +1,8 @@
 import { Component, Input } from '@angular/core';
+import { isBrowser } from 'angular2-universal';
 import { Property, Review } from '../property';
 import { ReviewsService } from '../../shared/services/reviews.service';
+import { UserService } from '../../shared/services/user.service';
 
 @Component({
   selector: 'property-reviews',
@@ -14,7 +16,7 @@ export class PropertyReviews {
   public isEditing: boolean = false;
   public showError: boolean = false;
 
-  constructor(private reviewsService: ReviewsService) { }
+  constructor(private reviewsService: ReviewsService, private userService: UserService) { }
 
   ngOnChanges() {
     this.myReview = this.property.reviews.find(i => i.is_owned) || new Review();
@@ -23,7 +25,7 @@ export class PropertyReviews {
     // temp
     const fakeReview = new Review();
     fakeReview.title = 'super title review';
-    fakeReview.landlord_body = 'The landlord seems alright. But you know, could be better yo.' 
+    fakeReview.landlord_body = 'The landlord seems alright. But you know, could be better yo.'
     fakeReview.landlord_rating = 3;
     fakeReview.property_rating = 4;
     fakeReview.duration = 3;
@@ -31,7 +33,7 @@ export class PropertyReviews {
     fakeReview.id = 2;
     fakeReview.is_owned = false;
     fakeReview.body = 'some text document.txt. some text document.txt. some text document.txt. some text document.txt. some text document.txt. some text document.txtsome text document.txtsome text document.txtsome text document.txt';
-    this.otherReviews.push(fakeReview, new Review(Object.assign({}, fakeReview, {property_rating: 3.5})), new Review(fakeReview))
+    // this.otherReviews.push(fakeReview, new Review(Object.assign({}, fakeReview, { property_rating: 3.5 })), new Review(fakeReview))
   }
 
   public save() {
@@ -40,5 +42,12 @@ export class PropertyReviews {
       .do(i => this.showError = !i.id)
       .filter(i => Boolean(i.id))
       .subscribe(() => this.isEditing = false);
+  }
+
+  public editReview() {
+    this.userService.hasAuth$
+      .do(i => this.isEditing = i)
+      .filter(i => !i && isBrowser)
+      .subscribe(i => $('#SignupLink').click());
   }
 }
