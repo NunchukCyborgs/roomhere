@@ -2,7 +2,7 @@ import { Renderer, Inject, Injectable } from "@angular/core";
 
 import { HttpService } from './http.service';
 import { Observable } from 'rxjs/Observable';
-import { Property, Review } from '../../properties/property';
+import { Property, Review } from '../../shared/dtos/property';
 
 @Injectable()
 export class ReviewsService {

@@ -28,7 +28,6 @@ const names = [
   'Private Pug',
   'Private Platypus',
   'Private Porpoise',
-  'Unknown Urchin',
   'Unknown Unicorn',
   // Any more?
 ];

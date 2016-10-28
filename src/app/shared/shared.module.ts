@@ -16,6 +16,7 @@ import { PropertyView } from '../../app/properties/property-view/component';
 import { PropertyImages } from '../../app/properties/property-images/component';
 import { PropertyReviews } from '../../app/properties/property-reviews/component';
 import { EditableReview } from '../../app/properties/property-reviews/editable-review/component';
+import { PropertyReview } from '../../app/properties/property-reviews/review/component';
 import { SimilarProperties } from '../../app/properties/similar-properties/component';
 import { PropertyPreview } from '../../app/properties/property-preview/component'
 import { PropertyAmenities } from '../../app/properties/property-amenities/component';
@@ -58,7 +59,7 @@ import { WelcomeResolve } from '../welcome/welcome-resolve.service';
 import { PropertyViewResolve } from '../properties/property-view/property-resolve.service';
 
 export const DECLARTIONS = [
-  Login, Register, ForgotPassword, ResetPassword, PropertyView, PropertyImages, PropertyReviews, EditableReview,
+  Login, Register, ForgotPassword, ResetPassword, PropertyView, PropertyImages, PropertyReviews, EditableReview, PropertyReview,
   SimilarProperties, PropertyPreview, PropertyAmenities, PropertyActionsGroup, PropertyEditImage, PropertyEdit,
   RentNow, BigFooter, Welcome, FAQ, PrivacyPolicy, PropertyMap, Slide, PropertySlider, PropertyFilters, PropertyAccordion,
   MissingResource, App, Logo, TopBar, NoPropertyInfo,

@@ -23,7 +23,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="column small-12" *ngIf="isEditing">
+	<div class="column small-12" *ngIf="isEditing || true">
 		<editable-review [review]="myReview" (save)="save($event)" (cancel)="isEditing = false; showError = false"></editable-review>
 		<div class="callout alert" *ngIf="showError">
 			<h3>Uh oh! Something went wrong!</h3>
@@ -33,26 +33,12 @@
 			</p>
 		</div>
 	</div>
-	<div class="flex-row column medium-6" *ngFor="let review of otherReviews">
-		<div class="callout-card">
-			<div class="callout-card-content">
-				<star-rating [rating]="review.property_rating"></star-rating>
-
-				<!--What about landlord_rating?-->
-				<h6 class="title">{{review.title}}</h6>
-
-				<blockquote>
-					<p>{{review.body}}</p>
-					<footer>
-						<cite>{{review.displayName}}, tenant for {{review.duration}} months</cite>
-					</footer>
-				</blockquote>
-
-				<h5>Comments about the landlord</h5>
-				<p>
-					{{review.landlord_body}}
-				</p>
-			</div>
+	<div class="flex-row column medium-6" *ngIf="myReview">
+		<property-review [review]="myReview"></property-review>
+	</div>
+	<div *ngIf="otherReviews?.length">
+		<div class="flex-row column medium-6" *ngFor="let review of otherReviews">
+			<property-review [review]="review"></property-review>
 		</div>
 	</div>
 </div>

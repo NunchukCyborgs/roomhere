@@ -1,0 +1,20 @@
+<div class="callout-card">
+	<div class="callout-card-content">
+		<star-rating [rating]="review.property_rating"></star-rating>
+
+		<!--What about landlord_rating?-->
+		<h6 class="title">{{review.title}}</h6>
+
+		<blockquote>
+			<p>{{review.body}}</p>
+			<footer>
+				<cite>{{review.displayName}}, tenant for {{review.duration}} months</cite>
+			</footer>
+		</blockquote>
+
+		<h5>Comments about the landlord</h5>
+		<p>
+			{{review.landlord_body}}
+		</p>
+	</div>
+</div>

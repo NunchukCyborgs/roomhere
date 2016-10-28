@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { ValidationService } from '../../../shared/services/validation.service';
-import { Property, Review } from '../../property';
+import { Property, Review } from '../../../shared/dtos/property';
 
 @Component({
   selector: 'editable-review',
@@ -24,8 +24,8 @@ export class EditableReview {
     this.propertyRating = this.review.property_rating;
     this.reviewForm = this.formBuilder.group({
       'title': new FormControl(this.review.title, [Validators.required, Validators.minLength(6), Validators.maxLength(25)]),
-      'body': new FormControl(this.review.body, [Validators.required, Validators.minLength(30), Validators.maxLength(175)]),
-      'landlordBody': new FormControl(this.review.landlord_body, [Validators.required, Validators.minLength(30), Validators.maxLength(175)]),
+      'body': new FormControl(this.review.body, [Validators.required, Validators.minLength(30), Validators.maxLength(750)]),
+      'landlordBody': new FormControl(this.review.landlord_body, [Validators.minLength(30), Validators.maxLength(750)]),
       'duration': new FormControl(this.review.duration, [Validators.required]),
       'isAnonymous': new FormControl(this.review.is_anonymous),
       'isCurrentTenant': new FormControl(this.review.is_current_tenant),
@@ -45,6 +45,8 @@ export class EditableReview {
       landlord_rating: this.landlordRating,
       property_rating: this.propertyRating,
     });
+
+    debugger;
 
     this.save.emit(review);
   }
