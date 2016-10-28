@@ -1,5 +1,6 @@
 import { Location, Amenity } from '../shared/services/facets.service';
 import { User } from '../users/user';
+import { generateAnonymousName } from '../shared/services/util';
 
 export class Review {
   public id?: number;
@@ -16,6 +17,7 @@ export class Review {
   public created_at?: string;
   public approved_at?: string;
   public name?: string;
+  private _name?: string;
 
   constructor(review: IReview = {}) {
     if (review) {
@@ -25,6 +27,12 @@ export class Review {
         }
       }
     }
+
+    this._name = this.name || generateAnonymousName();
+  }
+
+  get displayName(): string {
+    return this.name || this._name;
   }
 }
 
