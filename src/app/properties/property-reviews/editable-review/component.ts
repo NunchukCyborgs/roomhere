@@ -35,7 +35,7 @@ export class EditableReview {
   }
 
   public onSave() {
-    const review: Review = {
+    const review: Review = new Review({
       title: this.reviewForm.controls['title'].value,
       body: this.reviewForm.controls['body'].value,
       landlord_body: this.reviewForm.controls['landlordBody'].value,
@@ -44,7 +44,7 @@ export class EditableReview {
       is_current_tenant: this.reviewForm.controls['isCurrentTenant'].value,
       landlord_rating: this.landlordRating,
       property_rating: this.propertyRating,
-    };
+    });
 
     this.save.emit(review);
   }

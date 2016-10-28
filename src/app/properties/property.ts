@@ -51,6 +51,7 @@ interface IReview {
   created_at?: string;
   approved_at?: string;
   name?: string;
+  displayName?: string;
 }
 
 export interface Type {
