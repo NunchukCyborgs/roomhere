@@ -1,19 +1,15 @@
-<div class="image-wrapper overlay-fade-in">
-    <a target="_blank" [href]="propertyUrl">
-      <div class="chrome-wrap-fix">
+<div class="preview-div">
         <div class="responsive-image">
-          <img *ngIf="property?.images[0]?.url" class="property-image" [src]="property.images[0].url">
+          <img *ngIf="property?.images[0]?.url" class="property-image object-fit_fill" [src]="property.images[0].url">
+        </div>
+      <div class="row collapse">
+        <div class="small-12 text-left columns">
+          <h6 class="js-description">{{property.bedrooms}} Bed {{property.bathrooms}} Bath {{ property.price | currency : "USD" : true : "1.0-0" }}/month</h6>
+        </div>
+        <div class="small-12 text-left columns">
+          <h6 class="js-description">{{property.address1}}</h6>
+          <h6 class="js-description" *ngIf="property.address2">{{property.address2}}</h6>
         </div>
       </div>
-
-      <div class="image-overlay-content">
-          <h2 class="js-description">
-            <div>
-            <h5 class="js-address-line-1">{{property.address1}}</h5>
-            <h5 class="js-address-line-2" *ngIf="property.address2">{{property.address2}}</h5>
-            <p>{{property.bedrooms}} <i class="fa fa-bed"></i> {{property.bathrooms}} <i class="icon-shower"></i> {{ property.price | currency : "USD" : true : "1.0-0" }}/month</p></div>
-          </h2>
-      </div>
-      
     </a>
-  </div>
+</div>
