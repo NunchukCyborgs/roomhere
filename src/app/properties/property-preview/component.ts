@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Property } from '../property';
+import { Property } from '../../shared/dtos/property';
 import { DEFAULT_TENANT } from '../../config';
 
 @Component({

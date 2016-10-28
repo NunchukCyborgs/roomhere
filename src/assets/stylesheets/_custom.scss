@@ -100,6 +100,7 @@ button[disabled], button[disabled]:hover {
   }
   left: 0;
   width: 60%;
+  z-index: 2;
   padding-left: 30px;
   padding-right: 30px;
   bottom: 0;
@@ -109,10 +110,6 @@ button[disabled], button[disabled]:hover {
     padding-left: 20px;
     padding-right: 20px;
     overflow-y: scroll !important;
-  }
-
-  &::-webkit-scrollbar { 
-    display: none; 
   }
 }
 
@@ -305,4 +302,11 @@ input[type='number'] {
 
 .gold {
   color: #cc9933;
+
+.rotate-90 {
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    transform: rotate(90deg);
 }

@@ -3,12 +3,13 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
-import { Property, PropertyFacet } from '../properties/property';
+import { Property } from '../shared/dtos/property';
+import { PropertyFacet } from '../shared/dtos/facets';
 import { PropertyService } from '../shared/services/property.service';
 import { SeoService } from '../shared/services/seo.service';
 import { PersistenceService } from '../shared/services/persistence.service';
 import { MapOptions } from '../shared/components/property-map/component';
-import { User } from '../users/user';
+import { User } from '../shared/dtos/user';
 import { UserService } from '../shared/services/user.service';
 import { CAPE_GIRARDEU_CENTER } from '../config';
 

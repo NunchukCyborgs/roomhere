@@ -7,7 +7,7 @@ import { UserService } from '../../shared/services/user.service';
 import { MapOptions } from '../../shared/components/property-map/component';
 import { SeoService } from '../../shared/services/seo.service';
 import { SocialService } from '../../shared/services/social.service';
-import { Property } from '../property';
+import { Property } from '../../shared/dtos/property';
 import { PropertyActionState, PropertyActionMode } from '../../shared/services/property-action-state.service';
 import { HttpService } from '../../shared/services/http.service';
 import { ImageUploadService, PendingFile } from '../../shared/services/image-upload.service';

@@ -1,5 +1,6 @@
 <div class="wrapper">
-  <button class="button hollow" type="button" (click)="toggleShowFilters()">Filters</button>
+  <span (click)="toggleShowFilters()" class="hide-for-small-only">Advanced</span>
+  <span (click)="toggleShowFilters()" class="show-for-small-only"><i class="fa fa-sliders rotate-90"></i></span>
   <div *ngIf="showFilters" class="dropdown-pane large">
     <button class="close-button" aria-label="Close" type="button" (click)="toggleShowFilters()">
       <span aria-hidden="true">&times;</span>

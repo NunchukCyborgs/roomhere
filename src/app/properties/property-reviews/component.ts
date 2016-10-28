@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { isBrowser } from 'angular2-universal';
-import { Property, Review } from '../property';
 import { ReviewsService } from '../../shared/services/reviews.service';
 import { UserService } from '../../shared/services/user.service';
+import { Property, Review } from '../../shared/dtos/property';
 
 @Component({
   selector: 'property-reviews',

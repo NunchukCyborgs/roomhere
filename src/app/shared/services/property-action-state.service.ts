@@ -3,8 +3,8 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import { isBrowser } from 'angular2-universal';
 
-import { Property } from '../../properties/property';
-import { User } from '../../users/user';
+import { Property } from '../../shared/dtos/property';
+import { User } from '../../shared/dtos/user';
 
 export enum PropertyActionMode {
   Editing,

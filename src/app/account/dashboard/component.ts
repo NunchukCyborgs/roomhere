@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
-import { Property } from '../../properties/property';
+import { Property } from '../../shared/dtos/property';
 import { PropertyService } from '../../shared/services/property.service';
 import { UserService, Me } from '../../shared/services/user.service';
 
