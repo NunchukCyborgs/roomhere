@@ -16,7 +16,7 @@ export class SocialService {
   }
 
   public makeTwitterUrl(property: Property) {
-    return `https://twitter.com/intent/tweet?text=${this.seoService.getDescription(property)}&via=roomhere`;
+    return `https://twitter.com/intent/tweet?text=${this.seoService.getPropertyDescription(property)}&via=roomhere`;
   }
 
   public facebookInit() {

@@ -54,7 +54,7 @@ export class Welcome {
       .map(i => JSON.stringify(i) + this.pageNumber)
       .distinctUntilChanged()
       .flatMap(() => this.propertyService.getFilteredProperties$(this.facet, this.pageNumber))
-      .do(i => this.seoService.addSchema(this.renderer, i))
+      .do(i => this.seoService.addProperties(this.renderer, i))
       .subscribe(i => filteredProperties$.next(i));
 
     this.applyFacet(this.facet);

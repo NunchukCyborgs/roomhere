@@ -93,8 +93,7 @@ export class PropertyView {
 
     this.updateMapOptions(this.property);
     this.tweetText = this.socialService.makeTwitterUrl(this.property);
-    this.seoService.addPropertyTags(this.renderer, this.property);
-    this.seoService.addSchema(this.renderer, [this.property]);
+    this.seoService.addProperties(this.renderer, [this.property]);
     this.actionStateService.setState(this.property);
   }
 }
