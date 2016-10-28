@@ -35,7 +35,7 @@ export class PropertyReviews {
   }
 
   public save() {
-    const stream = this.myReview.id ? this.reviewsService.updateReview(this.myReview) : this.reviewsService.addReview(this.myReview);
+    const stream = this.myReview.id ? this.reviewsService.updateReview(this.myReview) : this.reviewsService.addReview(this.myReview, this.property.id);
     stream
       .do(i => this.showError = !i.id)
       .filter(i => Boolean(i.id))

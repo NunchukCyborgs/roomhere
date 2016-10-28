@@ -8,8 +8,8 @@ import { Property, Review } from '../../properties/property';
 export class ReviewsService {
   constructor(private http: HttpService) { }
 
-  public addReview(review: Review): Observable<Review> {
-    return this.http.post(`${BASE_API_URL}/reviews`, review)
+  public addReview(review: Review, propertyId: number): Observable<Review> {
+    return this.http.post(`${BASE_API_URL}/reviews`, Object.assign({}, review, {property_id: propertyId}))
       .map(i => i.json());
   }
 

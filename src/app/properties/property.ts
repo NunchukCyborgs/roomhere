@@ -2,7 +2,7 @@ import { Location, Amenity } from '../shared/services/facets.service';
 import { User } from '../users/user';
 
 export class Review {
-  public id: number;
+  public id?: number;
   public title: string;
   public landlord_body: string;
   public body: string;
@@ -12,9 +12,9 @@ export class Review {
   public duration: number; // Whole number of months the tenant has stayed there
   public is_current_tenant?: boolean = true; // Do they currently live there
   public is_anonymous: boolean = false;
-  public updated_at: string;
-  public created_at: string;
-  public approved_at: string;
+  public updated_at?: string;
+  public created_at?: string;
+  public approved_at?: string;
   public name?: string;
 
   constructor(review: IReview = {}) {

@@ -2,12 +2,20 @@
   position: relative;
   display: inline-block;
   height: 24px;
+  top: 2px;
 }
 
 .stars {
   position: absolute;
   overflow: hidden;
   height: 24px;
+}
+
+.star {
+  display: inline-block;
+  width: 1em;
+  position: absolute;
+  bottom: 0;
 }
 
 .filled {
@@ -21,11 +29,4 @@
 
 .empty {
   z-index: 1;
-}
-
-.star {
-  display: inline-block;
-  width: 1em;
-  position: absolute;
-  top: 0;
 }

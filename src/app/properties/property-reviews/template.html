@@ -1,23 +1,23 @@
 <div class="row flex-row">
-	<div class="column small-6" *ngIf="!myReview.id && !isEditing">
+	<div class="flex-row column medium-6" *ngIf="!myReview.id && !isEditing">
 		<div class="callout-card">
 			<div class="callout-card-content text-center" (click)="isEditing = true">
 				<h3 class="upper-case">Have you stayed here?</h3>
-				<h5 class="upper-case">We encourage you to eave a review about your experience</h5>
+				<h5 class="upper-case">We encourage you to leave a review about your experience</h5>
 
 				<i class="fa fa-plus jumbo"></i>
 			</div>
 		</div>
 	</div>
-	<div class="column small-6" *ngIf="!myReview.id && !otherReviews.length && !isEditing">
+	<div class="column medium-6" *ngIf="!myReview.id && !otherReviews.length && !isEditing">
 		<div class="callout-card">
 			<div class="callout-card-content">
 				<h1>awkward ad filler that we show if we don't have any reviews</h1>
 			</div>
 		</div>
 	</div>
-	<div class="column small-12">
-		<editable-review [review]="myReview" *ngIf="isEditing" (save)="save($event)" (cancel)="isEditing = false"></editable-review>
+	<div class="column small-12" *ngIf="isEditing">
+		<editable-review [review]="myReview" (save)="save($event)" (cancel)="isEditing = false; showError = false"></editable-review>
 		<div class="callout alert" *ngIf="showError">
 			<h3>Uh oh! Something went wrong!</h3>
 
@@ -26,7 +26,7 @@
 			</p>
 		</div>
 	</div>
-	<div class="column small-6" *ngFor="let review of otherReviews">
+	<div class="flex-row column medium-6" *ngFor="let review of otherReviews">
 		<div class="callout-card">
 			<div class="callout-card-content">
 				<star-rating [rating]="review.property_rating"></star-rating>
