@@ -15,6 +15,7 @@ import { App } from './app/component';
 // Services
 import { UserService } from './app/shared/services/user.service';
 import { PropertyService } from './app/shared/services/property.service';
+import { ReviewsService } from './app/shared/services/reviews.service';
 import { PropertyActionStateService } from './app/shared/services/property-action-state.service';
 import { FacetsService } from './app/shared/services/facets.service';
 import { GoogleApiService } from './app/shared/services/google-api.service';
@@ -34,7 +35,7 @@ import { CookieNode } from './app/shared/services/cookies/cookie-node';
 
 export const PROVIDERS = [
   UserService, PropertyService, FacetsService, GoogleApiService, HttpService, ImageUploadService, SeoService,
-  SocialService, ValidationService, PersistenceService, PropertyActionStateService
+  SocialService, ValidationService, PersistenceService, PropertyActionStateService, ReviewsService
 ];
 
 export const IMPORTS = [

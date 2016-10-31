@@ -15,6 +15,8 @@ import { ResetPassword } from '../../app/users/reset-password/component';
 import { PropertyView } from '../../app/properties/property-view/component';
 import { PropertyImages } from '../../app/properties/property-images/component';
 import { PropertyReviews } from '../../app/properties/property-reviews/component';
+import { EditableReview } from '../../app/properties/property-reviews/editable-review/component';
+import { PropertyReview } from '../../app/properties/property-reviews/review/component';
 import { SimilarProperties } from '../../app/properties/similar-properties/component';
 import { PropertyPreview } from '../../app/properties/property-preview/component'
 import { PropertyAmenities } from '../../app/properties/property-amenities/component';
@@ -47,6 +49,7 @@ import { PropertyAccordion } from './components/property-accordion/component';
 import { Logo } from './components/logo/component';
 import { TopBar } from './components/top-bar/component';
 import { Modal } from './components/modal/component';
+import { StarRating } from './components/star-rating/component';
 
 // Pipes
 import { SimpleSearchPipe } from './pipes/simple-search.pipe';
@@ -56,11 +59,11 @@ import { WelcomeResolve } from '../welcome/welcome-resolve.service';
 import { PropertyViewResolve } from '../properties/property-view/property-resolve.service';
 
 export const DECLARTIONS = [
-  Login, Register, ForgotPassword, ResetPassword, PropertyView, PropertyImages, PropertyReviews,
+  Login, Register, ForgotPassword, ResetPassword, PropertyView, PropertyImages, PropertyReviews, EditableReview, PropertyReview,
   SimilarProperties, PropertyPreview, PropertyAmenities, PropertyActionsGroup, PropertyEditImage, PropertyEdit,
   RentNow, BigFooter, Welcome, FAQ, PrivacyPolicy, PropertyMap, Slide, PropertySlider, PropertyFilters, PropertyAccordion,
   MissingResource, App, Logo, TopBar, NoPropertyInfo,
-  SimpleSearchPipe, Carousel, ControlMessages, ImageUpload, NumberTicker, UploadProgress, Modal, WelcomeFilters,
+  SimpleSearchPipe, Carousel, ControlMessages, ImageUpload, NumberTicker, UploadProgress, Modal, StarRating, WelcomeFilters
   // Dashboard, AccountPage, SuperUser, Settings, UserSplash
 ];
 

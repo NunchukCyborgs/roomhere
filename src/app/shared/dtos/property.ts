@@ -1,4 +1,4 @@
-import { generateGUID } from '../services/util';
+import { generateGUID, generateAnonymousName } from '../services/util';
 import { User } from './user';
 
 export class Property {
@@ -30,6 +30,7 @@ export class Property {
   public available_at: string; // Maybe make a date wrapper of some sort? Hmm?
   public is_owner?: boolean;
   public is_claimed?: boolean;
+  public reviews?: Review[];
 
   constructor(property?: Property) {
     if (property) {
@@ -41,6 +42,9 @@ export class Property {
 
       if (property.amenities) {
         this.amenities = property.amenities.map(i => new Amenity(i));
+      }
+      if (property.reviews) {
+        this.reviews = property.reviews.map(i => new Review(i));
       }
     }
   }
@@ -121,4 +125,61 @@ export interface Image {
   url: string;
   height: string;
   width: string;
+}
+
+export class Review {
+  public id?: number;
+  public title: string;
+  public landlord_comments: string;
+  public body: string;
+  public landlord_rating: number;
+  public property_rating: number;
+  public is_owned?: boolean;
+  public duration: number; // Whole number of months the tenant has stayed there
+  public is_current_tenant?: boolean = true; // Do they currently live there
+  public is_anonymous: boolean = false;
+  public updated_at?: string;
+  public created_at?: string;
+  public approved_at?: string;
+  public name?: string;
+  private _name?: string;
+
+  constructor(review: IReview = {}) {
+    if (review) {
+      for (let propertyName in review) {
+        if (review.hasOwnProperty(propertyName)) {
+          this[propertyName] = review[propertyName];
+        }
+      }
+    }
+
+    this._name = this.name || generateAnonymousName();
+  }
+
+  get displayName(): string {
+    return this.name || this._name;
+  }
+
+  get prettyDuration(): string {
+    const rounded = Math.round(Number(this.duration));
+    return rounded < 12 ? `${rounded} months` : `${Math.round(rounded / 12.0)} years`;
+  }
+}
+
+interface IReview {
+  id?: number;
+  title?: string;
+  landlord_comments?: string;
+  body?: string;
+  landlord_rating?: number;
+  property_rating?: number;
+  is_owned?: boolean;
+  duration?: number;
+  is_current_tenant?: boolean;
+  is_anonymous?: boolean;
+  updated_at?: string;
+  created_at?: string;
+  approved_at?: string;
+  name?: string;
+  displayName?: string;
 }

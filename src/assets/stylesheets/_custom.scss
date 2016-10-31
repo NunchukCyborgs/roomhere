@@ -29,6 +29,10 @@ $grey: #f2f2f2;
   font-size: 1.5em;
 }
 
+.fa.jumbo {
+  font-size: 3em;
+}
+
 .expanded {
     width: 100% !important;
 }
@@ -290,6 +294,14 @@ input[type='number'] {
       color:lightgrey !important;
       text-decoration: none;
     }
+}
+
+.purple {
+    color: #44254A;
+}
+
+.gold {
+  color: #cc9933;
 }
 
 .rotate-90 {
