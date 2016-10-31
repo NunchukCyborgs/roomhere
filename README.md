@@ -17,6 +17,8 @@
 
 * Log in to API Console
 ``` sh
+cd /var/www/apartment_search/current/
+
 # Staging
 RACK_ENV=staging rails c
 
