@@ -8,4 +8,5 @@ import { Review } from '../../../shared/dtos/property';
 })
 export class PropertyReview {
   @Input() review: Review;
+  @Output() edit: EventEmitter<any> = new EventEmitter();
 }

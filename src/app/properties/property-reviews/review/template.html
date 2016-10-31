@@ -1,20 +1,23 @@
-<div class="callout-card">
+<div class="callout-card height-fix">
 	<div class="callout-card-content">
+		<i class="fa fa-pencil float-right purple large" (click)="edit.emit(true)" *ngIf="review.is_owned"></i>
 		<star-rating [rating]="review.property_rating"></star-rating>
-
-		<!--What about landlord_rating?-->
 		<h6 class="title">{{review.title}}</h6>
 
 		<blockquote>
 			<p>{{review.body}}</p>
 			<footer>
-				<cite>{{review.displayName}}, tenant for {{review.duration}} months</cite>
+				<cite>{{review.displayName}}, tenant for {{review.prettyDuration}}</cite>
 			</footer>
 		</blockquote>
 
-		<h5>Comments about the landlord</h5>
-		<p>
-			{{review.landlord_body}}
-		</p>
+		<div class="callout warning" *ngIf="!review.approved_at">
+			<h5>Pending Review</h5>
+
+			<p>
+				Thank you for reviewing this property. If everything looks good, our team will approve it shortly and the review
+				will become visible to everyone. Contact the Roomhere team if you have any questions.
+			</p>
+		</div>
 	</div>
 </div>

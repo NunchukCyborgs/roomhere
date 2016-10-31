@@ -48,7 +48,7 @@
 				<property-edit #propEdit [property]="property" (submit)="updatePropertyAndActionState(property)"></property-edit>
 			</fieldset>
 
-			<property-reviews [property]="property"></property-reviews>
+			<property-reviews [property]="property" [reviews]="property.reviews"></property-reviews>
 		</div>
 	</div>
 	<div *ngIf="(actionState$ | async)?.shouldShow(property)" class="row show-for-small-only callout-bottom sticky-actions">

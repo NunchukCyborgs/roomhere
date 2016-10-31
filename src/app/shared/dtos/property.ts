@@ -130,7 +130,7 @@ export interface Image {
 export class Review {
   public id?: number;
   public title: string;
-  public landlord_body: string;
+  public landlord_comments: string;
   public body: string;
   public landlord_rating: number;
   public property_rating: number;
@@ -159,12 +159,17 @@ export class Review {
   get displayName(): string {
     return this.name || this._name;
   }
+
+  get prettyDuration(): string {
+    const rounded = Math.round(Number(this.duration));
+    return rounded < 12 ? `${rounded} months` : `${Math.round(rounded / 12.0)} years`;
+  }
 }
 
 interface IReview {
   id?: number;
   title?: string;
-  landlord_body?: string;
+  landlord_comments?: string;
   body?: string;
   landlord_rating?: number;
   property_rating?: number;

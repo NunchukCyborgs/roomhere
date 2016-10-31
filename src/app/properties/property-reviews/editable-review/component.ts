@@ -25,7 +25,7 @@ export class EditableReview {
     this.reviewForm = this.formBuilder.group({
       'title': new FormControl(this.review.title, [Validators.required, Validators.minLength(6), Validators.maxLength(25)]),
       'body': new FormControl(this.review.body, [Validators.required, Validators.minLength(30), Validators.maxLength(750)]),
-      'landlordBody': new FormControl(this.review.landlord_body, [Validators.minLength(30), Validators.maxLength(750)]),
+      'landlordBody': new FormControl(this.review.landlord_comments, [Validators.minLength(30), Validators.maxLength(750)]),
       'duration': new FormControl(this.review.duration, [Validators.required]),
       'isAnonymous': new FormControl(this.review.is_anonymous),
       'isCurrentTenant': new FormControl(this.review.is_current_tenant),
@@ -35,18 +35,16 @@ export class EditableReview {
   }
 
   public onSave() {
-    const review: Review = new Review({
+    const review: Review = Object.assign(this.review, new Review({
       title: this.reviewForm.controls['title'].value,
       body: this.reviewForm.controls['body'].value,
-      landlord_body: this.reviewForm.controls['landlordBody'].value,
+      landlord_comments: this.reviewForm.controls['landlordBody'].value,
       duration: this.reviewForm.controls['duration'].value,
       is_anonymous: this.reviewForm.controls['isAnonymous'].value,
       is_current_tenant: this.reviewForm.controls['isCurrentTenant'].value,
       landlord_rating: this.landlordRating,
       property_rating: this.propertyRating,
-    });
-
-    debugger;
+    }));
 
     this.save.emit(review);
   }
