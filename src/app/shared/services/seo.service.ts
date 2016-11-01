@@ -11,7 +11,7 @@ import { Tag, SingleFamilyResidence, PostalAddress, GeoCoordinates, Tags } from 
 @Injectable()
 export class SeoService {
   private DESCRIPTION = 'Roomhere is the rental property solution for Cape Girardeau, MO. Find the most complete rental listings of the area at Roomhere.';
-  private TITLE = 'Roomhere: The Best Place to Find Home';
+  private TITLE = 'Cape Girardeau Apartments and Houses For Rent | RoomHere';
   private IMAGE = BASE_URL + '/images/white_logo_transparent_background.png';
   private tags: Tag[] = [];
   private propertySchema: {
@@ -20,12 +20,19 @@ export class SeoService {
   } = { schema: [] };
 
   public addBaseTags(renderer: Renderer) {
-    const description = this.DESCRIPTION;
-    const title = this.TITLE;
     const imageUrl = this.IMAGE;
     const image: Image = { url: imageUrl, height: '187', width: '240' };
 
-    this.addTags({ description: description, title: title, image: image }, renderer);
+    this.addTags({ description: this.DESCRIPTION, title: this.TITLE, image: image }, renderer);
+    this.setTitle(this.TITLE);
+  }
+
+  public prependTitle(title: string): void {
+    this.document.title = `${title} | ${this.TITLE}`;
+  }
+
+  public setTitle(title: string): void {
+    this.document.title = title;
   }
 
   private addTags(baseTags: Tags, renderer: Renderer): void {
@@ -34,10 +41,7 @@ export class SeoService {
     for (let tag of tags) {
       const existingTag = this.getExistingTag(tag);
       const elem = this.getElement(tag, existingTag, renderer);
-
-      for (let attr of tag.attributes) {
-        renderer.setElementAttribute(elem, attr.name, attr.value);
-      }
+      this.createElement(tag, elem, renderer);
 
       if (!existingTag) {
         this.tags.push(Object.assign({}, tag, { element: elem }));
@@ -62,9 +66,21 @@ export class SeoService {
     ];
   }
 
+  private createElement(tag: Tag, elem: any, renderer: Renderer) {
+    if (tag.text) {
+      renderer.setText(elem, tag.text);
+    }
+
+    for (let attr of tag.attributes) {
+      renderer.setElementAttribute(elem, attr.name, attr.value);
+    }
+  }
+
   private getExistingTag(newTag: Tag): Tag {
     return this.tags.find(tag => {
-      return tag.attributes.every((kvp, index) => newTag.attributes[index].name === kvp.name && newTag.attributes[index].value === kvp.value)
+      return tag.name === newTag.name && tag.text === newTag.text && newTag.attributes.every((kvp, index) => {
+        return tag.attributes[index].name === kvp.name && tag.attributes[index].value === kvp.value
+      })
     });
   }
 
@@ -75,10 +91,21 @@ export class SeoService {
   public addProperties(renderer: Renderer, properties: Property[]): void {
     this.addPropertySchema(renderer, properties);
     this.addPropertyTags(renderer, properties);
+    this.setTitle(this.getPropertiesTitle(properties));
   }
 
   public getPropertyDescription(property: Property): string {
     return `Check out this rental property at ${property.address1} on Roomhere.io!`;
+  }
+
+  private getPropertiesTitle(properties: Property[]): string {
+    if (properties.length === 1) {
+      return `$${properties[0].price} Rent at ${properties[0].address1} | ${this.TITLE}`;
+    } else {
+      const prices = properties.map(i => i.price).filter(i => i);
+      const minPrice = Math.min(...prices);
+      return `Rent from $${minPrice} | ${this.TITLE}`;
+    }
   }
 
   private addPropertySchema(renderer: Renderer, properties: Property[]): void {
@@ -113,18 +140,15 @@ export class SeoService {
 
   private addPropertyTags(renderer: Renderer, properties: Property[]): void {
     let description;
-    let title;
+    let title = this.getPropertiesTitle(properties);
     let image;
 
     if (properties.length === 1) {
       description = this.getPropertyDescription(properties[0]);
-      title = `Roomhere.io property at ${properties[0].address1}`;
       image = properties[0].images[0];
     } else {
       const prices = properties.map(i => i.price).filter(i => i);
       const minPrice = Math.min(...prices);
-      const maxPrice = Math.max(...prices);
-      title = `Check out these ${DEFAULT_TENANT_PRETTY} properties on Roomhere! $${minPrice}-$${maxPrice}`;
       description = this.DESCRIPTION;
       image = this.IMAGE;
     }

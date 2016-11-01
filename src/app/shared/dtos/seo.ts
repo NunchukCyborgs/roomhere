@@ -10,6 +10,7 @@ export interface Tag {
   name: string;
   attributes: KVP[];
   element?: any;
+  text?: string;
 }
 
 export interface KVP {
