@@ -1,13 +1,13 @@
 <div class="row flex-row">
 	<div class="flex-row column medium-6" *ngIf="!myReview.id && !isEditing">
-		<div class="callout-card">
+		<button class="callout-card">
 			<div class="callout-card-content text-center" (click)="editReview()">
 				<h3 class="upper-case">Have you stayed here?</h3>
 				<h5 class="upper-case">We encourage you to leave a review about your experience</h5>
 
 				<i class="fa fa-plus jumbo"></i>
 			</div>
-		</div>
+		</button>
 	</div>
 	<div class="column medium-6" *ngIf="!myReview.id && !otherReviews.length && !isEditing">
 		<div class="callout-card">

@@ -1,11 +1,11 @@
 <form [formGroup]="reviewForm" (ngSubmit)="onSave(review)">
-	<div class="callout-card">
+	<div class="callout-card small-centered">
 		<div class="callout-card-content">
 			<h4>Tell us about your review</h4>
 
 			<div class="row">
 				<div class="column medium-6">
-					<input type="text" formControlName="title" placeholder="Brief Title" maxlength="25" />
+					<input type="text" formControlName="title" placeholder="Brief Title" maxlength="80" />
 					<control-messages [control]="reviewForm.controls.title" class="alert"></control-messages>
 					<label>How long did you live here?
             <select formControlName="duration">

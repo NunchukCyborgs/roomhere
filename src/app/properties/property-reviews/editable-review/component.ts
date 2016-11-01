@@ -23,7 +23,7 @@ export class EditableReview {
     this.landlordRating = this.review.landlord_rating;
     this.propertyRating = this.review.property_rating;
     this.reviewForm = this.formBuilder.group({
-      'title': new FormControl(this.review.title, [Validators.required, Validators.minLength(6), Validators.maxLength(25)]),
+      'title': new FormControl(this.review.title, [Validators.required, Validators.minLength(6), Validators.maxLength(80)]),
       'body': new FormControl(this.review.body, [Validators.required, Validators.minLength(30), Validators.maxLength(750)]),
       'landlordBody': new FormControl(this.review.landlord_comments, [Validators.minLength(30), Validators.maxLength(750)]),
       'duration': new FormControl(this.review.duration, [Validators.required]),
