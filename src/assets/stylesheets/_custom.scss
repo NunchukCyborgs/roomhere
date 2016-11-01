@@ -311,3 +311,8 @@ input[type='number'] {
     -o-transform: rotate(90deg);
     transform: rotate(90deg);
 }
+
+#intercom-frame + span {
+    display: none;
+    // Causes a viewport problem on mobile chrome
+}
