@@ -7,8 +7,8 @@ export interface Tags {
 }
 
 export interface Tag {
-  property: string;
-  content: string;
+  name: string;
+  attributes: KVP[];
   element?: any;
 }
 

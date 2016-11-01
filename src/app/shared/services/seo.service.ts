@@ -29,30 +29,47 @@ export class SeoService {
   }
 
   private addTags(baseTags: Tags, renderer: Renderer): void {
-    const tags: Tag[] = [
-      { property: 'description', content: baseTags.description },
-      { property: 'og:title', content: baseTags.title },
-      { property: 'og:type', content: 'website' },
-      { property: 'og:description', content: baseTags.description },
-      { property: 'og:url', content: BASE_URL + this.router.url },
-      { property: 'og:image', content: baseTags.image.url },
-      { property: 'og:image:width', content: baseTags.image.width },
-      { property: 'og:image:height', content: baseTags.image.height },
-      { property: 'twitter:card', content: 'summary' },
-      { property: 'twitter:site', content: '@roomhere' },
-      { property: 'twitter:image', content: baseTags.image.url },
-      { property: 'twitter:title', content: baseTags.title },
-    ];
+    const tags: Tag[] = this.getTags(baseTags);
 
     for (let tag of tags) {
-      const existingTag = this.tags.find(i => i.property === tag.property);
-      const elem = (existingTag && existingTag.element) || renderer.createElement(this.document.head, 'meta');
-      renderer.setElementAttribute(elem, 'property', tag.property);
-      renderer.setElementAttribute(elem, 'content', tag.content);
+      const existingTag = this.getExistingTag(tag);
+      const elem = this.getElement(tag, existingTag, renderer);
+
+      for (let attr of tag.attributes) {
+        renderer.setElementAttribute(elem, attr.name, attr.value);
+      }
+
       if (!existingTag) {
         this.tags.push(Object.assign({}, tag, { element: elem }));
       }
     }
+  }
+
+  private getTags(baseTags: Tags): Tag[] {
+    return [
+      { name: 'meta', attributes: [{ name: 'property', value: 'description' }, { name: 'content', value: baseTags.description }] },
+      { name: 'meta', attributes: [{ name: 'property', value: 'og:title' }, { name: 'content', value: baseTags.title }] },
+      { name: 'meta', attributes: [{ name: 'property', value: 'og:type' }, { name: 'content', value: 'website' }] },
+      { name: 'meta', attributes: [{ name: 'property', value: 'og:description' }, { name: 'content', value: baseTags.description }] },
+      { name: 'meta', attributes: [{ name: 'property', value: 'og:url' }, { name: 'content', value: BASE_URL + this.router.url }] },
+      { name: 'meta', attributes: [{ name: 'property', value: 'og:image' }, { name: 'content', value: baseTags.image.url }] },
+      { name: 'meta', attributes: [{ name: 'property', value: 'og:image:width' }, { name: 'content', value: baseTags.image.width }] },
+      { name: 'meta', attributes: [{ name: 'property', value: 'og:image:height' }, { name: 'content', value: baseTags.image.height }] },
+      { name: 'meta', attributes: [{ name: 'property', value: 'twitter:card' }, { name: 'content', value: 'summary' }] },
+      { name: 'meta', attributes: [{ name: 'property', value: 'twitter:site' }, { name: 'content', value: '@roomhere' }] },
+      { name: 'meta', attributes: [{ name: 'property', value: 'twitter:image' }, { name: 'content', value: baseTags.image.url }] },
+      { name: 'meta', attributes: [{ name: 'property', value: 'twitter:title' }, { name: 'content', value: baseTags.title }] },
+    ];
+  }
+
+  private getExistingTag(newTag: Tag): Tag {
+    return this.tags.find(tag => {
+      return tag.attributes.every((kvp, index) => newTag.attributes[index].name === kvp.name && newTag.attributes[index].value === kvp.value)
+    });
+  }
+
+  private getElement(tag: Tag, existingTag: Tag, renderer: Renderer): any {
+    return (existingTag && existingTag.element) || renderer.createElement(this.document.head, tag.name)
   }
 
   public addProperties(renderer: Renderer, properties: Property[]): void {
