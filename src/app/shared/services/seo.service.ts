@@ -4,14 +4,14 @@ import { DOCUMENT } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { isBrowser, isNode } from 'angular2-universal';
 
-import { DEFAULT_TENANT, DEFAULT_TENANT_PRETTY } from '../../config';
+import { DEFAULT_TENANT, DEFAULT_TENANT_PRETTY, DEFAULT_STATE } from '../../config';
 import { Property, Image } from '../dtos/property';
 import { Tag, SingleFamilyResidence, PostalAddress, GeoCoordinates, Tags } from '../dtos/seo';
 
 @Injectable()
 export class SeoService {
-  private DESCRIPTION = 'Roomhere is the rental property solution for Cape Girardeau, MO. Find the most complete rental listings of the area at Roomhere.';
-  private TITLE = 'Cape Girardeau Apartments and Houses For Rent | RoomHere';
+  private DESCRIPTION = `Roomhere is the rental property solution for ${DEFAULT_TENANT_PRETTY}, ${DEFAULT_STATE}. Find the most complete rental listings of the area at Roomhere.`;
+  private TITLE = `${DEFAULT_TENANT_PRETTY} Apartments and Houses For Rent | RoomHere`;
   private IMAGE = BASE_URL + '/images/white_logo_transparent_background.png';
   private tags: Tag[] = [];
   private propertySchema: {
@@ -51,7 +51,7 @@ export class SeoService {
 
   private getTags(baseTags: Tags): Tag[] {
     return [
-      { name: 'meta', attributes: [{ name: 'property', value: 'description' }, { name: 'content', value: baseTags.description }] },
+      { name: 'meta', attributes: [{ name: 'name', value: 'description' }, { name: 'content', value: baseTags.description }] },
       { name: 'meta', attributes: [{ name: 'property', value: 'og:title' }, { name: 'content', value: baseTags.title }] },
       { name: 'meta', attributes: [{ name: 'property', value: 'og:type' }, { name: 'content', value: 'website' }] },
       { name: 'meta', attributes: [{ name: 'property', value: 'og:description' }, { name: 'content', value: baseTags.description }] },
