@@ -99,13 +99,7 @@ export class SeoService {
   }
 
   private getPropertiesTitle(properties: Property[]): string {
-    if (properties.length === 1) {
-      return `$${properties[0].price} Rent at ${properties[0].address1} | ${this.TITLE}`;
-    } else {
-      const prices = properties.map(i => i.price).filter(i => i);
-      const minPrice = Math.min(...prices);
-      return `Rent from $${minPrice} | ${this.TITLE}`;
-    }
+    return properties.length === 1 ? `Rent ${properties[0].address1} | ${this.TITLE}` : this.TITLE;
   }
 
   private addPropertySchema(renderer: Renderer, properties: Property[]): void {
