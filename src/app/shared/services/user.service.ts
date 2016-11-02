@@ -61,7 +61,7 @@ export class UserService {
   }
 
   public sendResetPasswordLink(user: User): Observable<Response> {
-    user.redirect_url = this.getRedirectUrl();
+    user.redirect_url = `${BASE_URL}/reset-password`;
     return this.http.post(`${BASE_API_URL}/auth/password`, user);
   }
 

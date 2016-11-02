@@ -7,6 +7,7 @@ import { FAQ } from '../faq/component';
 import { PrivacyPolicy } from '../privacy-policy/component';
 import { PropertyView } from '../properties/property-view/component';
 import { MissingResource } from '../missing-resource/component';
+import { ResetPassword } from '../users/reset-password/component';
 
 import { DEFAULT_TENANT } from '../config';
 import { WelcomeResolve } from '../welcome/welcome-resolve.service';
@@ -19,6 +20,7 @@ import { PropertyViewResolve } from '../properties/property-view/property-resolv
       { path: `${DEFAULT_TENANT}/:slug`, component: PropertyView, resolve: { property: PropertyViewResolve } }, // Property Module
       { path: 'faq', component: FAQ }, // General
       { path: 'privacy-policy', component: PrivacyPolicy }, // General
+      { path: 'reset-password', component: ResetPassword }, // General
     ])
   ],
   exports: [

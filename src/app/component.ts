@@ -21,8 +21,8 @@ export class App {
   public me$: Observable<Me>;
   public noFooter$: Observable<boolean>;
 
-  constructor(private userService: UserService, private router: Router,
-    private route: ActivatedRoute, private seoService: SeoService, private renderer: Renderer) {
+  constructor(private userService: UserService, private router: Router, 
+  private seoService: SeoService, private renderer: Renderer) {
   }
 
   ngOnInit() {
@@ -37,15 +37,6 @@ export class App {
 
   ngAfterViewInit() {
     this.router.events.subscribe(() => isBrowser && $('body').foundation());
-
-    this.route.queryParams
-      .flatMap(params => this.hasAuth$.filter(i => i).map(() => params))
-      .filter(i => isBrowser)
-      .subscribe(params => {
-        if (params['reset_password'] === 'true') {
-          $('#ResetPasswordModal').foundation('open');
-        }
-      });
   }
 
   logout() {
