@@ -3,7 +3,7 @@ import { Renderer, Inject, Injectable } from '@angular/core';
 import { DEFAULT_TENANT, DEFAULT_TENANT_PRETTY } from '../../config';
 import { Property, Image } from '../dtos/property';
 import { SeoService } from './seo.service';
-import { SingleFamilyResidence, PostalAddress, GeoCoordinates, createSchema, Review, Tag, Person, RoomhereOrganization } from '../dtos/seo';
+import { SingleFamilyResidence, PostalAddress, GeoCoordinates, createSchema, Review, Tag, Person, RoomhereOrganization, AggregateRating } from '../dtos/seo';
 
 @Injectable()
 export class PropertySeoService {
@@ -38,6 +38,7 @@ export class PropertySeoService {
       url: `${BASE_URL}/${DEFAULT_TENANT}/${p.slug}`,
       numberOfRooms: p.bedrooms,
       reviews: this.getReviewsSchema(p),
+      aggregateRating: this.getAggregateReviewsSchema(p),
     });
   }
 
@@ -52,6 +53,21 @@ export class PropertySeoService {
       reviewBody: i.body,
       publisher: new RoomhereOrganization,
     }));
+  }
+
+  private getAggregateReviewsSchema(p: Property): AggregateRating {
+    if (!p.reviews || !p.reviews.length) {
+      return undefined;
+    }
+
+    const ratings = p.reviews.map(i => i.property_rating);
+    const sum = ratings.reduce((sum, rating) => sum += rating, 0);
+    return Object.assign(new AggregateRating(), {
+      ratingValue: sum / ratings.length,
+      bestRating: 5,
+      worstRating: 1,
+      ratingCount: ratings.length,
+    });
   }
 
   private addSchema(renderer: Renderer, schema: Tag, Type: any) {

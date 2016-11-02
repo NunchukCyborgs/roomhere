@@ -54,7 +54,7 @@ export class SingleFamilyResidence implements Schema {
   petsAllowed?: boolean;
   additionalProperty?: string;
   address?: PostalAddress;
-  aggregateRating?: string;
+  aggregateRating?: AggregateRating;
   branchCode?: string;
   containedInPlace?: string;
   containsPlace?: string;
@@ -104,6 +104,13 @@ export class ReviewRating implements Schema {
   '@type': string = 'Review';
   ratingValue: number;
   bestRating: number = 5;
+}
+
+export class AggregateRating implements Schema {
+  '@type': string = 'AggregateRating';
+  ratingValue: number;
+  bestRating: number;
+  ratingCount: number;
 }
 
 export class Organization implements Schema {
