@@ -67,11 +67,10 @@ export class SingleFamilyResidence implements Schema {
   logo?: string;
   openingHoursSpecification?: string;
   photo?: string;
-  review?: string;
+  reviews?: Review[];
   smokingAllowed?: string;
   specialOpeningHoursSpecification?: string;
   telephone?: string;
-  Thing?: string;
   additionalType?: string;
   alternateName?: string;
   description?: string;
@@ -87,9 +86,18 @@ export class SingleFamilyResidence implements Schema {
 export class Review implements Schema {
   '@type': string = 'Review';
   itemReviewed: any;
-  author: any;
+  author: Person;
   reviewRating: ReviewRating;
   publisher: Organization;
+  reviewBody: string;
+}
+
+export class Person implements Schema {
+  '@type': string = 'Person';
+  name: string;
+  constructor(name: string) {
+    this.name = name;
+  }
 }
 
 export class ReviewRating implements Schema {
