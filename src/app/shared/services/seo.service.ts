@@ -6,7 +6,7 @@ import { isBrowser, isNode } from 'angular2-universal';
 
 import { DEFAULT_TENANT, DEFAULT_TENANT_PRETTY, DEFAULT_STATE } from '../../config';
 import { Property, Image } from '../dtos/property';
-import { Tag, SingleFamilyResidence, PostalAddress, GeoCoordinates, Tags } from '../dtos/seo';
+import { Tag, SingleFamilyResidence, PostalAddress, GeoCoordinates, Tags, RoomhereOrganization, createSchema } from '../dtos/seo';
 
 @Injectable()
 export class SeoService {
@@ -51,6 +51,7 @@ export class SeoService {
 
   private getTags(baseTags: Tags): Tag[] {
     return [
+      createSchema(new RoomhereOrganization()),
       { name: 'meta', attributes: [{ name: 'name', value: 'description' }, { name: 'content', value: baseTags.description }] },
       { name: 'meta', attributes: [{ name: 'property', value: 'og:title' }, { name: 'content', value: baseTags.title }] },
       { name: 'meta', attributes: [{ name: 'property', value: 'og:type' }, { name: 'content', value: 'website' }] },

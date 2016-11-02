@@ -1,4 +1,4 @@
-import {Image} from './property';
+import { Image } from './property';
 
 export interface Tags {
   description: string;
@@ -18,7 +18,16 @@ export interface KVP {
   value: string
 }
 
-export class PostalAddress {
+export interface Schema {
+  '@type': string;
+}
+
+export function createSchema(schema: Schema): Tag {
+  const serialized = JSON.stringify(Object.assign({ '@context': 'http://schema.org' }, schema));
+  return { name: 'script', text: serialized, attributes: [{ name: 'type', value: 'application/ld+json' }] };
+}
+
+export class PostalAddress implements Schema {
   '@type': string = 'PostalAddress';
   addressCountry?: string;
   streetAddress?: string;
@@ -27,14 +36,13 @@ export class PostalAddress {
   addressLocality?: string;
 }
 
-export class GeoCoordinates {
+export class GeoCoordinates implements Schema {
   '@type': string = 'GeoCoordinates';
   latitude: string;
   longitude: string;
 }
 
-export class SingleFamilyResidence {
-  '@context': string = 'https://schema.org';
+export class SingleFamilyResidence implements Schema {
   '@type': string = 'SingleFamilyResidence';
 
   numberOfRooms?: number;
@@ -73,4 +81,52 @@ export class SingleFamilyResidence {
   potentialAction?: string;
   sameAs?: string;
   url?: string;
+}
+
+export class Review implements Schema {
+  '@type': string = 'Review';
+  itemReviewed: any;
+  author: any;
+  reviewRating: ReviewRating;
+  publisher: Organization;
+}
+
+export class ReviewRating implements Schema {
+  '@type': string = 'Review';
+  ratingValue: number;
+  bestRating: number = 5;
+}
+
+export class Organization implements Schema {
+  '@type': string = 'Organization';
+  url: string;
+  logo: string;
+  contactPoint: ContactPoint;
+  sameAs: string[];
+}
+
+export class ContactPoint implements Schema {
+  '@type': string = 'ContactPoint';
+  telephone: string;
+  contactType: string;
+  email: string;
+}
+
+export class RoomhereContactPoint extends ContactPoint implements Schema {
+  constructor() {
+    super();
+    this.telephone = '+1-573-290-2363';
+    this.contactType = 'customer service';
+    this.email = 'support@roomhere.io';
+  }
+}
+
+export class RoomhereOrganization extends Organization implements Schema {
+  constructor() {
+    super();
+    this.url = 'https://roomhere.io';
+    this.logo = 'https://roomhere.io/images/white_logo_transparent_background.png';
+    this.sameAs = ['https://www.facebook.com/roomhereapp', 'https://twitter.com/roomhere'];
+    this.contactPoint = new RoomhereContactPoint();
+  }
 }
