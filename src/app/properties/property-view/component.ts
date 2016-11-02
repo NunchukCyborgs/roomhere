@@ -5,7 +5,7 @@ import { isBrowser } from 'angular2-universal';
 
 import { UserService } from '../../shared/services/user.service';
 import { MapOptions } from '../../shared/components/property-map/component';
-import { SeoService } from '../../shared/services/seo.service';
+import { PropertySeoService } from '../../shared/services/property-seo.service';
 import { SocialService } from '../../shared/services/social.service';
 import { Property } from '../../shared/dtos/property';
 import { PropertyActionState, PropertyActionMode } from '../../shared/services/property-action-state.service';
@@ -36,7 +36,7 @@ export class PropertyView {
     private route: ActivatedRoute,
     private propertyService: PropertyService,
     private userService: UserService,
-    private seoService: SeoService,
+    private propertySeoService: PropertySeoService,
     private renderer: Renderer,
     private socialService: SocialService,
     private http: HttpService,
@@ -93,7 +93,7 @@ export class PropertyView {
 
     this.updateMapOptions(this.property);
     this.tweetText = this.socialService.makeTwitterUrl(this.property);
-    this.seoService.addProperties(this.renderer, [this.property]);
+    this.propertySeoService.addProperties(this.renderer, [this.property]);
     this.actionStateService.setState(this.property);
   }
 }

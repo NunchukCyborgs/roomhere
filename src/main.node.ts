@@ -22,6 +22,7 @@ import { GoogleApiService } from './app/shared/services/google-api.service';
 import { HttpService } from './app/shared/services/http.service';
 import { ImageUploadService } from './app/shared/services/image-upload.service';
 import { SeoService } from './app/shared/services/seo.service';
+import { PropertySeoService } from './app/shared/services/property-seo.service';
 import { SocialService } from './app/shared/services/social.service';
 import { ValidationService } from './app/shared/services/validation.service';
 import { PersistenceService } from './app/shared/services/persistence.service';
@@ -34,7 +35,7 @@ import { Cookie } from './app/shared/services/cookies/cookie';
 import { CookieNode } from './app/shared/services/cookies/cookie-node';
 
 export const PROVIDERS = [
-  UserService, PropertyService, FacetsService, GoogleApiService, HttpService, ImageUploadService, SeoService,
+  UserService, PropertyService, FacetsService, GoogleApiService, HttpService, ImageUploadService, SeoService, PropertySeoService,
   SocialService, ValidationService, PersistenceService, PropertyActionStateService, ReviewsService
 ];
 

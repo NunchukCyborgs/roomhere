@@ -10,14 +10,10 @@ import { Tag, SingleFamilyResidence, PostalAddress, GeoCoordinates, Tags, Roomhe
 
 @Injectable()
 export class SeoService {
-  private DESCRIPTION = `Roomhere is the rental property solution for ${DEFAULT_TENANT_PRETTY}, ${DEFAULT_STATE}. Find the most complete rental listings of the area at Roomhere.`;
-  private TITLE = `${DEFAULT_TENANT_PRETTY} Apartments and Houses For Rent | RoomHere`;
-  private IMAGE = BASE_URL + '/images/white_logo_transparent_background.png';
-  private tags: Tag[] = [];
-  private propertySchema: {
-    tag?: any,
-    schema: SingleFamilyResidence[]
-  } = { schema: [] };
+  public DESCRIPTION = `Roomhere is the rental property solution for ${DEFAULT_TENANT_PRETTY}, ${DEFAULT_STATE}. Find the most complete rental listings of the area at Roomhere.`;
+  public TITLE = `${DEFAULT_TENANT_PRETTY} Apartments and Houses For Rent | RoomHere`;
+  public IMAGE = BASE_URL + '/images/white_logo_transparent_background.png';
+  public tags: Tag[] = [];
 
   public addBaseTags(renderer: Renderer) {
     const imageUrl = this.IMAGE;
@@ -35,17 +31,28 @@ export class SeoService {
     this.document.title = title;
   }
 
-  private addTags(baseTags: Tags, renderer: Renderer): void {
+  public createTag(tag: Tag, renderer: Renderer): void {
+    const existingTag = this.getExistingTag(tag).tag;
+    const elem = this.getElement(tag, existingTag, renderer);
+
+    if (!existingTag) {
+      this.setAttributes(tag, elem, renderer);
+      this.tags.push(Object.assign({}, tag, { element: elem }));
+    }
+  }
+
+  public removeTag(tag: Tag) {
+    const existingTagIndex = this.getExistingTag(tag).index;
+    if (existingTagIndex > -1) {
+      this.tags.splice(existingTagIndex, 1);
+    }
+  }
+
+  public addTags(baseTags: Tags, renderer: Renderer): void {
     const tags: Tag[] = this.getTags(baseTags);
 
     for (let tag of tags) {
-      const existingTag = this.getExistingTag(tag);
-      const elem = this.getElement(tag, existingTag, renderer);
-      this.createElement(tag, elem, renderer);
-
-      if (!existingTag) {
-        this.tags.push(Object.assign({}, tag, { element: elem }));
-      }
+      this.createTag(tag, renderer)
     }
   }
 
@@ -67,88 +74,28 @@ export class SeoService {
     ];
   }
 
-  private createElement(tag: Tag, elem: any, renderer: Renderer) {
-    if (tag.text) {
-      renderer.setText(elem, tag.text);
-    }
-
+  private setAttributes(tag: Tag, elem: any, renderer: Renderer) {
     for (let attr of tag.attributes) {
       renderer.setElementAttribute(elem, attr.name, attr.value);
     }
+
+    if (tag.text) {
+      renderer.setText(elem, tag.text);
+    }
   }
 
-  private getExistingTag(newTag: Tag): Tag {
-    return this.tags.find(tag => {
+  private getExistingTag(newTag: Tag): { tag: Tag, index: number } {
+    const index = this.tags.findIndex(tag => {
       return tag.name === newTag.name && tag.text === newTag.text && newTag.attributes.every((kvp, index) => {
         return tag.attributes[index].name === kvp.name && tag.attributes[index].value === kvp.value
       })
     });
+
+    return { tag: this.tags[index], index: index };
   }
 
   private getElement(tag: Tag, existingTag: Tag, renderer: Renderer): any {
     return (existingTag && existingTag.element) || renderer.createElement(this.document.head, tag.name)
-  }
-
-  public addProperties(renderer: Renderer, properties: Property[]): void {
-    this.addPropertySchema(renderer, properties);
-    this.addPropertyTags(renderer, properties);
-    this.setTitle(this.getPropertiesTitle(properties));
-  }
-
-  public getPropertyDescription(property: Property): string {
-    return `Check out this rental property at ${property.address1} on Roomhere.io!`;
-  }
-
-  private getPropertiesTitle(properties: Property[]): string {
-    return properties.length === 1 ? `Rent ${properties[0].address1} | ${this.TITLE}` : this.TITLE;
-  }
-
-  private addPropertySchema(renderer: Renderer, properties: Property[]): void {
-    this.propertySchema.schema = [];
-
-    for (let p of properties) {
-      const schema = Object.assign(new SingleFamilyResidence(), {
-        address: Object.assign(new PostalAddress(), {
-          addressCountry: 'US',
-          addressLocality: DEFAULT_TENANT_PRETTY,
-          postalCode: p.zipcode,
-          streetAddress: p.address1,
-        }),
-        photo: p.images[0].url,
-        amenityFeature: p.amenities.map(i => ({ name: i.name, value: Boolean(i.active) })),
-        geo: Object.assign(new GeoCoordinates(), { latitude: p.latitude, longitude: p.longitude }),
-        smokingAllowed: Boolean(p.amenities.find(i => i.name === 'Smoking Allowed')),
-        petsAllowed: Boolean(p.amenities.find(i => i.name === 'Pet Friendly')),
-        description: p.description,
-        url: `${BASE_URL}/${DEFAULT_TENANT}/${p.slug}`,
-        numberOfRooms: p.bedrooms
-      });
-
-      this.propertySchema.schema.push(schema);
-    }
-
-    this.propertySchema.tag = this.propertySchema.tag || renderer.createElement(this.document.head, 'script');
-
-    renderer.setElementAttribute(this.propertySchema.tag, 'type', 'application/ld+json');
-    renderer.setText(this.propertySchema.tag, JSON.stringify(this.propertySchema.schema));
-  }
-
-  private addPropertyTags(renderer: Renderer, properties: Property[]): void {
-    let description;
-    let title = this.getPropertiesTitle(properties);
-    let image;
-
-    if (properties.length === 1) {
-      description = this.getPropertyDescription(properties[0]);
-      image = properties[0].images[0];
-    } else {
-      const prices = properties.map(i => i.price).filter(i => i);
-      const minPrice = Math.min(...prices);
-      description = this.DESCRIPTION;
-      image = this.IMAGE;
-    }
-
-    this.addTags({ description: description, title: title, image: image }, renderer);
   }
 
   constructor(

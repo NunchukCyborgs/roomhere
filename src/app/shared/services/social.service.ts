@@ -2,7 +2,7 @@ import { Component, Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { isBrowser } from 'angular2-universal';
 import { Property } from '../../shared/dtos/property';
-import { SeoService } from './seo.service';
+import { PropertySeoService } from './property-seo.service';
 
 declare let FB: any;
 
@@ -11,12 +11,12 @@ export class SocialService {
   public hasInit$: BehaviorSubject<{ facebook: boolean }>;
   private hasInit: { facebook: boolean } = { facebook: false };
 
-  constructor(private seoService: SeoService) {
+  constructor(private propertySeoService: PropertySeoService) {
     this.hasInit$ = new BehaviorSubject(this.hasInit);
   }
 
   public makeTwitterUrl(property: Property) {
-    return `https://twitter.com/intent/tweet?text=${this.seoService.getPropertyDescription(property)}&via=roomhere`;
+    return `https://twitter.com/intent/tweet?text=${this.propertySeoService.getPropertyDescription(property)}&via=roomhere`;
   }
 
   public facebookInit() {

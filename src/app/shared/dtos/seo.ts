@@ -22,9 +22,10 @@ export interface Schema {
   '@type': string;
 }
 
-export function createSchema(schema: Schema): Tag {
-  const serialized = JSON.stringify(Object.assign({ '@context': 'http://schema.org' }, schema));
-  return { name: 'script', text: serialized, attributes: [{ name: 'type', value: 'application/ld+json' }] };
+export function createSchema(schema: Schema | Schema[]): Tag {
+  const context = { '@context': 'http://schema.org' };
+  const contextSchema = Array.isArray(schema) ? schema.map(i => Object.assign({}, context, i)) : Object.assign({}, context, schema);
+  return { name: 'script', text: JSON.stringify(contextSchema), attributes: [{ name: 'type', value: 'application/ld+json' }] };
 }
 
 export class PostalAddress implements Schema {
