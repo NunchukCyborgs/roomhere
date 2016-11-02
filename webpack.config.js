@@ -27,6 +27,7 @@ const htmlQuery = {
 const whitelist = [
   'tooltip', 
   'foundation-mq',
+  '#intercom-frame + span',
 
   // Amenity icon shit. Accessed programatically
   'fa fa-paw',
