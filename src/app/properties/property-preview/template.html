@@ -4,11 +4,8 @@
         </div>
       <div class="row collapse">
         <div class="small-12 text-left columns">
-          <h6 class="js-description">{{property.bedrooms}} Bed {{property.bathrooms}} Bath {{ property.price | currency : "USD" : true : "1.0-0" }}/month</h6>
-        </div>
-        <div class="small-12 text-left columns">
-          <h6 class="js-description">{{property.address1}}</h6>
-          <h6 class="js-description" *ngIf="property.address2">{{property.address2}}</h6>
+          <h6 class="js-description address">{{property.address1}}</h6>
+          <h6 class="js-description">{{property.bedrooms}} Bedroom - {{property.bathrooms}} Bathroom <br><span class="purple"><strong>{{ property.price | currency : "USD" : true : "1.0-0" }}/month</strong></span></h6>
         </div>
       </div>
     </a>
