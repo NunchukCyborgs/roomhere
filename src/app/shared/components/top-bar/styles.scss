@@ -13,3 +13,58 @@
   line-height: 1.6rem;
   font-weight: 400 !important;
 }
+.has-form{
+  padding-left: 25px;
+  padding-top: 15px;
+  a{
+      color:lightgrey !important;
+      line-height: 38px !important;
+    }
+  .fa{
+  }
+  .top-bar-search{
+    max-width: 900px !important;
+    border: none !important;
+  }
+  [type=text], [type=password], [type=date], [type=datetime], [type=datetime-local], [type=month], [type=week], [type=email], [type=number], textarea {
+      border: none !important;
+      margin: 0 0 1rem;
+      font-family: inherit;
+      font-size: 1rem;
+      color: #0a0a0a;
+      box-shadow: none !important;
+  }
+}
+/* Medium only */
+@media screen and (min-width: 40em) and (max-width: 63.9375em) {
+  .has-form{
+  padding-left: 0px;
+  padding-top: 0px;
+  a{
+      color:lightgrey !important;
+      line-height: 38px !important;
+    }
+  .top-bar-search{
+    max-width: 900px !important;
+    border: none !important;
+  }
+}
+.column:last-child:not(:first-child), .columns:last-child:not(:first-child) {
+    float: right !important;
+}
+}
+/* Small only */
+@media screen and (max-width: 39.9375em) {
+  .has-form{
+  padding-left: 0px;
+  padding-top: 0px;
+  a{
+      color:lightgrey !important;
+      line-height: 28px !important;
+    }
+  .top-bar-search{
+    max-width: 900px !important;
+    border: none !important;
+  }
+}
+}
