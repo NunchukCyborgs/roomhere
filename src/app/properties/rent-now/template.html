@@ -1,32 +1,23 @@
-<div>
-    <button class="close-button" data-close aria-label="Close modal" type="button">
-        <span aria-hidden="true">&times;</span>
-    </button>
-    <div class="row">
-        <div class="medium-10 medium-push-1 columns">
-            <div class="signup-panel">
-                <h4 class="text-center">{{owner?.landlord_name || owner?.owner_name}}</h4>
-                <h5 class="text-center">To find out more information about renting this property use the contact information for {{owner?.landlord_name || owner?.owner_name}}
-                    below.
-                </h5>
-                <hr>
-                <div *ngIf="owner?.phone" class="form-group row vertical-align">
-                    <div class="small-2 columns vertical-align">
-                        <i class="fa fa-phone"></i>
-                    </div>
-                    <div class="small-10 columns vertical-align">
-                        <h5 class="phone margin-none">{{owner.phone}}</h5>
-                    </div>
-                </div>
-                <div *ngIf="owner?.email" class="form-group row vertical-align">
-                    <div class="small-2 columns vertical-align">
-                        <i class="fa fa-envelope"></i>
-                    </div>
-                    <div class="small-10 columns vertical-align">
-                        <h5 class="email margin-none">{{owner.email}}</h5>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+<div class="signup-panel">
+	<h4 class="text-center">{{owner?.landlord_name || owner?.owner_name}}</h4>
+	<h5 class="text-center">To find out more information about renting this property use the contact information for {{owner?.landlord_name || owner?.owner_name}}
+		below.
+	</h5>
+	<hr>
+	<div *ngIf="owner?.phone" class="form-group row vertical-align">
+		<div class="small-2 columns vertical-align">
+			<i class="fa fa-phone"></i>
+		</div>
+		<div class="small-10 columns vertical-align">
+			<h5 class="phone margin-none">{{owner.phone}}</h5>
+		</div>
+	</div>
+	<div *ngIf="owner?.email" class="form-group row vertical-align">
+		<div class="small-2 columns vertical-align">
+			<i class="fa fa-envelope"></i>
+		</div>
+		<div class="small-10 columns vertical-align">
+			<h5 class="email margin-none">{{owner.email}}</h5>
+		</div>
+	</div>
 </div>
