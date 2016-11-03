@@ -44,8 +44,9 @@ export class Welcome {
   ngAfterViewInit() {
     let filteredProperties$: BehaviorSubject<Property[]>;
 
-    this.route.data.forEach((data: { properties: Property[] }) => {
-      filteredProperties$ = new BehaviorSubject(data.properties);
+    this.route.data.forEach((d: { properties: { properties: Property[], query: string } }) => {
+      filteredProperties$ = new BehaviorSubject(d.properties.properties);
+      this.facet.q = d.properties.query;
     });
 
     this.properties$ = filteredProperties$;

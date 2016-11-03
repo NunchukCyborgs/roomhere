@@ -9,4 +9,5 @@ export class PropertyFacet {
   public locations: Location[] = [];
   public amenities: Amenity[] = [];
   public types: string[] = [];
+  public q: string; // Query. Shortened to 'q' for no good reason.
 }

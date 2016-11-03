@@ -92,6 +92,7 @@ function missingResource(req, res) {
 // Routes with html5pushstate
 // ensure routes match client-side-app
 app.get('/', ngApp);
+app.get('/search*', ngApp);
 app.get('/faq', ngApp);
 app.get('/privacy-policy', ngApp);
 app.get('/reset-password', ngApp);
