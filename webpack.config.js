@@ -28,6 +28,7 @@ const whitelist = [
   'tooltip', 
   'foundation-mq',
   '#intercom-frame + span',
+  'reveal-overlay',
 
   // Amenity icon shit. Accessed programatically
   'fa fa-paw',
