@@ -26,6 +26,7 @@ export class Welcome {
   public facet: PropertyFacet = new PropertyFacet();
   public pageNumber: number = 1;
   public lastPage$: Observable<number>;
+  public query: string;
   public mapOptions: MapOptions;
   public showFilters: boolean = false;
   public loadFilteredProperties$: BehaviorSubject<PropertyFacet>;
@@ -46,15 +47,15 @@ export class Welcome {
 
     this.route.data.forEach((d: { properties: { properties: Property[], query: string } }) => {
       filteredProperties$ = new BehaviorSubject(d.properties.properties);
-      this.facet.q = d.properties.query;
+      this.query = d.properties.query;
     });
 
     this.properties$ = filteredProperties$;
 
     this.loadFilteredProperties$
-      .map(i => JSON.stringify(i) + this.pageNumber)
+      .map(i => JSON.stringify(i) + this.pageNumber + this.query)
       .distinctUntilChanged()
-      .flatMap(() => this.propertyService.getFilteredProperties$(this.facet, this.pageNumber))
+      .flatMap(() => this.propertyService.getFilteredProperties$(this.facet, this.query, this.pageNumber))
       .do(i => this.propertySeoService.addProperties(this.renderer, i))
       .subscribe(i => filteredProperties$.next(i));
 

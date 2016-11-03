@@ -32,7 +32,7 @@ export class App {
     this.me$ = this.userService.me$
     this.seoService.addBaseTags(this.renderer);
 
-    this.noFooter$ = this.router.events.map(i => i.url).map(i => i === '/');
+    this.noFooter$ = this.router.events.map(i => i.url).map(i => i === '/' || i.startsWith('/search'));
   }
 
   ngAfterViewInit() {
