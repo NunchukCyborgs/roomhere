@@ -1,19 +1,12 @@
-<div class="image-wrapper overlay-fade-in">
-    <a target="_blank" [href]="propertyUrl">
-      <div class="chrome-wrap-fix">
+<div class="preview-div">
         <div class="responsive-image">
-          <img *ngIf="property?.images[0]?.url" class="property-image" [src]="property.images[0].url">
+          <img *ngIf="property?.images[0]?.url" class="property-image object-fit_fill" [src]="property.images[0].url">
+        </div>
+      <div class="row collapse">
+        <div class="small-12 text-left columns">
+          <h6 class="js-description address">{{property.address1}}</h6>
+          <h6 class="js-description">{{property.bedrooms}} Bedroom - {{property.bathrooms}} Bathroom <br><span class="purple"><strong>{{ property.price | currency : "USD" : true : "1.0-0" }}/month</strong></span></h6>
         </div>
       </div>
-
-      <div class="image-overlay-content">
-          <h2 class="js-description">
-            <div>{{property.bedrooms}} Bedroom</div>
-            <div>{{property.bathrooms}} Bath</div>
-          </h2>
-          <p class="js-price price">{{ property.price | currency : "USD" : true : "1.0-0" }}</p><a class="js-property-link button large" >View Now</a>
-      </div>
-    <h5 class="js-address-line-1">{{property.address1}}</h5>
-    <h5 class="js-address-line-2" *ngIf="property.address2">{{property.address2}}</h5>
     </a>
-  </div>
+</div>
