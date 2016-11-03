@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { Property } from '../../../properties/property';
+import { Property } from '../../../shared/dtos/property';
 import { PropertyService } from '../../../shared/services/property.service';
 import { UserService } from '../../../shared/services/user.service';
-import { Contact } from '../../../users/user';
+import { Contact } from '../../../shared/dtos/user';
 import { ValidationService } from '../../../shared/services/validation.service';
 
 @Component({

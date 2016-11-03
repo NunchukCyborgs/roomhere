@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Response } from '@angular/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
-import { User } from '../user';
+import { User } from '../../shared/dtos/user';
 import { UserService } from '../../shared/services/user.service';
 import { ValidationService } from '../../shared/services/validation.service';
 import { isBrowser } from 'angular2-universal';

@@ -40,12 +40,13 @@ p {
     color:#fff;
 }
 
-.filter-section {
+:host /deep/ footer {
+  margin-left: -2.0rem !important;
+}
+
+.welcome-filters {
     margin: 0 -300px 10px -300px;
     padding: 20px 300px 10px 300px;
     background-color: #fff;
-}
-
-:host /deep/ footer {
-  margin-left: -2.0rem !important;
+    display: block;
 }

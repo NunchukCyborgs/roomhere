@@ -3,7 +3,7 @@ import { isBrowser } from 'angular2-universal';
 import { Router } from '@angular/router';
 
 import { DEFAULT_TENANT } from '../../../config';
-import { Property } from '../../../properties/property';
+import { Property } from '../../../shared/dtos/property';
 
 @Component({
   selector: 'property-accordion',

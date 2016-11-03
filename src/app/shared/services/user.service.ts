@@ -4,11 +4,11 @@ import { Response, ResponseOptions } from '@angular/http';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/Rx';
-import { User, Contact } from '../../users/user';
+import { User, Contact } from '../../shared/dtos/user';
 import { HttpService } from './http.service';
 import { isBrowser } from 'angular2-universal';
 import { PersistenceService } from './persistence.service';
-import { Property } from '../../properties/property';
+import { Property } from '../../shared/dtos/property';
 
 declare let analytics: any;
 
@@ -61,7 +61,7 @@ export class UserService {
   }
 
   public sendResetPasswordLink(user: User): Observable<Response> {
-    user.redirect_url = this.getRedirectUrl();
+    user.redirect_url = `${BASE_URL}/reset-password`;
     return this.http.post(`${BASE_API_URL}/auth/password`, user);
   }
 
@@ -150,7 +150,7 @@ export class UserService {
 
   private redirectLandlord(me: Me) {
     if (me.licenses && me.licenses.length) {
-      this.router.navigate(['dashboard']);
+      this.router.navigate(['/account/dashboard']);
     }
   }
 

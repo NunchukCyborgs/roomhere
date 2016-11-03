@@ -8,7 +8,9 @@ $bg: #fff;
 $font-color: #333;
 
 .callout-card {
+    height: calc(100% - 32px); // Somebody please fix with a flex solution!
     max-width: 1000px;
+    width: 100%;
     background: $bg;
     box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
     margin: 1rem 0;
@@ -32,9 +34,8 @@ $font-color: #333;
 }
 @media screen and (min-width: 40em) and (max-width: 63.9375em) {
     .callout-card {
-        margin: 10px;
         .callout-card-content {
-            padding: 6px;
+            padding: 15px;
             p {
                 margin-left: 7px;
             }
@@ -46,9 +47,8 @@ $font-color: #333;
 }
 @media screen and (max-width: 39.9375em) {
     .callout-card {
-        margin: 5px;
         .callout-card-content {
-            padding: 4px;
+            padding: 10px;
             p {
                 margin-left: 5px;
             }

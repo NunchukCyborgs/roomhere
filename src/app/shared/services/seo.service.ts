@@ -3,170 +3,99 @@ import { Renderer, Inject, Injectable } from '@angular/core';
 import { DOCUMENT } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { isBrowser, isNode } from 'angular2-universal';
-import { Property, Image } from '../../properties/property';
-import { DEFAULT_TENANT } from '../../config';
 
-export interface Tags {
-  description: string;
-  title: string;
-  image: Image
-}
-
-interface Tag {
-  property: string;
-  content: string;
-  element?: any;
-}
-
-interface KVP {
-  name: string,
-  value: string
-}
-
-class PostalAddress {
-  '@type': string = 'PostalAddress';
-  addressCountry?: string;
-  streetAddress?: string;
-  postalCode?: string;
-  addressRegion?: string;
-  addressLocality?: string;
-}
-
-class GeoCoordinates {
-  '@type': string = 'GeoCoordinates';
-  latitude: string;
-  longitude: string;
-}
-
-class SingleFamilyResidence {
-  '@context': string = 'https://schema.org';
-  '@type': string = 'SingleFamilyResidence';
-
-  numberOfRooms?: number;
-  occupancy?: number;
-  amenityFeature?: KVP[];
-  floorSize?: string;
-  permittedUsage?: string;
-  petsAllowed?: boolean;
-  additionalProperty?: string;
-  address?: PostalAddress;
-  aggregateRating?: string;
-  branchCode?: string;
-  containedInPlace?: string;
-  containsPlace?: string;
-  event?: string;
-  faxNumber?: string;
-  geo?: GeoCoordinates;
-  globalLocationNumber?: string;
-  hasMap?: string;
-  isicV4?: string;
-  logo?: string;
-  openingHoursSpecification?: string;
-  photo?: string;
-  review?: string;
-  smokingAllowed?: string;
-  specialOpeningHoursSpecification?: string;
-  telephone?: string;
-  Thing?: string;
-  additionalType?: string;
-  alternateName?: string;
-  description?: string;
-  disambiguatingDescription?: string;
-  image?: string;
-  mainEntityOfPage?: string;
-  name?: string;
-  potentialAction?: string;
-  sameAs?: string;
-  url?: string;
-}
+import { DEFAULT_TENANT, DEFAULT_TENANT_PRETTY, DEFAULT_STATE } from '../../config';
+import { Property, Image } from '../dtos/property';
+import { Tag, SingleFamilyResidence, PostalAddress, GeoCoordinates, Tags, RoomhereOrganization, createSchema } from '../dtos/seo';
 
 @Injectable()
 export class SeoService {
-  private tags: Tag[] = [];
-  private propertySchema: {
-    tag?: any,
-    schema: SingleFamilyResidence[]
-  } = { schema: [] };
-
-  public addSchema(renderer: Renderer, properties: Property[]): void {
-    this.propertySchema.schema = [];
-
-    for (let p of properties) {
-      const schema = Object.assign(new SingleFamilyResidence(), {
-        address: Object.assign(new PostalAddress(), {
-          addressCountry: 'US',
-          addressLocality: DEFAULT_TENANT.replace('-', ' '),
-          postalCode: p.zipcode,
-          streetAddress: p.address1,
-        }),
-        photo: p.images[0].url,
-        amenityFeature: p.amenities.map(i => ({ name: i.name, value: Boolean(i.active) })),
-        geo: Object.assign(new GeoCoordinates(), { latitude: p.latitude, longitude: p.longitude }),
-        smokingAllowed: Boolean(p.amenities.find(i => i.name === 'Smoking Allowed')),
-        petsAllowed: Boolean(p.amenities.find(i => i.name === 'Pet Friendly')),
-        description: p.description,
-        url: `${BASE_URL}/${DEFAULT_TENANT}/${p.slug}`,
-        numberOfRooms: p.bedrooms
-      });
-
-      this.propertySchema.schema.push(schema);
-    }
-
-    this.propertySchema.tag = this.propertySchema.tag || renderer.createElement(this.document.head, 'script');
-
-    renderer.setElementAttribute(this.propertySchema.tag, 'type', 'application/ld+json');
-    renderer.setText(this.propertySchema.tag, JSON.stringify(this.propertySchema.schema));
-  }
-
-  public getDescription(property: Property): string {
-    return `Check out this rental property at ${property.address1} on Roomhere.io!`;
-  }
-
-  public addPropertyTags(renderer: Renderer, property: Property): void {
-    const description = this.getDescription(property);
-    const title = `Roomhere.io property at ${property.address1}`;
-
-    try {
-      this.addTags({ description: description, title: title, image: property.images[0] }, renderer);
-    } catch (err) {
-      if (isNode) { throw new Error('no property images error. Property: ' + JSON.stringify(property)); }
-    }
-  }
+  public DESCRIPTION = `Roomhere is the rental property solution for ${DEFAULT_TENANT_PRETTY}, ${DEFAULT_STATE}. Find the most complete rental listings of the area at Roomhere.`;
+  public TITLE = `${DEFAULT_TENANT_PRETTY} Apartments and Houses For Rent | RoomHere`;
+  public IMAGE = BASE_URL + '/images/white_logo_transparent_background.png';
+  public tags: Tag[] = [];
 
   public addBaseTags(renderer: Renderer) {
-    const description = 'Roomhere is the rental property solution for Cape Girardeau, MO. Find the most complete rental listings of the area at Roomhere.';
-    const title = 'Roomhere: The Best Place to Find Home';
-    const imageUrl = BASE_URL + '/images/white_logo_transparent_background.png';
+    const imageUrl = this.IMAGE;
     const image: Image = { url: imageUrl, height: '187', width: '240' };
 
-    this.addTags({ description: description, title: title, image: image }, renderer);
+    this.addTags({ description: this.DESCRIPTION, title: this.TITLE, image: image }, renderer);
+    this.setTitle(this.TITLE);
+  }
+
+  public prependTitle(title: string): void {
+    this.document.title = `${title} | ${this.TITLE}`;
+  }
+
+  public setTitle(title: string): void {
+    this.document.title = title;
+  }
+
+  public createTag(tag: Tag, renderer: Renderer): void {
+    const existingTag = this.getExistingTag(tag).tag;
+    const elem = this.getElement(tag, existingTag, renderer);
+
+    if (!existingTag) {
+      this.setAttributes(tag, elem, renderer);
+      this.tags.push(Object.assign({}, tag, { element: elem }));
+    }
+  }
+
+  public removeTag(tag: Tag) {
+    const existingTagIndex = this.getExistingTag(tag).index;
+    if (existingTagIndex > -1) {
+      this.tags.splice(existingTagIndex, 1);
+    }
   }
 
   public addTags(baseTags: Tags, renderer: Renderer): void {
-    const tags: Tag[] = [
-      { property: 'description', content: baseTags.description },
-      { property: 'og:title', content: baseTags.title },
-      { property: 'og:type', content: 'website' },
-      { property: 'og:description', content: baseTags.description },
-      { property: 'og:url', content: BASE_URL + this.router.url },
-      { property: 'og:image', content: baseTags.image.url },
-      { property: 'og:image:width', content: baseTags.image.width },
-      { property: 'og:image:height', content: baseTags.image.height },
-      { property: 'twitter:card', content: 'summary' },
-      { property: 'twitter:site', content: '@roomhere' },
-      { property: 'twitter:image', content: baseTags.image.url },
-      { property: 'twitter:title', content: baseTags.title },
-    ];
+    const tags: Tag[] = this.getTags(baseTags);
 
     for (let tag of tags) {
-      const existingTag = this.tags.find(i => i.property === tag.property);
-      const elem = (existingTag && existingTag.element) || renderer.createElement(this.document.head, 'meta');
-      renderer.setElementAttribute(elem, 'property', tag.property);
-      renderer.setElementAttribute(elem, 'content', tag.content);
-      if (!existingTag) {
-        this.tags.push(Object.assign({}, tag, { element: elem }));
-      }
+      this.createTag(tag, renderer)
     }
+  }
+
+  private getTags(baseTags: Tags): Tag[] {
+    return [
+      createSchema(new RoomhereOrganization()),
+      { name: 'meta', attributes: [{ name: 'name', value: 'description' }, { name: 'content', value: baseTags.description }] },
+      { name: 'meta', attributes: [{ name: 'property', value: 'og:title' }, { name: 'content', value: baseTags.title }] },
+      { name: 'meta', attributes: [{ name: 'property', value: 'og:type' }, { name: 'content', value: 'website' }] },
+      { name: 'meta', attributes: [{ name: 'property', value: 'og:description' }, { name: 'content', value: baseTags.description }] },
+      { name: 'meta', attributes: [{ name: 'property', value: 'og:url' }, { name: 'content', value: BASE_URL + this.router.url }] },
+      { name: 'meta', attributes: [{ name: 'property', value: 'og:image' }, { name: 'content', value: baseTags.image.url }] },
+      { name: 'meta', attributes: [{ name: 'property', value: 'og:image:width' }, { name: 'content', value: baseTags.image.width }] },
+      { name: 'meta', attributes: [{ name: 'property', value: 'og:image:height' }, { name: 'content', value: baseTags.image.height }] },
+      { name: 'meta', attributes: [{ name: 'property', value: 'twitter:card' }, { name: 'content', value: 'summary' }] },
+      { name: 'meta', attributes: [{ name: 'property', value: 'twitter:site' }, { name: 'content', value: '@roomhere' }] },
+      { name: 'meta', attributes: [{ name: 'property', value: 'twitter:image' }, { name: 'content', value: baseTags.image.url }] },
+      { name: 'meta', attributes: [{ name: 'property', value: 'twitter:title' }, { name: 'content', value: baseTags.title }] },
+    ];
+  }
+
+  private setAttributes(tag: Tag, elem: any, renderer: Renderer) {
+    for (let attr of tag.attributes) {
+      renderer.setElementAttribute(elem, attr.name, attr.value);
+    }
+
+    if (tag.text) {
+      renderer.setText(elem, tag.text);
+    }
+  }
+
+  private getExistingTag(newTag: Tag): { tag: Tag, index: number } {
+    const index = this.tags.findIndex(tag => {
+      return tag.name === newTag.name && tag.text === newTag.text && newTag.attributes.every((kvp, index) => {
+        return tag.attributes[index].name === kvp.name && tag.attributes[index].value === kvp.value
+      })
+    });
+
+    return { tag: this.tags[index], index: index };
+  }
+
+  private getElement(tag: Tag, existingTag: Tag, renderer: Renderer): any {
+    return (existingTag && existingTag.element) || renderer.createElement(this.document.head, tag.name)
   }
 
   constructor(

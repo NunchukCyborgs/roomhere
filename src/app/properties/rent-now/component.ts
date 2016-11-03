@@ -3,7 +3,7 @@ import { Response } from '@angular/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import { isBrowser } from 'angular2-universal';
-import { Owner } from '../property';
+import { Owner } from '../../shared/dtos/property';
 
 @Component({
   selector: 'rent-now',

@@ -1,0 +1,70 @@
+<form [formGroup]="reviewForm" (ngSubmit)="onSave(review)">
+	<div class="callout-card small-centered">
+		<div class="callout-card-content">
+			<h4>Tell us about your review</h4>
+
+			<div class="row">
+				<div class="column medium-6">
+					<input type="text" formControlName="title" placeholder="Brief Title" maxlength="80" />
+					<control-messages [control]="reviewForm.controls.title" class="alert"></control-messages>
+					<label>How long did you live here?
+            <select formControlName="duration">
+              <option value="3">3 Months</option>
+              <option value="6">6 Months</option>
+              <option value="12">1 Year</option>
+              <option value="24">2 Years</option>
+              <option value="36">3+ Years</option>
+              <option value="60">5+ Years</option>
+            </select>
+          </label>
+					<control-messages [control]="reviewForm.controls.duration" class="alert"></control-messages>
+				</div>
+
+				<div class="column medium-6">
+					<div>
+						<input id="IsCurrentTenant" type="checkbox" formControlName="isCurrentTenant" /><label for="IsCurrentTenant">I currently live here</label>
+						<small><span data-tooltip aria-haspopup="true" tabindex="2" class="has-tip top" data-disable-hover="false" title="We collect this information to promote reviews from more recent tenants in our internal search algorithm. Roomhere will never share this information with anyone.">Why do we ask this?</span></small>
+					</div>
+					<div><input id="IsAnon" type="checkbox" formControlName="isAnonymous"><label for="IsAnon">Keep me anonymous</label></div>
+					<small>Privacy is very important to us and we will not share your current living status, or your name without your expressed permission. </small>
+				</div>
+			</div>
+
+			<hr />
+
+			<div class="row">
+				<div class="column medium-6">
+					<h4>Tell us about your property</h4>
+					<span>Overall Rating</span>
+					<star-rating [(rating)]="propertyRating" [isEditable]="true"></star-rating>
+					<control-messages class="alert" [control]="reviewForm.controls.propertyRating">{{getRatingError(propertyRating)}}</control-messages>
+					<textarea placeholder="The thing I love most about my home is ..." formControlName="body" maxlength="750"></textarea>
+					<control-messages [control]="reviewForm.controls.body" class="alert"></control-messages>
+				</div>
+				<div class="column medium-6">
+					<h4>Tell us about your landlord</h4>
+					<span>Overall Rating</span>
+					<star-rating [(rating)]="landlordRating" [isEditable]="true"></star-rating>
+					<div class="small-text-right float-right">
+						<small>Optional</small>
+					</div>
+					<textarea placeholder="I would recommend my landlord because of ..." formControlName="landlordBody" maxlength="750"></textarea>
+					<control-messages [control]="reviewForm.controls.landlordBody" class="alert"></control-messages>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="column medium-6">
+					<small>By creating this review, I affirm that I currently, or have previously rented this property and that the above information is accurate.</small>
+				</div>
+				<div class="column medium-6">
+					<div class="button-group float-right">
+						<button type="button" class="button secondary" (click)="cancel.emit(true)">Cancel</button>
+						<button type="submit" class="button success" [attr.disabled]="!reviewForm.valid || !propertyRating ? true : null">{{review.id ? 'Update Review' : 'Create Review'}}</button>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</form>

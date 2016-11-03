@@ -1,0 +1,31 @@
+<section class="filter-section">
+	<div class="row">
+		<div class="large-12 columns">
+			<p>Price Range</p>
+		</div>
+
+		<property-slider [facet]="facet" (applyFacet)="pageNumber = 1; applyFacet.emit($event)"></property-slider>
+
+		<hr />
+
+		<ul class="dropdown menu" data-dropdown-menu>
+			<li>
+				<a>Bedrooms {{facet.min_bedrooms}}+</a>
+				<ul class="menu">
+					<li *ngFor="let b of bedrooms"><a (click)="facet.min_bedrooms = b; applyFacet.emit(facet)">{{b}}+</a></li>
+				</ul>
+			</li>
+			<li>
+				<a>Bathrooms {{facet.min_bathrooms}}+</a>
+				<ul class="menu">
+					<li *ngFor="let b of bathrooms"><a (click)="facet.min_bathrooms = b; applyFacet.emit(facet)">{{b}}+</a></li>
+				</ul>
+			</li>
+			<li>
+				<a class="no-hover">
+					<property-filters [(showFilters)]="showFilters" [facet]="facet" (applyFacet)="pageNumber = 1; applyFacet.emit($event)"></property-filters>
+				</a>
+			</li>
+		</ul>
+	</div>
+</section>

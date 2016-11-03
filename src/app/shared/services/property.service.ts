@@ -5,7 +5,9 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/Rx';
 
-import { Property, PropertyFacet } from '../../properties/property';
+import { Property } from '../../shared/dtos/property';
+import { PropertyFacet } from '../../shared/dtos/facets';
+
 import { getHoneybadger } from './honeybadger';
 
 @Injectable()

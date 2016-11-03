@@ -1,28 +1,42 @@
-<div>
-      <h4>Reviews</h4>
-      <div class="media-object stack-for-small">
-          <div class="media-object-section"><img class="thumbnail" src="http://placehold.it/200x200"></div>
-          <div class="media-object-section">
-              <h5>Mike Stevenson</h5>
-              <p>I'm going to improvise. Listen, there's something you should know about me... about inception. An idea is like a virus, resilient, highly contagious. The smallest seed of an idea can grow. It can grow to define or destroy you.</p>
-          </div>
-      </div>
-      <div class="media-object stack-for-small">
-          <div class="media-object-section"><img class="thumbnail" src="http://placehold.it/200x200"></div>
-          <div class="media-object-section">
-              <h5>Mike Stevenson</h5>
-              <p>I'm going to improvise. Listen, there's something you should know about me... about inception. An idea is like a virus, resilient, highly contagious. The smallest seed of an idea can grow. It can grow to define or destroy you</p>
-          </div>
-      </div>
-      <div class="media-object stack-for-small">
-          <div class="media-object-section"><img class="thumbnail" src="http://placehold.it/200x200"></div>
-          <div class="media-object-section">
-              <h5>Mike Stevenson</h5>
-              <p>I'm going to improvise. Listen, there's something you should know about me... about inception. An idea is like a virus, resilient, highly contagious. The smallest seed of an idea can grow. It can grow to define or destroy you</p>
-          </div>
-      </div>
-      <label>My Review
-          <textarea placeholder="None"></textarea>
-      </label>
-      <button class="button">Submit Review</button>
-    </div>
+<div class="row flex-row">
+	<div class="flex-row column medium-6" *ngIf="!myReview.id && !isEditing">
+		<button class="callout-card" (click)="editReview()">
+			<div class="callout-card-content text-center">
+				<h3 class="upper-case">Have you stayed here?</h3>
+				<h5 class="upper-case">We encourage you to leave a review about your experience</h5>
+
+				<i class="fa fa-plus jumbo"></i>
+			</div>
+		</button>
+	</div>
+	<div class="column medium-6" *ngIf="!myReview.id && !otherReviews.length && !isEditing">
+		<div class="callout-card">
+			<div class="callout-card-content">
+				<h4>Reviews help renters like you find a better home</h4>
+
+				<ol>
+					<li>Review comments offer huge insights into the quality of a residence</li>
+					<li>Properties and Landlords with higher ratings show first in search results</li>
+					<li>Unhelpful or derogatory reviews will not be shown on Roomhere</li>
+				</ol>
+
+			</div>
+		</div>
+	</div>
+	<div class="column small-12" *ngIf="isEditing">
+		<editable-review [review]="myReview" (save)="save($event)" (cancel)="isEditing = false; showError = false"></editable-review>
+		<div class="callout alert" *ngIf="showError">
+			<h3>Uh oh! Something went wrong!</h3>
+
+			<p>
+				We had a problem saving your review. Please try again
+			</p>
+		</div>
+	</div>
+	<div class="column medium-6" *ngIf="myReview?.id && !isEditing">
+		<property-review [review]="myReview" (edit)="isEditing = true"></property-review>
+	</div>
+	<div class="column medium-6" *ngFor="let review of otherReviews" [attr.hidden]="isEditing ? true : null">
+		<property-review [review]="review"></property-review>
+	</div>
+</div>

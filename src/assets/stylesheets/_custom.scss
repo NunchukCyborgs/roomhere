@@ -29,6 +29,10 @@ $grey: #f2f2f2;
   font-size: 1.5em;
 }
 
+.fa.jumbo {
+  font-size: 3em;
+}
+
 .expanded {
     width: 100% !important;
 }
@@ -95,7 +99,8 @@ button[disabled], button[disabled]:hover {
     top: $topbar-large-height;
   }
   left: 0;
-  width: calc(60% - 15px);
+  width: 60%;
+  z-index: 2;
   padding-left: 30px;
   padding-right: 30px;
   bottom: 0;
@@ -106,10 +111,6 @@ button[disabled], button[disabled]:hover {
     padding-right: 20px;
     overflow-y: scroll !important;
   }
-
-  // &::-webkit-scrollbar { 
-  //   display: none; 
-  // }
 }
 
 #welcome-map {
@@ -293,4 +294,25 @@ input[type='number'] {
       color:lightgrey !important;
       text-decoration: none;
     }
+}
+
+.purple {
+    color: #44254A;
+}
+
+.gold {
+  color: #cc9933;
+}
+
+.rotate-90 {
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    transform: rotate(90deg);
+}
+
+#intercom-frame + span {
+    display: none;
+    // Causes a viewport problem on mobile chrome
 }

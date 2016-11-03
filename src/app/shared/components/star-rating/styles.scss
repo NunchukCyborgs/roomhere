@@ -1,0 +1,32 @@
+.wrapper {
+  position: relative;
+  display: inline-block;
+  height: 24px;
+  top: 2px;
+}
+
+.stars {
+  position: absolute;
+  overflow: hidden;
+  height: 24px;
+}
+
+.star {
+  display: inline-block;
+  width: 1em;
+  position: absolute;
+  bottom: 0;
+}
+
+.filled {
+  z-index: 2;
+  overflow: hidden;
+}
+
+.hover, .selected {
+  color: #cc9933;
+}
+
+.empty {
+  z-index: 1;
+}

@@ -1,71 +1,60 @@
 <section id="one">
-  <div class="row full-width left-margin-fix">
-    <div class="medium-7 small-12 columns">
-      <section id="scrolldiv">
-        <section class="filter-section">
-          <div class="row">
-            <div class="large-12 columns">
-              <p>Price Range</p>
-            </div>
+	<div class="row full-width left-margin-fix">
+		<div class="medium-7 small-12 columns">
+			<section id="scrolldiv">
+				<welcome-filters class="welcome-filters" [facet]="facet" (applyFacet)="applyFacet($event)" [(showFilters)]="showFilters"></welcome-filters>
 
-            <property-slider [facet]="facet" (applyFacet)="pageNumber = 1; applyFacet($event)"></property-slider>
+				<section [class.hide]="showFilters">
+					<div class="row">
+						<div class="small-12 columns">
+							<div class="row flex-row">
+								<div *ngFor="let property of (properties$ | async)" class="small-12 medium-6">
+									<property-preview [property]="property"></property-preview>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div>
+						<ul class="pagination text-center" role="navigation" aria-label="Pagination">
+							<li class="pagination-previous">
+								<button (click)="pageNumber = pageNumber - 1; applyFacet()" [attr.disabled]="pageNumber === 1 ? true : null" aria-label="Previous Page">Previous</button>
+							</li>
+							<li *ngIf="pageNumber - 2 >= 1">
+								<button (click)="pageNumber = pageNumber - 2; applyFacet()" [attr.ariaLabel]="'Page ' + (pageNumber - 2).toString()">{{pageNumber - 2}}</button>
+							</li>
+							<li *ngIf="pageNumber - 1 >= 1">
+								<button (click)="pageNumber = pageNumber - 1; applyFacet()" [attr.ariaLabel]="'Page ' + (pageNumber - 1).toString()">{{pageNumber - 1}}</button>
+							</li>
+							<li class="current"><span class="show-for-sr">You're on page</span> {{pageNumber}}</li>
+							<li *ngIf="pageNumber + 1 <= (lastPage$ | async)">
+								<button (click)="pageNumber = pageNumber + 1; applyFacet()" [attr.ariaLabel]="'Page ' + (pageNumber + 1).toString()">{{pageNumber + 1}}</button>
+							</li>
+							<li *ngIf="pageNumber + 2 <= (lastPage$ | async)">
+								<button (click)="pageNumber = pageNumber + 2; applyFacet()" [attr.ariaLabel]="'Page ' + (pageNumber + 2).toString()">{{pageNumber + 2}}</button>
+							</li>
+							<li class="pagination-previous">
+								<button (click)="pageNumber = pageNumber + 1; applyFacet()" [attr.disabled]="pageNumber >= (lastPage$ | async) ? true : null"
+									aria-label="Next Page">Next</button>
+							</li>
+						</ul>
+					</div>
 
-            <div class="large-12 columns">
-              <property-filters [(showFilters)]="showFilters" [facet]="facet" (applyFacet)="pageNumber = 1; applyFacet($event)"></property-filters>
-            </div>
-          </div>
-        </section>
+					<div class="callout signup-ad ad" *ngIf="showSignupAd$ | async">
+						<i class="fa fa-times remove-signup-ad" (click)="removeSignupAd()"></i>
+						<h3>Want to list your properties here?</h3>
 
-        <section [class.hide]="showFilters">
-          <div class="row">
-            <div class="small-12 columns">
-              <div class="row flex-row">
-                <div *ngFor="let property of (properties$ | async)" class="small-12 large-6">
-                  <property-preview [property]="property"></property-preview>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div>
-            <ul class="pagination text-center" role="navigation" aria-label="Pagination">
-              <li class="pagination-previous">
-                <button (click)="pageNumber = pageNumber - 1; applyFacet()" [attr.disabled]="pageNumber === 1 ? true : null" aria-label="Previous Page">Previous</button>
-              </li>
-              <li *ngIf="pageNumber - 2 >= 1">
-                <button (click)="pageNumber = pageNumber - 2; applyFacet()" [attr.ariaLabel]="'Page ' + (pageNumber - 2).toString()">{{pageNumber - 2}}</button>
-              </li>
-              <li *ngIf="pageNumber - 1 >= 1">
-                <button (click)="pageNumber = pageNumber - 1; applyFacet()" [attr.ariaLabel]="'Page ' + (pageNumber - 1).toString()">{{pageNumber - 1}}</button>
-              </li>
-              <li class="current"><span class="show-for-sr">You're on page</span> {{pageNumber}}</li>
-              <li *ngIf="pageNumber + 1 <= (lastPage$ | async)">
-                <button (click)="pageNumber = pageNumber + 1; applyFacet()" [attr.ariaLabel]="'Page ' + (pageNumber + 1).toString()">{{pageNumber + 1}}</button>
-              </li>
-              <li *ngIf="pageNumber + 2 <= (lastPage$ | async)">
-                <button (click)="pageNumber = pageNumber + 2; applyFacet()" [attr.ariaLabel]="'Page ' + (pageNumber + 2).toString()">{{pageNumber + 2}}</button>
-              </li>
-              <li class="pagination-previous">
-                <button (click)="pageNumber = pageNumber + 1; applyFacet()" [attr.disabled]="pageNumber >= (lastPage$ | async) ? true : null"
-                  aria-label="Next Page">Next</button>
-              </li>
-            </ul>
-          </div>
 
-          <div class="callout signup-ad ad" *ngIf="showSignupAd$ | async">
-            <i class="fa fa-times remove-signup-ad" (click)="removeSignupAd()"></i>
-            <h3>Want to list your properties here?</h3>
-
-            <p>
-              Roomhere has listings ready for every rental property registered in Cape Girardeau. To unlock your listings,
-              <a data-open="RegisterModal"><strong>Sign Up</strong></a> with your license number issued by the city.
-            </p>
-          </div>
-        </section>
-        <big-footer></big-footer>
-      </section>
-    </div>
-    <div class="large-5 medium-5 hide-for-small-only columns">
-      <property-map id="welcome-map" *ngIf="mapOptions" [properties]="properties$ | async" [mapOptions]="mapOptions"></property-map>
-    </div>
-  </div>
+						<p>
+							Roomhere has listings ready for every rental property registered in Cape Girardeau. To unlock your listings,
+							<a data-open="RegisterModal"><strong>Sign Up</strong></a> with your license number issued by the city.
+						</p>
+					</div>
+				</section>
+				<big-footer></big-footer>
+			</section>
+		</div>
+		<div class="large-5 medium-5 hide-for-small-only columns">
+			<property-map id="welcome-map" *ngIf="mapOptions" [properties]="properties$ | async" [mapOptions]="mapOptions"></property-map>
+		</div>
+	</div>
 </section>

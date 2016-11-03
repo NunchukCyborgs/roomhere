@@ -162,7 +162,6 @@
 
 		/* this method prepares the content and converts it into a jQuery object or a promise */
 		getContent: function(){
-			debugger;
 			if(this.persist !== false && this.$content) {
 				return this.$content;
 			}
