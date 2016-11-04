@@ -1,0 +1,286 @@
+.menu > li > a {
+    display: block;
+    padding: 0.7rem 1rem;
+    line-height: 1;
+    font-size: 1.15rem;
+}
+.me
+.top-bar {
+  max-width: none !important; }
+
+.top-bar-right {
+  margin-top: 20px; }
+
+.upsellContainer {
+  width: 600px;
+  margin: 0px auto; }
+
+#upsellTop {
+  padding-top: 5px;
+  background-color: #28af6e;
+  color: #ffffff !important;
+  height: 13px; }
+
+#nav {
+  background-color: #44254a;;
+  color: #ffffff !important;
+  height: 100px; } 
+#nav a {
+    color: #ffffff !important; }
+
+body {
+  font-family: 'Lato' !important; }
+
+body
+.full-width {
+  max-width: none !important; }
+
+.purple {
+  color: #44254A; }
+
+.italic {
+  font-style: italic; }
+#top {
+  padding-top: 5px;
+  background-color: #28af6e;
+  color: #ffffff !important;
+  height: 100px; }
+  #top a {
+    color: #ffffff !important;
+    margin: 10px;
+    vertical-align: middle; }
+  #top img {
+    vertical-align: middle; }
+
+#one {
+  background-image: url(/images/pages/landing-pages/section1-min.jpg);
+  background-position: top left;
+  background-color: #ffffff;
+  background-repeat: no-repeat !important;
+  padding-top: 35px;
+  padding-bottom: 35px; }
+  #one h2 {
+    font: 700 Lato;
+    font-weight: 700; }
+  #one h2 span1 {
+    font: italic 700 Lato;
+    color: black; }
+  #one h2 span {
+    font: italic 700  Lato; }
+#one span2{
+    font-family: 'Grand Hotel', cursive;
+    font-size: 3rem;
+}
+.subheader {
+  font: italic 33.78px / 36px Lato;
+  font-weight: normal; }
+
+#oneContent {
+  padding-top: 30px; }
+  #oneContent .button {
+    margin-top: 35px; }
+
+#two {
+  background-color: #f9f9f9;
+  color: #848484;
+  padding-top: 43px;
+  padding-bottom: 43px; 
+}
+  #two h2 {
+    font: 700 33.78px / 36px Lato;
+    font-weight: 700; }
+  #two li {
+    font: italic 700 16px / 36px Lato; }
+
+#three {
+  background:url(/images/pages/landing-pages/section3-min.png)no-repeat bottom right;
+  height:600px;
+  margin-right:30px;
+  padding-top: 85px;
+  padding-bottom: 85px; }
+#three h2 {
+    font: 700 33.78px / 36px Lato;
+    font-weight: 700; }
+#threeLand {
+  background:url(/images/pages/landing-pages/section-min.png)no-repeat bottom right;
+  height:600px;
+  margin-right:30px;
+  padding-top: 85px;
+  padding-bottom: 85px; }
+#threeLand h2 {
+    font: 700 33.78px / 36px Lato;
+    font-weight: 700; }
+
+
+
+#four {
+  background-color: #f7f7f7; }
+  #four h2 {
+    font: 700 33.78px / 36px Lato;
+    font-weight: 700; }
+
+#fourContent {
+  margin-top: 114px; }
+
+#science {
+  height: 452px;
+  background: url(/images/pages/landing-pages/backgroundFour-min.png);
+  background-position: left top;
+  background-repeat: no-repeat; }
+
+.yellborderleft {
+  border-left: #f9d950 5px solid;
+  padding-left: 25px;
+  font: 400 19.78px / 22.74px Lato;
+  color: #696969; }
+
+.yellborderright {
+  border-right: #f9d950 5px solid;
+  padding-right: 25px;
+  margin-bottom: 43px !important;
+  font: 400 19.78px / 22.74px Lato;
+  color: #696969; }
+
+#five {
+  background: url(/images/pages/landing-pages/herb-min.png);
+  background-repeat: no-repeat;
+  background-position: top right;
+  margin-top: -70px;
+  padding-bottom: 100px; }
+  #five h2 {
+    font: 700 36.78px / 43px Lato;
+    margin: 0px !important; }
+  #five h3 {
+    font-family: Lato;
+    font-weight: 700; }
+  #five p {
+    font: 400 19.78px / 22.74px Lato; }
+
+#fiveContent {
+  margin-top: 160px; }
+  #fiveContent .button {
+    margin-top: 23px; }
+
+#six {
+  background-color: #f7f7f7;
+  h2 {
+    font: 700 36.78px / 43px Lato;
+    margin: 0px !important; }
+  h3 {
+    font-family: Lato;
+    font-weight: 700; }
+  p {
+    font: 400 19.78px / 22.74px Lato; }
+  h4 {
+    font-style: italic;
+    font-family: Lato;
+    line-height: 34.74px; }
+}
+#sixContent {
+  margin-top: 90px;
+  margin-bottom: 79px; }
+#seven{
+  color:#fff;
+  background-color: #0C090A;
+}
+
+footer {
+  padding-top: 34px;
+  padding-bottom: 34px; }
+
+
+
+@media screen and (min-width: 40em) and (max-width: 63.9375em) {
+  #nav {
+    height: auto; }
+  #top img {
+    margin-top: 10px; }
+  #oneContent {
+    margin-top: 20px; }
+  #four {
+    height: auto; }
+  #science {
+    height: auto; }
+  #fourContent {
+    margin-top: 90px;
+    margin-bottom: 75px; }
+  #five {
+    margin-right: -50px;
+    margin-top: -40px; }
+  #fiveContent {
+    margin-top: 50px;
+    margin-bottom: 50px; } }
+
+@media screen and (max-width: 39.9375em) {
+  .upsellContainer {
+    width: 95%;
+    margin: 0px auto; }
+  #center {
+    margin: 0px auto; }
+  #upsellTwo {
+    padding-bottom: 40px; }
+  #nav {
+    height: auto;
+    padding-top: 15px; }
+    #nav a {
+      color: #ffffff !important;
+      margin: 0px;
+      font-size: 11px;
+      vertical-align: middle; }
+    #nav img {
+      vertical-align: middle; }
+  .column:last-child:not(:first-child), .columns:last-child:not(:first-child), .columns:last-child:not(:first-child) {
+    float: none !important; }
+  #one {
+    // background: url();
+    background-repeat: no-repeat;
+    background-position: top; }
+  #oneContent {
+    margin-top: 25px;
+    padding-top: 10px; }
+    #oneContent .button {
+      margin-top: 15px; }
+  #two {
+    color: #848484;
+    padding-top: 23px;
+    padding-bottom: 23px; }
+    #two h2 {
+      font: 700 33.78px / 36px Lato;
+      font-weight: 700; }
+    #two p {
+      font: italic 700 16px / 36px Lato; }
+  #three {
+    padding-top: 0px;
+    padding-bottom: 0px; }
+    #three img {
+      margin-top: 15px; }
+  #science {
+    background: #f7f7f7;
+    height: auto; }
+  #fourContent {
+    margin-top: 10px;
+    margin-bottom: 5px;
+    padding-bottom: 10px;
+    height: auto;
+    background: #f7f7f7; }
+  #five {
+    // background: url();
+    margin-top: 5px;
+    padding-bottom: 30px; }
+  #fiveContent {
+    margin-top: 15px;
+    margin-bottom: 15px; }
+    #fiveContent .button {
+      margin: 0px auto; }
+  #sixContent {
+    margin-top: 30px;
+    margin-bottom: 30px; }
+  .pad40 {
+    padding: 20px; }
+  #pad40 {
+    padding: 20px; }
+  .padtop40 {
+    padding-top: 10px; } }
+
+[class*="my-class"]:last-child {
+  float: left; }
