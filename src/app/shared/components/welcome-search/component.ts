@@ -1,4 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { isBrowser } from 'angular2-universal';
 import { Observable } from 'rxjs/Observable';
@@ -9,10 +10,17 @@ import { Observable } from 'rxjs/Observable';
   template: require('./template.html').toString()
 })
 export class WelcomeSearch {
-  public query: string = 'hanover';
-  constructor(private router: Router) { }
+  public searchForm: FormGroup;
+  constructor(private router: Router, private formBuilder: FormBuilder) { }
 
-  search() {
-    this.router.navigate(['/search', { query: this.query }]);
+  onSubmit() {
+    const query = this.searchForm.controls['query'].value;
+    this.router.navigate(['/search', { query: query }]);
+  }
+
+  ngOnInit() {
+    this.searchForm = this.formBuilder.group({
+      'query': new FormControl('', Validators.required),
+    });
   }
 }

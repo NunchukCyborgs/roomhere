@@ -1,8 +1,16 @@
-<div class="row end collapse">
-	<div class="large-2 columns">
-		<a class="fa fa-search" (click)="search()"></a>
+<form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
+	<!--<div class="row end collapse">
+		<div class="large-2 columns">
+			<button type="submit" class="fa fa-search" (click)="search()"></button>
+		</div>
+		<div class="large-10 columns">
+			<input class="top-bar-search" type="text" placeholder="Find a Property">
+		</div>
+	</div>-->
+	<div class="input-group">
+		<input class="top-bar-search form-control" type="text" placeholder="Find a Property" placeholder="Find home" id="query">
+		<div class="input-group-button">
+			<button type="submit" class="fa fa-search"></button>
+		</div>
 	</div>
-	<div class="large-10 columns">
-		<input class="top-bar-search" type="text" placeholder="Find a Property">
-	</div>
-</div>
+</form>
