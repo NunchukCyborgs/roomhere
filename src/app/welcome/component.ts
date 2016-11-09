@@ -31,6 +31,7 @@ export class Welcome {
   public showFilters: boolean = false;
   public loadFilteredProperties$: BehaviorSubject<PropertyFacet>;
   public showSignupAd$: Observable<boolean>;
+  public resultsCount: number;
 
   constructor(private propertyService: PropertyService, private userService: UserService, private persist: PersistenceService,
     private route: ActivatedRoute, private router: Router, private propertySeoService: PropertySeoService, private renderer: Renderer) { }
@@ -46,7 +47,10 @@ export class Welcome {
     let filteredProperties$: BehaviorSubject<Property[]>;
 
     this.route.data.forEach((d: { properties: { properties: Property[], query: string } }) => {
-      filteredProperties$ = filteredProperties$ || new BehaviorSubject(d.properties.properties);
+      if (!filteredProperties$) {
+        filteredProperties$ = new BehaviorSubject(d.properties.properties);
+        this.resultsCount = d.properties.properties.length;
+      }
       this.query = d.properties.query;
       this.facet = new PropertyFacet();
       this.applyFacet(this.facet);
@@ -59,6 +63,7 @@ export class Welcome {
       .distinctUntilChanged()
       .flatMap(() => this.propertyService.getFilteredProperties$(this.facet, this.query, this.pageNumber))
       .do(i => this.propertySeoService.addProperties(this.renderer, i))
+      .do(i => this.resultsCount = i.length)
       .subscribe(i => filteredProperties$.next(i));
 
     this.applyFacet(this.facet);
