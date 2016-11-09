@@ -11,7 +11,7 @@ export class WelcomeResolve implements Resolve<any> {
   constructor(private propertyService: PropertyService) { }
 
   public resolve(route: ActivatedRouteSnapshot): Observable<any> {
-    let query = route.params['query'] || '';
+    let query = route.params['q'] || '';
     return this.propertyService.getFilteredProperties$(new PropertyFacet(), query)
       .map(i => ({ properties: i, query: query }));
   }
