@@ -1,35 +1,19 @@
-.top-bar input{
-  max-width: none !important;
+form {
+  max-width: 300px;
 }
-.has-form{
-  padding-left: 25px;
-  padding-top: 15px;
-  a{
-      color:lightgrey !important;
-    }
+
+.fa-search {
+  color:lightgrey !important;
+  line-height: 38px !important;
 }
-.button{
-  color:#fff;
-  background-color:lightgrey;
-}
-.fa-search{
-    color:lightgrey !important;
-    line-height: 38px !important;
-  }
-[type=text], [type=password], [type=date], [type=datetime], [type=datetime-local], [type=month], [type=week], [type=email], [type=number], textarea {
-      border: none !important;
-      font-family: inherit;
-      font-size: 1rem;
-      color: #0a0a0a;
-      box-shadow: none !important;
-  }
-  input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
+input {
+  border: none !important;
+  font-family: inherit;
+  font-size: 1rem;
+  color: #0a0a0a;
+  box-shadow: none !important;
+
+  &:-webkit-autofill {
     background-color:#fff !important;
   }
-/* Medium only */
-@media screen and (min-width: 40em) and (max-width: 63.9375em) {
-
-}
-/* Small only */
-@media screen and (max-width: 39.9375em) {
 }

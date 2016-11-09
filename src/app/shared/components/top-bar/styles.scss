@@ -16,22 +16,4 @@
 .has-form{
   padding-left: 25px;
   padding-top: 15px;
-  a{
-      color:lightgrey !important;
-      line-height: 38px !important;
-    }
-  .fa{
-  }
-  .top-bar-search{
-    max-width: 900px !important;
-    border: none !important;
-  }
-  [type=text], [type=password], [type=date], [type=datetime], [type=datetime-local], [type=month], [type=week], [type=email], [type=number], textarea {
-      border: none !important;
-      margin: 0 0 1rem;
-      font-family: inherit;
-      font-size: 1rem;
-      color: #0a0a0a;
-      box-shadow: none !important;
-  }
 }
