@@ -13,7 +13,11 @@ export class SeoService {
   public DESCRIPTION = `Roomhere is the rental property solution for ${DEFAULT_TENANT_PRETTY}, ${DEFAULT_STATE}. Find the most complete rental listings of the area at Roomhere.`;
   public TITLE = `${DEFAULT_TENANT_PRETTY} Apartments and Houses For Rent | RoomHere`;
   public IMAGE = BASE_URL + '/images/white_logo_transparent_background.png';
-  public tags: Tag[] = [];
+  private _tags: Tag[] = [];
+
+  public get tags(): Tag[] {
+    return Object.assign([], this._tags);
+  }
 
   public addBaseTags(renderer: Renderer) {
     const imageUrl = this.IMAGE;
@@ -37,14 +41,14 @@ export class SeoService {
 
     if (!existingTag) {
       this.setAttributes(tag, elem, renderer);
-      this.tags.push(Object.assign({}, tag, { element: elem }));
+      this._tags.push(Object.assign({}, tag, { element: elem }));
     }
   }
 
   public removeTag(tag: Tag) {
     const existingTagIndex = this.getExistingTag(tag).index;
     if (existingTagIndex > -1) {
-      this.tags.splice(existingTagIndex, 1);
+      this._tags.splice(existingTagIndex, 1);
     }
   }
 
@@ -56,9 +60,22 @@ export class SeoService {
     }
   }
 
+  public updateTag(oldTag: Tag, newTag: Tag, renderer: Renderer) {
+    const existingTag = this.getExistingTag(oldTag).tag = newTag;
+    this.setAttributes(existingTag, existingTag.element, renderer);
+  }
+
+  public updateCanonTag(url: string, renderer: Renderer) {
+    const existingTag = this.tags.find(tag => Boolean(tag.attributes.find(i => i.name === 'rel' && i.value === 'canonical')));
+    const updatedTag = Object.assign({}, existingTag);
+    updatedTag.attributes.find(i => i.name === 'href').value = `${BASE_URL}${url}`;
+    this.updateTag(existingTag, updatedTag, renderer);
+  }
+
   private getTags(baseTags: Tags): Tag[] {
     return [
       createSchema(new RoomhereWebsite()),
+      { name: 'link', attributes: [{ name: 'rel', value: 'canonical' }, { name: 'href', value: BASE_URL }] },
       { name: 'meta', attributes: [{ name: 'name', value: 'description' }, { name: 'content', value: baseTags.description }] },
       { name: 'meta', attributes: [{ name: 'property', value: 'og:title' }, { name: 'content', value: baseTags.title }] },
       { name: 'meta', attributes: [{ name: 'property', value: 'og:type' }, { name: 'content', value: 'website' }] },
@@ -85,13 +102,13 @@ export class SeoService {
   }
 
   private getExistingTag(newTag: Tag): { tag: Tag, index: number } {
-    const index = this.tags.findIndex(tag => {
+    const index = this._tags.findIndex(tag => {
       return tag.name === newTag.name && tag.text === newTag.text && newTag.attributes.every((kvp, index) => {
         return tag.attributes[index].name === kvp.name && tag.attributes[index].value === kvp.value
       })
     });
 
-    return { tag: this.tags[index], index: index };
+    return { tag: this._tags[index], index: index };
   }
 
   private getElement(tag: Tag, existingTag: Tag, renderer: Renderer): any {

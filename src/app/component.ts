@@ -21,8 +21,8 @@ export class App {
   public me$: Observable<Me>;
   public noFooter$: Observable<boolean>;
 
-  constructor(private userService: UserService, private router: Router, 
-  private seoService: SeoService, private renderer: Renderer) {
+  constructor(private userService: UserService, private router: Router,
+    private seoService: SeoService, private renderer: Renderer) {
   }
 
   ngOnInit() {
@@ -36,7 +36,11 @@ export class App {
   }
 
   ngAfterViewInit() {
-    this.router.events.subscribe(() => isBrowser && $('body').foundation());
+    this.router.events
+      .do(i => this.seoService.updateCanonTag(i.url, this.renderer))
+      .filter(() => isBrowser)
+      .do(() => $('body').foundation())
+      .subscribe();
   }
 
   logout() {
