@@ -1,5 +1,5 @@
 import { Component, OnInit, Renderer } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
@@ -33,7 +33,7 @@ export class Welcome {
   public showSignupAd$: Observable<boolean>;
 
   constructor(private propertyService: PropertyService, private userService: UserService, private persist: PersistenceService,
-    private route: ActivatedRoute, private propertySeoService: PropertySeoService, private renderer: Renderer) { }
+    private route: ActivatedRoute, private router: Router, private propertySeoService: PropertySeoService, private renderer: Renderer) { }
 
   ngOnInit() {
     this.loadFilteredProperties$ = new BehaviorSubject(this.facet);
@@ -46,8 +46,10 @@ export class Welcome {
     let filteredProperties$: BehaviorSubject<Property[]>;
 
     this.route.data.forEach((d: { properties: { properties: Property[], query: string } }) => {
-      filteredProperties$ = new BehaviorSubject(d.properties.properties);
+      filteredProperties$ = filteredProperties$ || new BehaviorSubject(d.properties.properties);
       this.query = d.properties.query;
+      this.facet = new PropertyFacet();
+      this.applyFacet(this.facet);
     });
 
     this.properties$ = filteredProperties$;
