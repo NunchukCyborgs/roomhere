@@ -18,4 +18,10 @@ export class TopBar {
   public closeMenu() {
     isBrowser && $('.title-bar button[data-toggle]').click();
   }
+
+  public signup() {
+    if (!this.hasAuth && isBrowser) {
+      $('#SignupLink').click();
+    }
+  }
 }
