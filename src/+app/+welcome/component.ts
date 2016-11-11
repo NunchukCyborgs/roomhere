@@ -46,13 +46,9 @@ export class Welcome {
     let query = this.route.params['q'] || '';
 
     this.loadFilteredProperties$
-      .debounceTime(500)
-      .flatMap(() => this.facetsService.loadFacets())
-      .flatMap(() => this.facetsService.minPrice$)
-      .do(i => this.facet.min_price = this.facet.min_price < i ? i : this.facet.min_price)
-      .flatMap(() => this.facetsService.maxPrice$)
-      .do(i => this.facet.max_price = this.facet.max_price > i ? i : this.facet.max_price)
-      .flatMap(() => this.propertyService.getFilteredProperties$(this.facet, this.query, this.pageNumber, this.pageNumber === 1 ? 3 : 4, this.pageNumber === 1 ? 0 : 1)) // hey
+      .map(i => JSON.stringify(i) + this.pageNumber + this.query)
+      .distinctUntilChanged()
+      .flatMap(() => this.propertyService.getFilteredProperties$(this.facet, this.query, this.pageNumber, this.pageNumber === 1 ? 7 : 8, this.pageNumber === 1 ? 0 : 1))
       .do(i => this.propertySeoService.addProperties(this.renderer, i))
       .subscribe(i => this.properties$.next(i));
 
