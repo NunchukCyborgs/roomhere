@@ -7,6 +7,7 @@ import { UserSplash } from './user-splash/component';
 import { LandlordSettings } from './landlord-settings/component';
 import { BecomeLandlord } from './become-landlord/component';
 import { AccountAuthGuard } from './account.auth-guard';
+import { PayRent } from './pay-rent/component';
 
 export function getSuperModule() {
   return System.import('./+super/super.module' + (process.env.AOT ? '.ngfactory' : ''))
@@ -26,6 +27,7 @@ export function getSuperModule() {
           { path: 'registration-success', component: UserSplash },
           { path: 'landlord-settings', component: LandlordSettings },
           { path: 'become-a-landlord', component: BecomeLandlord },
+          { path: 'pay-rent', component: PayRent },
           { path: 'super', loadChildren: getSuperModule },
         ]
       }
