@@ -99,6 +99,7 @@ app.get('/cape-girardeau-landlords', ngApp);
 app.get('/account/', ngApp);
 app.get('/account/*', ngApp);
 app.get(`/${DEFAULT_TENANT}/*`, propertiesRoute);
+app.get('/about-us',ngApp );
 
 app.get('*', missingResource);
 
