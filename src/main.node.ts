@@ -42,7 +42,7 @@ export const PROVIDERS = [
 export const IMPORTS = [
   SharedModule,
   AccountModule,
-  AppRoutingModule, 
+  AppRoutingModule,
 ];
 
 @NgModule({

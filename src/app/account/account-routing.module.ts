@@ -8,6 +8,7 @@ import { UserSplash } from './user-splash/component';
 import { LandlordSettings } from './landlord-settings/component';
 import { BecomeLandlord } from './become-landlord/component';
 import { AccountAuthGuard } from './account.auth-guard';
+import { PayRent } from './pay-rent/component';
 
 @NgModule({
   imports: [
@@ -23,6 +24,7 @@ import { AccountAuthGuard } from './account.auth-guard';
           { path: 'registration-success', component: UserSplash },
           { path: 'landlord-settings', component: LandlordSettings },
           { path: 'become-a-landlord', component: BecomeLandlord },
+          { path: 'pay-rent', component: PayRent },
         ]
       }
     ])
