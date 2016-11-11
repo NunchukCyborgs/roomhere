@@ -27,6 +27,7 @@ export class PropertyService {
       .filter(() => facet.min_price >= 0 && facet.max_price >= 0)
       .flatMap(() => this.http.post(`${BASE_API_URL}/properties/filtered_results`, { facets: facet, page: pageNumber, per_page: perPage, query: query }))
       .map(i => i.json())
+      .filter(i => i.results && i.total_count) // Dirty error handling
       .do(i => this.lastPage$.next(Math.ceil(i.total_count / perPage)))
       .map(i => i.results);
   }
