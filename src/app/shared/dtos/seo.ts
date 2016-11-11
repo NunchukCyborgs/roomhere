@@ -146,3 +146,34 @@ export class RoomhereOrganization extends Organization implements Schema {
     this.contactPoint = new RoomhereContactPoint();
   }
 }
+export class BreadCrumbList implements Schema {
+  '@type': string = "BreadcrumbList";
+  itemListElement: ListItem[]
+
+  constructor(...itemList: ListItem[]) {
+    this.itemListElement = itemList;
+  }
+}
+
+export class ListItem implements Schema {
+  '@type': string = "ListItem";
+  position: number;
+  item: {
+    "@id": string,
+    name: string,
+    image: string,
+  }
+
+  constructor({position, id, name, image}: {position: number, id: string, name: string, image: string}) {
+    this.position = position;
+    this.item = {
+      '@id': `${BASE_URL}/${id}`,
+      image: `${BASE_URL}/${image}`,
+      name: name,
+    };
+  }
+}
+
+function a() {
+  let itema = new ListItem({position: 1, id: 'cape-girardeau/112-independence', name: '112 Independence', image: '112.png'});
+}
