@@ -159,7 +159,7 @@ export abstract class SearchAction implements Schema {
 
   constructor(baseUrl: string, path: string) {
     this['query-input'] = `required name=${searchActionQueryPlaceholder}`;
-    this.target = `${baseUrl}/${path}{${searchActionQueryPlaceholder}}`
+    this.target = `${baseUrl}/${path}${searchActionQueryPlaceholder}`
   }
 }
 
