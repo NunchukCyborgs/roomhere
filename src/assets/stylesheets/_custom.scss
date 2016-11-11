@@ -296,6 +296,10 @@ input[type='number'] {
     }
 }
 
+.white {
+  color: #fff;
+}
+
 .purple {
     color: #44254A;
 }
@@ -315,4 +319,8 @@ input[type='number'] {
 #intercom-frame + span {
     display: none;
     // Causes a viewport problem on mobile chrome
+}
+
+.display-inline {
+  display: inline;
 }
