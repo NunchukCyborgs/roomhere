@@ -21,8 +21,8 @@ export class App {
   public me$: Observable<Me>;
   public noFooter$: Observable<boolean>;
 
-  constructor(private userService: UserService, private router: Router, 
-  private seoService: SeoService, private renderer: Renderer) {
+  constructor(private userService: UserService, private router: Router,
+    private seoService: SeoService, private renderer: Renderer) {
   }
 
   ngOnInit() {
@@ -32,11 +32,15 @@ export class App {
     this.me$ = this.userService.me$
     this.seoService.addBaseTags(this.renderer);
 
-    this.noFooter$ = this.router.events.map(i => i.url).map(i => i === '/');
+    this.noFooter$ = this.router.events.map(i => i.url).map(i => i === '/' || i.startsWith('/search'));
   }
 
   ngAfterViewInit() {
-    this.router.events.subscribe(() => isBrowser && $('body').foundation());
+    this.router.events
+      .do(i => this.seoService.updateCanonTag(i.url, this.renderer))
+      .filter(() => isBrowser)
+      .do(() => $('body').foundation())
+      .subscribe();
   }
 
   logout() {

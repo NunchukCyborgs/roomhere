@@ -22,11 +22,12 @@ export class PropertyService {
   public lastPage$: BehaviorSubject<number> = new BehaviorSubject(Number.MAX_SAFE_INTEGER)
   private viewCaches: string[] = [];
 
-  public getFilteredProperties$(facet: PropertyFacet, pageNumber: number = 1, perPage: number = 6): Observable<Property[]> {
+  public getFilteredProperties$(facet: PropertyFacet, query: string = '', pageNumber: number = 1, perPage: number = 6): Observable<Property[]> {
     return Observable.of([])
       .filter(() => facet.min_price >= 0 && facet.max_price >= 0)
-      .flatMap(() => this.http.post(`${BASE_API_URL}/properties/filtered_results`, { facets: facet, page: pageNumber, per_page: perPage }))
+      .flatMap(() => this.http.post(`${BASE_API_URL}/properties/filtered_results`, { facets: facet, page: pageNumber, per_page: perPage, query: query }))
       .map(i => i.json())
+      .filter(i => i.results && i.total_count) // Dirty error handling
       .do(i => this.lastPage$.next(Math.ceil(i.total_count / perPage)))
       .map(i => i.results);
   }

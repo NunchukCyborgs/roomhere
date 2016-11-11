@@ -140,12 +140,13 @@ export class RoomhereContactPoint extends ContactPoint implements Schema {
 export class RoomhereOrganization extends Organization implements Schema {
   constructor() {
     super();
-    this.url = 'https://roomhere.io';
-    this.logo = 'https://roomhere.io/images/white_logo_transparent_background.png';
+    this.url = BASE_URL;
+    this.logo = `${BASE_URL}/images/white_logo_transparent_background.png`;
     this.sameAs = ['https://www.facebook.com/roomhereapp', 'https://twitter.com/roomhere'];
     this.contactPoint = new RoomhereContactPoint();
   }
 }
+
 export class BreadCrumbList implements Schema {
   '@type': string = "BreadcrumbList";
   itemListElement: ListItem[]
@@ -174,6 +175,40 @@ export class ListItem implements Schema {
   }
 }
 
-function a() {
-  let itema = new ListItem({position: 1, id: 'cape-girardeau/112-independence', name: '112 Independence', image: '112.png'});
+// Can't be part of the class, since the whole class gets serialized
+const searchActionQueryPlaceholder: string = 'search_term_string';
+
+export abstract class SearchAction implements Schema {
+  '@type': string = 'SearchAction';
+  'query-input': string;
+
+  target: string;
+
+
+  constructor(baseUrl: string, path: string) {
+    this['query-input'] = `required name=${searchActionQueryPlaceholder}`;
+    this.target = `${baseUrl}/${path}${searchActionQueryPlaceholder}`
+  }
+}
+
+export class RoomhereSearchAction extends SearchAction implements Schema {
+  constructor() {
+    super(BASE_URL, 'search;q=');
+  }
+}
+
+export abstract class Website implements Schema {
+  '@type': string = 'WebSite';
+  url: string;
+  author: Organization;
+  potentialAction: SearchAction;
+}
+
+export class RoomhereWebsite extends Website implements Schema {
+  constructor() {
+    super()
+    this.url = BASE_URL;
+    this.potentialAction = new RoomhereSearchAction();
+    this.author = new RoomhereOrganization();
+  }
 }

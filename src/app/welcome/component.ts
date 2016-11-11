@@ -1,5 +1,5 @@
 import { Component, OnInit, Renderer } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
@@ -26,13 +26,14 @@ export class Welcome {
   public facet: PropertyFacet = new PropertyFacet();
   public pageNumber: number = 1;
   public lastPage$: Observable<number>;
+  public query: string;
   public mapOptions: MapOptions;
   public showFilters: boolean = false;
   public loadFilteredProperties$: BehaviorSubject<PropertyFacet>;
   public showSignupAd$: Observable<boolean>;
 
   constructor(private propertyService: PropertyService, private userService: UserService, private persist: PersistenceService,
-    private route: ActivatedRoute, private propertySeoService: PropertySeoService, private renderer: Renderer) { }
+    private route: ActivatedRoute, private router: Router, private propertySeoService: PropertySeoService, private renderer: Renderer) { }
 
   ngOnInit() {
     this.loadFilteredProperties$ = new BehaviorSubject(this.facet);
@@ -44,16 +45,19 @@ export class Welcome {
   ngAfterViewInit() {
     let filteredProperties$: BehaviorSubject<Property[]>;
 
-    this.route.data.forEach((data: { properties: Property[] }) => {
-      filteredProperties$ = new BehaviorSubject(data.properties);
+    this.route.data.forEach((d: { properties: { properties: Property[], query: string } }) => {
+      filteredProperties$ = filteredProperties$ || new BehaviorSubject(d.properties.properties);
+      this.query = d.properties.query;
+      this.facet = new PropertyFacet();
+      this.applyFacet(this.facet);
     });
 
     this.properties$ = filteredProperties$;
 
     this.loadFilteredProperties$
-      .map(i => JSON.stringify(i) + this.pageNumber)
+      .map(i => JSON.stringify(i) + this.pageNumber + this.query)
       .distinctUntilChanged()
-      .flatMap(() => this.propertyService.getFilteredProperties$(this.facet, this.pageNumber))
+      .flatMap(() => this.propertyService.getFilteredProperties$(this.facet, this.query, this.pageNumber))
       .do(i => this.propertySeoService.addProperties(this.renderer, i))
       .subscribe(i => filteredProperties$.next(i));
 
