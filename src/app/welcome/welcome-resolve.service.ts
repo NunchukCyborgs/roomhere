@@ -12,7 +12,7 @@ export class WelcomeResolve implements Resolve<any> {
 
   public resolve(route: ActivatedRouteSnapshot): Observable<any> {
     let query = route.params['q'] || '';
-    return this.propertyService.getFilteredProperties$(new PropertyFacet(), query)
+    return this.propertyService.getFilteredProperties$(new PropertyFacet(), query, 1, 7)
       .map(i => ({ properties: i, query: query }));
   }
 }

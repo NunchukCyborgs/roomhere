@@ -22,13 +22,13 @@ export class PropertyService {
   public lastPage$: BehaviorSubject<number> = new BehaviorSubject(Number.MAX_SAFE_INTEGER)
   private viewCaches: string[] = [];
 
-  public getFilteredProperties$(facet: PropertyFacet, query: string = '', pageNumber: number = 1, perPage: number = 6): Observable<Property[]> {
+  public getFilteredProperties$(facet: PropertyFacet, query: string = '', pageNumber: number = 1, perPage: number = 7, offset: number = 0): Observable<Property[]> { // change back perpage
     return Observable.of([])
       .filter(() => facet.min_price >= 0 && facet.max_price >= 0)
-      .flatMap(() => this.http.post(`${BASE_API_URL}/properties/filtered_results`, { facets: facet, page: pageNumber, per_page: perPage, query: query }))
+      .flatMap(() => this.http.post(`${BASE_API_URL}/properties/filtered_results`, { facets: facet, page: pageNumber, per_page: perPage, query: query, offset: offset }))
       .map(i => i.json())
       .filter(i => i.results && i.total_count) // Dirty error handling
-      .do(i => this.lastPage$.next(Math.ceil(i.total_count / perPage)))
+      .do(i => this.setLastPageNumber(i.total_count, offset, perPage))
       .map(i => i.results);
   }
 
@@ -93,6 +93,10 @@ export class PropertyService {
     return this.http.delete(`${BASE_API_URL}/properties/${property.slug}/images/${imageId}`)
       .map(i => i.json())
       .flatMap(i => this.updatePropertyBySlugLocal(i));
+  }
+
+  private setLastPageNumber(totalCount: number, offset: number, perPage: number) {
+    this.lastPage$.next(Math.ceil((totalCount - 1) / perPage));
   }
 
   constructor(private http: HttpService) {
