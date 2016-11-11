@@ -11,6 +11,7 @@
 								<div *ngFor="let property of (properties$ | async)" class="small-12 medium-6">
 									<property-preview [property]="property"></property-preview>
 								</div>
+								<pay-rent-ad class="small-12 medium-6" *ngIf="pageNumber === 1" [hasAuth]="hasAuth$ | async"></pay-rent-ad>
 							</div>
 						</div>
 					</div>

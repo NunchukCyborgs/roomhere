@@ -5,13 +5,12 @@ import { Property } from '../shared/dtos/property';
 import { PropertyFacet } from '../shared/dtos/facets';
 
 import { PropertyService } from '../shared/services/property.service';
-import { FacetsService } from '../shared/services/facets.service';
 
 @Injectable()
 export class WelcomeResolve implements Resolve<any> {
-  constructor(private propertyService: PropertyService, private facetsService: FacetsService) { }
+  constructor(private propertyService: PropertyService) { }
 
-  public resolve(route: ActivatedRouteSnapshot) {
+  public resolve(route: ActivatedRouteSnapshot): Observable<any> {
     let query = route.params['q'] || '';
     return this.propertyService.getFilteredProperties$(new PropertyFacet(), query, 1, 7)
       .map(i => ({ properties: i, query: query }));

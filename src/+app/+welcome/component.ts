@@ -31,6 +31,7 @@ export class Welcome {
   public showFilters: boolean = false;
   public loadFilteredProperties$: BehaviorSubject<PropertyFacet>;
   public showSignupAd$: Observable<boolean>;
+  public hasAuth$: Observable<boolean> = this.userService.hasAuth$;
 
   constructor(private propertyService: PropertyService, private userService: UserService, private persist: PersistenceService,
     private route: ActivatedRoute, private router: Router, private propertySeoService: PropertySeoService, private renderer: Renderer,
@@ -51,7 +52,7 @@ export class Welcome {
       .do(i => this.facet.min_price = this.facet.min_price < i ? i : this.facet.min_price)
       .flatMap(() => this.facetsService.maxPrice$)
       .do(i => this.facet.max_price = this.facet.max_price > i ? i : this.facet.max_price)
-      .flatMap(() => this.propertyService.getFilteredProperties$(this.facet, this.query, this.pageNumber))
+      .flatMap(() => this.propertyService.getFilteredProperties$(this.facet, this.query, this.pageNumber, this.pageNumber === 1 ? 3 : 4, this.pageNumber === 1 ? 0 : 1)) // hey
       .do(i => this.propertySeoService.addProperties(this.renderer, i))
       .subscribe(i => this.properties$.next(i));
 
