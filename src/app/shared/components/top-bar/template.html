@@ -21,13 +21,16 @@
 		<div class="top-bar-right margRight">
 			<ul class="menu vertical large-horizontal dropdown" data-dropdown-menu>
 				<li role="menuitem">
-					<a (click)="closeMenu()" class="aPadTop" [routerLinkActive]="['active', 'router-link-active']" [routerLink]="['/']">Home</a>
+					<a class="aPadTop button" (click)="signup()" [routerLink]="['/account/pay-rent']">Pay Rent</a>
+				</li>
+				<li role="menuitem">
+					<a (click)="closeMenu()" class="aPadTop" [routerLink]="['/']">Home</a>
 				</li>
 				<li role="menuitem" *ngIf="hasAuth && isLandlord">
-					<a (click)="closeMenu()" class="aPadTop" [routerLinkActive]="['active', 'router-link-active']" [routerLink]="['/account/dashboard']">Dashboard</a>
+					<a (click)="closeMenu()" class="aPadTop" [routerLink]="['/account/dashboard']">Dashboard</a>
 				</li>
 				<li role="menuitem" *ngIf="hasAuth && !isLandlord">
-					<a (click)="closeMenu()" class="aPadTop" [routerLinkActive]="['active', 'router-link-active']" [routerLink]="['/account/become-a-landlord']">
+					<a (click)="closeMenu()" class="aPadTop" [routerLink]="['/account/become-a-landlord']">
 						<span>Become a Landlord</span>
 					</a>
 				</li>
@@ -40,7 +43,7 @@
 				<li class="hide-for-small-only">
 					<a class="fa fa-cog"></a>
 					<ul class="menu">
-						<li *ngIf="hasAuth && isLandlord" role="menuitem"><a class="aPadTop" [routerLinkActive]="['active', 'router-link-active']" [routerLink]="['/account/landlord-settings']">Settings</a></li>
+						<li *ngIf="hasAuth && isLandlord" role="menuitem"><a class="aPadTop" [routerLink]="['/account/landlord-settings']">Settings</a></li>
 						<li role="menuitem"><a *ngIf="hasAuth" (click)="logout.emit(true); closeMenu()">Logout</a></li>
 						<li role="menuitem"><a *ngIf="!hasAuth" (click)="closeMenu()" class="aPadTop" data-open="LoginModal">Login</a></li>
 						<li role="menuitem">
@@ -59,7 +62,7 @@
 				</li>
 
 				<li *ngIf="hasAuth && isLandlord" role="menuitem" class="show-for-small-only">
-					<a class="aPadTop" [routerLinkActive]="['active', 'router-link-active']" [routerLink]="['/account/landlord-settings']">Settings</a>
+					<a class="aPadTop" [routerLink]="['/account/landlord-settings']">Settings</a>
 				</li>
 				<li role="menuitem" class="show-for-small-only">
 					<a *ngIf="hasAuth" (click)="logout.emit(true); closeMenu()">Logout</a>
