@@ -58,7 +58,7 @@ export class Welcome {
     this.loadFilteredProperties$
       .map(i => JSON.stringify(i) + this.pageNumber + this.query)
       .distinctUntilChanged()
-      .flatMap(() => this.propertyService.getFilteredProperties$(this.facet, this.query, this.pageNumber, this.pageNumber === 1 ? 3 : 4, this.pageNumber === 1 ? 0 : 1)) // hey
+      .flatMap(() => this.propertyService.getFilteredProperties$(this.facet, this.query, this.pageNumber, this.pageNumber === 1 ? 7 : 8, this.pageNumber === 1 ? 0 : 1))
       .do(i => this.propertySeoService.addProperties(this.renderer, i))
       .subscribe(i => filteredProperties$.next(i));
 
