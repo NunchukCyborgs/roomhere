@@ -9,6 +9,7 @@ import { PropertyView } from '../properties/property-view/component';
 import { MissingResource } from '../missing-resource/component';
 import { ResetPassword } from '../users/reset-password/component';
 import { LandingPageLandlord } from '../pages/landlord-page/component';
+import { LandingPageTenant } from '../pages/tenant-page/component';
 
 import { DEFAULT_TENANT } from '../config';
 import { WelcomeResolve } from '../welcome/welcome-resolve.service';
@@ -23,6 +24,7 @@ import { PropertyViewResolve } from '../properties/property-view/property-resolv
       { path: 'privacy-policy', component: PrivacyPolicy }, // General
       { path: 'reset-password', component: ResetPassword }, // General
       { path: 'cape-girardeau-landlords', component: LandingPageLandlord }, // Landing Pages Module
+      { path: 'cape-girardeau-tenants', component: LandingPageTenant }, // Landing Pages Module
     ])
   ],
   exports: [

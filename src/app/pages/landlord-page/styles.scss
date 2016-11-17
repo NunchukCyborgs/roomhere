@@ -1,3 +1,6 @@
+
+[class*="my-class"]:last-child {
+  float: left; }
 .menu > li > a {
     display: block;
     padding: 0.7rem 1rem;
@@ -142,7 +145,7 @@ body
   color: #696969; }
 
 #five {
-  background: url(/images/pages/landing-pages/herb-min.png);
+  /*background: url(/images/pages/landing-pages/herb-min.png);*/
   background-repeat: no-repeat;
   background-position: top right;
   margin-top: -70px;
@@ -282,5 +285,3 @@ footer {
   .padtop40 {
     padding-top: 10px; } }
 
-[class*="my-class"]:last-child {
-  float: left; }

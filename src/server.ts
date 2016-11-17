@@ -96,6 +96,7 @@ app.get('/faq', ngApp);
 app.get('/privacy-policy', ngApp);
 app.get('/reset-password', ngApp);
 app.get('/cape-girardeau-landlords', ngApp);
+app.get('/cape-girardeau-tenants', ngApp);
 app.get('/account/', ngApp);
 app.get('/account/*', ngApp);
 app.get(`/${DEFAULT_TENANT}/*`, propertiesRoute);
