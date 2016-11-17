@@ -4,7 +4,7 @@ import { Property } from '../../shared/dtos/property';
 @Component({
   selector: 'similar-properties',
   styles: [require('./styles.scss').toString()],
-  template: require('./template.html').toString(),
+  templateUrl: 'template.html',
 })
 export class SimilarProperties {
   @Input() property: Property;

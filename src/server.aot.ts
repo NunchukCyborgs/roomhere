@@ -4,7 +4,7 @@
 // if you are including modules that modify Promise, such as NewRelic,, you must include them before polyfills
 import 'angular2-universal-polyfills';
 import 'ts-helpers';
-import './__workaround.node'; // temporary until 2.1.1 things are patched in Core
+import './___workaround.node'; // temporary until 2.1.1 things are patched in Core
 
 import * as path from 'path';
 import * as express from 'express';
@@ -47,10 +47,6 @@ app.use(bodyParser.json());
 app.use('/assets', express.static(path.join(__dirname, 'assets'), {maxAge: 30}));
 app.use(express.static(path.join(ROOT, 'dist/client'), {index: false}));
 
-
-import { serverApi } from './backend/api';
-// Our API for demos only
-app.get('/data.json', serverApi);
 
 function ngApp(req, res) {
   res.render('index', {

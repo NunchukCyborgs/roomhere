@@ -7,7 +7,7 @@ import { DEFAULT_TENANT } from '../../config';
 @Component({
   selector: 'property-preview',
   styles: [require('./styles.scss').toString()],
-  template: require('./template.html').toString()
+  templateUrl: 'template.html'
 })
 export class PropertyPreview {
   @Input() property: Property;

@@ -7,7 +7,7 @@ import { Property, Review } from '../../shared/dtos/property';
 @Component({
   selector: 'property-reviews',
   styles: [require('./styles.scss').toString()],
-  template: require('./template.html').toString(),
+  templateUrl: 'template.html',
 })
 export class PropertyReviews {
   @Input() property: Property;
@@ -19,7 +19,7 @@ export class PropertyReviews {
 
   constructor(private reviewsService: ReviewsService, private userService: UserService) { }
 
-  ngOnChanges() {
+  ngOnChanges(changes: any) {
     this.myReview = this.reviews.find(i => i.is_owned) || new Review();
     this.otherReviews = this.reviews.filter(i => !i.is_owned);
   }

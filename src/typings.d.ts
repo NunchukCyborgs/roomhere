@@ -34,7 +34,7 @@ declare module 'modern-lru' {
 // Extra variables that live on Global that will be replaced by webpack DefinePlugin
 declare var ENV: string;
 declare var HMR: boolean;
-declare var Zone: {current: any};
+declare var Zone: { current: any };
 interface GlobalEnvironment {
   ENV;
   HMR;
@@ -61,9 +61,9 @@ interface WebpackRequire {
 }
 
 // Extend typings
-interface NodeRequire extends WebpackRequire {}
-interface NodeModule extends WebpackModule {}
-interface Global extends GlobalEnvironment  {}
+interface NodeRequire extends WebpackRequire { }
+interface NodeModule extends WebpackModule { }
+interface Global extends GlobalEnvironment { }
 
 // Custom
 
@@ -74,3 +74,5 @@ declare let RichMarker: any;
 declare let BASE_API_URL: string;
 declare let BASE_URL: string;
 declare let IS_PROD: boolean;
+
+declare let SimpleChanges: any;

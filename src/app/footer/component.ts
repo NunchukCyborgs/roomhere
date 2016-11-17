@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'big-footer',
   styles: [require('./styles.scss').toString()],
-  template: require('./template.html').toString()
+  templateUrl: 'template.html'
 })
 export class BigFooter  {
 }

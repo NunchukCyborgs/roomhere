@@ -19,7 +19,7 @@ export interface MapOptions {
   selector: 'property-map',
   styles: [require('./styles.scss').toString()],
   encapsulation: ViewEncapsulation.None, // Careful, global here
-  template: require('./template.html').toString(),
+  templateUrl: 'template.html',
 })
 export class PropertyMap {
   @Input() properties: Property[];
@@ -121,7 +121,7 @@ export class PropertyMap {
     }
   }
 
-  ngOnChanges() {
+  ngOnChanges(changes?: any) {
     if (this.init) {
       this.init.then(() => {
         this.setOptions();

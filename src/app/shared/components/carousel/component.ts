@@ -8,7 +8,7 @@ export enum Direction { UNKNOWN, NEXT, PREV }
   selector: 'carousel',
   encapsulation: ViewEncapsulation.None,
   styles: [require('./styles.scss').toString()],
-  template: require('./template.html').toString(),
+  templateUrl: 'template.html',
 })
 export class Carousel implements OnDestroy {
   @Input() public noWrap: boolean;

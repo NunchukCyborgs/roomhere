@@ -7,7 +7,7 @@ import { Observable } from 'rxjs/Observable';
 @Component({
   selector: 'welcome-search',
   styles: [require('./styles.scss').toString()],
-  template: require('./template.html').toString()
+  templateUrl: 'template.html'
 })
 export class WelcomeSearch {
   public searchForm: FormGroup;

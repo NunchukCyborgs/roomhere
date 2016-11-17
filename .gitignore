@@ -11,3 +11,6 @@ log/capistrano.log
 .idea
 .DS_Store
 .vscode/
+
+*.ngfactory.ts
+webpack.records.json

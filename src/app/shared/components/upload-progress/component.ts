@@ -4,7 +4,7 @@ const ProgressBar = require('progressbar.js');
 @Component({
   selector: 'upload-progress',
   styles: [require('./styles.scss').toString()],
-  template: require('./template.html').toString(),
+  templateUrl: 'template.html',
 })
 export class UploadProgress {
   @Input() fileName: string;

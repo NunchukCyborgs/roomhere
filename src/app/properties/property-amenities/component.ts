@@ -4,7 +4,7 @@ import { Amenity } from '../../shared/dtos/property';
 @Component({
   selector: 'property-amenities',
   styles: [require('./styles.scss').toString()],
-  template: require('./template.html').toString(),
+  templateUrl: 'template.html',
 })
 export class PropertyAmenities {
   @Input() isEditing: boolean;
@@ -13,7 +13,7 @@ export class PropertyAmenities {
 
   public prettyAmenities: Amenity[];
 
-  ngOnChanges() {
+  ngOnChanges(changes: any) {
     this.prettyAmenities = this
       .sortAmenities(this.amenities)
   }

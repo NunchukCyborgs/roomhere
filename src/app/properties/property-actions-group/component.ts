@@ -4,7 +4,7 @@ import { PropertyActionState } from '../../shared/services/property-action-state
 @Component({
   selector: 'property-actions-group',
   styles: [require('./styles.scss').toString()],
-  template: require('./template.html').toString()
+  templateUrl: 'template.html'
 })
 export class PropertyActionsGroup  {
   @Input() actionState: PropertyActionState;

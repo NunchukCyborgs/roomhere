@@ -3,7 +3,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 @Component({
   selector: 'star-rating',
   styles: [require('./styles.scss').toString()],
-  template: require('./template.html').toString(),
+  templateUrl: 'template.html',
 })
 export class StarRating {
   @Input() rating: number;
@@ -18,7 +18,7 @@ export class StarRating {
     this.hasBeenSet = !this.isEditable;
   }
 
-  ngOnChanges() {
+  ngOnChanges(changes: any) {
     this.rating = this.rating || 0;
     this.maxRating = this.maxRating || 5;
 

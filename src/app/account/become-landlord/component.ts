@@ -1,12 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'become-landlord',
-  styles:[require('./styles.scss').toString()],
-  template: require('./template.html').toString(),
+  styles: [require('./styles.scss').toString()],
+  templateUrl: 'template.html',
 })
 export class BecomeLandlord {
+  @Input() isLandlord: boolean;
   constructor(private router: Router) { }
   public redirectUser() {
     this.router.navigate(['/account/dashboard']);

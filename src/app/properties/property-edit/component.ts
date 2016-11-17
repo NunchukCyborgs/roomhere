@@ -10,7 +10,7 @@ import { ImageUploadService, PendingFile } from '../../shared/services/image-upl
 @Component({
   selector: 'property-edit',
   styles: [require('./styles.scss').toString()],
-  template: require('./template.html').toString()
+  templateUrl: 'template.html'
 })
 export class PropertyEdit {
   @Output() submit: EventEmitter<any> = new EventEmitter();
@@ -33,7 +33,7 @@ export class PropertyEdit {
     this.property.available_at = this.property.available_at ? null : new Date().toISOString();
   }
 
-  ngOnChanges() {
+  ngOnChanges(changes: any) {
     this.FileUploadId = `FileUpload${this.property && this.property.id}`;
     this.pendingFiles$ = this.imageUploadService.pendingFiles$;
     setTimeout(() => this.imageUploadService.uploaderInit(this.FileUploadId, this.property));

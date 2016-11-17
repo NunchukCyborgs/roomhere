@@ -14,7 +14,7 @@ require('../assets/stylesheets/deferred.scss');
 
 @Component({
   selector: 'app',
-  template: require('./template.html').toString()
+  templateUrl: 'template.html'
 })
 export class AppComponent {
   public hasAuth$: Observable<boolean>;

@@ -4,7 +4,7 @@ import { UserService } from '../shared/services/user.service';
 
 @Component({
   selector: 'account-page',
-  template: require('./template.html').toString() 
+  templateUrl: 'template.html' 
 })
 export class AccountPage {
   public hasAuth$: Observable<boolean>;

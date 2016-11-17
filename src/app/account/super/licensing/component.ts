@@ -11,7 +11,7 @@ import { ValidationService } from '../../../shared/services/validation.service';
 @Component({
   selector: 'super-licensing',
   styles: [require('./styles.scss').toString()],
-  template: require('./template.html').toString()
+  templateUrl: 'template.html'
 })
 export class SuperLicensing {
   public loadedContacts: boolean;
