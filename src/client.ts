@@ -1,21 +1,22 @@
 // the polyfills must be the first thing imported
-import 'angular2-universal-polyfills/browser';
+import 'angular2-universal-polyfills';
+import 'ts-helpers';
+import './___workaround.browser'; // temporary until 2.1.1 things are patched in Core
 
 // Angular 2
 import { enableProdMode} from '@angular/core';
-import { platformUniversalDynamic } from 'angular2-universal';
-import { MainModule } from './main.browser';
+import { platformUniversalDynamic } from 'angular2-universal/browser';
+
+// enable prod for faster renders
+// enableProdMode();
+
+import { MainModule } from './app/app.browser.module';
 
 const platformRef = platformUniversalDynamic();
-enableProdMode();
-
-console.log('beginning...');
 
 // on document ready bootstrap Angular 2
-document.addEventListener('DOMContentLoaded', () => platformRef
-  .bootstrapModule(MainModule)
-  .then(() => {
-    console.log('done!');
+document.addEventListener('DOMContentLoaded', () => {
 
-  })
-);
+  platformRef.bootstrapModule(MainModule);
+
+});
