@@ -47,14 +47,14 @@ app.use(bodyParser.json());
 app.use('/assets', express.static(path.join(__dirname, 'assets'), {maxAge: 30}));
 app.use(express.static(path.join(ROOT, 'dist/client'), {index: false}));
 
-import {options} from './server';
+import {prebootOptions} from './server';
 
 function ngApp(req, res) {
   res.render('index', {
     req,
     res,
     // time: true, // use this to determine what part of your app is slow only in development
-    preboot: options,
+    preboot: prebootOptions,
     baseUrl: '/',
     requestUrl: req.originalUrl,
     originUrl: `http://localhost:${ app.get('port') }`
