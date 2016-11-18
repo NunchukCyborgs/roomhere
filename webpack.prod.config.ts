@@ -17,6 +17,7 @@ export var commonPlugins = [
   new webpack.optimize.UglifyJsPlugin({
     // beautify: true,
     // mangle: false,
+    // sourceMap: true,
     output: {
       comments: false
     },
@@ -43,7 +44,7 @@ export var commonPlugins = [
   // To use gzip, you can run 'npm install compression-webpack-plugin --save-dev'
   // add 'var CompressionPlugin = require("compression-webpack-plugin");' on the top
   // and comment out below codes
-  //
+  
   new CompressionPlugin({
     asset: "[path].gz[query]",
     algorithm: "gzip",
@@ -84,35 +85,35 @@ export var commonConfig = {
 // Client.
 export var clientPlugins = [
 
-  new webpack.NormalModuleReplacementPlugin(
-    /@angular(\\|\/)upgrade/,
-    root('empty.js')
-  ),
-  // problem with platformUniversalDynamic on the server/client
-  new webpack.NormalModuleReplacementPlugin(
-    /@angular(\\|\/)compiler/,
-    root('empty.js')
-  ),
-  new webpack.NormalModuleReplacementPlugin(
-    /@angular(\\|\/)platform-browser-dynamic/,
-    root('empty.js')
-  ),
-  new webpack.NormalModuleReplacementPlugin(
-    /dom(\\|\/)debug(\\|\/)ng_probe/,
-    root('empty.js')
-  ),
-  new webpack.NormalModuleReplacementPlugin(
-    /dom(\\|\/)debug(\\|\/)by/,
-    root('empty.js')
-  ),
-  new webpack.NormalModuleReplacementPlugin(
-    /src(\\|\/)debug(\\|\/)debug_node/,
-    root('empty.js')
-  ),
-  new webpack.NormalModuleReplacementPlugin(
-    /src(\\|\/)debug(\\|\/)debug_renderer/,
-    root('empty.js')
-  ),
+  // new webpack.NormalModuleReplacementPlugin(
+  //   /@angular(\\|\/)upgrade/,
+  //   root('empty.js')
+  // ),
+  // // problem with platformUniversalDynamic on the server/client
+  // new webpack.NormalModuleReplacementPlugin(
+  //   /@angular(\\|\/)compiler/,
+  //   root('empty.js')
+  // ),
+  // new webpack.NormalModuleReplacementPlugin(
+  //   /@angular(\\|\/)platform-browser-dynamic/,
+  //   root('empty.js')
+  // ),
+  // new webpack.NormalModuleReplacementPlugin(
+  //   /dom(\\|\/)debug(\\|\/)ng_probe/,
+  //   root('empty.js')
+  // ),
+  // new webpack.NormalModuleReplacementPlugin(
+  //   /dom(\\|\/)debug(\\|\/)by/,
+  //   root('empty.js')
+  // ),
+  // new webpack.NormalModuleReplacementPlugin(
+  //   /src(\\|\/)debug(\\|\/)debug_node/,
+  //   root('empty.js')
+  // ),
+  // new webpack.NormalModuleReplacementPlugin(
+  //   /src(\\|\/)debug(\\|\/)debug_renderer/,
+  //   root('empty.js')
+  // ),
 
   // Waiting for https://github.com/ampedandwired/html-webpack-plugin/issues/446
   // new webpack.optimize.AggressiveSplittingPlugin({
@@ -122,7 +123,7 @@ export var clientPlugins = [
 
 ];
 export var clientConfig = {
-  entry: './src/client.aot',
+  entry: './src/client', // aot enable
   recordsOutputPath: root('webpack.records.json')
 };
 
@@ -131,7 +132,7 @@ export var serverPlugins = [
 
 ];
 export var serverConfig = {
-  entry: './src/server.aot',
+  entry: './src/server', //entry: './src/server.aot', // enable for aot
   output: {
     filename: 'index.js'
   },

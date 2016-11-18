@@ -36,7 +36,7 @@ app.engine('.html', createEngine({
     // stateless providers only since it's shared
   ]
 }));
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || 3001);
 app.set('views', __dirname);
 app.set('view engine', 'html');
 
@@ -47,13 +47,14 @@ app.use(bodyParser.json());
 app.use('/assets', express.static(path.join(__dirname, 'assets'), {maxAge: 30}));
 app.use(express.static(path.join(ROOT, 'dist/client'), {index: false}));
 
+import {options} from './server';
 
 function ngApp(req, res) {
   res.render('index', {
     req,
     res,
     // time: true, // use this to determine what part of your app is slow only in development
-    preboot: false,
+    preboot: options,
     baseUrl: '/',
     requestUrl: req.originalUrl,
     originUrl: `http://localhost:${ app.get('port') }`

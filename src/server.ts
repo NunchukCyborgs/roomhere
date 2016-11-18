@@ -85,7 +85,7 @@ app.use(bodyParser.json());
   app.use(express.static(path.join(ROOT, 'dist/client'), { index: false }));
 
 // CUSTOM 
-const options: PrebootOptions = { appRoot: ['app'], uglify: true, buffer: true };
+export const options: PrebootOptions = { appRoot: ['app'], uglify: true, buffer: true };
 
   function ngApp(req, res) {
     res.render('index', {
