@@ -26,7 +26,6 @@ export class PropertyService {
     return Observable.of([])
       .filter(() => facet.min_price >= 0 && facet.max_price >= 0)
       .flatMap(() => this.http.post(`${BASE_API_URL}/properties/filtered_results`, { facets: facet, page: pageNumber, per_page: perPage, query: query }))
-      .map(i => i.json())
       .filter(i => i.results && i.total_count) // Dirty error handling
       .do(i => this.lastPage$.next(Math.ceil(i.total_count / perPage)))
       .map(i => i.results);
@@ -35,7 +34,6 @@ export class PropertyService {
   public getPropertyBySlug$(slug: string): Observable<any> {
     return this.http
       .get(`${BASE_API_URL}/properties/${slug}`)
-      .map(i => i.json())
       .map(i => new Property(i))
       .do(i => this.propertyBySlug$.next(this._propertyBySlug = i.id ? i : null));
   }
@@ -43,7 +41,7 @@ export class PropertyService {
   public getMyProperties$(): Observable<any> {
     const seq = this.http
       .get(`${BASE_API_URL}/me`)
-      .map(i => i.json().properties)
+      .map(i => i.properties)
       .map(properties => properties.map(i => new Property(i)))
       .do(i => this.myProperties$.next(this._myProperties = i));
 
@@ -55,7 +53,7 @@ export class PropertyService {
   public getSuperProperties$(pageNumber = 1, perPage = 100, query = ''): Observable<any> {
     const seq = this.http
       .get(`${BASE_API_URL}/properties?page=${pageNumber}&per_page=${perPage}&q=${query}`)
-      .map(i => i.json() || [])
+      .map(i => i || [])
       .map(properties => properties.map(i => new Property(i)))
       .do(i => this.superProperties$.next(this._superProperties = i));
 
@@ -68,7 +66,6 @@ export class PropertyService {
     property = this.updateAmenities(property);
     property = this.updateTypes(property);
     return this.http.patch(`${BASE_API_URL}/properties/${property.slug}`, { property: property })
-      .map(i => i.json())
       .flatMap(i => this.updatePropertyBySlugLocal(i));
   }
 
@@ -91,7 +88,6 @@ export class PropertyService {
 
   public deleteImage(property: Property, imageId: number): Observable<any> {
     return this.http.delete(`${BASE_API_URL}/properties/${property.slug}/images/${imageId}`)
-      .map(i => i.json())
       .flatMap(i => this.updatePropertyBySlugLocal(i));
   }
 

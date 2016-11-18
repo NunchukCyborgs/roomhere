@@ -11,13 +11,13 @@ export class ReviewsService {
 
   public addReview(review: Review, propertyId: number): Observable<Review> {
     return this.http.post(`${BASE_API_URL}/reviews`, { review: Object.assign({}, review, { property_id: propertyId }) })
-      .map(i => new Review(i.json()))
+      .map(i => new Review(i))
       .do(i => this.updateProperty(i));
   }
 
   public updateReview(review: Review): Observable<Review> {
     return this.http.patch(`${BASE_API_URL}/reviews/${review.id}`, { review: review })
-      .map(i => new Review(i.json()))
+      .map(i => new Review(i))
       .do(i => this.updateProperty(i));
   }
 

@@ -21,22 +21,21 @@ export class FacetsService {
     this.locations$.subscribe();
 
     this.http.get(`${BASE_API_URL}/properties/facets`)
-      .subscribe(res => {
+      .subscribe(i => {
         this._amenities = this._amenities || [];
         this._locations = this._locations || [];
-        let json = res.json();
-        for (let amenity of json.amenities) {
+        for (let amenity of i.amenities) {
           this._amenities.push(new Amenity(amenity));
         }
-        for (let location of json.locations) {
+        for (let location of i.locations) {
           this._locations.push(location);
         }
 
         this.amenities$.next(this._amenities);
         this.locations$.next(this._locations);
-        this.minPrice$.next(json.min_price);
-        this.maxPrice$.next(json.max_price);
-        this.types$.next(json.types);
+        this.minPrice$.next(i.min_price);
+        this.maxPrice$.next(i.max_price);
+        this.types$.next(i.types);
       });
   }
 

@@ -27,6 +27,7 @@ import { PropertySeoService } from './shared/services/property-seo.service';
 import { SocialService } from './shared/services/social.service';
 import { ValidationService } from './shared/services/validation.service';
 import { PersistenceService } from './shared/services/persistence.service';
+import { CacheService } from './shared/services/cache.service';
 
 //////////////////////////////////////////
 // NODE SPECIFIC                        //
@@ -37,7 +38,7 @@ import { CookieNode } from './shared/services/cookies/cookie-node';
 
 export const PROVIDERS = [
   UserService, PropertyService, FacetsService, GoogleApiService, HttpService, ImageUploadService, SeoService, PropertySeoService,
-  SocialService, ValidationService, PersistenceService, PropertyActionStateService, ReviewsService
+  SocialService, ValidationService, PersistenceService, PropertyActionStateService, ReviewsService, CacheService,
 ];
 
 export const IMPORTS = [
@@ -78,28 +79,26 @@ export function getResponse() {
       useFactory: getLRU,
       deps: [ [new Inject('LRU'), new Optional(), new SkipSelf()] ]
     },
-
-    // CacheService
   ],
 })
 export class MainModule {
-//   constructor(public cache: CacheService) {
+  constructor(public cache: CacheService) {
 
-//   }
+  }
 
-//   /**
-//    * We need to use the arrow function here to bind the context as this is a gotcha
-//    * in Universal for now until it's fixed
-//    */
-//   universalDoDehydrate = (universalCache) => {
-//     universalCache[CacheService.KEY] = JSON.stringify(this.cache.dehydrate());
-//   }
+  /**
+   * We need to use the arrow function here to bind the context as this is a gotcha
+   * in Universal for now until it's fixed
+   */
+  universalDoDehydrate = (universalCache) => {
+    universalCache[CacheService.KEY] = JSON.stringify(this.cache.dehydrate());
+  }
 
-//  /**
-//   * Clear the cache after it's rendered
-//   */
-//   universalAfterDehydrate = () => {
-//     // comment out if LRU provided at platform level to be shared between each user
-//     this.cache.clear();
-//   }
+ /**
+  * Clear the cache after it's rendered
+  */
+  universalAfterDehydrate = () => {
+    // comment out if LRU provided at platform level to be shared between each user
+    this.cache.clear();
+  }
 }
