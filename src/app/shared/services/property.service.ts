@@ -24,7 +24,6 @@ export class PropertyService {
 
   public getFilteredProperties$(facet: PropertyFacet, query: string = '', pageNumber: number = 1, perPage: number = 6): Observable<Property[]> {
     return Observable.of([])
-      .filter(() => facet.min_price >= 0 && facet.max_price >= 0)
       .flatMap(() => this.http.post(`${BASE_API_URL}/properties/filtered_results`, { facets: facet, page: pageNumber, per_page: perPage, query: query }))
       .filter(i => i.results && i.total_count) // Dirty error handling
       .do(i => this.lastPage$.next(Math.ceil(i.total_count / perPage)))

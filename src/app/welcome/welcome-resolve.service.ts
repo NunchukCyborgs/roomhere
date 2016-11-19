@@ -5,14 +5,24 @@ import { Property } from '../shared/dtos/property';
 import { PropertyFacet } from '../shared/dtos/facets';
 
 import { PropertyService } from '../shared/services/property.service';
+import { FacetsService } from '../shared/services/facets.service';
 
 @Injectable()
 export class WelcomeResolve implements Resolve<any> {
-  constructor(private propertyService: PropertyService) { }
+  constructor(private propertyService: PropertyService, private facetsService: FacetsService) { }
 
-  public resolve(route: ActivatedRouteSnapshot): Observable<any> {
-    let query = route.params['q'] || '';
-    return this.propertyService.getFilteredProperties$(new PropertyFacet(), query)
-      .map(i => ({ properties: i, query: query }));
+  public resolve(route: ActivatedRouteSnapshot) {
+    // let query = route.params['q'] || '';
+    // let facet: PropertyFacet = new PropertyFaceßt();
+
+    // return this.facetsService.loadFacets()
+    //   .flatMap(() => this.facetsService.minPrice$)
+    //   .do(i => facet.min_price = i)
+    //   .flatMap(() => this.facetsService.maxPrice$)
+    //   .do(i => facet.max_price = i)
+    //   .flatMap(() => this.propertyService.getFilteredProperties$(facet, query))
+    //   .map(i => ({ properties: i, query: query }))
+    //   .do(i => console.log('I resolved!'));
+    return false;
   }
 }

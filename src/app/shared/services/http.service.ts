@@ -10,39 +10,38 @@ import { CacheService } from './cache.service';
 export class HttpService {
   constructor(private http: Http, private persist: PersistenceService, private cache: CacheService) { }
 
-  public get(url: string, {rawResponse}: {rawResponse?: boolean} = {}): Observable<any> {
+  public get(url: string, {rawResponse}: { rawResponse?: boolean } = {}): Observable<any> {
     const key = url;
     const cache = this.getFromCache(key);
-
+    
     return cache ? cache : this.http
       .get(url, { headers: this.headers })
-      .do(i => console.log('after get for ', url))
-      .map(i => rawResponse ? i : i.json()) 
+      .map(i => rawResponse ? i : i.json())
       .do(i => !rawResponse && this.cache.set(key, i))
-      .catch((err, caught) => this.handleError(err, url));
+      .catch((err, caught) => this.handleError(err, url))
   }
 
-  public delete(url: string, {rawResponse}: {rawResponse?: boolean} = {}): Observable<any> {
+  public delete(url: string, {rawResponse}: { rawResponse?: boolean } = {}): Observable<any> {
     return this.http
       .delete(url, { headers: this.headers })
-      .map(i => rawResponse ? i : i.json()) 
+      .map(i => rawResponse ? i : i.json())
       .catch((err, caught) => this.handleError(err, url));
   }
 
-  public post(url: string, obj: any, {rawResponse}: {rawResponse?: boolean} = {}): Observable<any> {
+  public post(url: string, obj: any, {rawResponse}: { rawResponse?: boolean } = {}): Observable<any> {
     // Should probably only cache on the GETs
 
     const key = url + JSON.stringify(obj);
-    const cache = url.indexOf('filtered_results') > -1 ? this.getFromCache(url) : null;
+    const cache = url.indexOf('filtered_results') > -1 ? this.getFromCache(key) : null;
     // This is the only url I want to cache at this point
 
     return cache ? cache : this.http.post(url, JSON.stringify(obj), { headers: this.headers })
-      .map(i => rawResponse ? i : i.json()) 
+      .map(i => rawResponse ? i : i.json())
       .do(i => !rawResponse && this.cache.set(key, i))
       .catch((err, caught) => this.handleError(err, url));
   }
 
-  public patch(url: string, obj: any, {rawResponse}: {rawResponse?: boolean} = {}): Observable<any> {
+  public patch(url: string, obj: any, {rawResponse}: { rawResponse?: boolean } = {}): Observable<any> {
     return this.http.patch(url, JSON.stringify(obj), { headers: this.headers })
       .map(i => rawResponse ? i : i.json())
       .catch((err, caught) => this.handleError(err, url));
@@ -72,15 +71,6 @@ export class HttpService {
   }
 
   private getFromCache(key: string): any {
-    console.log('getting ', key)
-
-    if (this.cache.has(key)) {
-      console.log('getting cache for ', key.substr(75))
-      return Observable.of(this.cache.get(key));
-    }
-
-    return;
-
-    // return this.cache.has(key) ? Observable.of(this.cache.get(key)) : undefined;
+    return this.cache.has(key) ? Observable.of(this.cache.get(key)) : undefined;
   }
 }

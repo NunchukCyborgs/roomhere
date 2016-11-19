@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 import { HttpService } from '../services/http.service';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { generateGUID } from './util';
@@ -6,6 +7,7 @@ import { Amenity, Location } from '../dtos/property';
 
 @Injectable()
 export class FacetsService {
+  private hasInit: boolean = false;
   public amenities$: BehaviorSubject<Amenity[]>;
   public _amenities: Amenity[] = [];
   public locations$: BehaviorSubject<Location[]>;
@@ -19,9 +21,23 @@ export class FacetsService {
     this.amenities$.subscribe();
     this.locations$ = new BehaviorSubject(this._locations);
     this.locations$.subscribe();
+    this.loadFacets().subscribe();
+  }
 
-    this.http.get(`${BASE_API_URL}/properties/facets`)
-      .subscribe(i => {
+  get amenities(): Amenity[] {
+    return Object.assign([], this._amenities);
+  }
+
+  get locations(): Amenity[] {
+    return Object.assign([], this._locations);
+  }
+
+  public loadFacets(): Observable<any> {
+    return this.hasInit ? Observable.of(null) : this.http
+      .get(`${BASE_API_URL}/properties/facets`)
+      .do(i => {
+        this.hasInit = true;
+        
         this._amenities = this._amenities || [];
         this._locations = this._locations || [];
         for (let amenity of i.amenities) {
@@ -37,13 +53,5 @@ export class FacetsService {
         this.maxPrice$.next(i.max_price);
         this.types$.next(i.types);
       });
-  }
-
-  get amenities(): Amenity[] {
-    return Object.assign([], this._amenities);
-  }
-
-  get locations(): Amenity[] {
-    return Object.assign([], this._locations);
   }
 }
