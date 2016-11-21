@@ -2,10 +2,8 @@ var webpack = require('webpack');
 var path = require('path');
 var clone = require('js.clone');
 var webpackMerge = require('webpack-merge');
-var CompressionPlugin = optionalRequire('compression-webpack-plugin');
 var V8LazyParseWebpackPlugin = require('v8-lazy-parse-webpack-plugin');
-
-import webpackConfig, {root, checkNodeImport, includeClientPackages } from './webpack.config';
+import webpackConfig, { root,  includeClientPackages } from './webpack.config';
 
 export var commonPlugins = [
   new V8LazyParseWebpackPlugin(),
@@ -13,6 +11,45 @@ export var commonPlugins = [
   new webpack.DefinePlugin({
     'process.env.NODE_ENV': JSON.stringify('production'),
   }),
+
+  // Loader options
+  new webpack.LoaderOptionsPlugin({
+    minimize: true,
+    debug: false
+  }),
+
+  new webpack.NormalModuleReplacementPlugin(
+    /facade(\\|\/)async/,
+    root('node_modules/@angular/core/src/facade/async.js')
+  ),
+  new webpack.NormalModuleReplacementPlugin(
+    /facade(\\|\/)collection/,
+    root('node_modules/@angular/core/src/facade/collection.js')
+  ),
+  new webpack.NormalModuleReplacementPlugin(
+    /facade(\\|\/)errors/,
+    root('node_modules/@angular/core/src/facade/errors.js')
+  ),
+  new webpack.NormalModuleReplacementPlugin(
+    /facade(\\|\/)lang/,
+    root('node_modules/@angular/core/src/facade/lang.js')
+  ),
+  new webpack.NormalModuleReplacementPlugin(
+    /facade(\\|\/)math/,
+    root('node_modules/@angular/core/src/facade/math.js')
+  ),
+
+];
+export var commonConfig = {
+  output: {
+    filename: '[name].bundle.js',
+    chunkFilename: '[chunkhash].js'
+  },
+};
+
+// Client.
+export var clientPlugins = [
+
 
   new webpack.optimize.UglifyJsPlugin({
     // beautify: true,
@@ -31,47 +68,9 @@ export var commonPlugins = [
       evaluate: true,
       if_return: true,
       join_vars: true,
-      negate_iife: false
+      negate_iife: false // we need this for lazy v8
     }
   }),
-
-  // Loader options
-  new webpack.LoaderOptionsPlugin({
-    minimize: true,
-    debug: false
-  }),
-
-  new webpack.NormalModuleReplacementPlugin(
-    /facade\/async/,
-    root('node_modules/@angular/core/src/facade/async.js')
-  ),
-  new webpack.NormalModuleReplacementPlugin(
-    /facade\/collection/,
-    root('node_modules/@angular/core/src/facade/collection.js')
-  ),
-  new webpack.NormalModuleReplacementPlugin(
-    /facade\/errors/,
-    root('node_modules/@angular/core/src/facade/errors.js')
-  ),
-  new webpack.NormalModuleReplacementPlugin(
-    /facade\/lang/,
-    root('node_modules/@angular/core/src/facade/lang.js')
-  ),
-  new webpack.NormalModuleReplacementPlugin(
-    /facade\/math/,
-    root('node_modules/@angular/core/src/facade/math.js')
-  ),
-
-];
-export var commonConfig = {
-  output: {
-    filename: '[name].bundle.js',
-    chunkFilename: '[chunkhash].js'
-  },
-};
-
-// Client.
-export var clientPlugins = [
 
   // new webpack.NormalModuleReplacementPlugin(
   //   /@angular(\\|\/)upgrade/,
@@ -133,12 +132,3 @@ export default [
   // Server
   webpackMerge(webpackConfig[1], clone(commonConfig), serverConfig, {plugins: webpackConfig[1].plugins.concat(commonPlugins, serverPlugins) })
 ];
-
-
-function optionalRequire(mod) {
-  try {
-    return require(mod);
-  } catch (e) {
-    return function () {};
-  }
-}

@@ -36,7 +36,7 @@ app.engine('.html', createEngine({
     // stateless providers only since it's shared
   ]
 }));
-app.set('port', process.env.PORT || 3001);
+app.set('port', process.env.PORT || 3000);
 app.set('views', __dirname);
 app.set('view engine', 'html');
 
@@ -77,6 +77,8 @@ app.get('*', function(req, res) {
 });
 
 // Server
-let server = app.listen(app.get('port'), () => {
-  console.log(`Listening on: http://localhost:${server.address().port}`);
-});
+// let server = app.listen(app.get('port'), () => {
+//   console.log(`Listening server.aot on: http://localhost:${server.address().port}`);
+// });
+
+console.log('Trying to listen server.aot on ', app.get('port'));
