@@ -13,5 +13,7 @@ log/capistrano.log
 .vscode/
 
 *.ngfactory.ts
+*.css.shim.ts
+styles.css.ts
 webpack.records.json
 styles.css
