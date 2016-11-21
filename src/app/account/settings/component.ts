@@ -10,7 +10,7 @@ import { ControlMessages } from '../../shared/components/control-messages/compon
 
 @Component({
   selector: 'settings',
-  styles: [require('./styles.scss').toString()],
+  styleUrls: ['./styles.css'],
   templateUrl: 'template.html',
 })
 export class Settings {

@@ -3,7 +3,7 @@ import { PropertyActionState } from '../../shared/services/property-action-state
 
 @Component({
   selector: 'property-actions-group',
-  styles: [require('./styles.scss').toString()],
+  styleUrls: [],
   templateUrl: 'template.html'
 })
 export class PropertyActionsGroup  {

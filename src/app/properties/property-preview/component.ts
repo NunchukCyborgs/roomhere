@@ -6,7 +6,7 @@ import { DEFAULT_TENANT } from '../../config';
 
 @Component({
   selector: 'property-preview',
-  styles: [require('./styles.scss').toString()],
+  styleUrls: ['./styles.css'],
   templateUrl: 'template.html'
 })
 export class PropertyPreview {

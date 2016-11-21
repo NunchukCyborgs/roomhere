@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'modal',
-  styles: [require('./styles.scss').toString()],
+  styleUrls: [],
   templateUrl: 'template.html',
 })
 export class Modal {

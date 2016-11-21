@@ -2,7 +2,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'star-rating',
-  styles: [require('./styles.scss').toString()],
+  styleUrls: ['./styles.css'],
   templateUrl: 'template.html',
 })
 export class StarRating {

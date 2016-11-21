@@ -4,7 +4,7 @@ import { ValidationService } from '../../services/validation.service';
 
 @Component({
   selector: 'control-messages',
-  styles: [require('./styles.scss').toString()],
+  styleUrls: [],
   templateUrl: 'template.html',
 })
 export class ControlMessages {

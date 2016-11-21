@@ -3,7 +3,7 @@ import { Carousel, Direction } from '../carousel/component';
 
 @Component({
   selector: 'slide',
-  styles: [require('./styles.scss').toString()],
+  styleUrls: [],
   templateUrl: 'template.html',
 })
 export class Slide implements OnInit, OnDestroy {

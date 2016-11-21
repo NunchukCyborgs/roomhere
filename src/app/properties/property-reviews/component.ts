@@ -6,7 +6,7 @@ import { Property, Review } from '../../shared/dtos/property';
 
 @Component({
   selector: 'property-reviews',
-  styles: [require('./styles.scss').toString()],
+  styleUrls: ['./styles.css'],
   templateUrl: 'template.html',
 })
 export class PropertyReviews {

@@ -3,7 +3,7 @@ const ProgressBar = require('progressbar.js');
 
 @Component({
   selector: 'upload-progress',
-  styles: [require('./styles.scss').toString()],
+  styleUrls: [],
   templateUrl: 'template.html',
 })
 export class UploadProgress {

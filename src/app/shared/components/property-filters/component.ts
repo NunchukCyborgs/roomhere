@@ -7,7 +7,7 @@ import { FacetsService } from '../../services/facets.service';
 
 @Component({
   selector: 'property-filters',
-  styles: [require('./styles.scss').toString()],
+  styleUrls: ['./styles.css'],
   templateUrl: 'template.html',
 })
 export class PropertyFilters {

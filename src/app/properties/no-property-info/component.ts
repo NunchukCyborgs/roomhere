@@ -3,7 +3,7 @@ import { Property } from '../../shared/dtos/property';
 
 @Component({
   selector: 'no-property-info',
-  styles: [require('./styles.scss').toString()],
+  styleUrls: ['./styles.css'],
   templateUrl: 'template.html'
 })
 export class NoPropertyInfo {

@@ -123,7 +123,7 @@ export var clientPlugins = [
 
 ];
 export var clientConfig = {
-  entry: './src/client', // aot enable
+  entry: './src/client.aot',
   recordsOutputPath: root('webpack.records.json')
 };
 
@@ -132,7 +132,7 @@ export var serverPlugins = [
 
 ];
 export var serverConfig = {
-  entry: './src/server', //entry: './src/server.aot', // enable for aot
+  entry: './src/server.aot',
   output: {
     filename: 'index.js'
   },

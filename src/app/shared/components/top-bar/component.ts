@@ -4,7 +4,7 @@ import { isBrowser } from 'angular2-universal';
 
 @Component({
   selector: 'top-bar',
-  styles: [require('./styles.scss').toString()],
+  styleUrls: ['./styles.css'],
   templateUrl: 'template.html'
 })
 export class TopBar {

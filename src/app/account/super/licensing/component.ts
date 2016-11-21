@@ -10,7 +10,7 @@ import { ValidationService } from '../../../shared/services/validation.service';
 
 @Component({
   selector: 'super-licensing',
-  styles: [require('./styles.scss').toString()],
+  styleUrls: ['./styles.css'],
   templateUrl: 'template.html'
 })
 export class SuperLicensing {

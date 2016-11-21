@@ -3,7 +3,7 @@ import { SeoService } from '../shared/services/seo.service';
 
 @Component({
   selector: 'faq',
-  styles: [require('./styles.scss').toString()],
+  styleUrls: ['./styles.css'],
   templateUrl: 'template.html'
 })
 export class FAQ  {

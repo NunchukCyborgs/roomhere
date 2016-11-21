@@ -3,7 +3,7 @@ import { Property } from '../../shared/dtos/property';
 
 @Component({
   selector: 'similar-properties',
-  styles: [require('./styles.scss').toString()],
+  styleUrls: [],
   templateUrl: 'template.html',
 })
 export class SimilarProperties {

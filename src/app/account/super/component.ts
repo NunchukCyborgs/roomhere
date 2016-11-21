@@ -6,7 +6,7 @@ import { UserService } from '../../shared/services/user.service';
 
 @Component({
   selector: 'super-user',
-  styles: [require('./styles.scss').toString()],
+  styleUrls: [],
   templateUrl: 'template.html'
 })
 export class SuperUser {

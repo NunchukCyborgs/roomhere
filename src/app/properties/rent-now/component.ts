@@ -7,7 +7,7 @@ import { Owner } from '../../shared/dtos/property';
 
 @Component({
   selector: 'rent-now',
-  styles: [require('./styles.scss').toString()],
+  styleUrls: ['./styles.css'],
   templateUrl: 'template.html'
 })
 export class RentNow {

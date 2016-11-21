@@ -7,7 +7,7 @@ import { UserService, Me } from '../../shared/services/user.service';
 
 @Component({
   selector: 'dashboard',
-  styles: [require('./styles.scss').toString()],
+  styleUrls: ['./styles.css'],
   templateUrl: 'template.html'
 })
 export class Dashboard {

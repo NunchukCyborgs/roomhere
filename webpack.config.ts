@@ -131,7 +131,7 @@ export var commonConfig = {
     loaders: [
       { test: /\.ts$/, loaders: ['awesome-typescript-loader', 'angular2-template-loader'] },
       { test: /\.html$/, loader: 'html-loader', query: htmlQuery },
-      { test: /\.css$/, loaders: ['css-loader?minimize-autoprefixer', 'postcss-loader'] },
+      { test: /styles\.css$/, loaders: ['raw-loader'] },
       { test: /\.json$/, loader: 'raw-loader' },
       { test: /app\.scss$/, loader: extractCritical.extract(['css-loader?minimize-autoprefixer', 'postcss-loader', 'sass-loader']) },
       { test: /deferred\.scss$/, loader: extractDeferred.extract(['css-loader?minimize-autoprefixer', 'postcss-loader', 'sass-loader']) },

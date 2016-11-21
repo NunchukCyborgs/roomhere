@@ -9,7 +9,7 @@ import { ImageUploadService, PendingFile } from '../../shared/services/image-upl
 
 @Component({
   selector: 'property-edit',
-  styles: [require('./styles.scss').toString()],
+  styleUrls: ['./styles.css'],
   templateUrl: 'template.html'
 })
 export class PropertyEdit {

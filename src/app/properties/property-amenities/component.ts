@@ -3,7 +3,7 @@ import { Amenity } from '../../shared/dtos/property';
 
 @Component({
   selector: 'property-amenities',
-  styles: [require('./styles.scss').toString()],
+  styleUrls: ['./styles.css'],
   templateUrl: 'template.html',
 })
 export class PropertyAmenities {

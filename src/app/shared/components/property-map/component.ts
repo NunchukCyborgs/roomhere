@@ -17,7 +17,7 @@ export interface MapOptions {
 
 @Component({
   selector: 'property-map',
-  styles: [require('./styles.scss').toString()],
+  styleUrls: ['./styles.css'],
   encapsulation: ViewEncapsulation.None, // Careful, global here
   templateUrl: 'template.html',
 })
