@@ -19,6 +19,7 @@ const platformRef = platformBrowser();
 // on document ready bootstrap Angular 2
 document.addEventListener('DOMContentLoaded', () => {
 
-  platformRef.bootstrapModuleFactory(MainModuleNgFactory);
+  platformRef.bootstrapModuleFactory(MainModuleNgFactory)
+    .then(() => console.log('done!'));
 
 });

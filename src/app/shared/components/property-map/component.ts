@@ -17,8 +17,7 @@ export interface MapOptions {
 
 @Component({
   selector: 'property-map',
-  styleUrls: ['./styles.css'],
-  encapsulation: ViewEncapsulation.None, // Careful, global here
+  styleUrls: [],
   templateUrl: 'template.html',
 })
 export class PropertyMap {
