@@ -136,6 +136,5 @@ export const prebootOptions: PrebootOptions = { appRoot: ['app'], uglify: true, 
 
 // Server
 let server = app.listen(app.get('port'), () => {
-  console.log(`Listening on: http://localhost:${server.address().port}`);
+  console.log(`Listening server on: http://localhost:${server.address().port}`);
 });
-

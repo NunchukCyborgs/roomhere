@@ -125,7 +125,7 @@ export var commonConfig = {
   },
   context: __dirname,
   output: {
-    publicPath: path.resolve(__dirname),
+    publicPath: '', //path.resolve(__dirname),
     filename: '[name].bundle.js'
   },
   module: {
@@ -214,25 +214,22 @@ export default [
 
 
 // Helpers
-
-export function includeClientPackages(packages) {
+export function includeClientPackages(packages, localModule?: string[]) {
   return function(context, request, cb) {
-    if (packages) {
-      if (packages instanceof RegExp && packages.test(request)) {
-        return cb();
-      } else if (typeof packages === 'string' && packages.indexOf(request) !== -1) {
-        return cb();
-      }
+    if (localModule instanceof RegExp && localModule.test(request)) {
+      return cb();
     }
-    return checkNodeImport(context, request, cb);
+    if (packages instanceof RegExp && packages.test(request)) {
+      return cb();
+    }
+    if (Array.isArray(packages) && packages.indexOf(request) !== -1) {
+      return cb();
+    }
+    if (!path.isAbsolute(request) && request.charAt(0) !== '.') {
+      return cb(null, 'commonjs ' + request);
+    }
+    return cb();
   };
-}
-
-export function checkNodeImport(context, request, cb) {
-  if (!path.isAbsolute(request) && request.charAt(0) !== '.') {
-    cb(null, 'commonjs ' + request); return;
-  }
-  cb();
 }
 
 export function root(args) {
