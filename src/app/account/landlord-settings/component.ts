@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'landlord-settings',
-  styles:[require('./styles.scss').toString()],
-  template: require('./template.html').toString(),
+  styleUrls: [],
+  templateUrl: 'template.html',
 })
 export class LandlordSettings {
   

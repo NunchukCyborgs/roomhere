@@ -20,8 +20,8 @@ const HEIGHT: string = '350px';
 
 @Component({
   selector: 'property-view',
-  styles: [require('./styles.scss').toString()],
-  template: require('./template.html').toString()
+  styleUrls: ['./styles.css'],
+  templateUrl: 'template.html'
 })
 export class PropertyView {
   public property: Property = new Property();

@@ -4,7 +4,7 @@
 			<p>Price Range</p>
 		</div>
 
-		<property-slider [facet]="facet" (applyFacet)="pageNumber = 1; applyFacet.emit($event)"></property-slider>
+		<property-slider [facet]="facet" (applyFacet)="applyFacet.emit($event)"></property-slider>
 
 		<hr />
 
@@ -23,7 +23,7 @@
 			</li>
 			<li>
 				<a class="no-hover">
-					<property-filters [(showFilters)]="showFilters" [facet]="facet" (applyFacet)="pageNumber = 1; applyFacet.emit($event)"></property-filters>
+					<property-filters [(showFilters)]="showFilters" [facet]="facet" (applyFacet)="applyFacet.emit($event)"></property-filters>
 				</a>
 			</li>
 		</ul>

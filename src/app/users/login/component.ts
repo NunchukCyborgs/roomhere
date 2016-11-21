@@ -11,8 +11,8 @@ import { ControlMessages } from '../../shared/components/control-messages/compon
 
 @Component({
   selector: 'login',
-  styles: [require('./styles.scss').toString()],
-  template: require('./template.html').toString()
+  styleUrls: [],
+  templateUrl: 'template.html'
 })
 export class Login {
   public serverErrors: string[] = [];
@@ -45,7 +45,7 @@ export class Login {
       .subscribe(() => this.redirectUser());
   }
 
-  private closeModal(res?: Response) {
+  public closeModal(res?: Response) {
     isBrowser && $('modal .close-button').click();
   }
 

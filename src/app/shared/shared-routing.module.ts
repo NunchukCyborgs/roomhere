@@ -16,11 +16,11 @@ import { PropertyViewResolve } from '../properties/property-view/property-resolv
 @NgModule({
   imports: [
     RouterModule.forChild([
-      { path: '', component: Welcome, resolve: { properties: WelcomeResolve } }, // Welcome Module
-      { path: 'search', component: Welcome, resolve: { properties: WelcomeResolve } }, // Welcome Module
+      { path: '', component: Welcome }, //, resolve: { properties: WelcomeResolve } }, // Welcome Module
+      { path: 'search', component: Welcome }, //, resolve: { properties: WelcomeResolve } }, // Welcome Module
       // exception-root-segment-cannot-have-matrix-parameters
       // Can't use matrix parameters on a root path
-      { path: `${DEFAULT_TENANT}/:slug`, component: PropertyView, resolve: { property: PropertyViewResolve } }, // Property Module
+      { path: 'cape-girardeau/:slug', component: PropertyView, resolve: { property: PropertyViewResolve } }, // Property Module
       { path: 'faq', component: FAQ }, // General
       { path: 'privacy-policy', component: PrivacyPolicy }, // General
       { path: 'reset-password', component: ResetPassword }, // General

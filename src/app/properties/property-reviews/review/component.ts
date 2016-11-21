@@ -3,8 +3,8 @@ import { Review } from '../../../shared/dtos/property';
 
 @Component({
   selector: 'property-review',
-  styles: [require('./styles.scss').toString()],
-  template: require('./template.html').toString(),
+  styleUrls: ['./styles.css'],
+  templateUrl: 'template.html',
 })
 export class PropertyReview {
   @Input() review: Review;

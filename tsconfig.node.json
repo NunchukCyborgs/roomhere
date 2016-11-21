@@ -6,8 +6,7 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "outDir": "dist",
-    "sourceMap": true,
-    "sourceRoot": "src",
+    "sourceMap": false,
     "noEmitHelpers": true,
     "target": "es5",
     "typeRoots": [
@@ -15,9 +14,13 @@
     ],
     "lib": ["es6", "dom"]
   },
-  "exclude": [
-    "node_modules"
+  "files": [
+    "./src/app/app.node.module.ts",
+    "./src/typings.d.ts"
   ],
+  "angularCompilerOptions": {
+    "debug": false
+  },
   "compileOnSave": false,
   "buildOnSave": false,
   "atom": { "rewriteTsconfig": false }

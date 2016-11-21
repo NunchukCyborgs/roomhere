@@ -7,8 +7,8 @@ import { Property } from '../../../shared/dtos/property';
 
 @Component({
   selector: 'property-accordion',
-  styles: [require('./styles.scss').toString()],
-  template: require('./template.html').toString()
+  styleUrls: ['./styles.css'],
+  templateUrl: 'template.html'
 })
 export class PropertyAccordion {
   @Input() properties: Property[];
@@ -21,7 +21,7 @@ export class PropertyAccordion {
     this.lastUpdatedProperty = property;
   }
 
-  ngOnChanges() {
+  ngOnChanges(changes: any) {
     isBrowser && setTimeout(() => this.initAccordion());
   }
 

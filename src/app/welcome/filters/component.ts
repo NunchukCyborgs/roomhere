@@ -3,8 +3,8 @@ import { PropertyFacet } from '../../shared/dtos/facets';
 
 @Component({
   selector: 'welcome-filters',
-  styles: [require('./styles.scss').toString()],
-  template: require('./template.html').toString()
+  styleUrls: ['./styles.css'],
+  templateUrl: 'template.html'
 })
 export class WelcomeFilters {
   @Input() facet: PropertyFacet;

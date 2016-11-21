@@ -2,7 +2,7 @@ import { CookieOptions, BaseCookieOptions } from "./base-cookie-options";
 import { CookieOptionsArgs } from "./cookie-options-args.model";
 import { Optional, Injectable } from "@angular/core";
 import { Cookie } from "./cookie";
-import { isPresent, isBlank, isString } from "@angular/core/src/facade/lang";
+import { isPresent, isBlank } from "@angular/core/src/facade/lang";
 
 @Injectable()
 export class CookieBrowser implements Cookie {
@@ -79,7 +79,7 @@ export class CookieBrowser implements Cookie {
       expires = 'Thu, 01 Jan 1970 00:00:00 GMT';
       value = '';
     }
-    if (isString(expires)) {
+    if (typeof expires === 'string') {
       expires = new Date(expires);
     }
 

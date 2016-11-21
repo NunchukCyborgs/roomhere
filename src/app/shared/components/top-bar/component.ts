@@ -4,8 +4,8 @@ import { isBrowser } from 'angular2-universal';
 
 @Component({
   selector: 'top-bar',
-  styles: [require('./styles.scss').toString()],
-  template: require('./template.html').toString()
+  styleUrls: ['./styles.css'],
+  templateUrl: 'template.html'
 })
 export class TopBar {
   @Input() hasAuth: boolean;

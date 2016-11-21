@@ -7,8 +7,8 @@ import { UserService, Me } from '../../shared/services/user.service';
 
 @Component({
   selector: 'dashboard',
-  styles: [require('./styles.scss').toString()],
-  template: require('./template.html').toString()
+  styleUrls: ['./styles.css'],
+  templateUrl: 'template.html'
 })
 export class Dashboard {
   public properties$: Observable<Property[]>;
