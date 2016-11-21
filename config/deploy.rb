@@ -47,7 +47,7 @@ namespace :deploy do
   desc 'Restart application'
   task :restart do
     on roles(:app) do
-      execute "cd #{release_path}; npm cache clean; npm run build:prod:aot;"
+      execute "cd #{release_path}; npm cache clean; npm run build:prod:ngc;"
     end
   end
 
