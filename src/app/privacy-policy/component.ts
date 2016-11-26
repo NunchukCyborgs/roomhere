@@ -3,8 +3,8 @@ import { SeoService } from '../shared/services/seo.service';
 
 @Component({
   selector: 'privacy-policy',
-  styles: [require('./styles.scss').toString()],
-  template: require('./template.html').toString()
+  styleUrls: ['./styles.css'],
+  templateUrl: 'template.html'
 })
 export class PrivacyPolicy {
   constructor(private seoService: SeoService) { }

@@ -7,8 +7,8 @@ import { Owner } from '../../shared/dtos/property';
 
 @Component({
   selector: 'rent-now',
-  styles:[require('./styles.scss').toString()],
-  template: require('./template.html').toString()
+  styleUrls: ['./styles.css'],
+  templateUrl: 'template.html'
 })
 export class RentNow {
   @Input() owner: Owner;

@@ -5,8 +5,8 @@ import { Property, Review } from '../../../shared/dtos/property';
 
 @Component({
   selector: 'editable-review',
-  styles: [require('./styles.scss').toString()],
-  template: require('./template.html').toString(),
+  styleUrls: ['./styles.css'],
+  templateUrl: 'template.html',
 })
 export class EditableReview {
   @Input() review: Review;
@@ -49,7 +49,7 @@ export class EditableReview {
     this.save.emit(review);
   }
 
-  private getRatingError(rating: number): string {
+  public getRatingError(rating: number): string {
     return this.reviewForm.valid && this.reviewForm.touched && !rating ? 'Please give an overall rating. ' : '';
   }
 }

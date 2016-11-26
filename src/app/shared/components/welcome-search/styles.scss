@@ -1,0 +1,19 @@
+form {
+  max-width: 300px;
+}
+
+.fa-search {
+  color:lightgrey !important;
+  line-height: 38px !important;
+}
+input {
+  border: none !important;
+  font-family: inherit;
+  font-size: 1rem;
+  color: #0a0a0a;
+  box-shadow: none !important;
+
+  &:-webkit-autofill {
+    background-color:#fff !important;
+  }
+}

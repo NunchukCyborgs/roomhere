@@ -1,11 +1,12 @@
 import { Component, OnInit, Renderer } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 import { Property } from '../shared/dtos/property';
 import { PropertyFacet } from '../shared/dtos/facets';
 import { PropertyService } from '../shared/services/property.service';
+import { FacetsService } from '../shared/services/facets.service';
 import { PropertySeoService } from '../shared/services/property-seo.service';
 import { PersistenceService } from '../shared/services/persistence.service';
 import { MapOptions } from '../shared/components/property-map/component';
@@ -18,13 +19,14 @@ const MAP_ZOOM_LEVEL = 13;
 
 @Component({
   selector: 'welcome',
-  styles: [require('./styles.scss').toString()],
-  template: require('./template.html').toString()
+  styleUrls: ['./styles.css'],
+  templateUrl: 'template.html'
 })
 export class Welcome {
-  public properties$: Observable<Property[]>;
+  public properties$: BehaviorSubject<Property[]> = new BehaviorSubject([]);
   public facet: PropertyFacet = new PropertyFacet();
   public pageNumber: number = 1;
+  public query: string = '';
   public lastPage$: Observable<number>;
   public mapOptions: MapOptions;
   public showFilters: boolean = false;
@@ -32,33 +34,32 @@ export class Welcome {
   public showSignupAd$: Observable<boolean>;
 
   constructor(private propertyService: PropertyService, private userService: UserService, private persist: PersistenceService,
-    private route: ActivatedRoute, private propertySeoService: PropertySeoService, private renderer: Renderer) { }
+    private route: ActivatedRoute, private router: Router, private propertySeoService: PropertySeoService, private renderer: Renderer,
+    private facetsService: FacetsService) { }
 
   ngOnInit() {
     this.loadFilteredProperties$ = new BehaviorSubject(this.facet);
     this.showSignupAd$ = this.userService.hasAuth$
       .filter(i => !i)
       .map(() => !this.persist.get('no_signup_ad'));
+
+    let query = this.route.params['q'] || '';
+
+    this.loadFilteredProperties$
+      .debounceTime(500)
+      .flatMap(() => this.facetsService.loadFacets())
+      .flatMap(() => this.facetsService.minPrice$)
+      .do(i => this.facet.min_price = this.facet.min_price < i ? i : this.facet.min_price)
+      .flatMap(() => this.facetsService.maxPrice$)
+      .do(i => this.facet.max_price = this.facet.max_price > i ? i : this.facet.max_price)
+      .flatMap(() => this.propertyService.getFilteredProperties$(this.facet, this.query, this.pageNumber))
+      .do(i => this.propertySeoService.addProperties(this.renderer, i))
+      .subscribe(i => this.properties$.next(i));
+
+    this.lastPage$ = this.propertyService.lastPage$;
   }
 
   ngAfterViewInit() {
-    let filteredProperties$: BehaviorSubject<Property[]>;
-
-    this.route.data.forEach((data: { properties: Property[] }) => {
-      filteredProperties$ = new BehaviorSubject(data.properties);
-    });
-
-    this.properties$ = filteredProperties$;
-
-    this.loadFilteredProperties$
-      .map(i => JSON.stringify(i) + this.pageNumber)
-      .distinctUntilChanged()
-      .flatMap(() => this.propertyService.getFilteredProperties$(this.facet, this.pageNumber))
-      .do(i => this.propertySeoService.addProperties(this.renderer, i))
-      .subscribe(i => filteredProperties$.next(i));
-
-    this.applyFacet(this.facet);
-    this.lastPage$ = this.propertyService.lastPage$;
     this.updateMapOptions();
   }
 

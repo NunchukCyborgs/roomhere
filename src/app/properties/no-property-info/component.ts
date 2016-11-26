@@ -3,8 +3,8 @@ import { Property } from '../../shared/dtos/property';
 
 @Component({
   selector: 'no-property-info',
-  styles: [require('./styles.scss').toString()],
-  template: require('./template.html').toString()
+  styleUrls: ['./styles.css'],
+  templateUrl: 'template.html'
 })
 export class NoPropertyInfo {
   @Input() property: Property;

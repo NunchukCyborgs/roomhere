@@ -10,8 +10,8 @@ import { ControlMessages } from '../../shared/components/control-messages/compon
 
 @Component({
   selector: 'reset-password',
-  styles:[require('./styles.scss').toString()],
-  template: require('./template.html').toString(),
+  styleUrls: [],
+  templateUrl: 'template.html',
 })
 export class ResetPassword {
   public success: boolean = false;

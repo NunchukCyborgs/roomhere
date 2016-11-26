@@ -27,7 +27,7 @@ import { RentNow } from '../../app/properties/rent-now/component';
 import { NoPropertyInfo } from '../../app/properties/no-property-info/component';
 
 // Other
-import { App } from '../../app/component';
+import { AppComponent } from '../../app/component';
 import { BigFooter } from '../../app/footer/component';
 import { Welcome } from '../../app/welcome/component';
 import { WelcomeFilters } from '../../app/welcome/filters/component';
@@ -51,6 +51,7 @@ import { Logo } from './components/logo/component';
 import { TopBar } from './components/top-bar/component';
 import { Modal } from './components/modal/component';
 import { StarRating } from './components/star-rating/component';
+import { WelcomeSearch } from './components/welcome-search/component';
 
 // Pipes
 import { SimpleSearchPipe } from './pipes/simple-search.pipe';
@@ -63,7 +64,7 @@ export const DECLARTIONS = [
   Login, Register, ForgotPassword, ResetPassword, PropertyView, PropertyImages, PropertyReviews, EditableReview, PropertyReview,
   SimilarProperties, PropertyPreview, PropertyAmenities, PropertyActionsGroup, PropertyEditImage, PropertyEdit,
   RentNow, BigFooter, Welcome, FAQ, PrivacyPolicy, PropertyMap, Slide, PropertySlider, PropertyFilters, PropertyAccordion,
-  MissingResource, App, Logo, TopBar, NoPropertyInfo,
+  MissingResource, AppComponent, Logo, TopBar, NoPropertyInfo, WelcomeSearch,
   SimpleSearchPipe, Carousel, ControlMessages, ImageUpload, NumberTicker, UploadProgress, Modal, StarRating, WelcomeFilters, LandingPageLandlord,
   // Dashboard, AccountPage, SuperUser, Settings, UserSplash
 ];

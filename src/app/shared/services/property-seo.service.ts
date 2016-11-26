@@ -3,7 +3,7 @@ import { Renderer, Inject, Injectable } from '@angular/core';
 import { DEFAULT_TENANT, DEFAULT_TENANT_PRETTY } from '../../config';
 import { Property, Image } from '../dtos/property';
 import { SeoService } from './seo.service';
-import { SingleFamilyResidence, PostalAddress, GeoCoordinates, createSchema, Review, Tag, Person, RoomhereOrganization, AggregateRating } from '../dtos/seo';
+import { SingleFamilyResidence, PostalAddress, GeoCoordinates, createSchema, Review, Tag, Person, RoomhereOrganization, AggregateRating, BreadCrumbList, ListItem } from '../dtos/seo';
 
 @Injectable()
 export class PropertySeoService {
@@ -77,6 +77,27 @@ export class PropertySeoService {
 
   private addPropertiesSchema(renderer: Renderer, properties: Property[]): void {
     this.addSchema(renderer, createSchema(properties.map(i => this.getPropertySchema(i))), SingleFamilyResidence);
+
+    if (properties.length === 1) {
+      this.addSchema(renderer, createSchema(this.getBreadcrumbsSchema(properties[0])), BreadCrumbList);
+    }
+  }
+
+  private getBreadcrumbsSchema(property: Property): BreadCrumbList {
+    const capeCrumb = new ListItem({
+      position: 1,
+      id: DEFAULT_TENANT,
+      name: DEFAULT_TENANT_PRETTY,
+      image: 'images/white_logo_transparent_background.png',
+    });
+
+    const propCrumb = new ListItem({
+      position: 2,
+      id: `${DEFAULT_TENANT}/${property.slug}`,
+      name: property.slug,
+      image: property.images[0].url,
+    });
+    return new BreadCrumbList(capeCrumb, propCrumb);
   }
 
   private removeSchema(type: string) {

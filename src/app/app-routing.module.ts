@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { MissingResource } from './app/missing-resource/component';
+import { MissingResource } from './missing-resource/component';
 
 @NgModule({
   imports: [
