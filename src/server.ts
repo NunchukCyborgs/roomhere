@@ -106,18 +106,6 @@ export const prebootOptions: PrebootOptions = { appRoot: ['app'], uglify: true, 
     });
   }
 
-<<<<<<< HEAD
-// Routes with html5pushstate
-// ensure routes match client-side-app
-app.get('/', ngApp);
-app.get('/faq', ngApp);
-app.get('/privacy-policy', ngApp);
-app.get('/reset-password', ngApp);
-app.get('/cape-girardeau-landlords', ngApp);
-app.get('/account/', ngApp);
-app.get('/account/*', ngApp);
-app.get(`/${DEFAULT_TENANT}/*`, propertiesRoute);
-=======
   function missingResource(req, res) {
     res.status(404);
 
@@ -138,12 +126,12 @@ app.get(`/${DEFAULT_TENANT}/*`, propertiesRoute);
   app.get('/faq', ngApp);
   app.get('/privacy-policy', ngApp);
   app.get('/reset-password', ngApp);
+  app.get('/cape-girardeau-landlords', ngApp);
   app.get('/account/', ngApp);
   app.get('/account/*', ngApp);
   app.get(`/${DEFAULT_TENANT}/*`, propertiesRoute);
 
   app.get('*', missingResource);
->>>>>>> master
 
 // END CUSTOM
 
