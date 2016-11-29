@@ -40,7 +40,19 @@ export class PropertySlider implements AfterViewInit {
       this.facet.min_price = this.minPrice;
       this.facet.max_price = this.maxPrice;
       this.applyFacet.emit(this.facet);
-      isBrowser && setTimeout(() => new Foundation.Slider($('.slider'), { start: this.minPrice, end: this.maxPrice, initialStart: initialStart, initialEnd: initialEnd }), 2500);
+      
+      const options = {
+        start: Number(this.minPrice),
+        end: Number(this.maxPrice),
+        initialStart: Number(initialStart),
+        initialEnd: Number(initialEnd),
+      }
+
+      isBrowser && setTimeout(() => {
+        // Apologies, this be shitty. No, this is not a merge conflict.
+        new Foundation.Slider($('.slider'), options)
+        new Foundation.Slider($('.slider'), options)
+      }, 2500);
     }
   }
 }
