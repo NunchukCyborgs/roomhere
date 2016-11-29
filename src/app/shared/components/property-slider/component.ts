@@ -11,8 +11,8 @@ import { FacetsService } from '../../services/facets.service';
 export class PropertySlider implements AfterViewInit {
   @Input() facet: PropertyFacet;
   @Output() applyFacet: EventEmitter<any> = new EventEmitter();
-  private minPrice: number;
-  private maxPrice: number;
+  public minPrice: number;
+  public maxPrice: number;
 
   constructor(private facetsService: FacetsService) { }
 
@@ -21,7 +21,7 @@ export class PropertySlider implements AfterViewInit {
     this.facetsService.maxPrice$.subscribe(i => this.updateSlider({ end: i }));
 
     if (isBrowser) {
-      $('body').on("changed.zf.slider", () => {
+      $('body').on('changed.zf.slider', () => {
         this.facet.min_price = Number($('input#sliderOutput1').val());
         this.facet.max_price = Number($('input#sliderOutput2').val());
         this.applyFacet.emit(this.facet);
@@ -33,12 +33,14 @@ export class PropertySlider implements AfterViewInit {
     this.maxPrice = options.end ? options.end : this.maxPrice;
     this.minPrice = options.start ? options.start : this.minPrice;
 
+    const initialStart = this.minPrice > 450 ? this.minPrice : 350;
+    const initialEnd = this.maxPrice < 950 ? this.maxPrice : 950;
+
     if (this.minPrice && this.maxPrice) {
       this.facet.min_price = this.minPrice;
       this.facet.max_price = this.maxPrice;
       this.applyFacet.emit(this.facet);
-      isBrowser && new Foundation.Slider($('.slider'), { start: this.minPrice, end: this.maxPrice });
+      isBrowser && setTimeout(() => new Foundation.Slider($('.slider'), { start: this.minPrice, end: this.maxPrice, initialStart: initialStart, initialEnd: initialEnd }), 2500);
     }
   }
-
 }
