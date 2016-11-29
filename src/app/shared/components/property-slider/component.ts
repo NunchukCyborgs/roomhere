@@ -33,7 +33,7 @@ export class PropertySlider implements AfterViewInit {
     this.maxPrice = options.end ? options.end : this.maxPrice;
     this.minPrice = options.start ? options.start : this.minPrice;
 
-    const initialStart = this.minPrice > 450 ? this.minPrice : 350;
+    const initialStart = this.minPrice > 450 ? this.minPrice : 450;
     const initialEnd = this.maxPrice < 950 ? this.maxPrice : 950;
 
     if (this.minPrice && this.maxPrice) {
