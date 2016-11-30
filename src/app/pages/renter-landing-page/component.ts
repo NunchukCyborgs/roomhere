@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'landing-page-renter',
-  styles: [require('./styles.scss').toString()],
-  template: require('./template.html').toString(),
+  styleUrls: ['./styles.css'],
+  templateUrl: 'template.html'
 })
 export class LandingPageRenter {
 }
