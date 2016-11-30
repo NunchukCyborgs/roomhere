@@ -1,0 +1,304 @@
+
+/*[class*="my-class"]:last-child {
+    float: left;
+}*/
+.purple {
+    color: #391940 !important;
+}
+
+.button.hollow.secondary:focus,
+.button.hollow.secondary:hover {
+    border-color: #3c3c3c !important;
+    background-color: #fff !important;
+    color: #3c3c3c !important;
+}
+
+body {
+    font-family: 'Lato' !important;
+    background: #fff !important;
+}
+body .full-width {
+    max-width: none !important;
+}
+.purple {
+    color: #44254A;
+}
+.italic {
+    font-style: italic;
+}
+
+#one {
+    background: url('/images/pages/landing-pages/section1.jpg');
+    background-position: top left;
+    background-color: #ffffff;
+    background-repeat: no-repeat !important;
+    padding-top: 35px;
+    padding-bottom: 35px;
+    height: 513px;
+}
+#one h2 {
+    font-family: Lato;
+    font-weight: 500;
+}
+#one h2 span {
+    font-stretch:  italic;
+    font-weight:  500;
+    font-family: Lato;
+}
+.cursive {
+    font-family: 'Grand Hotel', cursive !important;
+    font-weight: 500;
+    font-size: 3rem;
+}
+.subheader {
+    font: italic 33.78px / 36px Lato;
+    font-weight: normal;
+}
+#oneContent {
+    padding-top: 30px;
+}
+#oneContent .button {
+    margin-top: 35px;
+}
+#two {
+    background-color: #f9f9f9;
+    color: #848484;
+    padding-top: 43px;
+    padding-bottom: 43px;
+}
+#two h2 {
+    font: 700 33.78px / 36px Lato;
+    font-weight: 700;
+}
+#two li {
+    font: italic 700 16px / 36px Lato;
+}
+#three {
+    background: url('/images/pages/landing-pages/section3.png')no-repeat bottom right;
+    height: 510px;
+    margin-right: 30px;
+    padding-top: 85px;
+    padding-bottom: 85px;
+}
+#three h2 {
+    font: 700 33.78px / 36px Lato;
+    font-weight: 700;
+}
+#four {
+    background-color: #f7f7f7;
+    height: 452px;
+    background: url('/images/pages/landing-pages/locations_map.jpg');
+    background-position: left top;
+    background-repeat: no-repeat;
+}
+#four h2 {
+    font: 700 33.78px / 36px Lato;
+    font-weight: 700;
+}
+#fourContent {
+    margin-top: 84px;
+}
+.yellborderleft {
+    border-left: #f9d950 5px solid;
+    padding-left: 25px;
+    font: 400 19.78px / 22.74px Lato;
+    color: #696969;
+}
+.yellborderright {
+    border-right: #f9d950 5px solid;
+    padding-right: 25px;
+    margin-bottom: 43px !important;
+    font: 400 19.78px / 22.74px Lato;
+    color: #696969;
+}
+#five {
+    background: url('/images/pages/landing-pages/simpleSearch.jpg')no-repeat top right;
+}
+#five h2 {
+    font: 700 36.78px / 43px Lato;
+    margin: 0px !important;
+}
+#five h3 {
+    font-family: Lato;
+    font-weight: 700;
+}
+#five p {
+    font: 400 19.78px / 22.74px Lato;
+}
+#fiveContent {
+    margin-top: 40px;
+    //  padding-right:45px;
+}
+#fiveContent .button {
+    margin-top: 13px;
+}
+#six {
+    background: url('/images/pages/landing-pages/review.jpg')no-repeat top left;
+    background-color: #f7f7f7;
+    h2 {
+        font: 700 36.78px / 43px Lato;
+        margin: 0px !important;
+    }
+    h3 {
+        font-family: Lato;
+        font-weight: 700;
+    }
+    p {
+        font: 400 19.78px / 22.74px Lato;
+    }
+    h4 {
+        font-style: italic;
+        font-family: Lato;
+        line-height: 34.74px;
+    }
+}
+#sixContent {
+    margin-top: 90px;
+    margin-bottom: 79px;
+}
+#seven {
+    color: #fff;
+    background-color: #0C090A;
+}
+footer {
+    padding-top: 34px;
+    padding-bottom: 34px;
+}
+@media screen and (min-width: 40em) and (max-width: 63.9375em) {
+    #nav {
+        height: auto;
+    }
+    #top img {
+        margin-top: 10px;
+    }
+    #oneContent {
+        margin-top: 20px;
+    }
+    #one {
+        height: auto;
+        background: none;
+    }
+    .subheader {
+        font: italic 26px / 28px Lato;
+        font-weight: normal;
+    }
+    #three {
+        background: none;
+        height: auto;
+        margin-right: 0px;
+        padding-top: 25px;
+        padding-bottom: 25px;
+    }
+    #four {
+        background: url('/images/pages/landing-pages/tablet/locations_map.jpg')no-repeat top left;
+        height: auto;
+    }
+    #fourContent {
+        margin-top: 90px;
+        margin-bottom: 75px;
+    }
+    #five {
+        background: url('/images/pages/landing-pages/tablet/simpleSearch.jpg')no-repeat top right;
+    }
+  #fiveContent {
+        margin-top: 50px;
+        margin-bottom: 50px;
+    }
+}
+@media screen and (max-width: 39.9375em) {
+  .subheader {
+    font: italic 21px / 23px Lato;
+    font-weight: normal;
+   }
+    #center {
+        margin: 0px auto;
+    }
+    .column:last-child:not(:first-child),
+    .columns:last-child:not(:first-child),
+    .columns:last-child:not(:first-child) {
+        float: none !important;
+    }
+    #one {
+        background-image: url('/images/pages/landing-pages/mobile/section1.jpg');
+        background-position: bottom center;
+        background-color: #ffffff;
+        background-repeat: no-repeat !important;
+        padding-top: 0px;
+        padding-bottom: 35px;
+        height: 575px;
+    }
+    #one h2 span{
+      font-size: 2rem;
+    }
+    #oneContent {
+        margin-top: 0px;
+        padding-top: 0px;
+    }
+    #oneContent .button {
+        margin-top: 225px;
+    }
+    #two {
+        color: #848484;
+        padding-top: 23px;
+        padding-bottom: 23px;
+    }
+    #two h2 {
+        font: 700 33.78px / 36px Lato;
+        font-weight: 700;
+    }
+    #two p {
+        font: italic 700 16px / 36px Lato;
+    }
+    #three {
+        padding-top: 25px;
+        padding-bottom: 25px;
+        height: auto;
+        background: none;
+    }
+    #four {
+        height: auto;
+        background: none;
+        padding-top: 25px;
+        padding-bottom: 25px;
+        background: #f7f7f7;
+    }
+    #fourContent {
+        margin-top: 0px;
+        height: auto;
+    }
+    #five {
+        background:none;
+        margin-top: 5px;
+        padding-bottom: 30px;
+    }
+    #fiveContent {
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+    #fiveContent .button {
+        margin-top: 25px;
+    }
+    #six {
+        background: none;
+        background-color: #f7f7f7;
+        height: auto;
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+    #sixContent {
+        margin-top: 25px;
+        margin-bottom: 25px;
+        img {
+            background-size: cover;
+        }
+    }
+    .pad40 {
+        padding: 20px;
+    }
+    #pad40 {
+        padding: 20px;
+    }
+    .padtop40 {
+        padding-top: 10px;
+    }
+}
