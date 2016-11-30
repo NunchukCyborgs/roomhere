@@ -2,7 +2,7 @@
 	<div class="row full-width left-margin-fix">
 		<div class="medium-7 small-12 columns">
 			<section id="scrolldiv">
-				<welcome-filters class="welcome-filters" [facet]="facet" (applyFacet)="applyFacet($event)" [(showFilters)]="showFilters"></welcome-filters>
+				<welcome-filters class="welcome-filters" [facet]="facet" (applyFacet)="pageNumber = 1; applyFacet($event)" [(showFilters)]="showFilters"></welcome-filters>
 
 				<section [class.hide]="showFilters">
 					<div class="row">

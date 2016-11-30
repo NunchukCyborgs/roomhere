@@ -6,13 +6,13 @@ import { UserService } from '../../shared/services/user.service';
 
 @Component({
   selector: 'super-user',
-  styles: [require('./styles.scss').toString()],
-  template: require('./template.html').toString()
+  styleUrls: [],
+  templateUrl: 'template.html'
 })
 export class SuperUser {
   public properties$: Observable<Property[]>;
-  public pageNumber: number = 1;
-  public perPage: number = 100;
+  public pageNumber: any = 1;
+  public perPage: any = 100;
   public query: string = '';
 
   constructor(private propertyService: PropertyService, private userService: UserService) {
@@ -27,7 +27,7 @@ export class SuperUser {
     this.loadProperties();
   }
 
-  public nextPage(increment: string) {
+  public nextPage(increment) {
     this.pageNumber += Number(increment);
     this.loadProperties();
   }

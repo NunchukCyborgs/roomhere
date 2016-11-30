@@ -5,7 +5,9 @@
 * `npm install`
 
 ## Development
-* run `npm start` and `npm run watch` in two separate terminals to build your client app, start a web server, and allow file changes to update in realtime
+* run `npm start`, `npm run watch:scss` and `npm run watch` in separate terminals to build your client app, start a web server, and allow file changes to update in realtime.
+
+`npm run watch:scss` will hopefully be built into the main watch command at some point. 
 
 ## Production
 

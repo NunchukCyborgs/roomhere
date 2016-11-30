@@ -9,7 +9,7 @@ import { PropertyView } from '../properties/property-view/component';
 import { MissingResource } from '../missing-resource/component';
 import { ResetPassword } from '../users/reset-password/component';
 import { LandingPageLandlord } from '../pages/landlord-page/component';
-import { LandingPageTenant } from '../pages/tenant-page/component';
+import { LandingPageRenter } from '../pages/renter-landing-page/component';
 
 import { DEFAULT_TENANT } from '../config';
 import { WelcomeResolve } from '../welcome/welcome-resolve.service';
@@ -18,13 +18,16 @@ import { PropertyViewResolve } from '../properties/property-view/property-resolv
 @NgModule({
   imports: [
     RouterModule.forChild([
-      { path: '', component: Welcome, resolve: { properties: WelcomeResolve } }, // Welcome Module
-      { path: `${DEFAULT_TENANT}/:slug`, component: PropertyView, resolve: { property: PropertyViewResolve } }, // Property Module
+      { path: '', component: Welcome }, //, resolve: { properties: WelcomeResolve } }, // Welcome Module
+      { path: 'search', component: Welcome }, //, resolve: { properties: WelcomeResolve } }, // Welcome Module
+      // exception-root-segment-cannot-have-matrix-parameters
+      // Can't use matrix parameters on a root path
+      { path: 'cape-girardeau/:slug', component: PropertyView, resolve: { property: PropertyViewResolve } }, // Property Module
       { path: 'faq', component: FAQ }, // General
       { path: 'privacy-policy', component: PrivacyPolicy }, // General
       { path: 'reset-password', component: ResetPassword }, // General
       { path: 'cape-girardeau-landlords', component: LandingPageLandlord }, // Landing Pages Module
-      { path: 'cape-girardeau-tenants', component: LandingPageTenant }, // Landing Pages Module
+      { path: 'cape-girardeau-rentals', component: LandingPageRenter }, // Landing Pages Module
     ])
   ],
   exports: [

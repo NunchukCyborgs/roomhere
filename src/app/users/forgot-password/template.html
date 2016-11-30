@@ -12,7 +12,7 @@
         </div>
         <p class="text-center"><button type="submit" class="text-center button large" [attr.disabled]="!forgotPasswordForm.valid?true:null">Reset Password</button></p>
     </form>
-    <div [class.hide]="!success || serverErrors.length" class="callout success">
+    <div [class.hide]="!success || serverErrors.length > 0" class="callout success">
         <h5>Success!</h5>
         <p>Check your email ({{forgotPasswordForm.controls.email.value}}) for the link to reset your password</p>
     </div>

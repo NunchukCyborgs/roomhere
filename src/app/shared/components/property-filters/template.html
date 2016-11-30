@@ -29,14 +29,7 @@
         <div class="small-12 large-10 columns">
           <div class="row small-up-1 medium-up-2 large-up-3 js-locations-facet">
             <div *ngFor="let location of locations$ | async" class="column">
-              <label class="amenity-checkbox" [title]="location">
-                <div>
-                  <input [id]="location" type="checkbox" (change)="toggleLocation(location)" [checked]="facet.locations.indexOf(location) !== -1"/>
-                </div>
-                <div>
-                  <span>{{location}}</span>
-                </div>
-              </label>
+              <span class="switch tiny"> <input [id]="location" type="checkbox" class="switch-input" (change)="toggleLocation(location)" [checked]="facet.locations.indexOf(location) !== -1"/> <label [attr.for]="location" class="switch-paddle"> </label> </span> <span class="amen-label amenity-size">{{location}}</span>
             </div>
           </div>
         </div>

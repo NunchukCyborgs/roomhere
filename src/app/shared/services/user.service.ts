@@ -44,7 +44,7 @@ export class UserService {
   }
 
   public login(user: User) {
-    return this.http.post(`${BASE_API_URL}/auth/sign_in`, user)
+    return this.http.post(`${BASE_API_URL}/auth/sign_in`, user, {rawResponse: true})
       .do((i: Response) => this.handleLogin(i))
       .do(() => this.me$.subscribe(i => this.redirectLandlord(i)));
   }
@@ -57,28 +57,28 @@ export class UserService {
 
   public register(user: User): Observable<Response> {
     user.confirm_success_url = `${BASE_URL}/account/registration-success`;
-    return this.http.post(`${BASE_API_URL}/auth`, user);
+    return this.http.post(`${BASE_API_URL}/auth`, user, {rawResponse: true});
   }
 
   public sendResetPasswordLink(user: User): Observable<Response> {
     user.redirect_url = `${BASE_URL}/reset-password`;
-    return this.http.post(`${BASE_API_URL}/auth/password`, user);
+    return this.http.post(`${BASE_API_URL}/auth/password`, user, {rawResponse: true});
   }
 
   public resetPassword(user: User): Observable<Response> {
     user.redirect_url = this.getRedirectUrl();
     user.email = this.persist.get('uid');
-    return this.http.patch(`${BASE_API_URL}/auth/password`, user);
+    return this.http.patch(`${BASE_API_URL}/auth/password`, user, {rawResponse: true});
   }
 
   public loadContactsByLicenseId(licenseId: string): Observable<Contact[]> {
     // Super only API
     return this.http.get(`${BASE_API_URL}/licenses/${licenseId}`)
-      .map(i => i.json().contacts);
+      .map(i => i.contacts);
   }
 
   public setLicenseId(licenseId: string): Observable<Response> {
-    return this.http.post(`${BASE_API_URL}/users/licensing`, { license_id: licenseId });
+    return this.http.post(`${BASE_API_URL}/users/licensing`, { license_id: licenseId }, {rawResponse: true});
   }
 
   public setLicenseIds(licenseIds: string[]): Observable<Response[]> {
@@ -105,7 +105,7 @@ export class UserService {
 
     return this.hasAuth$.filter(i => i)
       .flatMap(() => this.http.get(`${BASE_API_URL}/me`))
-      .map(i => <Me>i.json())
+      .map(i => <Me>i)
       .do(i => this.me$.next(this._me = i))
       .flatMap(i => this.me$);
   }

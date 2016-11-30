@@ -7,8 +7,8 @@ declare let $ : any;
 
 @Component({
   selector: 'property-images',
-  styles: [require('./styles.scss').toString()],
-  template: require('./template.html').toString()
+  styleUrls: ['./styles.css'],
+  templateUrl: 'template.html'
 })
 export class PropertyImages {
   @Input() images: Array<{id: number, url: string}>;
@@ -17,7 +17,7 @@ export class PropertyImages {
   public BASE_API_URL: string = BASE_API_URL;
   public slides: Array<{image: string, text: string}>
 
-  ngOnChanges() {
+  ngOnChanges(changes: any) {
     this.slides = this.images.map(i => {
         return {image: i.url, text: ''};
       });

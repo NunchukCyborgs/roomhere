@@ -10,8 +10,8 @@ import { ControlMessages } from '../../shared/components/control-messages/compon
 
 @Component({
   selector: 'settings',
-  styles: [require('./styles.scss').toString()],
-  template: require('./template.html').toString(),
+  styleUrls: ['./styles.css'],
+  templateUrl: 'template.html',
 })
 export class Settings {
   @Output() success: EventEmitter<any> = new EventEmitter<any>();

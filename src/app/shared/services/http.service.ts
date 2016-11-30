@@ -3,29 +3,47 @@ import { Http, Headers, Response, ResponseOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs';
 import { isBrowser } from 'angular2-universal';
-import { PersistenceService } from './persistence.service'
+import { PersistenceService } from './persistence.service';
+import { CacheService } from './cache.service';
 
 @Injectable()
 export class HttpService {
-  constructor(private http: Http, private persist: PersistenceService) { }
+  constructor(private http: Http, private persist: PersistenceService, private cache: CacheService) { }
 
-  public get(url: string): Observable<any> {
-    return this.http.get(url, { headers: this.headers })
+  public get(url: string, {rawResponse}: { rawResponse?: boolean } = {}): Observable<any> {
+    const key = url;
+    const cache = this.getFromCache(key);
+    
+    return cache ? cache : this.http
+      .get(url, { headers: this.headers })
+      .map(i => rawResponse ? i : i.json())
+      .do(i => !rawResponse && this.cache.set(key, i))
+      .catch((err, caught) => this.handleError(err, url))
+  }
+
+  public delete(url: string, {rawResponse}: { rawResponse?: boolean } = {}): Observable<any> {
+    return this.http
+      .delete(url, { headers: this.headers })
+      .map(i => rawResponse ? i : i.json())
       .catch((err, caught) => this.handleError(err, url));
   }
 
-  public delete(url: string): Observable<any> {
-    return this.http.delete(url, { headers: this.headers })
+  public post(url: string, obj: any, {rawResponse}: { rawResponse?: boolean } = {}): Observable<any> {
+    // Should probably only cache on the GETs
+
+    const key = url + JSON.stringify(obj);
+    const cache = url.indexOf('filtered_results') > -1 ? this.getFromCache(key) : null;
+    // This is the only url I want to cache at this point
+
+    return cache ? cache : this.http.post(url, JSON.stringify(obj), { headers: this.headers })
+      .map(i => rawResponse ? i : i.json())
+      .do(i => !rawResponse && this.cache.set(key, i))
       .catch((err, caught) => this.handleError(err, url));
   }
 
-  public post(url: string, obj: any): Observable<any> {
-    return this.http.post(url, JSON.stringify(obj), { headers: this.headers })
-      .catch((err, caught) => this.handleError(err, url));
-  }
-
-  public patch(url: string, obj: any): Observable<any> {
+  public patch(url: string, obj: any, {rawResponse}: { rawResponse?: boolean } = {}): Observable<any> {
     return this.http.patch(url, JSON.stringify(obj), { headers: this.headers })
+      .map(i => rawResponse ? i : i.json())
       .catch((err, caught) => this.handleError(err, url));
   }
 
@@ -34,11 +52,6 @@ export class HttpService {
     this.persist.set('client', client || '');
     this.persist.set('uid', uid || '');
     this.persist.set('token-type', 'Bearer');
-  }
-
-  private handleError(err, url): Observable<Response> {
-    console.log(`caught http error of ${err.toString().substr(0, 50)} going to ${url}`);
-    return Observable.of(new Response(new ResponseOptions({ url: url, body: err.json(), status: err.status })));
   }
 
   public get headers(): Headers {
@@ -50,5 +63,14 @@ export class HttpService {
     headers.set('client', this.persist.get('client'));
     headers.set('uid', this.persist.get('uid'));
     return headers;
+  }
+
+  private handleError(err, url): Observable<Response> {
+    console.log(`caught http error of ${err.toString().substr(0, 50)} going to ${url}`);
+    return Observable.of(new Response(new ResponseOptions({ url: url, body: err.json(), status: err.status })));
+  }
+
+  private getFromCache(key: string): any {
+    return this.cache.has(key) ? Observable.of(this.cache.get(key)) : undefined;
   }
 }

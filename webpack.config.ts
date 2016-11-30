@@ -1,4 +1,6 @@
 const webpack = require('webpack');
+var clone = require('js.clone');
+var webpackMerge = require('webpack-merge');
 const path = require('path');
 const resolveNgRoute = require('@angularclass/resolve-angular-routes');
 const autoprefixer = require('autoprefixer');
@@ -29,6 +31,7 @@ const whitelist = [
   'foundation-mq',
   '#intercom-frame + span',
   'reveal-overlay',
+  'map-marker',
 
   // Amenity icon shit. Accessed programatically
   'fa fa-paw',
@@ -61,27 +64,19 @@ const whitelist = [
   'is-dropdown-submenu-item',
 ];
 
-const commonConfig = {
-  resolve: {
-    extensions: ['', '.ts', '.js', '.json']
-  },
-  module: {
-    loaders: [
-      { test: /\.ts$/, loaders: ['awesome-typescript-loader', 'angular2-template-loader'] },
-      { test: /\.html$/, loader: 'html-loader', query: htmlQuery },
-      { test: /\.css$/, loaders: ['css-loader?minimize-autoprefixer', 'postcss-loader'] },
-      { test: /\.json$/, loader: 'raw-loader' },
-      { test: /app\.scss$/, loader: extractCritical.extract(['css-loader?minimize-autoprefixer', 'postcss-loader', 'sass-loader']) },
-      { test: /deferred\.scss$/, loader: extractDeferred.extract(['css-loader?minimize-autoprefixer', 'postcss-loader', 'sass-loader']) },
-      { test: /styles\.scss$/, loaders: ['css-loader?minimize-autoprefixer', 'postcss-loader', 'sass-loader'] },
-      { test: /\.woff[\?]?.*$/, loader: 'url-loader?limit=10000&mimetype=application/font-woff' },
-      { test: /\.ttf[\?]?.*$/, loader: 'url-loader?limit=10000&mimetype=application/octet-stream' },
-      { test: /\.eot[\?]?.*$/, loader: 'file-loader' },
-      { test: /\.svg[\?]?.*$/, loader: 'url-loader?limit=10000&mimetype=image/svg+xml' },
-    ],
-  },
-  plugins: [
-    new webpack.DefinePlugin({
+
+
+export var commonPlugins = [
+  new webpack.ContextReplacementPlugin(
+    // The (\\|\/) piece accounts for path separators in *nix and Windows
+    /angular(\\|\/)core(\\|\/)src(\\|\/)linker/,
+    root('./src'),
+    {
+      // your Angular Async Route paths relative to this root directory
+    }
+  ),
+
+  new webpack.DefinePlugin({
       IS_PROD: IS_PROD,
       BASE_API_URL: JSON.stringify(BASE_API_URL),
       BASE_URL: JSON.stringify(BASE_URL),
@@ -118,10 +113,48 @@ const commonConfig = {
         whitelist: whitelist,
       }
     }),
+
+];
+
+export var commonConfig = {
+  // https://webpack.github.io/docs/configuration.html#devtool
+  devtool: 'source-map',
+  resolve: {
+    extensions: ['.ts', '.js', '.json'],
+    modules: [ root('node_modules') ],
+  },
+  context: __dirname,
+  output: {
+    publicPath: '', //path.resolve(__dirname),
+    filename: '[name].bundle.js'
+  },
+  module: {
+    loaders: [
+      { test: /\.ts$/, loaders: ['awesome-typescript-loader', 'angular2-template-loader'] },
+      { test: /\.html$/, loader: 'html-loader', query: htmlQuery },
+      { test: /styles\.css$/, loaders: ['raw-loader'] },
+      { test: /\.json$/, loader: 'raw-loader' },
+      { test: /app\.scss$/, loader: extractCritical.extract(['css-loader?minimize-autoprefixer', 'postcss-loader', 'sass-loader']) },
+      { test: /deferred\.scss$/, loader: extractDeferred.extract(['css-loader?minimize-autoprefixer', 'postcss-loader', 'sass-loader']) },
+      { test: /styles\.scss$/, loaders: ['css-loader?minimize-autoprefixer', 'postcss-loader', 'sass-loader'] },
+      { test: /\.woff[\?]?.*$/, loader: 'url-loader?limit=10000&mimetype=application/font-woff' },
+      { test: /\.ttf[\?]?.*$/, loader: 'url-loader?limit=10000&mimetype=application/octet-stream' },
+      { test: /\.eot[\?]?.*$/, loader: 'file-loader' },
+      { test: /\.svg[\?]?.*$/, loader: 'url-loader?limit=10000&mimetype=image/svg+xml' },
+    ],
+  },
+  plugins: [
+    // Use commonPlugins.
   ]
+
 };
 
-var clientConfig = {
+// Client.
+export var clientPlugins = [
+
+];
+
+export var clientConfig = {
   target: 'web',
   entry: './src/client',
   output: {
@@ -129,23 +162,7 @@ var clientConfig = {
   },
   node: {
     global: true,
-    __dirname: true,
-    __filename: true,
-    process: true,
-    Buffer: false
-  }
-};
-
-var serverConfig = {
-  target: 'node',
-  entry: './src/server', // use the entry file of the node server if everything is ts rather than es5
-  output: {
-    path: root('dist/server'),
-    libraryTarget: 'commonjs2'
-  },
-  externals: checkNodeImport,
-  node: {
-    global: true,
+    crypto: 'empty',
     __dirname: true,
     __filename: true,
     process: true,
@@ -153,37 +170,69 @@ var serverConfig = {
   }
 };
 
-// Default config
-var defaultConfig = {
-  context: __dirname,
-  devtool: 'source-map',
-  resolve: {
-    root: root('/src')
-  },
-  output: {
-    publicPath: path.resolve(__dirname),
-    filename: 'index.js'
-  }
-}
 
-var webpackMerge = require('webpack-merge');
-module.exports = [
+// Server.
+export var serverPlugins = [
+
+];
+
+export var serverConfig = {
+  target: 'node',
+  entry: './src/server', // use the entry file of the node server if everything is ts rather than es5
+  output: {
+    filename: 'index.js',
+    path: root('dist/server'),
+    libraryTarget: 'commonjs2'
+  },
+  module: {
+    loaders: [
+      { test: /@angular(\\|\/)material/, loader: "imports-loader?window=>global" }
+    ],
+  },
+  externals: includeClientPackages(
+    /@angularclass|@angular|angular2-|ng2-|ng-|@ng-|angular-|@ngrx|ngrx-|@angular2|ionic|-angular2|-ng2|-ng/
+  ),
+  node: {
+    global: true,
+    crypto: true,
+    __dirname: true,
+    __filename: true,
+    process: true,
+    Buffer: true
+  }
+};
+
+export default [
   // Client
-  webpackMerge({}, defaultConfig, commonConfig, clientConfig),
+  webpackMerge(clone(commonConfig), clientConfig, { plugins: clientPlugins.concat(commonPlugins) }),
 
   // Server
-  webpackMerge({}, defaultConfig, commonConfig, serverConfig)
-]
+  webpackMerge(clone(commonConfig), serverConfig, { plugins: serverPlugins.concat(commonPlugins) })
+];
+
+
+
 
 // Helpers
-function checkNodeImport(context, request, cb) {
-  if (!path.isAbsolute(request) && request.charAt(0) !== '.') {
-    cb(null, 'commonjs ' + request); return;
-  }
-  cb();
+export function includeClientPackages(packages, localModule?: string[]) {
+  return function(context, request, cb) {
+    if (localModule instanceof RegExp && localModule.test(request)) {
+      return cb();
+    }
+    if (packages instanceof RegExp && packages.test(request)) {
+      return cb();
+    }
+    if (Array.isArray(packages) && packages.indexOf(request) !== -1) {
+      return cb();
+    }
+    if (!path.isAbsolute(request) && request.charAt(0) !== '.') {
+      return cb(null, 'commonjs ' + request);
+    }
+    return cb();
+  };
 }
 
-function root(args) {
+export function root(args) {
   args = Array.prototype.slice.call(arguments, 0);
   return path.join.apply(path, [__dirname].concat(args));
 }

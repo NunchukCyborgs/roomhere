@@ -296,6 +296,10 @@ input[type='number'] {
     }
 }
 
+.white {
+  color: #fff;
+}
+
 .purple {
     color: #44254A;
 }
@@ -315,4 +319,34 @@ input[type='number'] {
 #intercom-frame + span {
     display: none;
     // Causes a viewport problem on mobile chrome
+}
+
+.display-inline {
+  display: inline;
+}
+
+
+@include breakpoint(small up) {
+  .menu.small-vertical {
+    @include dropdown-menu-direction(vertical);
+  }
+  .menu.small-horizontal {
+    @include dropdown-menu-direction(horizontal);
+  }
+}
+@include breakpoint(medium up) {
+  .menu.medium-vertical {
+    @include dropdown-menu-direction(vertical);
+  }
+  .menu.medium-horizontal {
+    @include dropdown-menu-direction(horizontal);
+  }
+}
+@include breakpoint(large up) {
+  .menu.large-vertical {
+    @include dropdown-menu-direction(vertical);
+  }
+  .menu.large-horizontal {
+    @include dropdown-menu-direction(horizontal);
+  }
 }
