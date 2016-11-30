@@ -35,6 +35,7 @@ import { FAQ } from '../../app/faq/component';
 import { PrivacyPolicy } from '../../app/privacy-policy/component';
 import { MissingResource } from '../../app/missing-resource/component';
 import { LandingPageLandlord } from '../pages/landlord-page/component';
+import { LandingPageRenter } from '../pages/renter-landing-page/component';
 
 // Components
 import { Carousel } from './components/carousel/component';
@@ -65,7 +66,8 @@ export const DECLARTIONS = [
   SimilarProperties, PropertyPreview, PropertyAmenities, PropertyActionsGroup, PropertyEditImage, PropertyEdit,
   RentNow, BigFooter, Welcome, FAQ, PrivacyPolicy, PropertyMap, Slide, PropertySlider, PropertyFilters, PropertyAccordion,
   MissingResource, AppComponent, Logo, TopBar, NoPropertyInfo, WelcomeSearch,
-  SimpleSearchPipe, Carousel, ControlMessages, ImageUpload, NumberTicker, UploadProgress, Modal, StarRating, WelcomeFilters, LandingPageLandlord,
+  SimpleSearchPipe, Carousel, ControlMessages, ImageUpload, NumberTicker, UploadProgress, Modal, StarRating, WelcomeFilters,
+  LandingPageLandlord, LandingPageRenter
   // Dashboard, AccountPage, SuperUser, Settings, UserSplash
 ];
 
