@@ -126,6 +126,8 @@ export const prebootOptions: PrebootOptions = { appRoot: ['app'], uglify: true, 
   app.get('/faq', ngApp);
   app.get('/privacy-policy', ngApp);
   app.get('/reset-password', ngApp);
+  // app.get('/cape-girardeau-landlords', ngApp);
+  app.get('/cape-girardeau-rentals', ngApp);
   app.get('/account/', ngApp);
   app.get('/account/*', ngApp);
   app.get(`/${DEFAULT_TENANT}/*`, propertiesRoute);

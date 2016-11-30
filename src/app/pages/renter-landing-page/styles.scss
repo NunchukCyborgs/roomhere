@@ -1,0 +1,259 @@
+.button.hollow.secondary:focus,
+.button.hollow.secondary:hover {
+    border-color: #3c3c3c !important;
+    background-color: #fff !important;
+    color: #3c3c3c !important;
+}
+
+#main-header {
+    background: url('/images/pages/landing-pages/section1.jpg');
+    background-position: top left;
+    background-repeat: no-repeat !important;
+    padding-top: 35px;
+    padding-bottom: 35px;
+    height: 513px;
+}
+#main-header h2 {
+    font-family: Lato;
+    font-weight: 500;
+}
+#main-header h2 span {
+    font-stretch:  italic;
+    font-weight:  500;
+    font-family: Lato;
+}
+.cursive {
+    font-family: 'Grand Hotel', cursive !important;
+    font-weight: 500;
+    font-size: 3rem;
+}
+.subheader {
+    font: italic 33.78px / 36px Lato;
+    font-weight: normal;
+}
+#main-header .inner-content {
+    padding-top: 30px;
+}
+#main-header .inner-content .button {
+    margin-top: 35px;
+}
+#feature-list {
+    padding-top: 43px;
+    padding-bottom: 43px;
+}
+#feature-list h2 {
+    font: 700 33.78px / 36px Lato;
+    font-weight: 700;
+}
+#feature-list li {
+    font: italic 700 16px / 36px Lato;
+}
+#three {
+    background: url('/images/pages/landing-pages/section3.png')no-repeat bottom right;
+    height: 510px;
+    margin-right: 30px;
+    padding-top: 85px;
+    padding-bottom: 85px;
+}
+#four {
+    height: 452px;
+    background: url('/images/pages/landing-pages/locations_map.jpg');
+    background-position: left top;
+    background-repeat: no-repeat;
+}
+#four h2 {
+    font: 700 33.78px / 36px Lato;
+    font-weight: 700;
+}
+#fourContent {
+    margin-top: 84px;
+}
+.yellborderleft {
+    border-left: #f9d950 5px solid;
+    padding-left: 25px;
+    font: 400 19.78px / 22.74px Lato;
+}
+.yellborderright {
+    border-right: #f9d950 5px solid;
+    padding-right: 25px;
+    margin-bottom: 43px !important;
+    font: 400 19.78px / 22.74px Lato;
+}
+#five {
+    background: url('/images/pages/landing-pages/simpleSearch.jpg')no-repeat top right;
+}
+#five h2 {
+    margin: 0px !important;
+}
+#fiveContent {
+    margin-top: 40px;
+}
+#fiveContent .button {
+    margin-top: 13px;
+}
+#six {
+  background: url('/images/pages/landing-pages/review.jpg')no-repeat top left;
+}
+#sixContent {
+    margin-top: 90px;
+    margin-bottom: 79px;
+}
+#seven {
+  padding: 80px 0 20px 0;
+}
+
+section {
+   h2 {
+        font: 700 36.78px / 43px Lato;
+        margin: 0px !important;
+    }
+    h3 {
+        font-family: Lato;
+        font-weight: 700;
+    }
+    p {
+        font: 400 19.78px / 22.74px Lato;
+    }
+    h4 {
+        font-style: italic;
+        font-family: Lato;
+        line-height: 34.74px;
+    }
+}
+
+@media screen and (min-width: 40em) and (max-width: 63.9375em) {
+    #nav {
+        height: auto;
+    }
+    #top img {
+        margin-top: 10px;
+    }
+    #main-header {
+        height: auto;
+        background: none;
+
+      .inner-content {
+        margin-top: 20px;
+      }
+    }
+    .subheader {
+        font: italic 26px / 28px Lato;
+        font-weight: normal;
+    }
+    #three {
+        background: none;
+        height: auto;
+        margin-right: 0px;
+        padding-top: 25px;
+        padding-bottom: 25px;
+    }
+    #four {
+        background: url('/images/pages/landing-pages/tablet/locations_map.jpg')no-repeat top left;
+        height: auto;
+    }
+    #fourContent {
+        margin-top: 90px;
+        margin-bottom: 75px;
+    }
+    #five {
+        background: url('/images/pages/landing-pages/tablet/simpleSearch.jpg')no-repeat top right;
+    }
+  #fiveContent {
+        margin-top: 50px;
+        margin-bottom: 50px;
+    }
+}
+@media screen and (max-width: 39.9375em) {
+  .subheader {
+    font: italic 21px / 23px Lato;
+    font-weight: normal;
+   }
+    #center {
+        margin: 0px auto;
+    }
+    .column:last-child:not(:first-child),
+    .columns:last-child:not(:first-child),
+    .columns:last-child:not(:first-child) {
+        float: none !important;
+    }
+    #main-header {
+        background-image: url('/images/pages/landing-pages/mobile/section1.jpg');
+        background-position: bottom center;
+        background-repeat: no-repeat !important;
+        padding-top: 0px;
+        padding-bottom: 35px;
+        height: 575px;
+    }
+    #main-header h2 span{
+      font-size: 2rem;
+    }
+    #main-header .inner-content {
+        margin-top: 0px;
+        padding-top: 0px;
+    }
+    #main-header .inner-content .button {
+        margin-top: 225px;
+    }
+    #feature-list {
+        padding-top: 23px;
+        padding-bottom: 23px;
+    }
+    #feature-list h2 {
+        font: 700 33.78px / 36px Lato;
+        font-weight: 700;
+    }
+    #feature-list p {
+        font: italic 700 16px / 36px Lato;
+    }
+    #three {
+        padding-top: 25px;
+        padding-bottom: 25px;
+        height: auto;
+        background: none;
+    }
+    #four {
+        height: auto;
+        background: none;
+        padding-top: 25px;
+        padding-bottom: 25px;
+        background: #f7f7f7;
+    }
+    #fourContent {
+        margin-top: 0px;
+        height: auto;
+    }
+    #five {
+        background:none;
+        margin-top: 5px;
+        padding-bottom: 30px;
+    }
+    #fiveContent {
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+    #fiveContent .button {
+        margin-top: 25px;
+    }
+    #six {
+        background: none;
+        height: auto;
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+    #sixContent {
+        margin-top: 25px;
+        margin-bottom: 25px;
+        img {
+            background-size: cover;
+        }
+    }
+    .pad40 {
+        padding: 20px;
+    }
+    #pad40 {
+        padding: 20px;
+    }
+    .padtop40 {
+        padding-top: 10px;
+    }
+}

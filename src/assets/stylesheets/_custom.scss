@@ -296,6 +296,10 @@ input[type='number'] {
     }
 }
 
+.background-white {
+  background-color: #fff !important;
+}
+
 .white {
   color: #fff;
 }
@@ -323,4 +327,30 @@ input[type='number'] {
 
 .display-inline {
   display: inline;
+}
+
+
+@include breakpoint(small up) {
+  .menu.small-vertical {
+    @include dropdown-menu-direction(vertical);
+  }
+  .menu.small-horizontal {
+    @include dropdown-menu-direction(horizontal);
+  }
+}
+@include breakpoint(medium up) {
+  .menu.medium-vertical {
+    @include dropdown-menu-direction(vertical);
+  }
+  .menu.medium-horizontal {
+    @include dropdown-menu-direction(horizontal);
+  }
+}
+@include breakpoint(large up) {
+  .menu.large-vertical {
+    @include dropdown-menu-direction(vertical);
+  }
+  .menu.large-horizontal {
+    @include dropdown-menu-direction(horizontal);
+  }
 }
