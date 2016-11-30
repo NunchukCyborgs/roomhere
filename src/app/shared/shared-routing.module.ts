@@ -27,7 +27,7 @@ import { PropertyViewResolve } from '../properties/property-view/property-resolv
       { path: 'privacy-policy', component: PrivacyPolicy }, // General
       { path: 'reset-password', component: ResetPassword }, // General
       { path: 'cape-girardeau-landlords', component: LandingPageLandlord }, // Landing Pages Module
-      { path: 'cape-girardeau-rentals', component: LandingPageRenter },
+      { path: 'cape-girardeau-rentals', component: LandingPageRenter }, // Landing Pages Module
     ])
   ],
   exports: [
