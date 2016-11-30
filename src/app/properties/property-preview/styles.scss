@@ -42,8 +42,8 @@ h6{
   height: 100%;
   img {
     height: auto;
-    min-height:300px;
-    max-height: 300px !important;
+    min-height:200px;
+    max-height: 200px !important;
   }
   h6{
   font-size: 14px !important;
@@ -60,7 +60,7 @@ h6{
     img {
       height: auto;
       min-height:auto;
-      max-height: none !important;
+      max-height: 300px !important;
     }
   }
 }

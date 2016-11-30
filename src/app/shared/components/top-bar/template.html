@@ -28,7 +28,7 @@
 				</li>
 				<li role="menuitem" *ngIf="hasAuth && !isLandlord">
 					<a (click)="closeMenu()" class="aPadTop" [routerLinkActive]="['active', 'router-link-active']" [routerLink]="['/account/become-a-landlord']">
-						<span>Become a Landlord</span>
+						Become a Landlord
 					</a>
 				</li>
 				<li role="menuitem" *ngIf="!hasAuth">
