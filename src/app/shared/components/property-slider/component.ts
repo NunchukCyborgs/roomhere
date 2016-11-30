@@ -40,7 +40,7 @@ export class PropertySlider implements AfterViewInit {
       this.facet.min_price = this.minPrice;
       this.facet.max_price = this.maxPrice;
       this.applyFacet.emit(this.facet);
-      
+
       const options = {
         start: Number(this.minPrice),
         end: Number(this.maxPrice),
@@ -49,9 +49,13 @@ export class PropertySlider implements AfterViewInit {
       }
 
       isBrowser && setTimeout(() => {
-        // Apologies, this be shitty. No, this is not a merge conflict.
-        new Foundation.Slider($('.slider'), options)
-        new Foundation.Slider($('.slider'), options)
+        const slider = $('.slider');
+
+        if (slider.length) {
+          // Apologies, this be shitty. No, this is not a merge conflict.
+          new Foundation.Slider(slider, options)
+          new Foundation.Slider(slider, options)
+        }
       }, 2500);
     }
   }
