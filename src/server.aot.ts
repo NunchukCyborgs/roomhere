@@ -4,12 +4,18 @@
 // if you are including modules that modify Promise, such as NewRelic,, you must include them before polyfills
 import 'angular2-universal-polyfills';
 import 'ts-helpers';
-import './___workaround.node'; // temporary until 2.1.1 things are patched in Core
+import './__workaround.node'; // temporary until 2.1.1 things are patched in Core
 
+import * as fs from 'fs';
 import * as path from 'path';
 import * as express from 'express';
-import * as bodyParser from 'body-parser';
-import * as cookieParser from 'cookie-parser';
+import * as morgan from 'morgan';
+import * as mcache from 'memory-cache';
+
+const { gzipSync } = require('zlib');
+const accepts = require('accepts');
+const { compressSync } = require('iltorb');
+const interceptor = require('express-interceptor');
 
 // Angular 2
 import { enableProdMode } from '@angular/core';
@@ -17,7 +23,10 @@ import { enableProdMode } from '@angular/core';
 import { createEngine } from 'angular2-express-engine';
 
 // App
-import { MainModuleNgFactory } from './app/app.node.module.ngfactory';
+import { MainModuleNgFactory } from './node.module.ngfactory';
+
+import { serveStaticFiles, watchRoutes, setOptions, useMiddlewears } from './server-config';
+import { honeybadgerConfigure, honeybadgerBefore, honeybadgerAfter } from './honeybadger';
 
 // enable prod for faster renders
 enableProdMode();
@@ -36,49 +45,58 @@ app.engine('.html', createEngine({
     // stateless providers only since it's shared
   ]
 }));
-app.set('port', process.env.PORT || 3000);
-app.set('views', __dirname);
-app.set('view engine', 'html');
 
-app.use(cookieParser('Angular 2 Universal'));
-app.use(bodyParser.json());
+setOptions.call(this, app);
 
-// Serve static files
-app.use('/assets', express.static(path.join(__dirname, 'assets'), {maxAge: 30}));
-app.use(express.static(path.join(ROOT, 'dist/client'), {index: false}));
+honeybadgerConfigure.call(this);
 
-import {prebootOptions} from './server';
+app.use(honeybadgerBefore);
+useMiddlewears.call(this, app);
+app.use(interceptor((req, res)=>({
+  // don't compress responses with this request header 
+  isInterceptable: () => (!req.headers['x-no-compression']),
+  intercept: ( body, send ) => {
+    const encodings  = new Set(accepts(req).encodings());
+    const bodyBuffer = new Buffer(body);
+    // url specific key for response cache
+    const key = '__response__' + req.originalUrl || req.url;
+    let output = bodyBuffer;
+    // check if cache exists
+    if (mcache.get(key) === null) {
+      // check for encoding support
+      if (encodings.has('br')) {
+        // brotli
+        res.setHeader('Content-Encoding', 'br');
+        output = compressSync(bodyBuffer);
+        mcache.put(key, {output, encoding: 'br'});
+      } else if (encodings.has('gzip')) {
+        // gzip
+        res.setHeader('Content-Encoding', 'gzip');
+        output = gzipSync(bodyBuffer);
+        mcache.put(key, {output, encoding: 'gzip'});
+      }
+    } else {
+      const { output, encoding } = mcache.get(key);
+      res.setHeader('Content-Encoding', encoding);
+      send(output);
+    }
+    send(output);
+  }
+})));
 
-function ngApp(req, res) {
-  res.render('index', {
-    req,
-    res,
-    // time: true, // use this to determine what part of your app is slow only in development
-    preboot: prebootOptions,
-    baseUrl: '/',
-    requestUrl: req.originalUrl,
-    originUrl: `http://localhost:${ app.get('port') }`
-  });
-}
-// Routes with html5pushstate
-// ensure routes match client-side-app
-app.get('/', ngApp);
-app.get('/about', ngApp);
-app.get('/about/*', ngApp);
-app.get('/home', ngApp);
-app.get('/home/*', ngApp);
+app.use(honeybadgerAfter);
 
+const accessLogStream = fs.createWriteStream(ROOT + '/morgan.log', {flags: 'a'})
 
-app.get('*', function(req, res) {
-  res.setHeader('Content-Type', 'application/json');
-  var pojo = { status: 404, message: 'No Content' };
-  var json = JSON.stringify(pojo, null, 2);
-  res.status(404).send(json);
-});
+app.use(morgan('common', {
+  skip: (req, res) => res.statusCode < 400,
+  stream: accessLogStream
+}));
+
+serveStaticFiles.call(this, app, express, path, ROOT);
+watchRoutes.call(this, app);
 
 // Server
-// let server = app.listen(app.get('port'), () => {
-//   console.log(`Listening server.aot on: http://localhost:${server.address().port}`);
-// });
-
-console.log('Trying to listen server.aot on ', app.get('port'));
+let server = app.listen(app.get('port'), () => {
+  console.log(`Listening on: http://localhost:${server.address().port}`);
+});

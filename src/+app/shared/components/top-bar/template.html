@@ -1,0 +1,88 @@
+<div>
+	<div class="title-bar" data-responsive-toggle="main-menu" data-hide-for="large">
+		<button class="menu-icon" type="button" data-toggle=""></button>
+		<div class="float-right">
+			<h5 *ngIf="name" class="display-inline"><small>Hello, <span class="white">{{name}}</span></small></h5>
+			<div class="title-bar-title">Roomhere</div>
+		</div>
+	</div>
+	<div class="top-bar" id="main-menu">
+		<div class="top-bar-left">
+			<ul class="menu nohover vertical large-horizontal dropdown" data-responsive-menu="drilldown medium-dropdown" role="menubar"
+				data-dropdown-menu="mfvu74-dropdown-menu">
+				<li role="menuitem">
+					<roomhere-logo></roomhere-logo>
+				</li>
+				<li class="has-form">
+					<welcome-search></welcome-search> 
+				</li>
+			</ul>
+		</div>
+		<div class="top-bar-right margRight">
+			<ul class="menu vertical large-horizontal dropdown" data-dropdown-menu>
+				<li role="menuitem">
+					<a (click)="closeMenu()" class="aPadTop" [routerLink]="['/']">Home</a>
+				</li>
+				<li role="menuitem" *ngIf="hasAuth && isLandlord">
+					<a (click)="closeMenu()" class="aPadTop" [routerLink]="['/account/dashboard']">Dashboard</a>
+				</li>
+				<li role="menuitem" *ngIf="hasAuth && !isLandlord">
+					<a (click)="closeMenu()" class="aPadTop" [routerLink]="['/account/become-a-landlord']">
+						Become a Landlord
+					</a>
+				</li>
+				<li role="menuitem" *ngIf="!hasAuth">
+					<a (click)="closeMenu()" class="aPadTop" data-open="RegisterModal" id="SignupLink">
+            Sign Up
+          </a>
+				</li>
+
+				<li class="hide-for-small-only">
+					<a class="fa fa-cog"></a>
+					<ul class="menu">
+						<li *ngIf="hasAuth && isLandlord" role="menuitem"><a class="aPadTop" [routerLink]="['/account/landlord-settings']">Settings</a></li>
+						<li role="menuitem"><a *ngIf="hasAuth" (click)="logout.emit(true); closeMenu()">Logout</a></li>
+						<li role="menuitem"><a *ngIf="!hasAuth" (click)="closeMenu()" class="aPadTop" data-open="LoginModal">Login</a></li>
+						<li role="menuitem">
+							<a (click)="closeMenu()" [routerLink]="['/p/faq']">FAQ</a>
+						</li>
+						<li role="menuitem">
+							<a (click)="closeMenu()" href="//blog.roomhere.io">Blog</a>
+						</li>
+						<li role="menuitem">
+							<a href="tel:5732902363">(573) 290-2363</a>
+						</li>
+						<li role="menuitem">
+							<a href="mailto:support@roomhere.io">support@roomhere.io</a>
+						</li>
+					</ul>
+				</li>
+
+				<li *ngIf="hasAuth && isLandlord" role="menuitem" class="show-for-small-only">
+					<a class="aPadTop" [routerLink]="['/account/landlord-settings']">Settings</a>
+				</li>
+				<li role="menuitem" class="show-for-small-only">
+					<a *ngIf="hasAuth" (click)="logout.emit(true); closeMenu()">Logout</a>
+				</li>
+				<li role="menuitem" class="show-for-small-only">
+					<a *ngIf="!hasAuth" (click)="closeMenu()" class="aPadTop" data-open="LoginModal">Login</a>
+				</li>
+				<li role="menuitem" class="show-for-small-only">
+					<a (click)="closeMenu()" [routerLink]="['/p/faq']">FAQ</a>
+				</li>
+				<li role="menuitem" class="show-for-small-only">
+					<a (click)="closeMenu()" href="//blog.roomhere.io">Blog</a>
+				</li>
+				<li role="menuitem" class="show-for-small-only">
+					<a href="tel:5732902363">(573) 290-2363</a>
+				</li>
+				<li role="menuitem" class="show-for-small-only">
+					<a href="mailto:support@roomhere.io">support@roomhere.io</a>
+				</li>
+			</ul>
+			<div *ngIf="name" class="show-for-large-only large-text-right">
+				<h5><small>Hello, {{name}}</small></h5>
+			</div>
+		</div>
+	</div>
+</div>
