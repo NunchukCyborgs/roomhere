@@ -17,3 +17,4 @@ log/capistrano.log
 styles.css.ts
 webpack.records.json
 styles.css
+morgan.log
