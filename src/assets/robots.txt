@@ -3,4 +3,4 @@ Sitemap: https://roomhere.io/sitemap.xml.gz
 User-Agent: *
 Disallow: 
 Disallow: /account/
-Disallow: /reset-password
+Disallow: /p/reset-password

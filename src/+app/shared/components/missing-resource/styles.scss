@@ -1,0 +1,66 @@
+#four{
+    h1{
+        font-size: 5rem;
+        font-weight: 700;
+    }
+    img{
+        margin-bottom: 40px;
+    }
+}
+.full-width{
+    max-width: none !important;
+    border-bottom:3px solid white;   
+}
+#kermit{
+ background:url(/images/kermit.png)no-repeat center top;
+    p{
+        margin-top:20px;
+        color:#fff;
+        font-size: 1.5rem;
+    }
+}
+a{
+    color:#DAA520 !important;
+}
+.marg-top{
+        position: relative;
+        top: 500px;
+}
+.purp{
+    background-color: #44254a;
+    color:#fff;
+    padding-top:20px;
+    padding-bottom:20px;
+    h1{
+        margin-top: 50px;
+        margin-bottom: 25px;
+    }
+    h3{}
+    p{
+      padding:10px;
+    }
+    .button{
+      margin-top:40px;
+    }
+}
+body{
+    background-color:#44254a !important;
+}
+@media (max-width: 640px) {
+#kermit{
+ background:url(/images/kermit.png)no-repeat center top;
+ background-size: cover;
+ height:auto;
+    p{
+        font-size: 1rem;
+    }
+}
+.marg-top{
+    position:static;
+    margin-top:100px !important;
+}
+.full-width{
+    border-bottom:none;   
+}
+}
+

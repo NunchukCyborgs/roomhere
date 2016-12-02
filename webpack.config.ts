@@ -1,13 +1,9 @@
-const webpack = require('webpack');
+var webpack = require('webpack');
+var path = require('path');
 var clone = require('js.clone');
 var webpackMerge = require('webpack-merge');
-const path = require('path');
-const resolveNgRoute = require('@angularclass/resolve-angular-routes');
+
 const autoprefixer = require('autoprefixer');
-const purify = require('purifycss-webpack-plugin');
-const ExtractPlugin = require('extract-text-webpack-plugin')
-const extractCritical = new ExtractPlugin('critical.css');
-const extractDeferred = new ExtractPlugin('deferred.css');
 
 const IS_PROD = Boolean(process.env.NODE_ENV === 'production');
 const BASE_API_URL = IS_PROD ? 'https://api.roomhere.io' : 'https://test-api.roomhere.io';
@@ -26,47 +22,17 @@ const htmlQuery = {
   customAttrAssign: [/\)?\]?=/]
 };
 
-const whitelist = [
-  'tooltip', 
-  'foundation-mq',
-  '#intercom-frame + span',
-  'reveal-overlay',
-  'map-marker',
-
-  // Amenity icon shit. Accessed programatically
-  'fa fa-paw',
-  'fa fa-wheelchair-alt',
-  'icon-washer-dryer-2',
-  'icon-electricity',
-  'icon-gas',
-  'icon-tint',
-  'fa fa-trash',
-  'icon-central-air-alt',
-  'fa fa-fire',
-  'icon-smoking-allowed',
-  'icon-garage-512',
-  'icon-lawn-mower',
-  'fa fa-television',
-  'fa fa-wifi',
-
-  // Topbar dropdown stuff
-  'tooltip',
-  'foundation-mq',
-  'vertical',
-  'first-sub',
-  'is-dropdown-submenu-parent',
-  'opens-left',
-  'is-active',
-  'submenu',
-  'is-dropdown-submenu',
-  'js-dropdown-active',
-  'is-submenu-item',
-  'is-dropdown-submenu-item',
-];
-
-
-
 export var commonPlugins = [
+  new webpack.DefinePlugin({
+      IS_PROD: IS_PROD,
+      BASE_API_URL: JSON.stringify(BASE_API_URL),
+      BASE_URL: JSON.stringify(BASE_URL),
+      DEFAULT_TENANT: JSON.stringify('cape-girardeau'),
+      DEFAULT_TENANT_PRETTY: JSON.stringify('Cape Girardeau'),
+      DEFAULT_STATE: JSON.stringify('MO'),
+      CAPE_GIRARDEU_CENTER: JSON.stringify({latitude: 37.3067429, longitude: -89.5286194}),
+    }),
+
   new webpack.ContextReplacementPlugin(
     // The (\\|\/) piece accounts for path separators in *nix and Windows
     /angular(\\|\/)core(\\|\/)src(\\|\/)linker/,
@@ -76,71 +42,31 @@ export var commonPlugins = [
     }
   ),
 
-  new webpack.DefinePlugin({
-      IS_PROD: IS_PROD,
-      BASE_API_URL: JSON.stringify(BASE_API_URL),
-      BASE_URL: JSON.stringify(BASE_URL),
-    }),
-    new webpack.ContextReplacementPlugin(
-      // The (\\|\/) piece accounts for path separators in *nix and Windows
-      /angular(\\|\/)core(\\|\/)src(\\|\/)linker/,
-      root('./src'),
-      resolveNgRoute(root('./src'))
-    ),
-    new webpack.LoaderOptionsPlugin({
-      options: {
-        sassLoader: {
-          includePaths: [path.resolve(__dirname, 'node_modules/foundation-sites/scss'), path.resolve(__dirname, 'node_modules/motion-ui/src')]
-        },
-        context: '/',
-        postcss: [
-          autoprefixer
-        ],
-      }
-    }),
-    extractCritical,
-    extractDeferred,
-    new purify({
-      basePath: __dirname,
-      paths: [
-        '**/template.html'
-      ],
-      resolveExtensions: ['.html'],
-      purifyOptions: {
-        minify: true,
-        // rejected: true,
-        info: true,
-        whitelist: whitelist,
-      }
-    }),
-
+  new webpack.LoaderOptionsPlugin({
+  }),
 ];
-
 export var commonConfig = {
   // https://webpack.github.io/docs/configuration.html#devtool
   devtool: 'source-map',
   resolve: {
     extensions: ['.ts', '.js', '.json'],
-    modules: [ root('node_modules') ],
+    modules: [ root('node_modules') ]
   },
   context: __dirname,
   output: {
-    publicPath: '', //path.resolve(__dirname),
+    publicPath: '',
     filename: '[name].bundle.js'
   },
   module: {
-    loaders: [
-      { test: /\.ts$/, loaders: ['awesome-typescript-loader', 'angular2-template-loader'] },
-      { test: /\.html$/, loader: 'html-loader', query: htmlQuery },
-      { test: /styles\.css$/, loaders: ['raw-loader'] },
-      { test: /\.json$/, loader: 'raw-loader' },
-      { test: /app\.scss$/, loader: extractCritical.extract(['css-loader?minimize-autoprefixer', 'postcss-loader', 'sass-loader']) },
-      { test: /deferred\.scss$/, loader: extractDeferred.extract(['css-loader?minimize-autoprefixer', 'postcss-loader', 'sass-loader']) },
-      { test: /styles\.scss$/, loaders: ['css-loader?minimize-autoprefixer', 'postcss-loader', 'sass-loader'] },
-      { test: /\.woff[\?]?.*$/, loader: 'url-loader?limit=10000&mimetype=application/font-woff' },
-      { test: /\.ttf[\?]?.*$/, loader: 'url-loader?limit=10000&mimetype=application/octet-stream' },
-      { test: /\.eot[\?]?.*$/, loader: 'file-loader' },
-      { test: /\.svg[\?]?.*$/, loader: 'url-loader?limit=10000&mimetype=image/svg+xml' },
+    rules: [
+      { test: /\.ts$/, use: ['awesome-typescript-loader', 'angular2-template-loader'] },
+      { test: /\.html$/, use: 'html-loader', query: htmlQuery },
+      { test: /\.css$/, use: ['raw-loader'] },
+      { test: /\.json$/, use: 'json-loader' },
+      { test: /\.woff[\?]?.*$/, use: 'url-loader?limit=10000&mimetype=application/font-woff' },
+      { test: /\.ttf[\?]?.*$/, use: 'url-loader?limit=10000&mimetype=application/octet-stream' },
+      { test: /\.eot[\?]?.*$/, use: 'file-loader' },
+      { test: /\.svg[\?]?.*$/, use: 'url-loader?limit=10000&mimetype=image/svg+xml' },
     ],
   },
   plugins: [
@@ -153,7 +79,6 @@ export var commonConfig = {
 export var clientPlugins = [
 
 ];
-
 export var clientConfig = {
   target: 'web',
   entry: './src/client',
@@ -166,7 +91,7 @@ export var clientConfig = {
     __dirname: true,
     __filename: true,
     process: true,
-    Buffer: true
+    Buffer: false
   }
 };
 
@@ -175,7 +100,6 @@ export var clientConfig = {
 export var serverPlugins = [
 
 ];
-
 export var serverConfig = {
   target: 'node',
   entry: './src/server', // use the entry file of the node server if everything is ts rather than es5
@@ -185,12 +109,12 @@ export var serverConfig = {
     libraryTarget: 'commonjs2'
   },
   module: {
-    loaders: [
-      { test: /@angular(\\|\/)material/, loader: "imports-loader?window=>global" }
+    rules: [
+      { test: /@angular(\\|\/)material/, use: "imports-loader?window=>global" }
     ],
   },
   externals: includeClientPackages(
-    /@angularclass|@angular|angular2-|ng2-|ng-|@ng-|angular-|@ngrx|ngrx-|@angular2|ionic|-angular2|-ng2|-ng/
+    /@angularclass|@angular|angular2-|ng2-|ng-|@ng-|angular-|@ngrx|ngrx-|@angular2|ionic|@ionic|-angular2|-ng2|-ng/
   ),
   node: {
     global: true,

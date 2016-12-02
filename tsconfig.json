@@ -18,6 +18,9 @@
   "exclude": [
     "node_modules"
   ],
+  "angularCompilerOptions": {
+    "debug": false
+  },
   "compileOnSave": false,
   "buildOnSave": false,
   "atom": { "rewriteTsconfig": false }

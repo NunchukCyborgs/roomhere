@@ -31,13 +31,20 @@ declare module 'modern-lru' {
   export = x;
 }
 
+declare var System: SystemJS;
+
+interface SystemJS {
+  import: (path?: string) => Promise<any>;
+}
 // Extra variables that live on Global that will be replaced by webpack DefinePlugin
 declare var ENV: string;
 declare var HMR: boolean;
-declare var Zone: { current: any };
+declare var Zone: {current: any};
 interface GlobalEnvironment {
   ENV;
   HMR;
+  SystemJS: SystemJS;
+  System: SystemJS;
 }
 
 interface WebpackModule {
@@ -61,9 +68,9 @@ interface WebpackRequire {
 }
 
 // Extend typings
-interface NodeRequire extends WebpackRequire { }
-interface NodeModule extends WebpackModule { }
-interface Global extends GlobalEnvironment { }
+interface NodeRequire extends WebpackRequire {}
+interface NodeModule extends WebpackModule {}
+interface Global extends GlobalEnvironment  {}
 
 // Custom
 
@@ -76,3 +83,8 @@ declare let BASE_URL: string;
 declare let IS_PROD: boolean;
 
 declare let SimpleChanges: any;
+
+declare let DEFAULT_TENANT: string;
+declare let DEFAULT_TENANT_PRETTY: string;
+declare let DEFAULT_STATE: string;
+declare let CAPE_GIRARDEU_CENTER: string;
