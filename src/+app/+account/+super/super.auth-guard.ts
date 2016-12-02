@@ -9,8 +9,10 @@ export class SuperAuthGuard implements CanActivate {
   constructor(private router: Router, private userService: UserService) {}
 
   public canActivate() {
-    return this.userService.me$.map(i => i.superuser)
-      .do(i => !i && this.redirectUser())
+    this.userService.me$.map(i => i.superuser)
+      .subscribe(i => !i && this.redirectUser());
+
+      return true; // We should be able to just return an Observable. But it doesn't work. Meh. 
   }
 
   public redirectUser() {
