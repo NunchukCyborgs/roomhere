@@ -2,8 +2,6 @@ import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ApiService } from './api.service'; //xx
-import { ModelService } from './model/model.service'; //xx
 
 // Pipes
 import { SimpleSearchPipe } from './pipes/simple-search.pipe';
@@ -39,6 +37,7 @@ import { Modal } from './components/modal/component';
 import { StarRating } from './components/star-rating/component';
 import { PropertyAmenities } from './components/property-amenities/component';
 import { WelcomeSearch } from './components/welcome-search/component';
+import { MissingResource } from './components/missing-resource/component';
 
 import { Login } from './components/users/login/component';
 import { Register } from './components/users/register/component';
@@ -59,26 +58,16 @@ const PIPES = [
 ];
 
 const COMPONENTS = [
-  Login, Register, ForgotPassword, ResetPassword, BigFooter,
+  Login, Register, ForgotPassword, ResetPassword, BigFooter, MissingResource,
   Slide, Logo, TopBar, WelcomeSearch,
   Carousel, ControlMessages, ImageUpload, NumberTicker, UploadProgress, Modal, StarRating, PropertyAmenities, 
 ];
 
-/* tbd components todo
-  MissingResource,
-
-
-*/
-
 const PROVIDERS = [
-  ModelService,
-  ApiService,
-
   UserService, PropertyService, FacetsService, GoogleApiService, HttpService, ImageUploadService, SeoService, PropertySeoService,
   SocialService, ValidationService, PersistenceService, PropertyActionStateService, ReviewsService, CacheService,
 
   PropertyViewResolve,
-
 ]
 
 @NgModule({

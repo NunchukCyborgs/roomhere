@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { PropertyViewResolve } from './+property-view/property-resolve.service';
+import { MissingResource } from './shared/components/missing-resource/component';
 
 export function getGeneralModule() {
   return System.import('./+general/general.module' + (process.env.AOT ? '.ngfactory' : ''))
@@ -26,6 +27,7 @@ export function getPropertyViewModule() {
       { path: 'p', loadChildren: getGeneralModule },
       { path: 'account', loadChildren: getAccountModule },
       { path: 'cape-girardeau/:slug', loadChildren: getPropertyViewModule, resolve: { property: PropertyViewResolve } },
+      { path: '**', component: MissingResource },
     ])
   ],
 })
