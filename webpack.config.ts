@@ -22,17 +22,6 @@ const htmlQuery = {
   customAttrAssign: [/\)?\]?=/]
 };
 
-const sassQuery = {
-  // includePaths: [path.resolve(__dirname, 'node_modules/foundation-sites/scss'), path.resolve(__dirname, 'node_modules/motion-ui/src')]
-  includePaths: ['node_modules/foundation-sites/scss', 'node_modules/motion-ui/src']
-  
-};
-// , 
-const sassLoaders = [
-  'css-loader?minimize-autoprefixer', 'postcss-loader', 
-  { loader: 'sass-loader', query: JSON.stringify(sassQuery) },
-];
-
 export var commonPlugins = [
   new webpack.DefinePlugin({
       IS_PROD: IS_PROD,
