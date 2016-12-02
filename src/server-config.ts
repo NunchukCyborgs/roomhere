@@ -10,9 +10,8 @@
  * ];
  **/
 export const routes: string[] = [
-  'about',
-  'home',
-  'lazy',
+  'account',
+  'cape-girardeau',
   'p', // General Module
 ];
 
