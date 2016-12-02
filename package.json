@@ -87,7 +87,7 @@
     "html-loader": "0.4.4",
     "methods": "1.1.2",
     "motion-ui": "1.2.2",
-    "node-sass": "3.13.0",
+    "node-sass": "3.12.5",
     "postcss-loader": "1.1.1",
     "progressbar.js": "1.0.1",
     "purifycss-webpack-plugin": "2.0.3",
