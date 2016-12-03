@@ -6,14 +6,7 @@ import { PayRentAddress } from './address/component';
 @NgModule({
   imports: [
     RouterModule.forChild([
-      {
-        path: 'pay-rent',
-        component: PayRent,
-        children: [
-          { path: '', redirectTo: 'address' },
-          { path: 'address', component: PayRentAddress },
-        ]
-      }
+      { path: '', component: PayRentAddress },
     ])
   ],
   exports: [

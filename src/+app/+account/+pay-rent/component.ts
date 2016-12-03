@@ -4,7 +4,7 @@ import { SeoService } from '../../shared/services/seo.service';
 @Component({
   selector: 'pay-rent',
   styleUrls: ['./styles.css'],
-  template: 'template.html',
+  templateUrl: 'template.html',
 })
 export class PayRent {
   constructor(private seoService: SeoService) { }

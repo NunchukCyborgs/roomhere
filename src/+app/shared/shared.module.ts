@@ -38,6 +38,7 @@ import { StarRating } from './components/star-rating/component';
 import { PropertyAmenities } from './components/property-amenities/component';
 import { WelcomeSearch } from './components/welcome-search/component';
 import { MissingResource } from './components/missing-resource/component';
+import { PropertyPicker } from './components/property-picker/component';
 
 import { Login } from './components/users/login/component';
 import { Register } from './components/users/register/component';
@@ -59,7 +60,7 @@ const PIPES = [
 
 const COMPONENTS = [
   Login, Register, ForgotPassword, ResetPassword, BigFooter, MissingResource,
-  Slide, Logo, TopBar, WelcomeSearch,
+  Slide, Logo, TopBar, WelcomeSearch, PropertyPicker,
   Carousel, ControlMessages, ImageUpload, NumberTicker, UploadProgress, Modal, StarRating, PropertyAmenities, 
 ];
 
