@@ -6,6 +6,8 @@ import { isBrowser } from 'angular2-universal';
 import { PersistenceService } from './persistence.service';
 import { CacheService } from './cache.service';
 
+const shouldLog = false;
+
 @Injectable()
 export class HttpService {
   constructor(private http: Http, private persist: PersistenceService, private cache: CacheService) { }
@@ -16,6 +18,7 @@ export class HttpService {
     
     return cache ? cache : this.http
       .get(url, { headers: this.headers })
+      .do(i => shouldLog && console.log(`GET: `, url))
       .map(i => rawResponse ? i : i.json())
       .do(i => !rawResponse && this.cache.set(key, i))
       .catch((err, caught) => this.handleError(err, url))
@@ -24,6 +27,7 @@ export class HttpService {
   public delete(url: string, {rawResponse}: { rawResponse?: boolean } = {}): Observable<any> {
     return this.http
       .delete(url, { headers: this.headers })
+      .do(i => shouldLog && console.log(`DELETE: `, url))
       .map(i => rawResponse ? i : i.json())
       .catch((err, caught) => this.handleError(err, url));
   }
@@ -36,6 +40,7 @@ export class HttpService {
     // This is the only url I want to cache at this point
 
     return cache ? cache : this.http.post(url, JSON.stringify(obj), { headers: this.headers })
+      .do(i => shouldLog && console.log(`POST: `, url))
       .map(i => rawResponse ? i : i.json())
       .do(i => !rawResponse && this.cache.set(key, i))
       .catch((err, caught) => this.handleError(err, url));
@@ -43,6 +48,7 @@ export class HttpService {
 
   public patch(url: string, obj: any, {rawResponse}: { rawResponse?: boolean } = {}): Observable<any> {
     return this.http.patch(url, JSON.stringify(obj), { headers: this.headers })
+      .do(i => shouldLog && console.log(`PATCH: `, url))
       .map(i => rawResponse ? i : i.json())
       .catch((err, caught) => this.handleError(err, url));
   }
