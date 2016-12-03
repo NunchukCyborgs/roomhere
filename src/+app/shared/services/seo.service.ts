@@ -11,7 +11,7 @@ import { Tag, SingleFamilyResidence, PostalAddress, GeoCoordinates, Tags, Roomhe
 export class SeoService {
   public DESCRIPTION = `Roomhere is the rental property solution for ${DEFAULT_TENANT_PRETTY}, ${DEFAULT_STATE}. Find the most complete rental listings of the area at Roomhere.`;
   public TITLE = `${DEFAULT_TENANT_PRETTY} Apartments and Houses For Rent | RoomHere`;
-  public IMAGE = BASE_URL + '/images/white_logo_transparent_background.png';
+  public IMAGE: Image = { url: BASE_URL + '/images/white_logo_transparent_background.png', height: '187', width: '240' };
   private _tags: Tag[] = [];
 
   public get tags(): Tag[] {
@@ -19,10 +19,7 @@ export class SeoService {
   }
 
   public addBaseTags(renderer: Renderer) {
-    const imageUrl = this.IMAGE;
-    const image: Image = { url: imageUrl, height: '187', width: '240' };
-
-    this.addTags({ description: this.DESCRIPTION, title: this.TITLE, image: image }, renderer);
+    this.addTags({}, renderer);
     this.setTitle(this.TITLE);
   }
 
@@ -57,6 +54,10 @@ export class SeoService {
     for (let tag of tags) {
       this.createTag(tag, renderer)
     }
+
+    if (baseTags.title) {
+      this.prependTitle(baseTags.title);
+    }
   }
 
   public updateTag(oldTag: Tag, newTag: Tag, renderer: Renderer) {
@@ -71,22 +72,26 @@ export class SeoService {
     this.updateTag(existingTag, updatedTag, renderer);
   }
 
-  private getTags(baseTags: Tags): Tag[] {
+  private getTags(tags: Tags): Tag[] {
+    let {title, description, image} = Object.assign({}, { title: this.TITLE, description: this.DESCRIPTION, image: this.IMAGE }, tags);
+
+    console.log('title: ', title);
+
     return [
       createSchema(new RoomhereWebsite()),
       { name: 'link', attributes: [{ name: 'rel', value: 'canonical' }, { name: 'href', value: BASE_URL }] },
-      { name: 'meta', attributes: [{ name: 'name', value: 'description' }, { name: 'content', value: baseTags.description }] },
-      { name: 'meta', attributes: [{ name: 'property', value: 'og:title' }, { name: 'content', value: baseTags.title }] },
+      { name: 'meta', attributes: [{ name: 'name', value: 'description' }, { name: 'content', value: description }] },
+      { name: 'meta', attributes: [{ name: 'property', value: 'og:title' }, { name: 'content', value: title }] },
       { name: 'meta', attributes: [{ name: 'property', value: 'og:type' }, { name: 'content', value: 'website' }] },
-      { name: 'meta', attributes: [{ name: 'property', value: 'og:description' }, { name: 'content', value: baseTags.description }] },
+      { name: 'meta', attributes: [{ name: 'property', value: 'og:description' }, { name: 'content', value: description }] },
       { name: 'meta', attributes: [{ name: 'property', value: 'og:url' }, { name: 'content', value: BASE_URL + this.router.url }] },
-      { name: 'meta', attributes: [{ name: 'property', value: 'og:image' }, { name: 'content', value: baseTags.image.url }] },
-      { name: 'meta', attributes: [{ name: 'property', value: 'og:image:width' }, { name: 'content', value: baseTags.image.width }] },
-      { name: 'meta', attributes: [{ name: 'property', value: 'og:image:height' }, { name: 'content', value: baseTags.image.height }] },
+      { name: 'meta', attributes: [{ name: 'property', value: 'og:image' }, { name: 'content', value: image.url }] },
+      { name: 'meta', attributes: [{ name: 'property', value: 'og:image:width' }, { name: 'content', value: image.width }] },
+      { name: 'meta', attributes: [{ name: 'property', value: 'og:image:height' }, { name: 'content', value: image.height }] },
       { name: 'meta', attributes: [{ name: 'property', value: 'twitter:card' }, { name: 'content', value: 'summary' }] },
       { name: 'meta', attributes: [{ name: 'property', value: 'twitter:site' }, { name: 'content', value: '@roomhere' }] },
-      { name: 'meta', attributes: [{ name: 'property', value: 'twitter:image' }, { name: 'content', value: baseTags.image.url }] },
-      { name: 'meta', attributes: [{ name: 'property', value: 'twitter:title' }, { name: 'content', value: baseTags.title }] },
+      { name: 'meta', attributes: [{ name: 'property', value: 'twitter:image' }, { name: 'content', value: image.url }] },
+      { name: 'meta', attributes: [{ name: 'property', value: 'twitter:title' }, { name: 'content', value: title }] },
     ];
   }
 

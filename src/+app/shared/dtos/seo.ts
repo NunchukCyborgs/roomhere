@@ -1,9 +1,9 @@
 import { Image } from './property';
 
 export interface Tags {
-  description: string;
-  title: string;
-  image: Image
+  description?: string;
+  title?: string;
+  image?: Image
 }
 
 export interface Tag {
