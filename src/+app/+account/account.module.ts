@@ -16,6 +16,7 @@ import { BecomeLandlord } from './become-landlord/component';
 @NgModule({
   imports: [
     SharedModule,
+    PropertyModule,
     AccountRoutingModule,
     PayRentRoutingModule,
     PayRentModule,
