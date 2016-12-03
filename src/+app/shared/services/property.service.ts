@@ -22,6 +22,12 @@ export class PropertyService {
   public lastPage$: BehaviorSubject<number> = new BehaviorSubject(Number.MAX_SAFE_INTEGER)
   private viewCaches: string[] = [];
 
+  public searchProperties({query}: {query: string}) {
+    return this.http
+      .get(`${BASE_API_URL}/properties/search?query=${query}&page=1&perPage=10`)
+      .map(i => i.results);
+  }
+
   public getFilteredProperties$(facet: PropertyFacet, query: string = '', pageNumber: number = 1, perPage: number = 8, offset: number = 0): Observable<Property[]> {
     return Observable.of([])
       .filter(() => facet.min_price >= 0 && facet.max_price >= 0)

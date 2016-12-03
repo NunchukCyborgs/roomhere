@@ -46,12 +46,16 @@ import { ForgotPassword } from './components/users/forgot-password/component';
 import { ResetPassword } from './components/users/reset-password/component';
 import { BigFooter } from './components/big-footer/component';
 
+import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
+
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
   CommonModule,
   RouterModule,
   FormsModule,
-  ReactiveFormsModule
+  ReactiveFormsModule,
+
+  DropDownsModule,
 ];
 
 const PIPES = [

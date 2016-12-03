@@ -1,1 +1,6 @@
-Properties be here: <input type="text">
+<kendo-combobox [data]="properties$ | async" [textField]="'address1'" [valueField]="'id'" [value]="property" [filterable]="true"
+  (filterChange)="handleFilter($event)">
+  <template itemTemplate let-dataItem>
+    <span style="color: red;">I live at: {{ dataItem.text }} | {{ dataItem.value }}</span>
+  </template>
+</kendo-combobox>
