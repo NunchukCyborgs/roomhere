@@ -11,7 +11,7 @@ import { ResetPassword } from '../shared/components/users/reset-password/compone
   imports: [
     RouterModule.forChild([
       { path: 'faq', component: Faq },
-      { path: 'cape-girardeau-landlords', component: LandlordLanding },
+      // { path: 'cape-girardeau-landlords', component: LandlordLanding },
       { path: 'cape-girardeau-rentals', component: RenterLanding },
       { path: 'privacy-policy', component: PrivacyPolicy },
       { path: 'reset-password', component: ResetPassword },

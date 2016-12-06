@@ -32,7 +32,7 @@ export class PropertyService {
     return Observable.of([])
       .filter(() => facet.min_price >= 0 && facet.max_price >= 0)
       .flatMap(() => this.http.post(`${BASE_API_URL}/properties/filtered_results`, { facets: facet, page: pageNumber, per_page: perPage, query: query, offset: offset }))
-      .filter(i => i.results && i.total_count) // Dirty error handling
+      .filter(i => i.results &&  Array.isArray(i.results)) // Dirty error handling
       .do(i => this.setLastPageNumber(i.total_count, offset, perPage))
       .map(i => i.results);
   }
@@ -60,7 +60,6 @@ export class PropertyService {
   public getSuperProperties$(pageNumber = 1, perPage = 100, query = ''): Observable<any> {
     const seq = this.http
       .get(`${BASE_API_URL}/properties?page=${pageNumber}&per_page=${perPage}&q=${query}`)
-      .do(i => console.log('heyo, ', i))
       .map(i => i && i.length ? i : [])
       .map(properties => properties.map(i => new Property(i)))
       .do(i => this.superProperties$.next(this._superProperties = i));

@@ -43,11 +43,14 @@ export class Welcome {
       .filter(i => !i)
       .map(() => !this.persist.get('no_signup_ad'));
 
-    let query = this.route.params['q'] || '';
-
-    this.loadFilteredProperties$
-      .map(i => JSON.stringify(i) + this.pageNumber + this.query)
-      .distinctUntilChanged()
+    Observable.combineLatest(this.loadFilteredProperties$, this.route.params)
+      .do(i => this.query = i[1]['q'])
+      .debounceTime(500)
+      .flatMap(() => this.facetsService.loadFacets())
+      .flatMap(() => this.facetsService.minPrice$)
+      .do(i => this.facet.min_price = this.facet.min_price < i ? i : this.facet.min_price)
+      .flatMap(() => this.facetsService.maxPrice$)
+      .do(i => this.facet.max_price = this.facet.max_price > i ? i : this.facet.max_price)
       .flatMap(() => this.propertyService.getFilteredProperties$(this.facet, this.query, this.pageNumber, this.pageNumber === 1 ? 7 : 8, this.pageNumber === 1 ? 0 : 1))
       .do(i => this.propertySeoService.addProperties(this.renderer, i))
       .subscribe(i => this.properties$.next(i));

@@ -18,3 +18,5 @@ styles.css.ts
 webpack.records.json
 styles.css
 morgan.log
+**/critical.css
+**/deferred.css

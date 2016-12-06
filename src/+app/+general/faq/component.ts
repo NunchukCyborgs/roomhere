@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-// import { SeoService } from '../shared/services/seo.service';
+import { Component, Renderer } from '@angular/core';
+import { SeoService } from '../../shared/services/seo.service';
 
 @Component({
   selector: 'faq',
@@ -7,9 +7,9 @@ import { Component } from '@angular/core';
   templateUrl: 'template.html'
 })
 export class Faq  {
-  // constructor(private seoService: SeoService) { }
+  constructor(private seoService: SeoService, private renderer: Renderer) { }
   
   ngOnInit() {
-    // this.seoService.prependTitle('FAQ')
+    this.seoService.addTags({description: 'Roomhere Frequently Asked Questions. Learn more about how we help you find your new home. ', title: 'FAQ'}, this.renderer);
   }
 }

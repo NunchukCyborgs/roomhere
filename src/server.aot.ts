@@ -14,7 +14,7 @@ import * as mcache from 'memory-cache';
 
 const { gzipSync } = require('zlib');
 const accepts = require('accepts');
-const { compressSync } = require('iltorb');
+// const { compressSync } = require('iltorb');
 const interceptor = require('express-interceptor');
 
 // Angular 2
