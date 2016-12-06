@@ -17,7 +17,9 @@ export class ValidationService {
       'invalidEmailAddress': 'Invalid email address',
       // 'invalidPassword': 'Invalid password. Password must be at least 6 characters long, and contain a number.',
       'minlength': `Minimum length ${validatorValue.requiredLength}`,
-      'invalidPhoneNumber': 'Invalid phone number. Must be 10 or 11 digits'
+      'invalidPhoneNumber': 'Invalid phone number. Must be 10 or 11 digits',
+      'invalidDate': 'Invalid Date',
+      'invalidName': 'Invalid Name. Please give your first and last name',
     };
 
     return config[validatorName];
@@ -38,6 +40,28 @@ export class ValidationService {
       return null;
     } else {
       return { 'invalidPhoneNumber': true };
+    }
+  }
+
+  static dateValidator(control, minDate, maxDate) {
+    // todo
+    console.log('date validator: ', control.value, minDate, maxDate);
+    const match = control.value && control.value.match(/\d/g); 
+    if (1 === 1) {
+      return null;
+    } else {
+      return { 'invalidDate': true };
+    }
+  }
+
+  static nameValidator(control) {
+    // todo
+    console.log('name validator: ', control.value);
+    
+    if (control.value.match(/^[a-z ,.'-]+$/i)) {
+      return null;
+    } else {
+      return { 'invalidName': true };
     }
   }
 

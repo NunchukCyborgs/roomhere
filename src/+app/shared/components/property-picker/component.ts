@@ -20,7 +20,7 @@ export class PropertyPicker {
 
   public handleFilter(value) {
     this.propertyService.searchProperties({ query: value })
-      .do(i => console.log(123, i))
+      .filter(i => i && i.length)
       .subscribe(i => this.properties = i)
   }
 }

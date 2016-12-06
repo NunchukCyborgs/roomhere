@@ -1,3 +1,102 @@
-<h1>Payment stuff</h1>
+<div class="container">
+  <h2>Enter your payment things</h2>
 
-property: {{property | json}}
+  <div class="row">
+    <div class="column medium-8">
+      <form [formGroup]="paymentForm" *ngIf="paymentForm">
+
+        <div class="form-group row collapse">
+          <div class="small-2 columns">
+            <span class="prefix"><i class="fa fa-envelope"></i></span>
+          </div>
+          <div class="small-10  columns">
+            <input type="text" placeholder="full name" formControlName="name" class="form-control">
+          </div>
+          <control-messages [control]="paymentForm.controls.name" class="alert"></control-messages>
+        </div>
+
+        <div class="form-group row collapse">
+          <div class="small-2 columns">
+            <span class="prefix"><i class="fa fa-phone"></i></span>
+          </div>
+          <div class="small-10  columns">
+            <input type="tel" placeholder="phone number" formControlName="phone" class="form-control">
+          </div>
+          <control-messages [control]="paymentForm.controls.phone" class="alert"></control-messages>
+        </div>
+
+        <div class="form-group row collapse">
+          <div class="small-2 columns">
+            <span class="prefix"><i class="fa fa-envelope"></i></span>
+          </div>
+          <div class="small-10  columns">
+            Due by: 
+            <input type="date" placeholder="full name" formControlName="dueOn" class="form-control">
+          </div>
+          <control-messages [control]="paymentForm.controls.dueOn" class="alert"></control-messages>
+        </div>
+
+        <div class="form-group row collapse">
+          <div class="small-2 columns">
+            <span class="prefix"><i class="fa fa-envelope"></i></span>
+          </div>
+          <div class="small-10  columns">
+            Rent Price
+            <input type="number" placeholder="rent price" formControlName="name" class="form-control" min="25" max="999999999.99">
+          </div>
+          <control-messages [control]="paymentForm.controls.subtotal" class="alert"></control-messages>
+        </div>
+
+        <div class="form-group row collapse">
+          <div class="small-2 columns">
+            <span class="prefix"><i class="fa fa-envelope"></i></span>
+          </div>
+          <div class="small-10  columns">
+            <input type="text" placeholder="unit" formControlName="name" class="form-control">
+          </div>
+          <control-messages [control]="paymentForm.controls.unit" class="alert"></control-messages>
+        </div>
+
+        <div class="form-group row collapse">
+          <div class="small-2 columns">
+            <span class="prefix"><i class="fa fa-envelope"></i></span>
+          </div>
+          <div class="small-10  columns">
+            <input type="text" placeholder="Credit Card" formControlName="card" class="form-control" data-stripe="number">
+          </div>
+          <control-messages [control]="paymentForm.controls.card" class="alert"></control-messages>
+        </div>
+
+        <div class="form-group row collapse">
+          <div class="small-2 columns">
+            <span class="prefix"><i class="fa fa-envelope"></i></span>
+          </div>
+          <div class="small-10  columns">
+            Experation (MM/YY)
+            <input type="text" placeholder="MM" formControlName="expMonth" class="form-control" data-stripe="exp_month"> / 
+            <input type="text" placeholder="YY" formControlName="expYear" class="form-control" data-stripe="exp_year"> 
+          </div>
+          <control-messages [control]="paymentForm.controls.expMonth" class="alert"></control-messages>
+          <control-messages [control]="paymentForm.controls.expYear" class="alert"></control-messages>
+        </div>
+
+        <div class="form-group row collapse">
+          <div class="small-2 columns">
+            <span class="prefix"><i class="fa fa-envelope"></i></span>
+          </div>
+          <div class="small-10  columns">
+            <input type="text" placeholder="CVC" formControlName="cvc" class="form-control">
+          </div>
+          <control-messages [control]="paymentForm.controls.cvc" class="alert" data-stripe="cvc"></control-messages>
+        </div>
+
+        <p class="text-center">
+          <button type="button" (click)="onSubmit()" class="button large" [attr.disabled]="!paymentForm.valid || getEmailOrPhoneRequiredMessage() ? true : null">submit</button>
+        </p>
+      </form>
+    </div>
+    <div class="column medium-4">
+      <property-preview *ngIf="property" [property]="property"></property-preview>
+    </div>
+  </div>
+</div>

@@ -6,8 +6,8 @@
     <div class="row collapse">
       <div class="small-12 text-left columns">
         <h6 class="address margin-none">{{property.address1}}</h6>
-        <h6 class="margin-none">{{property.bedrooms}} Bedroom - {{property.bathrooms}} Bathroom</h6>
-        <h6 class="purple margin-none"><strong>{{ property.price | currency : 'USD' : true : '1.0-0' }}/month</strong></h6>
+        <h6 *ngIf="property.bedrooms && property.bathrooms" class="margin-none">{{property.bedrooms}} Bedroom - {{property.bathrooms}} Bathroom</h6>
+        <h6 *ngIf="property.price" class="purple margin-none"><strong>{{ property.price | currency : 'USD' : true : '1.0-0' }}/month</strong></h6>
       </div>
     </div>
   </div>

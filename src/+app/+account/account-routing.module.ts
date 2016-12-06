@@ -7,7 +7,6 @@ import { UserSplash } from './user-splash/component';
 import { LandlordSettings } from './landlord-settings/component';
 import { BecomeLandlord } from './become-landlord/component';
 import { AccountAuthGuard } from './account.auth-guard';
-import { PayRent } from './+pay-rent/component';
 
 export function getSuperModule() {
   return System.import('./+super/super.module' + (process.env.AOT ? '.ngfactory' : ''))

@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { PayRent } from './component';
 import { PayRentAddress } from './address/component';
 import { PayRentPayment } from './payment/component';
 
