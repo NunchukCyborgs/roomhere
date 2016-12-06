@@ -21,6 +21,7 @@ import { SocialService } from './services/social.service';
 import { ValidationService } from './services/validation.service';
 import { PersistenceService } from './services/persistence.service';
 import { CacheService } from './services/cache.service';
+import { PaymentService } from './services/payment.service';
 
 import { PropertyViewResolve } from '../+property-view/property-resolve.service';
 
@@ -70,7 +71,7 @@ const COMPONENTS = [
 
 const PROVIDERS = [
   UserService, PropertyService, FacetsService, GoogleApiService, HttpService, ImageUploadService, SeoService, PropertySeoService,
-  SocialService, ValidationService, PersistenceService, PropertyActionStateService, ReviewsService, CacheService,
+  SocialService, ValidationService, PersistenceService, PropertyActionStateService, ReviewsService, CacheService, PaymentService,
 
   PropertyViewResolve,
 ]

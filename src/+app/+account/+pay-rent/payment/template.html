@@ -3,7 +3,7 @@
 
   <div class="row">
     <div class="column medium-8">
-      <form [formGroup]="paymentForm" *ngIf="paymentForm">
+      <form id="PaymentForm" [formGroup]="paymentForm" *ngIf="paymentForm" (ngSubmit)="submit()">
 
         <div class="form-group row collapse">
           <div class="small-2 columns">
@@ -42,7 +42,7 @@
           </div>
           <div class="small-10  columns">
             Rent Price
-            <input type="number" placeholder="rent price" formControlName="name" class="form-control" min="25" max="999999999.99">
+            <input type="number" placeholder="rent price" formControlName="subtotal" class="form-control" min="25" max="999999999.99">
           </div>
           <control-messages [control]="paymentForm.controls.subtotal" class="alert"></control-messages>
         </div>
@@ -52,7 +52,7 @@
             <span class="prefix"><i class="fa fa-envelope"></i></span>
           </div>
           <div class="small-10  columns">
-            <input type="text" placeholder="unit" formControlName="name" class="form-control">
+            <input type="text" placeholder="unit" formControlName="unit" class="form-control">
           </div>
           <control-messages [control]="paymentForm.controls.unit" class="alert"></control-messages>
         </div>
@@ -91,7 +91,7 @@
         </div>
 
         <p class="text-center">
-          <button type="button" (click)="onSubmit()" class="button large" [attr.disabled]="!paymentForm.valid || getEmailOrPhoneRequiredMessage() ? true : null">submit</button>
+          <button type="submit" class="button large" [attr.disabled]="!paymentForm.valid ? true : null">submit</button>
         </p>
       </form>
     </div>

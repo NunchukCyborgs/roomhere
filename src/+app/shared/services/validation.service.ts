@@ -35,7 +35,7 @@ export class ValidationService {
   }
 
   static phoneNumberValidator(control) {
-    const match = control.value.match(/\d/g); 
+    const match = control.value.match(/\d/g);
     if (control.value.length === 0 || (match && (match.length === 10 || match.length === 11))) {
       return null;
     } else {
@@ -43,26 +43,27 @@ export class ValidationService {
     }
   }
 
-  static dateValidator(control, minDate, maxDate) {
+  static dateValidator(minDate, maxDate, control) {
     // todo
-    console.log('date validator: ', control.value, minDate, maxDate);
-    const match = control.value && control.value.match(/\d/g); 
-    if (1 === 1) {
-      return null;
-    } else {
-      return { 'invalidDate': true };
-    }
+    // console.log('date validator: ', control.value, minDate, maxDate);
+    // const match = control.value && control.value.match(/\d/g);
+    // if (1 === 1) {
+    //   return null;
+    // } else {
+    //   return { 'invalidDate': true };
+    // }
+    return null;
   }
 
   static nameValidator(control) {
-    // todo
-    console.log('name validator: ', control.value);
-    
-    if (control.value.match(/^[a-z ,.'-]+$/i)) {
-      return null;
-    } else {
-      return { 'invalidName': true };
-    }
+    // const match = control.value.match(/^[a-z ,.'-]+$/i);
+
+    // if (control.value.length === 0 || match) {
+    //   return null;
+    // } else {
+    //   return { 'invalidName': true };
+    // }
+    return null;
   }
 
   static emailValidator(control) {
