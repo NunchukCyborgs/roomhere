@@ -24,8 +24,7 @@ export class PropertyService {
 
   public searchProperties({query}: {query: string}) {
     return this.http
-      .get(`${BASE_API_URL}/properties/search?query=${query}&page=1&perPage=10`)
-      .map(i => i.results);
+      .get(`${BASE_API_URL}/properties/search?query=${query}&page=1&perPage=10`);
   }
 
   public getFilteredProperties$(facet: PropertyFacet, query: string = '', pageNumber: number = 1, perPage: number = 8, offset: number = 0): Observable<Property[]> {

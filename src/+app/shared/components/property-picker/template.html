@@ -1,6 +1,8 @@
-<kendo-combobox [data]="properties$ | async" [textField]="'address1'" [valueField]="'id'" [value]="property" [filterable]="true"
-  (filterChange)="handleFilter($event)">
+<kendo-combobox [data]="properties" [textField]="'address1'" [valueField]="'id'" [value]="property" [filterable]="true" (filterChange)="handleFilter($event)">
   <template itemTemplate let-dataItem>
-    <span style="color: red;">I live at: {{ dataItem.text }} | {{ dataItem.value }}</span>
+    <div class="property-wrapper">
+      <img [src]="dataItem.images[0].url" alt="" class="image"/>
+      <h5 class="address">{{ dataItem.address1 }}</h5>
+    </div>
   </template>
 </kendo-combobox>
