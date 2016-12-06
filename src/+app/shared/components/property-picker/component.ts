@@ -11,9 +11,6 @@ import { PropertyService } from '../../services/property.service';
 export class PropertyPicker {
   @Output() propertyPicked: EventEmitter<any> = new EventEmitter();
 
-  public source: Property[] = [
-  ];
-
   public properties: Property[];
   public property: Property = new Property();
 
@@ -21,7 +18,7 @@ export class PropertyPicker {
     this.properties = [];
   }
 
-  handleFilter(value) {
+  public handleFilter(value) {
     this.propertyService.searchProperties({ query: value })
       .subscribe(i => this.properties = i)
   }

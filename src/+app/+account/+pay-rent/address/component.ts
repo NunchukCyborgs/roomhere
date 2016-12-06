@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { Property } from '../../../shared/dtos/property';
 
 @Component({
@@ -7,11 +8,17 @@ import { Property } from '../../../shared/dtos/property';
   templateUrl: 'template.html',
 })
 export class PayRentAddress {
-  constructor() { }
+  public property: Property;
 
-  save(property: Property) {
-    console.log('we picked this property: ', property);
+  constructor(private router: Router) { }
 
-    // navigate or something
+  public updateProperty(property: Property) {
+    this.property = property;
+  }
+
+  public save() {
+    if (this.property) {
+      this.router.navigate(['payment', { property: this.property }]);
+    }
   }
 }

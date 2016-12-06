@@ -1,7 +1,8 @@
-<kendo-combobox [data]="properties" [textField]="'address1'" [valueField]="'id'" [value]="property" [filterable]="true" (filterChange)="handleFilter($event)">
+<kendo-combobox [data]="properties" [textField]="'address1'" [valueField]="'id'" [value]="property" [filterable]="true" (filterChange)="handleFilter($event)"
+  (selectionChange)="propertyPicked.emit($event)">
   <template itemTemplate let-dataItem>
     <div class="property-wrapper">
-      <img [src]="dataItem.images[0].url" alt="" class="image"/>
+      <img [src]="dataItem.images[0].url" alt="" class="image" />
       <h5 class="address">{{ dataItem.address1 }}</h5>
     </div>
   </template>
