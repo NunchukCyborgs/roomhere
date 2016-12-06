@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import { Router } from '@angular/router';
+import { FormGroup, Validators, FormControl } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
 import { isBrowser } from 'angular2-universal';
 import { Observable } from 'rxjs/Observable';
 
@@ -11,7 +11,8 @@ import { Observable } from 'rxjs/Observable';
 })
 export class WelcomeSearch {
   public searchForm: FormGroup;
-  constructor(private router: Router, private formBuilder: FormBuilder) { }
+  public query: string = '';
+  constructor(private router: Router, private route: ActivatedRoute) { }
 
   onSubmit() {
     const query = this.searchForm.controls['query'].value;
@@ -19,8 +20,11 @@ export class WelcomeSearch {
   }
 
   ngOnInit() {
-    this.searchForm = this.formBuilder.group({
-      'query': new FormControl('', Validators.required),
-    });
+    this.searchForm = new FormGroup({ 'query': new FormControl(this.query, Validators.required) });
+
+    this.route.params
+      .map(i => i['q'] || '')
+      .do(i => this.query = i)
+      .subscribe(i => this.searchForm.setValue({ query: i }));
   }
 }

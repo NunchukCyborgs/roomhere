@@ -75,8 +75,6 @@ export class SeoService {
   private getTags(tags: Tags): Tag[] {
     let {title, description, image} = Object.assign({}, { title: this.TITLE, description: this.DESCRIPTION, image: this.IMAGE }, tags);
 
-    console.log('title: ', title);
-
     return [
       createSchema(new RoomhereWebsite()),
       { name: 'link', attributes: [{ name: 'rel', value: 'canonical' }, { name: 'href', value: BASE_URL }] },

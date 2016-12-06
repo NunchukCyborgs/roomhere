@@ -42,9 +42,8 @@ export class Welcome {
       .filter(i => !i)
       .map(() => !this.persist.get('no_signup_ad'));
 
-    let query = this.route.params['q'] || '';
-
-    this.loadFilteredProperties$
+    Observable.combineLatest(this.loadFilteredProperties$, this.route.params)
+      .do(i => this.query = i[1]['q'])
       .debounceTime(500)
       .flatMap(() => this.facetsService.loadFacets())
       .flatMap(() => this.facetsService.minPrice$)

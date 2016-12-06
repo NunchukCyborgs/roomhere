@@ -24,6 +24,7 @@ export function getPropertyViewModule() {
   imports: [
     RouterModule.forChild([
       { path: '', loadChildren: getWelcomeModule },
+      { path: 'search', loadChildren: getWelcomeModule },
       { path: 'p', loadChildren: getGeneralModule },
       { path: 'account', loadChildren: getAccountModule },
       { path: 'cape-girardeau/:slug', loadChildren: getPropertyViewModule, resolve: { property: PropertyViewResolve } },
