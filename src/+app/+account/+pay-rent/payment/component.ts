@@ -1,9 +1,13 @@
 import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { isBrowser } from 'angular2-universal';
 import { ValidationService } from '../../../shared/services/validation.service';
 import { Property } from '../../../shared/dtos/property';
 import { PropertyService } from '../../../shared/services/property.service';
+import { loadScript } from '../../../shared/services/util';
+
+declare let Stripe: any;
 
 @Component({
   selector: 'pay-rent-payment',
@@ -22,6 +26,7 @@ export class PayRentPayment {
       .filter((property: Property) => property && !property.id ? this.router.navigate(['/account/pay-rent/']) && false : true)
       .do(i => this.property = i)
       .do(i => this.initForm(i))
+      .do(() => isBrowser && this.loadStripe())
       .subscribe();
   }
 
@@ -39,7 +44,11 @@ export class PayRentPayment {
       expMonth: new FormControl('', [Validators.required, Validators.maxLength(2), Validators.minLength(2)]),
       expYear: new FormControl('', [Validators.required, Validators.maxLength(2), Validators.minLength(2)]),
       cvc: new FormControl('', [Validators.required, Validators.maxLength(4), Validators.minLength(4)]),
-    })   
+    })
+  }
+
+  private loadStripe() {
+    loadScript('https://js.stripe.com/v2/', () => Stripe.setPublishableKey('${STRIPE_PUBLISHABLE_KEY}') )
   }
 }
 

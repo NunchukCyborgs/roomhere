@@ -8,6 +8,7 @@ const autoprefixer = require('autoprefixer');
 const IS_PROD = Boolean(process.env.NODE_ENV === 'production');
 const BASE_API_URL = IS_PROD ? 'https://api.roomhere.io' : 'http://ec2-35-165-55-132.us-west-2.compute.amazonaws.com/';
 const BASE_URL = IS_PROD ? 'https://roomhere.io' : 'http://localhost:3000';
+const STRIPE_PUBLISHABLE_KEY = IS_PROD ? 'pk_live_nVt9TNvv8WjLT24KfcjS34es' : 'pk_test_Y2r38dQA6LC3s4uJxCIluX1f';
 
 const htmlQuery = {
   minimize: true,
@@ -27,6 +28,7 @@ export var commonPlugins = [
       IS_PROD: IS_PROD,
       BASE_API_URL: JSON.stringify(BASE_API_URL),
       BASE_URL: JSON.stringify(BASE_URL),
+      STRIPE_PUBLISHABLE_KEY: JSON.stringify(STRIPE_PUBLISHABLE_KEY),
       DEFAULT_TENANT: JSON.stringify('cape-girardeau'),
       DEFAULT_TENANT_PRETTY: JSON.stringify('Cape Girardeau'),
       DEFAULT_STATE: JSON.stringify('MO'),
