@@ -8,6 +8,6 @@ export class PaymentService {
   constructor(private http: HttpService) { }
 
   public requestPayment(request: PaymentRequest, stripeToken: string): Observable<any> {
-    return this.http.post(`${BASE_API_URL}payments`, {payment_request: request, stripeToken: stripeToken})
+    return this.http.post(`${BASE_API_URL}/payments`, {payment_request: request, stripeToken: stripeToken})
   }
 }

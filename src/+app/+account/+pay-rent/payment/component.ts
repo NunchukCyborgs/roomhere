@@ -20,6 +20,8 @@ declare let Stripe: any;
 export class PayRentPayment {
   public property: Property;
   public paymentForm: FormGroup;
+  public minDate: string;
+  public maxDate: string;
 
   constructor(private router: Router, private route: ActivatedRoute, private propertyService: PropertyService, private paymentService: PaymentService) { }
 
@@ -33,7 +35,7 @@ export class PayRentPayment {
       .subscribe();
   }
 
-  public createStripeToken(): Observable<{status: any, response: any}> {
+  public createStripeToken(): Observable<{ status: any, response: any }> {
     return Observable.create(observer => {
       Stripe.card.createToken($('#PaymentForm'), (status, response) => observer.next({ status: status, response: response }));
     });
@@ -50,11 +52,21 @@ export class PayRentPayment {
   private initForm(property: Property) {
     const now = new Date();
     const lastDayOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0);
-    // const minDate = 
+
+    let minDate = new Date();
+    minDate.setHours(now.getHours() + 8);
+    minDate = new Date(minDate.getFullYear(), minDate.getMonth() + 1, minDate.getDate());
+
+    let maxDate = new Date();
+    maxDate.setMonth(now.getMonth() + 1);
+    maxDate = new Date(maxDate.getFullYear(), maxDate.getMonth() + 1, maxDate.getDate());
+
+    this.minDate = this.formatDate(minDate);
+    this.maxDate = this.formatDate(maxDate);
 
     this.paymentForm = new FormGroup({
       name: new FormControl('', [Validators.required, ValidationService.nameValidator]),
-      dueOn: new FormControl(lastDayOfMonth, [Validators.required, ValidationService.dateValidator.bind(this, new Date(), new Date())]),
+      dueOn: new FormControl(this.formatDate(lastDayOfMonth), [Validators.required, ValidationService.dateValidator.bind(this, minDate, maxDate)]),
       subtotal: new FormControl(0, [Validators.required]), // minimum price? 25?
       phone: new FormControl('', [Validators.required, ValidationService.phoneNumberValidator]),
       unit: new FormControl(''),
@@ -65,7 +77,12 @@ export class PayRentPayment {
     })
   }
 
-  private loadStripe() {
+  private formatDate(date: Date): string {
+    console.log('formatting: ', date, `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`);
+    return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+  }
+
+  private loadStripe(): void {
     loadScript('https://js.stripe.com/v2/', () => Stripe.setPublishableKey(STRIPE_PUBLISHABLE_KEY))
   }
 

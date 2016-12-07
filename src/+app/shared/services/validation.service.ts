@@ -44,26 +44,34 @@ export class ValidationService {
   }
 
   static dateValidator(minDate, maxDate, control) {
-    // todo
-    // console.log('date validator: ', control.value, minDate, maxDate);
-    // const match = control.value && control.value.match(/\d/g);
-    // if (1 === 1) {
-    //   return null;
-    // } else {
-    //   return { 'invalidDate': true };
-    // }
-    return null;
+    try {
+      const parts = control.value.split("-");
+      const parsedDate = new Date(
+        Number(parts[0]),
+        Number(parts[1]) - 1,
+        Number(parts[2]),
+      );
+
+      console.log('date validator: ', parsedDate, minDate, maxDate);
+
+      if (minDate <= parsedDate && parsedDate <= maxDate) {
+        return null;
+      }
+    } catch (err) {
+      console.log('err date: ', err);
+    }
+
+    return { 'invalidDate': true };
   }
 
   static nameValidator(control) {
-    // const match = control.value.match(/^[a-z ,.'-]+$/i);
+    const match = control.value.match(/^[a-z,.'-]+[ ]([a-z,.'-]|[ ])+$/i);
 
-    // if (control.value.length === 0 || match) {
-    //   return null;
-    // } else {
-    //   return { 'invalidName': true };
-    // }
-    return null;
+    if (control.value.length === 0 || match) {
+      return null;
+    } else {
+      return { 'invalidName': true };
+    }
   }
 
   static emailValidator(control) {

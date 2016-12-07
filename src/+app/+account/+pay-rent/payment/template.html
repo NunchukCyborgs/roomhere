@@ -31,9 +31,13 @@
           </div>
           <div class="small-10  columns">
             Due by: 
-            <input type="date" placeholder="full name" formControlName="dueOn" class="form-control">
+            <input type="date" formControlName="dueOn" class="form-control" [min]="minDate" [max]="maxDate">
           </div>
           <control-messages [control]="paymentForm.controls.dueOn" class="alert"></control-messages>
+          {{paymentForm.controls.dueOn.errors}}
+          <div class="alert warning" *ngIf="paymentForm.controls.dueOn.errors && paymentForm.controls.dueOn.errors.invalidDate">
+            Please pick a date between {{minDate}} and {{maxDate}}
+          </div>
         </div>
 
         <div class="form-group row collapse">
