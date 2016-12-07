@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { Property } from '../../../shared/dtos/property';
+import { Property } from '../../shared/dtos/property';
 
 @Component({
   selector: 'pay-rent-address',
@@ -18,7 +18,7 @@ export class PayRentAddress {
 
   public save() {
     if (this.property) {
-      this.router.navigate([`/account/pay-rent/payment/${this.property.slug}`]);
+      this.router.navigate([`/pay-rent/payment/${this.property.slug}`]);
     }
   }
 }

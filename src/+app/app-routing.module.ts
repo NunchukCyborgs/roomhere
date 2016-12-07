@@ -19,6 +19,10 @@ export function getPropertyViewModule() {
   return System.import('./+property-view/property-view.module' + (process.env.AOT ? '.ngfactory' : ''))
     .then(mod => mod[(process.env.AOT ? 'PropertyViewModuleNgFactory' : 'PropertyViewModule')]);
 }
+export function getPayRentModule() {
+  return System.import('./+pay-rent/pay-rent.module' + (process.env.AOT ? '.ngfactory' : ''))
+    .then(mod => mod[(process.env.AOT ? 'PayRentModuleNgFactory' : 'PayRentModule')]);
+}
 
 @NgModule({
   imports: [
@@ -27,6 +31,7 @@ export function getPropertyViewModule() {
       { path: 'search', loadChildren: getWelcomeModule },
       { path: 'p', loadChildren: getGeneralModule },
       { path: 'account', loadChildren: getAccountModule },
+      { path: 'pay-rent', loadChildren: getPayRentModule },
       { path: 'cape-girardeau/:slug', loadChildren: getPropertyViewModule, resolve: { property: PropertyViewResolve } },
       { path: '**', component: MissingResource },
     ])

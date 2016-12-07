@@ -5,6 +5,16 @@
     <div class="column medium-8">
       <form id="PaymentForm" [formGroup]="paymentForm" *ngIf="paymentForm" (ngSubmit)="submit()" autocomplete="on">
 
+        <div class="form-group row collapse" [hidden]="!(hasAuth$ | async)">
+          <div class="small-2 columns">
+            <span class="prefix"><i class="fa fa-envelope"></i></span>
+          </div>
+          <div class="small-10  columns">
+            <input type="email" placeholder="email address" formControlName="email" class="form-control" autocomplete="email">
+          </div>
+          <control-messages [control]="paymentForm.controls.email" class="alert"></control-messages>
+        </div>
+
         <div class="form-group row collapse">
           <div class="small-2 columns">
             <span class="prefix"><i class="fa fa-envelope"></i></span>

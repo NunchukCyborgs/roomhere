@@ -12,10 +12,6 @@ export function getSuperModule() {
   return System.import('./+super/super.module' + (process.env.AOT ? '.ngfactory' : ''))
     .then(mod => mod[(process.env.AOT ? 'SuperModuleNgFactory' : 'SuperModule')]);
 }
-export function getPayRentModule() {
-  return System.import('./+pay-rent/pay-rent.module' + (process.env.AOT ? '.ngfactory' : ''))
-    .then(mod => mod[(process.env.AOT ? 'PayRentModuleNgFactory' : 'PayRentModule')]);
-}
 
 @NgModule({
   imports: [
@@ -30,7 +26,6 @@ export function getPayRentModule() {
           { path: 'registration-success', component: UserSplash },
           { path: 'landlord-settings', component: LandlordSettings },
           { path: 'become-a-landlord', component: BecomeLandlord },
-          { path: 'pay-rent', loadChildren: getPayRentModule },
           { path: 'super', loadChildren: getSuperModule },
         ]
       }

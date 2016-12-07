@@ -1,8 +1,6 @@
 import { NgModule }       from '@angular/core';
 import { SharedModule } from '../shared/shared.module';
 import { PropertyModule } from '../+property/property.module';
-import { PayRentRoutingModule } from './+pay-rent/pay-rent-routing.module';
-import { PayRentModule } from './+pay-rent/pay-rent.module';
 
 import { AccountAuthGuard } from './account.auth-guard'; 
 import { AccountPage } from './component';
@@ -18,8 +16,6 @@ import { BecomeLandlord } from './become-landlord/component';
     SharedModule,
     PropertyModule,
     AccountRoutingModule,
-    PayRentRoutingModule,
-    PayRentModule,
   ],
   declarations: [
     Dashboard,

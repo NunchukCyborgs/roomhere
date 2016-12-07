@@ -3,12 +3,12 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { isBrowser } from 'angular2-universal';
 import { Observable } from 'rxjs/Observable';
-import { ValidationService } from '../../../shared/services/validation.service';
-import { PropertyService } from '../../../shared/services/property.service';
-import { PaymentService } from '../../../shared/services/payment.service';
-import { Property } from '../../../shared/dtos/property';
-import { PaymentRequest } from '../../../shared/dtos/payment-request';
-import { loadScript } from '../../../shared/services/util';
+import { ValidationService } from '../../shared/services/validation.service';
+import { PropertyService } from '../../shared/services/property.service';
+import { PaymentService } from '../../shared/services/payment.service';
+import { Property } from '../../shared/dtos/property';
+import { PaymentRequest } from '../../shared/dtos/payment-request';
+import { loadScript } from '../../shared/services/util';
 
 declare let Stripe: any;
 
@@ -29,7 +29,7 @@ export class PayRentPayment {
     this.route.params
       .do(i => this.subtotal = Number(i['subtotal']) || 0)
       .flatMap(i => this.propertyService.getPropertyBySlug$(i['slug']))
-      .filter((property: Property) => property && !property.id ? this.router.navigate(['/account/pay-rent/']) && false : true)
+      .filter((property: Property) => property && !property.id ? this.router.navigate(['/pay-rent/']) && false : true)
       .do(i => this.property = i)
       .do(i => this.initForm(i))
       .do(() => isBrowser && this.loadStripe())
@@ -52,6 +52,7 @@ export class PayRentPayment {
 
   private initForm(property: Property) {
     this.paymentForm = new FormGroup({
+      email: new FormControl('', [Validators.required, ValidationService.emailValidator]),
       name: new FormControl('', [Validators.required, ValidationService.nameValidator]),
       subtotal: new FormControl(this.subtotal, [Validators.required]), // minimum price? 25?
       phone: new FormControl('', [Validators.required, ValidationService.phoneNumberValidator]),
