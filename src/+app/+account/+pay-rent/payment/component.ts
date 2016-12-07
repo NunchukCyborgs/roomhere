@@ -21,11 +21,13 @@ export class PayRentPayment {
   public property: Property;
   public paymentForm: FormGroup;
   public dueOn: number = 30;
+  public subtotal: number;
 
   constructor(private router: Router, private route: ActivatedRoute, private propertyService: PropertyService, private paymentService: PaymentService) { }
 
   ngOnInit() {
-    this.route.params // Also accept price from url?
+    this.route.params
+      .do(i => this.subtotal = Number(i['subtotal']) || 0)
       .flatMap(i => this.propertyService.getPropertyBySlug$(i['slug']))
       .filter((property: Property) => property && !property.id ? this.router.navigate(['/account/pay-rent/']) && false : true)
       .do(i => this.property = i)
@@ -51,7 +53,7 @@ export class PayRentPayment {
   private initForm(property: Property) {
     this.paymentForm = new FormGroup({
       name: new FormControl('', [Validators.required, ValidationService.nameValidator]),
-      subtotal: new FormControl(0, [Validators.required]), // minimum price? 25?
+      subtotal: new FormControl(this.subtotal, [Validators.required]), // minimum price? 25?
       phone: new FormControl('', [Validators.required, ValidationService.phoneNumberValidator]),
       unit: new FormControl(''),
       card: new FormControl('', [Validators.required, ValidationService.creditCardValidator]),
@@ -80,10 +82,3 @@ export class PayRentPayment {
     };
   }
 }
-
-
-// "name" : "Stephen Myers",
-// "property_id" : 1,
-// "due_on" : Date (no time required),
-// "subtotal" : 1100 (what the person says their place costs),
-// "unit" : 1 (the apartment unit)

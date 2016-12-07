@@ -7,7 +7,8 @@ import { PayRentPayment } from './payment/component';
   imports: [
     RouterModule.forChild([
       { path: '', component: PayRentAddress },
-      { path: 'payment', component: PayRentPayment },
+      { path: 'payment/:slug', component: PayRentPayment },
+      { path: 'payment/:slug/:subtotal', component: PayRentPayment },
     ])
   ],
   exports: [
