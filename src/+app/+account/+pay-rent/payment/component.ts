@@ -20,8 +20,7 @@ declare let Stripe: any;
 export class PayRentPayment {
   public property: Property;
   public paymentForm: FormGroup;
-  public minDate: string;
-  public maxDate: string;
+  public dueOn: number = 30;
 
   constructor(private router: Router, private route: ActivatedRoute, private propertyService: PropertyService, private paymentService: PaymentService) { }
 
@@ -50,23 +49,8 @@ export class PayRentPayment {
   }
 
   private initForm(property: Property) {
-    const now = new Date();
-    const lastDayOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0);
-
-    let minDate = new Date();
-    minDate.setHours(now.getHours() + 8);
-    minDate = new Date(minDate.getFullYear(), minDate.getMonth() + 1, minDate.getDate());
-
-    let maxDate = new Date();
-    maxDate.setMonth(now.getMonth() + 1);
-    maxDate = new Date(maxDate.getFullYear(), maxDate.getMonth() + 1, maxDate.getDate());
-
-    this.minDate = this.formatDate(minDate);
-    this.maxDate = this.formatDate(maxDate);
-
     this.paymentForm = new FormGroup({
       name: new FormControl('', [Validators.required, ValidationService.nameValidator]),
-      dueOn: new FormControl(this.formatDate(lastDayOfMonth), [Validators.required, ValidationService.dateValidator.bind(this, minDate, maxDate)]),
       subtotal: new FormControl(0, [Validators.required]), // minimum price? 25?
       phone: new FormControl('', [Validators.required, ValidationService.phoneNumberValidator]),
       unit: new FormControl(''),
@@ -88,9 +72,9 @@ export class PayRentPayment {
 
   private getPaymentOptions(): PaymentRequest {
     return {
-      name: this.paymentForm.controls['name'].value,
       property_id: this.property.id,
-      due_on: this.paymentForm.controls['dueOn'].value,
+      due_on: this.dueOn,
+      name: this.paymentForm.controls['name'].value,
       subtotal: this.paymentForm.controls['subtotal'].value,
       unit: this.paymentForm.controls['unit'].value,
     };
