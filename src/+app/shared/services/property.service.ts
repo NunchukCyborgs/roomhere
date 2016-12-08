@@ -3,8 +3,6 @@ import { HttpService } from './http.service';
 
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/Rx'; // todo: I think this is very bad for our bundle size ...
-
 import { Property } from '../../shared/dtos/property';
 import { PropertyFacet } from '../../shared/dtos/facets';
 

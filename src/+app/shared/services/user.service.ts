@@ -9,7 +9,6 @@ import { isBrowser } from 'angular2-universal';
 import { PersistenceService } from './persistence.service';
 import { Property } from '../../shared/dtos/property';
 
-import 'rxjs/Rx'; // todo: I think this is very bad for our bundle size ...
 declare let analytics: any;
 
 export interface License {
