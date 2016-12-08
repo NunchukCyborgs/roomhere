@@ -6,6 +6,7 @@ import { Observable } from 'rxjs/Observable';
 import { ValidationService } from '../../shared/services/validation.service';
 import { PropertyService } from '../../shared/services/property.service';
 import { PaymentService } from '../../shared/services/payment.service';
+import { UserService } from '../../shared/services/user.service';
 import { Property } from '../../shared/dtos/property';
 import { PaymentRequest } from '../../shared/dtos/payment-request';
 import { loadScript } from '../../shared/services/util';
@@ -23,7 +24,7 @@ export class PayRentPayment {
   public dueOn: number = 30;
   public subtotal: number;
 
-  constructor(private router: Router, private route: ActivatedRoute, private propertyService: PropertyService, private paymentService: PaymentService) { }
+  constructor(private router: Router, private route: ActivatedRoute, private propertyService: PropertyService, private paymentService: PaymentService, private userService: UserService) { }
 
   ngOnInit() {
     this.route.params
@@ -52,7 +53,6 @@ export class PayRentPayment {
 
   private initForm(property: Property) {
     this.paymentForm = new FormGroup({
-      email: new FormControl('', [Validators.required, ValidationService.emailValidator]),
       name: new FormControl('', [Validators.required, ValidationService.nameValidator]),
       subtotal: new FormControl(this.subtotal, [Validators.required]), // minimum price? 25?
       phone: new FormControl('', [Validators.required, ValidationService.phoneNumberValidator]),

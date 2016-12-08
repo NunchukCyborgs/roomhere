@@ -55,9 +55,9 @@ export class UserService {
     this.router.navigate(['/']);
   }
 
-  public register(user: User): Observable<Response> {
+  public register(user: User, data: Object): Observable<Response> {
     user.confirm_success_url = `${BASE_URL}/account/registration-success`;
-    return this.http.post(`${BASE_API_URL}/auth`, user, {rawResponse: true});
+    return this.http.post(`${BASE_API_URL}/auth`, Object.assign(user, data), {rawResponse: true});
   }
 
   public sendResetPasswordLink(user: User): Observable<Response> {
