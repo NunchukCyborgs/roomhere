@@ -26,4 +26,12 @@ RACK_ENV=staging rails c
 
 # Production
 RACK_ENV=production rails c
+
+
+# Kendo UI
+
+    npm login --registry=https://registry.npm.telerik.com/ --scope=@progress
+ username: telerik
+ email: telerik@roomhere.io
+ pass: r00mh3r3
 ```
