@@ -45,10 +45,9 @@ export class PayRentPayment {
 
   public submit() {
     this.createStripeToken()
-      .do(i => console.log(i))
       .filter(i => !i.response.error)
       .flatMap(i => this.paymentService.requestPayment(this.getPaymentOptions(), i.response.id))
-      .subscribe(i => console.log('success plz?: ', i));
+      .subscribe();
   }
 
   private initForm(property: Property) {
@@ -62,11 +61,6 @@ export class PayRentPayment {
       expYear: new FormControl('', [Validators.required, Validators.maxLength(2), Validators.minLength(2)]),
       cvc: new FormControl('', [Validators.required, Validators.maxLength(4), Validators.minLength(3)]),
     })
-  }
-
-  private formatDate(date: Date): string {
-    console.log('formatting: ', date, `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`);
-    return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
   }
 
   private loadStripe(): void {

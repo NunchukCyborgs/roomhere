@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Http, Headers, Response, ResponseOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs';
+import 'rxjs'; // todo: I think this is very bad for our bundle size ...
 import { isBrowser } from 'angular2-universal';
 import { PersistenceService } from './persistence.service';
 import { CacheService } from './cache.service';

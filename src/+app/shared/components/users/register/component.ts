@@ -15,6 +15,7 @@ import { ControlMessages } from '../../control-messages/component';
 })
 export class Register {
   @Input() data: Object;
+  @Input() redirectUrl: string;
 
   public success: boolean = false;
   public serverErrors: string[] = [];
@@ -48,7 +49,7 @@ export class Register {
       password_confirmation: this.registerForm.controls.confirmPassword.value,
     });
 
-    this.userService.register(user, this.data)
+    this.userService.register(user, this.data, this.redirectUrl || undefined)
       .do((res: Response) => this.serverErrors = ValidationService.getAuthErrors(res))
       .subscribe((res: Response) => this.success = res.ok);
   }

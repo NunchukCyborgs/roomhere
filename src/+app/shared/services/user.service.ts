@@ -9,7 +9,7 @@ import { isBrowser } from 'angular2-universal';
 import { PersistenceService } from './persistence.service';
 import { Property } from '../../shared/dtos/property';
 
-import 'rxjs/Rx';
+import 'rxjs/Rx'; // todo: I think this is very bad for our bundle size ...
 declare let analytics: any;
 
 export interface License {
@@ -55,8 +55,8 @@ export class UserService {
     this.router.navigate(['/']);
   }
 
-  public register(user: User, data: Object): Observable<Response> {
-    user.confirm_success_url = `${BASE_URL}/account/registration-success`;
+  public register(user: User, data: Object, redirectUrl: string = 'p/registration-success'): Observable<Response> {
+    user.confirm_success_url = `${BASE_URL}/${redirectUrl}`;
     return this.http.post(`${BASE_API_URL}/auth`, Object.assign(user, data), {rawResponse: true});
   }
 
@@ -159,7 +159,7 @@ export class UserService {
   }
 
   private getRedirectUrl(): string {
-    return isBrowser && `${BASE_URL}/account/registration-success`
+    return isBrowser && `${BASE_URL}/p/registration-success`
   }
 
   public get hasAuth() {

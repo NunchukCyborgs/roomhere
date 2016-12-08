@@ -15,18 +15,18 @@ import { ControlMessages } from '../../shared/components/control-messages/compon
   templateUrl: 'template.html',
 })
 export class PayRentSignUp {
-  public token: { stripeToken: string };
+  public token: { token: string };
   public signupForm: FormGroup;
   public serverErrors: string[] = [];
   public success: boolean = false;
+  public redirectUrl: string = '/p/payment-success';
 
   constructor(private route: ActivatedRoute, private userService: UserService) { }
 
   ngOnInit() {
     this.route.params
-      .do(i => console.log(123, i))
       .map(i => i['token'])
-      .do(i => this.token = { stripeToken: i })
+      .do(i => this.token = { token: i })
       .subscribe();
   }
 }
