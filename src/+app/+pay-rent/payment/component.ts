@@ -69,7 +69,7 @@ export class PayRentPayment {
 
   private getPaymentOptions(): PaymentRequest {
     return {
-      property_id: this.property.id,
+      property_slug: this.property.slug,
       due_on: this.dueOn,
       name: this.paymentForm.controls['name'].value,
       subtotal: this.paymentForm.controls['subtotal'].value,

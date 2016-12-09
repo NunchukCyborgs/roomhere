@@ -4,6 +4,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/observable/combineLatest';
+import 'rxjs/add/observable/forkJoin';
 import 'rxjs/add/observable/of';
 
 import { NgModule } from '@angular/core';
