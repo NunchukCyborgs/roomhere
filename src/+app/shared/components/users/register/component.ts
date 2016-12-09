@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Response } from '@angular/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
@@ -14,6 +14,9 @@ import { ControlMessages } from '../../control-messages/component';
   templateUrl: 'template.html',
 })
 export class Register {
+  @Input() data: Object;
+  @Input() redirectUrl: string;
+
   public success: boolean = false;
   public serverErrors: string[] = [];
   public registerForm: any;
@@ -46,7 +49,7 @@ export class Register {
       password_confirmation: this.registerForm.controls.confirmPassword.value,
     });
 
-    this.userService.register(user)
+    this.userService.register(user, this.data, this.redirectUrl || undefined)
       .do((res: Response) => this.serverErrors = ValidationService.getAuthErrors(res))
       .subscribe((res: Response) => this.success = res.ok);
   }

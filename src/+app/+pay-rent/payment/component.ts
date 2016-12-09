@@ -6,6 +6,7 @@ import { Observable } from 'rxjs/Observable';
 import { ValidationService } from '../../shared/services/validation.service';
 import { PropertyService } from '../../shared/services/property.service';
 import { PaymentService } from '../../shared/services/payment.service';
+import { UserService } from '../../shared/services/user.service';
 import { Property } from '../../shared/dtos/property';
 import { PaymentRequest } from '../../shared/dtos/payment-request';
 import { loadScript } from '../../shared/services/util';
@@ -23,7 +24,7 @@ export class PayRentPayment {
   public dueOn: number = 30;
   public subtotal: number;
 
-  constructor(private router: Router, private route: ActivatedRoute, private propertyService: PropertyService, private paymentService: PaymentService) { }
+  constructor(private router: Router, private route: ActivatedRoute, private propertyService: PropertyService, private paymentService: PaymentService, private userService: UserService) { }
 
   ngOnInit() {
     this.route.params
@@ -44,15 +45,13 @@ export class PayRentPayment {
 
   public submit() {
     this.createStripeToken()
-      .do(i => console.log(i))
       .filter(i => !i.response.error)
       .flatMap(i => this.paymentService.requestPayment(this.getPaymentOptions(), i.response.id))
-      .subscribe(i => console.log('success plz?: ', i));
+      .subscribe();
   }
 
   private initForm(property: Property) {
     this.paymentForm = new FormGroup({
-      email: new FormControl('', [Validators.required, ValidationService.emailValidator]),
       name: new FormControl('', [Validators.required, ValidationService.nameValidator]),
       subtotal: new FormControl(this.subtotal, [Validators.required]), // minimum price? 25?
       phone: new FormControl('', [Validators.required, ValidationService.phoneNumberValidator]),
@@ -64,18 +63,13 @@ export class PayRentPayment {
     })
   }
 
-  private formatDate(date: Date): string {
-    console.log('formatting: ', date, `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`);
-    return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
-  }
-
   private loadStripe(): void {
     loadScript('https://js.stripe.com/v2/', () => Stripe.setPublishableKey(STRIPE_PUBLISHABLE_KEY))
   }
 
   private getPaymentOptions(): PaymentRequest {
     return {
-      property_id: this.property.id,
+      property_slug: this.property.slug,
       due_on: this.dueOn,
       name: this.paymentForm.controls['name'].value,
       subtotal: this.paymentForm.controls['subtotal'].value,

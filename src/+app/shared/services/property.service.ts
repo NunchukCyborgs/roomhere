@@ -3,8 +3,6 @@ import { HttpService } from './http.service';
 
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/Rx';
-
 import { Property } from '../../shared/dtos/property';
 import { PropertyFacet } from '../../shared/dtos/facets';
 
@@ -24,7 +22,7 @@ export class PropertyService {
 
   public searchProperties({query}: {query: string}) {
     return this.http
-      .get(`${BASE_API_URL}/properties/search?q=${query}&page=1&perPage=10`);
+      .get(`${BASE_API_URL}/properties/search?q=${query}&page=1&per_page=15`);
   }
 
   public getFilteredProperties$(facet: PropertyFacet, query: string = '', pageNumber: number = 1, perPage: number = 8, offset: number = 0): Observable<Property[]> {

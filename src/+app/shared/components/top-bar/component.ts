@@ -1,6 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { isBrowser } from 'angular2-universal';
+import { Property } from '../../../shared/dtos/property';
 
 @Component({
   selector: 'top-bar',
@@ -13,15 +14,15 @@ export class TopBar {
   @Input() name: string;
   @Output() logout: EventEmitter<any> = new EventEmitter();
 
+  public showPayRentPicker: boolean = false;
+
   constructor(private router: Router) { }
 
   public closeMenu() {
     isBrowser && $('.title-bar button[data-toggle]').click();
   }
 
-  public signup() {
-    if (!this.hasAuth && isBrowser) {
-      $('#SignupLink').click();
-    }
+  public payRent(property: Property) {
+    this.router.navigate([`/pay-rent/${property.slug}`]);
   }
 }

@@ -3,6 +3,7 @@ import { SharedModule } from '../shared/shared.module';
 import { PayRentRoutingModule } from './pay-rent-routing.module';
 import { PayRentAddress } from './address/component';
 import { PayRentPayment } from './payment/component';
+import { PayRentSignUp } from './sign-up/component';
 import { PropertyModule } from '../+property/property.module';
 
 @NgModule({
@@ -12,7 +13,7 @@ import { PropertyModule } from '../+property/property.module';
     PropertyModule,
   ],
   declarations: [
-    PayRentAddress, PayRentPayment,
+    PayRentAddress, PayRentPayment, PayRentSignUp,
   ],
   providers: [
     

@@ -9,7 +9,6 @@ import { isBrowser } from 'angular2-universal';
 import { PersistenceService } from './persistence.service';
 import { Property } from '../../shared/dtos/property';
 
-import 'rxjs/Rx';
 declare let analytics: any;
 
 export interface License {
@@ -55,9 +54,9 @@ export class UserService {
     this.router.navigate(['/']);
   }
 
-  public register(user: User): Observable<Response> {
-    user.confirm_success_url = `${BASE_URL}/account/registration-success`;
-    return this.http.post(`${BASE_API_URL}/auth`, user, {rawResponse: true});
+  public register(user: User, data: Object, redirectUrl: string = 'p/registration-success'): Observable<Response> {
+    user.confirm_success_url = `${BASE_URL}/${redirectUrl}`;
+    return this.http.post(`${BASE_API_URL}/auth`, Object.assign(user, data), {rawResponse: true});
   }
 
   public sendResetPasswordLink(user: User): Observable<Response> {
@@ -159,7 +158,7 @@ export class UserService {
   }
 
   private getRedirectUrl(): string {
-    return isBrowser && `${BASE_URL}/account/registration-success`
+    return isBrowser && `${BASE_URL}/p/registration-success`
   }
 
   public get hasAuth() {

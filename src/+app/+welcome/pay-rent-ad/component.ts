@@ -7,10 +7,4 @@ import { isBrowser } from 'angular2-universal';
   templateUrl: 'template.html'
 })
 export class PayRentAd {
-  @Input() hasAuth: boolean;
-  public signup(): void {
-    if (isBrowser && !this.hasAuth) {
-      $('#SignupLink').click();
-    }
-  }
 }

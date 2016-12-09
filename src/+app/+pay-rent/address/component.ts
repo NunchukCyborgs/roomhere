@@ -18,7 +18,7 @@ export class PayRentAddress {
 
   public save() {
     if (this.property) {
-      this.router.navigate([`/pay-rent/payment/${this.property.slug}`]);
+      this.router.navigate([`/pay-rent/${this.property.slug}`]);
     }
   }
 }

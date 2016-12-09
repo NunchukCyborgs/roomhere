@@ -5,6 +5,4 @@ import { Component } from '@angular/core';
   styleUrls: [],
   templateUrl: 'template.html'
 })
-export class UserSplash  {
-  // should robots - no index on this page
-}
+export class UserSplash  { }

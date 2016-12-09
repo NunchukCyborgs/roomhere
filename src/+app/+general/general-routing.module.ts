@@ -6,6 +6,8 @@ import { LandlordLanding } from './landlord-landing/component';
 import { PrivacyPolicy } from './privacy-policy/component';
 import { RenterLanding } from './renter-landing/component';
 import { ResetPassword } from '../shared/components/users/reset-password/component';
+import { UserSplash } from './user-splash/component';
+import { PaymentSuccess } from './payment-success/component';
 
 @NgModule({
   imports: [
@@ -15,6 +17,8 @@ import { ResetPassword } from '../shared/components/users/reset-password/compone
       { path: 'cape-girardeau-rentals', component: RenterLanding },
       { path: 'privacy-policy', component: PrivacyPolicy },
       { path: 'reset-password', component: ResetPassword },
+      { path: 'registration-success', component: UserSplash },
+      { path: 'payment-success', component: PaymentSuccess },
     ])
   ]
 })

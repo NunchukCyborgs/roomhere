@@ -6,8 +6,9 @@ import { AccountAuthGuard } from './account.auth-guard';
 import { AccountPage } from './component';
 import { AccountRoutingModule } from './account-routing.module';
 import { Dashboard } from './dashboard/component';
+import { LandlordDashboard } from './landlord-dashboard/component';
+import { UserDashboard } from './user-dashboard/component';
 import { Settings } from './settings/component';
-import { UserSplash } from './user-splash/component';
 import { LandlordSettings } from './landlord-settings/component';
 import { BecomeLandlord } from './become-landlord/component';
 
@@ -21,9 +22,10 @@ import { BecomeLandlord } from './become-landlord/component';
     Dashboard,
     AccountPage,
     Settings,
-    UserSplash,
     LandlordSettings,
     BecomeLandlord,
+    LandlordDashboard,
+    UserDashboard,
   ],
   providers: [
     AccountAuthGuard,

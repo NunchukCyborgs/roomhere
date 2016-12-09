@@ -7,6 +7,8 @@ import { Faq } from './faq/component';
 import { LandlordLanding } from './landlord-landing/component';
 import { PrivacyPolicy } from './privacy-policy/component';
 import { RenterLanding } from './renter-landing/component';
+import { UserSplash } from './user-splash/component';
+import { PaymentSuccess } from './payment-success/component';
 
 @NgModule({
   imports: [
@@ -18,6 +20,8 @@ import { RenterLanding } from './renter-landing/component';
     LandlordLanding,
     PrivacyPolicy,
     RenterLanding,
+    UserSplash,
+    PaymentSuccess,
   ]
 })
 export class GeneralModule { }
