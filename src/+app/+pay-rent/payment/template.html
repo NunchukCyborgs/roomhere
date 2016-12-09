@@ -38,7 +38,6 @@
               <number-ticker name="dueOn" [(number)]="dueOn" [min]="1" [max]="31"></number-ticker>
               </label>
             </div>
-            <control-messages [control]="paymentForm.controls.email" class="alert"></control-messages>
           </div>
           <div class="form-group row collapse">
             <div class="small-12  columns">
@@ -46,15 +45,15 @@
               <input type="number" placeholder="rent price" formControlName="subtotal" class="form-control" min="25" max="999999999.99">
               </label>
             </div>
-            <control-messages [control]="paymentForm.controls.name" class="alert"></control-messages>
+            <control-messages [control]="paymentForm.controls.subtotal" class="alert"></control-messages>
           </div>
           <div class="form-group row collapse">
             <div class="small-12  columns">
               <label>Rental Unit
-              <input type="tel" placeholder="phone number" formControlName="phone" class="form-control" autocomplete="tel">
+              <input type="text" placeholder="rental unit" formControlName="unit" class="form-control">
               </label>
             </div>
-            <control-messages [control]="paymentForm.controls.phone" class="alert"></control-messages>
+            <control-messages [control]="paymentForm.controls.unit" class="alert"></control-messages>
           </div>
         </fieldset>
 
