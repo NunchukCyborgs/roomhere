@@ -14,11 +14,15 @@ import { loadScript } from '../../shared/services/util';
 declare let Stripe: any;
 
 @Component({
-  selector: 'pay-rent-payment',
+  selector: 'pay-rent-step1',
   styleUrls: ['./styles.css'],
   templateUrl: 'template.html',
 })
-export class PayRentPayment {
+export class PayRentStep1 {
+  public token: { token: string };
+  public serverErrors: string[] = [];
+  public redirectUrl: string = '/p/payment-success';
+
   public property: Property;
   public paymentForm: FormGroup;
   public dueOn: number = 30;
