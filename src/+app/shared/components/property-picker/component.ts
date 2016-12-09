@@ -1,4 +1,5 @@
-import { Component, Input, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
+import { Component, Output, EventEmitter, ViewEncapsulation, ElementRef } from '@angular/core';
+import { isBrowser } from 'angular2-universal';
 import { Observable } from 'rxjs/Observable';
 import { Property } from '../../dtos/property';
 import { PropertyService } from '../../services/property.service';
@@ -11,11 +12,13 @@ import { PropertyService } from '../../services/property.service';
 export class PropertyPicker {
   @Output() propertyPicked: EventEmitter<any> = new EventEmitter();
 
-  public properties: Property[];
+  public properties: Property[] = [];
   public property: Property = new Property();
 
-  constructor(private propertyService: PropertyService) {
-    this.properties = [];
+  constructor(private propertyService: PropertyService, private element: ElementRef) { }
+
+  ngAfterViewInit() {
+    isBrowser && $(this.element.nativeElement).find('input.k-input').attr('placeholder', 'Search Properties ...');
   }
 
   public handleFilter(value) {
