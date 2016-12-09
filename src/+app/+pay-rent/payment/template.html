@@ -1,8 +1,7 @@
 <div class="container">
-  <h2>Enter your payment things</h2>
-
   <div class="row">
-    <div class="column medium-8">
+    <div class="column large-6 medium-8 wht">
+      <h2>Payment Details</h2>
       <form id="PaymentForm" [formGroup]="paymentForm" *ngIf="paymentForm" (ngSubmit)="submit()" autocomplete="on">
 
         <div class="form-group row collapse" [hidden]="!(hasAuth$ | async)">
@@ -36,22 +35,23 @@
         </div>
 
         <div class="form-group row collapse">
+          <p>Day of the month your rent is due</p>
           <div class="small-2 columns">
             <span class="prefix"><i class="fa fa-envelope"></i></span>
           </div>
           <div class="small-10  columns">
-            Day of the month your rent is due
+           
 
             <number-ticker name="dueOn" [(number)]="dueOn" [min]="1" [max]="31"></number-ticker> 
           </div>
         </div>
 
         <div class="form-group row collapse">
+          <p>Rent Price</p>
           <div class="small-2 columns">
             <span class="prefix"><i class="fa fa-envelope"></i></span>
           </div>
           <div class="small-10  columns">
-            Rent Price
             <input type="number" placeholder="rent price" formControlName="subtotal" class="form-control" min="25" max="999999999.99">
           </div>
           <control-messages [control]="paymentForm.controls.subtotal" class="alert"></control-messages>
@@ -81,8 +81,8 @@
           <div class="small-2 columns">
             <span class="prefix"><i class="fa fa-envelope"></i></span>
           </div>
+          <p>Experation (MM/YY)</p>
           <div class="small-10  columns">
-            Experation (MM/YY)
             <input type="tel" placeholder="MM" formControlName="expMonth" class="form-control" data-stripe="exp_month" autocomplete="cc-exp-month"> / 
             <input type="tel" placeholder="YY" formControlName="expYear" class="form-control" data-stripe="exp_year" autocomplete="cc-exp-year"> 
           </div>
@@ -105,7 +105,7 @@
         </p>
       </form>
     </div>
-    <div class="column medium-4">
+    <div class="column large-offset-1 medium-4">
       <property-preview *ngIf="property" [property]="property"></property-preview>
     </div>
   </div>
