@@ -9,8 +9,8 @@ import { PayRentSignUp } from './sign-up/component';
     RouterModule.forChild([
       { path: '', component: PayRentAddress },
       { path: 'sign-up/:token', component: PayRentSignUp },
-      { path: 'payment/:slug', component: PayRentPayment },
-      { path: 'payment/:slug/:subtotal', component: PayRentPayment },
+      { path: ':slug', component: PayRentPayment },
+      { path: ':slug/:subtotal', component: PayRentPayment },
     ])
   ],
   exports: [
