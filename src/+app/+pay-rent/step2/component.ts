@@ -27,14 +27,14 @@ export class PayRentStep2 {
   constructor(private router: Router, private route: ActivatedRoute, private propertyService: PropertyService, private paymentService: PaymentService, private userService: UserService) { }
 
   ngOnInit() {
-    this.route.params
-      .do(i => this.subtotal = Number(i['subtotal']) || 0)
-      .flatMap(i => this.propertyService.getPropertyBySlug$(i['slug']))
-      .filter((property: Property) => property && !property.id ? this.router.navigate(['/pay-rent/']) && false : true)
-      .do(i => this.property = i)
-      .do(i => this.initForm(i))
-      .do(() => isBrowser && this.loadStripe())
-      .subscribe();
+    // this.route.params
+    //   .do(i => this.subtotal = Number(i['subtotal']) || 0)
+    //   .flatMap(i => this.propertyService.getPropertyBySlug$(i['slug']))
+    //   .filter((property: Property) => property && !property.id ? this.router.navigate(['/pay-rent/']) && false : true)
+    //   .do(i => this.property = i)
+    //   .do(i => this.initForm(i))
+    //   .do(() => isBrowser && this.loadStripe())
+    //   .subscribe();
   }
 
   public createStripeToken(): Observable<{ status: any, response: any }> {
@@ -44,10 +44,10 @@ export class PayRentStep2 {
   }
 
   public submit() {
-    this.createStripeToken()
-      .filter(i => !i.response.error)
-      .flatMap(i => this.paymentService.requestPayment(this.getPaymentOptions(), i.response.id))
-      .subscribe();
+    // this.createStripeToken()
+    //   .filter(i => !i.response.error)
+    //   .flatMap(i => this.paymentService.requestPayment(this.getPaymentOptions(), i.response.id))
+    //   .subscribe();
   }
 
   private initForm(property: Property) {

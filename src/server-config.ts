@@ -12,6 +12,7 @@
 export const routes: string[] = [
   'account',
   'cape-girardeau',
+  'pay-rent',
   'p', // General Module
 ];
 
