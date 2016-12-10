@@ -6,6 +6,7 @@ import { PersistenceService } from './persistence.service';
 import { CacheService } from './cache.service';
 
 const shouldLog = false;
+const skipCache = false;
 
 @Injectable()
 export class HttpService {
@@ -15,7 +16,7 @@ export class HttpService {
     const key = url;
     const cache = this.getFromCache(key);
     
-    return cache ? cache : this.http
+    return !skipCache && cache ? cache : this.http
       .get(url, { headers: this.headers })
       .do(i => shouldLog && console.log(`GET: `, url))
       .map(i => rawResponse ? i : i.json())
@@ -38,7 +39,7 @@ export class HttpService {
     const cache = url.indexOf('filtered_results') > -1 ? this.getFromCache(key) : null;
     // This is the only url I want to cache at this point
 
-    return cache ? cache : this.http.post(url, JSON.stringify(obj), { headers: this.headers })
+    return !skipCache && cache ? cache : this.http.post(url, JSON.stringify(obj), { headers: this.headers })
       .do(i => shouldLog && console.log(`POST: `, url))
       .map(i => rawResponse ? i : i.json())
       .do(i => !rawResponse && this.cache.set(key, i))
