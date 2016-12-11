@@ -46,6 +46,7 @@ import { Register } from './components/users/register/component';
 import { ForgotPassword } from './components/users/forgot-password/component';
 import { ResetPassword } from './components/users/reset-password/component';
 import { BigFooter } from './components/big-footer/component';
+import { PayRentModal } from './components/pay-rent-modal/component';
 
 import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
 
@@ -65,7 +66,7 @@ const PIPES = [
 
 const COMPONENTS = [
   Login, Register, ForgotPassword, ResetPassword, BigFooter, MissingResource,
-  Slide, Logo, TopBar, WelcomeSearch, PropertyPicker,
+  Slide, Logo, TopBar, WelcomeSearch, PropertyPicker, PayRentModal,
   Carousel, ControlMessages, ImageUpload, NumberTicker, UploadProgress, Modal, StarRating, PropertyAmenities, 
 ];
 

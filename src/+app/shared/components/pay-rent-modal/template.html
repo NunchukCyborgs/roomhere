@@ -1,0 +1,12 @@
+<modal id="PayRentModal" class="reveal" data-reveal>
+  <div class="container">
+    <div class="row">
+      <div class="column large-6 medium-9 small-8 small-centered  callout-card-content">
+        <h2>Where do you live?</h2>
+        <property-picker (propertyPicked)="updateProperty($event)"></property-picker>
+
+        <button class="button expanded" type="button" (click)="save()" [disabled]="property ? null : true">Create an Account</button>
+      </div>
+    </div>
+  </div>
+</modal>

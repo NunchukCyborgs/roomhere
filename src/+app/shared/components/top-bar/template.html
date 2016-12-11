@@ -21,8 +21,8 @@
 		<div class="top-bar-right margRight">
 			<ul class="menu vertical large-horizontal dropdown" data-dropdown-menu>
 				<li role="menuitem">
-					<a (click)="showPayRentPicker = true" class="aPadTop button" *ngIf="!showPayRentPicker">Pay Rent</a>
-					<property-picker (propertyPicked)="payRent($event)" *ngIf="showPayRentPicker"></property-picker>
+					<a class="aPadTop button" data-open="PayRentModal">Pay Rent Online</a>
+					<pay-rent-modal hidden></pay-rent-modal>
 				</li>
 				<li role="menuitem">
 					<a (click)="closeMenu()" class="aPadTop" [routerLink]="['/']">Home</a>

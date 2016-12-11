@@ -1,4 +1,4 @@
-<div class="input-group">
+<div class="input-group" *ngIf="isBrowser">
   <kendo-combobox [data]="properties" [textField]="'address1'" [valueField]="'id'" [value]="property" [filterable]="true" [suggest]="true"
     (filterChange)="handleFilter($event)" (selectionChange)="propertyPicked.emit($event)">
     <template itemTemplate let-dataItem>
