@@ -23,6 +23,7 @@ declare let Stripe: any;
 export class PayRentStep1 {
   public paymentToken: string;
   public serverErrors: string[] = [];
+  public paymentErrors: string[] = [];
   public success: boolean = false;
   public hasAuth: boolean;
 
@@ -43,6 +44,8 @@ export class PayRentStep1 {
 
   public submit() {
     this.createPaymentToken()
+      .filter(i => Boolean(i))
+      .do(i => this.paymentToken = i)
       .flatMap(i => this.createUser(i))
       .do(i => this.success = i)
       .filter(i => this.hasAuth)
@@ -89,6 +92,7 @@ export class PayRentStep1 {
 
   private getPaymentOptions(): PaymentRequest {
     return {
+      property_id: this.property.id,
       property_slug: this.property.slug,
       due_on: this.dueOn,
       name: this.paymentForm.controls['name'].value,
@@ -98,7 +102,14 @@ export class PayRentStep1 {
   }
 
   private createPaymentToken(): Observable<string> {
-    return this.paymentToken ? Observable.of(this.paymentToken) : this.paymentService.requestPayment(this.getPaymentOptions()); 
+    if (this.paymentToken) {
+      return Observable.of(this.paymentToken);
+    }
+    return this.paymentService.requestPayment(this.getPaymentOptions())
+      .do(i => console.log('heyo: ', i))
+      .do(i => this.paymentErrors = i.errors)
+      .filter(i => !i.errors.length)
+      .map(i => i.payment_request.token);
   }
 
   private createUser(paymentToken: string): Observable<boolean> {

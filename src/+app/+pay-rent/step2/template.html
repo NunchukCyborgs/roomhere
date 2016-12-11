@@ -44,7 +44,7 @@
       </form>
     </div>
     <div class="column large-offset-1 medium-4">
-      <property-preview *ngIf="property" [property]="property"></property-preview>
+      <property-preview *ngIf="paymentRequest?.property" [property]="paymentRequest.property"></property-preview>
     </div>
   </div>
 </div>

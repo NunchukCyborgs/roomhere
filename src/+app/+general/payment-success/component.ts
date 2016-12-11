@@ -13,6 +13,6 @@ export class PaymentSuccess  {
   constructor(private paymentService: PaymentService) { }
 
   ngOnInit() {
-    this.payments$ = this.paymentService.getMyPayments$();
+    this.payments$ = this.paymentService.getMyPayments();
   }
 }

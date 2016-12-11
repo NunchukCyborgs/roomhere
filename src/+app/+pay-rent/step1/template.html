@@ -93,8 +93,12 @@
         </p>
       </div>
       <div *ngIf="serverErrors.length && !success" class="callout alert">
-        <h6>Uh oh! We had a problem creating your account.</h6>
+        <h4>Uh oh! We had a problem creating your account.</h4>
         <span *ngFor="let error of serverErrors">{{error}}. </span>
+      </div>
+      <div *ngIf="paymentErrors.length && !success" class="callout alert">
+        <h4>Uh oh! We had a problem creating your payment request.</h4>
+        <span *ngFor="let error of paymentErrors">{{error}}. </span>
       </div>
     </div>
 

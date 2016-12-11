@@ -15,13 +15,13 @@ export class HttpService {
   public get(url: string, {rawResponse}: { rawResponse?: boolean } = {}): Observable<any> {
     const key = url;
     const cache = this.getFromCache(key);
-    
+
     return !skipCache && cache ? cache : this.http
       .get(url, { headers: this.headers })
       .do(i => shouldLog && console.log(`GET: `, url))
       .map(i => rawResponse ? i : i.json())
       .do(i => !rawResponse && this.cache.set(key, i))
-      .catch((err, caught) => this.handleError(err, url))
+      .catch((err, caught) => this.handleError(err, url, rawResponse));
   }
 
   public delete(url: string, {rawResponse}: { rawResponse?: boolean } = {}): Observable<any> {
@@ -29,7 +29,7 @@ export class HttpService {
       .delete(url, { headers: this.headers })
       .do(i => shouldLog && console.log(`DELETE: `, url))
       .map(i => rawResponse ? i : i.json())
-      .catch((err, caught) => this.handleError(err, url));
+      .catch((err, caught) => this.handleError(err, url, rawResponse));
   }
 
   public post(url: string, obj: any, {rawResponse}: { rawResponse?: boolean } = {}): Observable<any> {
@@ -40,17 +40,19 @@ export class HttpService {
     // This is the only url I want to cache at this point
 
     return !skipCache && cache ? cache : this.http.post(url, JSON.stringify(obj), { headers: this.headers })
+      .do(i => console.log(1, i))
       .do(i => shouldLog && console.log(`POST: `, url))
       .map(i => rawResponse ? i : i.json())
+      .do(i => console.log(2, i))
       .do(i => !rawResponse && this.cache.set(key, i))
-      .catch((err, caught) => this.handleError(err, url));
+      .catch((err, caught) => this.handleError(err, url, rawResponse));
   }
 
   public patch(url: string, obj: any, {rawResponse}: { rawResponse?: boolean } = {}): Observable<any> {
     return this.http.patch(url, JSON.stringify(obj), { headers: this.headers })
       .do(i => shouldLog && console.log(`PATCH: `, url))
       .map(i => rawResponse ? i : i.json())
-      .catch((err, caught) => this.handleError(err, url));
+      .catch((err, caught) => this.handleError(err, url, rawResponse));
   }
 
   public setAuthHeaders(token?: string, client?: string, uid?: string): void {
@@ -71,9 +73,9 @@ export class HttpService {
     return headers;
   }
 
-  private handleError(err, url): Observable<Response> {
+  private handleError(err, url, rawResponse): Observable<Response|any> {
     console.log(`caught http error of ${err.toString().substr(0, 50)} going to ${url}`);
-    return Observable.of(new Response(new ResponseOptions({ url: url, body: err.json(), status: err.status })));
+    return rawResponse ? Observable.of(new Response(new ResponseOptions({ url: url, body: err.json(), status: err.status }))) : Observable.of(err.json());
   }
 
   private getFromCache(key: string): any {
