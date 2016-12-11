@@ -21,44 +21,38 @@ declare let Stripe: any;
 export class PayRentStep2 {
   public property: Property;
   public paymentForm: FormGroup;
-  public dueOn: number = 30;
-  public subtotal: number;
+  public paymentRequest: PaymentRequest;
 
   constructor(private router: Router, private route: ActivatedRoute, private propertyService: PropertyService, private paymentService: PaymentService, private userService: UserService) { }
 
   ngOnInit() {
-    // this.route.params
-    //   .do(i => this.subtotal = Number(i['subtotal']) || 0)
-    //   .flatMap(i => this.propertyService.getPropertyBySlug$(i['slug']))
-    //   .filter((property: Property) => property && !property.id ? this.router.navigate(['/pay-rent/']) && false : true)
-    //   .do(i => this.property = i)
-    //   .do(i => this.initForm(i))
-    //   .do(() => isBrowser && this.loadStripe())
-    //   .subscribe();
-  }
-
-  public createStripeToken(): Observable<{ status: any, response: any }> {
-    return Observable.create(observer => {
-      Stripe.card.createToken($('#PaymentForm'), (status, response) => observer.next({ status: status, response: response }));
-    });
+    this.route.params
+      .flatMap(i => this.paymentService.getRequestByToken(i['token']))
+      .do(i => this.paymentRequest = i || {})
+      .filter(() => this.paymentRequest ? true : this.router.navigate(['/pay-rent/']) && false)
+      .do(i => this.initForm())
+      .do(() => isBrowser && this.loadStripe())
+      .subscribe();
   }
 
   public submit() {
-    // this.createStripeToken()
-    //   .filter(i => !i.response.error)
-    //   .flatMap(i => this.paymentService.requestPayment(this.getPaymentOptions(), i.response.id))
-    //   .subscribe();
+    this.createStripeToken()
+      .filter(i => !i.response.error) // handle errors?
+      .flatMap(i => this.paymentService.sendStripeToken(this.paymentRequest.token, i.response.id))
+      .subscribe();
   }
 
-  private initForm(property: Property) {
+  private initForm() {
     this.paymentForm = new FormGroup({
-      name: new FormControl('', [Validators.required, ValidationService.nameValidator]),
-      subtotal: new FormControl(this.subtotal, [Validators.required]), // minimum price? 25?
-      phone: new FormControl('', [Validators.required, ValidationService.phoneNumberValidator]),
-      unit: new FormControl(''),
       card: new FormControl('', [Validators.required, ValidationService.creditCardValidator]),
-      expMonth: new FormControl('', [Validators.required, Validators.maxLength(2), Validators.minLength(2)]),
-      expYear: new FormControl('', [Validators.required, Validators.maxLength(2), Validators.minLength(2)]),
+      expMonth: new FormControl('', [
+        Validators.required, Validators.maxLength(2), Validators.minLength(2), // not sure the min/max lengths work on number types
+        ValidationService.minValidator.bind(this, 1), ValidationService.maxValidator.bind(this, 12)
+      ]),
+      expYear: new FormControl('', [
+        Validators.required, Validators.maxLength(2), Validators.minLength(2),
+        ValidationService.minValidator.bind(this, new Date().getFullYear().toString().substr(2)), ValidationService.maxValidator.bind(this, 99)
+      ]),
       cvc: new FormControl('', [Validators.required, Validators.maxLength(4), Validators.minLength(3)]),
     })
   }
@@ -67,13 +61,9 @@ export class PayRentStep2 {
     loadScript('https://js.stripe.com/v2/', () => Stripe.setPublishableKey(STRIPE_PUBLISHABLE_KEY))
   }
 
-  private getPaymentOptions(): PaymentRequest {
-    return {
-      property_slug: this.property.slug,
-      due_on: this.dueOn,
-      name: this.paymentForm.controls['name'].value,
-      subtotal: this.paymentForm.controls['subtotal'].value,
-      unit: this.paymentForm.controls['unit'].value,
-    };
+  private createStripeToken(): Observable<{ status: any, response: any }> {
+    return Observable.create(observer => {
+      Stripe.card.createToken($('#PaymentForm'), (status, response) => observer.next({ status: status, response: response }));
+    });
   }
 }

@@ -16,7 +16,16 @@ export class PaymentService {
       .map(i => i.token);
   }
 
-  public getMyPayments$(): Observable<any[]> {
+  public sendStripeToken(paymentRequestToken: string, stripeToken: string): Observable<any> {
+    return this.http.post(`${BASE_API_URL}/payment-requests/${paymentRequestToken}`, {stripeToken: stripeToken});
+  }
+
+  public getRequestByToken(token: string) {
+    return this.getMyPayments$()
+      .map(payments => payments.find(i => i.token === token));
+  }
+
+  public getMyPayments$(): Observable<PaymentRequest[]> {
     return this.userService.hasAuth$
       .filter(i => i)
       .flatMap(() => this.http.get(`${BASE_API_URL}/payments`))

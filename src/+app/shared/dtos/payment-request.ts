@@ -9,6 +9,7 @@ export interface PaymentRequest {
   created_at?: string;
   completed_at?: string;
   total?: number;
+  token?: string;
 
   property?: Property; // Inferred
 }
