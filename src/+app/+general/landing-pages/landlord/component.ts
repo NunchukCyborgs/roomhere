@@ -1,9 +1,9 @@
 import { Component, Renderer } from '@angular/core';
-import { SeoService } from '../../shared/services/seo.service';
+import { SeoService } from '../../../shared/services/seo.service';
 
 @Component({
   selector: 'landlord-landing',
-  styleUrls: ['./styles.css'],
+  styleUrls: ['../styles.css'],
   templateUrl: 'template.html',
 })
 export class LandlordLanding {
