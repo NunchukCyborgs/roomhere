@@ -50,9 +50,11 @@ export class AppComponent {
   }
 
   private initHoneybadger() {
-    getHoneybadger().configure({
-      api_key: '5f8b6d96',
-      environment: 'production' // This is set based on hostname === localhost
-    });
+    if (IS_PROD) {
+      getHoneybadger().configure({
+        api_key: '5f8b6d96',
+        environment: 'production'
+      });
+    }
   }
 }
