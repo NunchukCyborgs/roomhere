@@ -23,11 +23,11 @@
           </thead>
           <tbody>
             <tr *ngFor="let payment of payments$ | async">
-              <td>{{payment.request_date}}</td>
-              <td>{{payment.completed_date}}</td>
+              <td>{{payment.payment_submitted_at}}</td>
+              <td>{{payment.completed_at}}</td>
               <td>{{payment.name}}</td>
               <td>{{payment.property.address1}}</td>
-              <td>{{payment.property.unit}}</td>
+              <td>{{payment.unit}}</td>
               <td>{{payment.subtotal}}</td>
               <td>{{payment.total}}</td>
             </tr>

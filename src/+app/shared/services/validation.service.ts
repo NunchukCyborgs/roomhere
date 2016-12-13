@@ -21,6 +21,8 @@ export class ValidationService {
       'invalidPhoneNumber': 'Invalid phone number. Must be 10 or 11 digits',
       'invalidDate': 'Invalid Date',
       'invalidName': 'Invalid Name. Please give your first and last name',
+      'min': `Minimum of ${validatorValue}`,
+      'max': `Maxium of ${validatorValue}`,
     };
 
     return config[validatorName];
@@ -72,6 +74,24 @@ export class ValidationService {
       return null;
     } else {
       return { 'invalidName': true };
+    }
+  }
+
+  static minValidator(min: number, control) {
+    const value = control && control.value;
+    if (!Number.isNaN(value) && Number(value) >= min) {
+      return null;
+    } else {
+      return { 'min': min };
+    }
+  }
+
+  static maxValidator(max: number, control) {
+    const value = control && control.value;
+    if (!Number.isNaN(value) && Number(value) <= max) {
+      return null;
+    } else {
+      return { 'max': max };
     }
   }
 

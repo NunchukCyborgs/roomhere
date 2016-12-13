@@ -13,6 +13,7 @@ import { PropertyService } from '../../services/property.service';
 export class PropertyPicker {
   @Output() propertyPicked: EventEmitter<any> = new EventEmitter();
 
+  public isBrowser = isBrowser;
   public properties: Property[] = [];
   public property: Property = new Property();
   private loadProperties$: BehaviorSubject<string> = new BehaviorSubject('');

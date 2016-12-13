@@ -1,0 +1,50 @@
+<div class="container">
+  <div class="row">
+    <div class="column large-6 medium-8 wht">
+      <h2>Payment Details</h2>
+      <form id="PaymentForm" [formGroup]="paymentForm" *ngIf="paymentForm" (ngSubmit)="submit()" autocomplete="on">
+
+        <fieldset class="fieldset">
+          <legend><strong>Step #3:</strong> Payment Information</legend>
+          <div class="form-group row collapse">
+            <div class="small-12  columns">
+              <label>Credit Card Number
+              <input type="tel" placeholder="Credit Card" formControlName="card" class="form-control" data-stripe="number" autocomplete="cc-number">
+              </label>
+            </div>
+            <control-messages [control]="paymentForm.controls.card" class="alert"></control-messages>
+          </div>
+          <div class="form-group row">
+            <div class="small-6  columns">
+              <label>Expiration (MM)
+              <input type="tel" placeholder="MM" formControlName="expMonth" class="form-control" data-stripe="exp_month" autocomplete="cc-exp-month">
+              </label>
+            </div>
+            <control-messages [control]="paymentForm.controls.expMonth" class="alert"></control-messages>
+            <div class="small-6  columns">
+              <label>Expiration (YY)
+              <input type="tel" placeholder="YY" formControlName="expYear" class="form-control" data-stripe="exp_year" autocomplete="cc-exp-year">
+              </label>
+            </div>
+            <control-messages [control]="paymentForm.controls.expYear" class="alert"></control-messages>
+          </div>
+          <div class="form-group row collapse">
+            <div class="small-6 end  columns">
+              <label>CVC
+              <input type="tel" placeholder="CVC" formControlName="cvc" class="form-control" data-stripe="cvc" autocomplete="off">
+              </label>
+            </div>
+            <control-messages [control]="paymentForm.controls.cvc" class="alert"></control-messages>
+          </div>
+        </fieldset>
+
+        <p class="text-center">
+          <button type="submit" class="button large" [attr.disabled]="!paymentForm.valid ? true : null">Pay Rent Now!</button>
+        </p>
+      </form>
+    </div>
+    <div class="column large-offset-1 medium-4">
+      <property-preview *ngIf="paymentRequest?.property" [property]="paymentRequest.property"></property-preview>
+    </div>
+  </div>
+</div>

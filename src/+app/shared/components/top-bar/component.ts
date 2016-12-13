@@ -14,15 +14,9 @@ export class TopBar {
   @Input() name: string;
   @Output() logout: EventEmitter<any> = new EventEmitter();
 
-  public showPayRentPicker: boolean = false;
-
   constructor(private router: Router) { }
 
   public closeMenu() {
     isBrowser && $('.title-bar button[data-toggle]').click();
-  }
-
-  public payRent(property: Property) {
-    this.router.navigate([`/pay-rent/${property.slug}`]);
   }
 }
