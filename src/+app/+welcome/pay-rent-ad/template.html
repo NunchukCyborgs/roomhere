@@ -1,5 +1,8 @@
-<a [routerLink]="['/pay-rent']">
-	<div class="callout-card">
-		<img src="/images/RentNow.png"/>
-	</div>
+<a [routerLink]="['/pay-rent']" title="Pay your rent online!">
+	<block-image [image]="'/images/RentNow.png'" alt="Pay your rent online!">
+		<div class="block-image__overlay">
+			<h4 class="white">don't write a check</h4>
+			<h1 class="white">PAY RENT ONLINE</h1>
+		</div>
+	</block-image>
 </a>
