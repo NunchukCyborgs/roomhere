@@ -2,6 +2,13 @@
 
 ## Installation
 
+* Log in to Telerik Account
+``` sh
+npm login --registry=https://registry.npm.telerik.com/ --scope=@progress
+# username: <whatever>
+# email: telerik@roomhere.io
+# password: <standard-roomhere-password>
+```
 * `npm install`
 
 ## Development
@@ -26,12 +33,4 @@ RACK_ENV=staging rails c
 
 # Production
 RACK_ENV=production rails c
-
-
-# Kendo UI
-
-    npm login --registry=https://registry.npm.telerik.com/ --scope=@progress
- username: telerik
- email: telerik@roomhere.io
- pass: r00mh3r3
 ```
