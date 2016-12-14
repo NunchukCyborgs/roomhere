@@ -1,34 +1,43 @@
-:host /deep/ ul {
-  list-style-type: none;
-  position: absolute;
+:host /deep/ .k-dropdown-wrap {
+  
+  position: relative;
   z-index: 1;
 
-  li {
-    &:nth-child(odd) {
-      background: darken(#fff, 5%);
-    }
+  .k-list-scroller {
+    max-height: initial !important;
+  }
 
-    &:nth-child(even) {
-      background: darken(#fff, 15%);
-    }
+  ul {
+    list-style-type: none;
 
-    .property-wrapper {
-      cursor: pointer;
-      padding: 2px 5px;
-
-      .image {
-        display: inline-block;
-        height: 64px;
-        width: 64px;
-        margin-right: 5px;
+    li {
+      &:nth-child(odd) {
+        background: darken(#fff, 5%);
       }
 
-      .address {
-        display: inline-block;    
+      &:nth-child(even) {
+        background: darken(#fff, 15%);
       }
 
-      &:hover {
-        background: #44254A;
+      .property-wrapper {
+        cursor: pointer;
+        padding: 2px 5px;
+        min-width: 500px;
+
+        .image {
+          display: inline-block;
+          height: 64px;
+          width: 64px;
+          margin-right: 5px;
+        }
+
+        .address {
+          display: inline-block;    
+        }
+
+        &:hover {
+          background: #44254A;
+        }
       }
     }
   }
