@@ -9,6 +9,7 @@ import { PaymentSuccess } from './payment-success/component';
 import { LandlordLanding } from './landing-pages/landlord/component';
 import { RenterLanding } from './landing-pages/renter/component';
 import { PayRentLanding } from './landing-pages/pay-rent/component';
+import { RequestMissingProperty } from './request-missing-property/component';
 
 @NgModule({
   imports: [
@@ -21,6 +22,7 @@ import { PayRentLanding } from './landing-pages/pay-rent/component';
       { path: 'reset-password', component: ResetPassword },
       { path: 'registration-success', component: UserSplash },
       { path: 'payment-success', component: PaymentSuccess },
+      { path: 'request-missing-property', component: RequestMissingProperty },
     ])
   ]
 })

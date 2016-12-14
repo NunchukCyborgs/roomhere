@@ -10,6 +10,7 @@ import { PaymentSuccess } from './payment-success/component';
 import { LandlordLanding } from './landing-pages/landlord/component';
 import { RenterLanding } from './landing-pages/renter/component';
 import { PayRentLanding } from './landing-pages/pay-rent/component';
+import { RequestMissingProperty } from './request-missing-property/component';
 
 @NgModule({
   imports: [
@@ -24,6 +25,7 @@ import { PayRentLanding } from './landing-pages/pay-rent/component';
     UserSplash,
     PaymentSuccess,
     PayRentLanding,
+    RequestMissingProperty,
   ]
 })
 export class GeneralModule { }

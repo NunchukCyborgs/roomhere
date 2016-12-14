@@ -1,4 +1,5 @@
-import { Renderer, Inject, Injectable } from "@angular/core";
+import { Renderer, Inject, Injectable } from '@angular/core';
+import { Response } from '@angular/http';
 import { HttpService } from './http.service';
 
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
@@ -20,16 +21,16 @@ export class PropertyService {
   public lastPage$: BehaviorSubject<number> = new BehaviorSubject(Number.MAX_SAFE_INTEGER)
   private viewCaches: string[] = [];
 
-  public searchProperties({query}: {query: string}) {
+  public searchProperties({query, perPage = 15, page = 1}: { query: string, perPage?: number, page?: number }) {
     return this.http
-      .get(`${BASE_API_URL}/properties/search?q=${query}&page=1&per_page=15`);
+      .get(`${BASE_API_URL}/properties/search?q=${query}&page=${page}&per_page=${perPage}`);
   }
 
   public getFilteredProperties$(facet: PropertyFacet, query: string = '', pageNumber: number = 1, perPage: number = 8, offset: number = 0): Observable<Property[]> {
     return Observable.of([])
       .filter(() => facet.min_price >= 0 && facet.max_price >= 0)
       .flatMap(() => this.http.post(`${BASE_API_URL}/properties/filtered_results`, { facets: facet, page: pageNumber, per_page: perPage, query: query, offset: offset }))
-      .filter(i => i.results &&  Array.isArray(i.results)) // Dirty error handling
+      .filter(i => i.results && Array.isArray(i.results)) // Dirty error handling
       .do(i => this.setLastPageNumber(i.total_count, offset, perPage))
       .map(i => i.results);
   }
@@ -95,6 +96,10 @@ export class PropertyService {
       .flatMap(i => this.updatePropertyBySlugLocal(i));
   }
 
+  public requestMissingProperty(email: string, address: string): Observable<Response> {
+    return this.http.post(`${BASE_API_URL}/properties/request`, { contact_email: email, address: address }, { rawResponse: true });
+  }
+
   private setLastPageNumber(totalCount: number, offset: number, perPage: number) {
     this.lastPage$.next(Math.ceil((totalCount - 1) / perPage));
   }
@@ -107,9 +112,9 @@ export class PropertyService {
     Observable.combineLatest(this.myProperties$, this.superProperties$, this.propertyBySlug$)
       .subscribe(i => getHoneybadger(true)
         .setContext({
-            myProperties: i[0],
-            superProperties: i[1],
-            propertyBySlug: i[2],
+          myProperties: i[0],
+          superProperties: i[1],
+          propertyBySlug: i[2],
         })
       );
   }
