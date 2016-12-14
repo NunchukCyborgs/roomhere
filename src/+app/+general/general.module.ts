@@ -9,6 +9,7 @@ import { UserSplash } from './user-splash/component';
 import { PaymentSuccess } from './payment-success/component';
 import { LandlordLanding } from './landing-pages/landlord/component';
 import { RenterLanding } from './landing-pages/renter/component';
+import { PayRentLanding } from './landing-pages/pay-rent/component';
 
 @NgModule({
   imports: [
@@ -22,6 +23,7 @@ import { RenterLanding } from './landing-pages/renter/component';
     RenterLanding,
     UserSplash,
     PaymentSuccess,
+    PayRentLanding,
   ]
 })
 export class GeneralModule { }

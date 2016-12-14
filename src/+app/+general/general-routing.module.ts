@@ -8,6 +8,7 @@ import { UserSplash } from './user-splash/component';
 import { PaymentSuccess } from './payment-success/component';
 import { LandlordLanding } from './landing-pages/landlord/component';
 import { RenterLanding } from './landing-pages/renter/component';
+import { PayRentLanding } from './landing-pages/pay-rent/component';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { RenterLanding } from './landing-pages/renter/component';
       { path: 'faq', component: Faq },
       { path: 'cape-girardeau-landlords', component: LandlordLanding },
       { path: 'cape-girardeau-rentals', component: RenterLanding },
+      { path: 'pay-rent-online', component: PayRentLanding },
       { path: 'privacy-policy', component: PrivacyPolicy },
       { path: 'reset-password', component: ResetPassword },
       { path: 'registration-success', component: UserSplash },
