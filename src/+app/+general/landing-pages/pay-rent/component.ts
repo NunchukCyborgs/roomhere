@@ -1,5 +1,6 @@
 import { Component, Renderer } from '@angular/core';
 import { SeoService } from '../../../shared/services/seo.service';
+import { Property } from '../../../shared/dtos/property';
 
 @Component({
   selector: 'pay-rent-landing',
@@ -7,6 +8,8 @@ import { SeoService } from '../../../shared/services/seo.service';
   templateUrl: 'template.html',
 })
 export class PayRentLanding {
+  public property: Property;
+
   constructor(private seoService: SeoService, private renderer: Renderer) { }
 
   ngOnInit() {

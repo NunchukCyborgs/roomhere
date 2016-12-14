@@ -1,47 +1,63 @@
 <section id="main-header" class="background-white">
-		<div class="row container">
-			<div class="large-7 medium-7 padding-none columns">
-				<img src="/images/pages/landing-pages/section1.jpg" class="row-image hide-for-small-only"/>
-			</div>
-			<div class="large-5 medium-5 text-center columns end small-12 inner-content">
-				<h2 class="purple"><span class="cursive">Roomhere</span></h2>
-				<h3 class="subheader">
-					<div>The best place to</div>
-					<div>pay your rent</div>
-				</h3>
-				<img src="/images/pages/landing-pages/section1.jpg" class="row-image show-for-small-only"/>
-				<a [routerLink]="['/']" class="button round large">
-					<span class="hide-for-small-only">Pay Rent Online</span>
-					<span class="show-for-small-only">Pay Rent</span>
-				</a>
-			</div>
+	<div class="row container">
+		<div class="large-7 medium-7 padding-none columns">
+			<img src="/images/pages/landing-pages/section1.jpg" class="row-image hide-for-small-only" />
 		</div>
+		<div class="large-5 medium-5 text-center columns end small-12 inner-content">
+			<h2 class="purple"><span class="cursive">Roomhere</span></h2>
+			<h3 class="subheader">
+				<div>The best place to</div>
+				<div>pay your rent</div>
+			</h3>
+			<img src="/images/pages/landing-pages/section1.jpg" class="row-image show-for-small-only" />
+			<a [routerLink]="['/']" class="button round large">
+				<span class="hide-for-small-only">Pay Rent Online</span>
+				<span class="show-for-small-only">Pay Rent</span>
+			</a>
+		</div>
+	</div>
 </section>
 <section id="feature-list">
 	<div class="container">
-	<div class="row">
-		<div class="large-10 large-offset-1 medium-10 medium-offset-1 small-12 columns text-center">
-			<ul class="menu vertical medium-horizontal expanded">
-				<li>
-					<i class="fa fa-check"></i> Safe
-				</li>
-				<li>
-					<i class="fa fa-check"></i> Secure
-				</li>
-				<li>
-					<i class="fa fa-check"></i> Easy
-				</li>
-				<li>
-					<i class="fa fa-check"></i> Guaranteed
-				</li>
-				<li>
-					<i class="fa fa-check"></i> Credit or Debit
-				</li>
-			</ul>
+		<div class="row">
+			<div class="large-10 large-offset-1 medium-10 medium-offset-1 small-12 columns text-center">
+				<ul class="menu vertical medium-horizontal expanded">
+					<li>
+						<i class="fa fa-check"></i> Safe
+					</li>
+					<li>
+						<i class="fa fa-check"></i> Secure
+					</li>
+					<li>
+						<i class="fa fa-check"></i> Easy
+					</li>
+					<li>
+						<i class="fa fa-check"></i> Guaranteed
+					</li>
+					<li>
+						<i class="fa fa-check"></i> Credit or Debit
+					</li>
+				</ul>
+			</div>
 		</div>
 	</div>
+</section>
+
+<section class="background-white">
+	<div class="row">
+		<div class="large-6 large-offset-3 medium-8 medium-offset-2 small-12 columns margContent">
+			<h2 class="purple">Where do you live?</h2>
+
+			<property-picker (propertyPicked)="property = $event"></property-picker>
+
+			<a [routerLink]="['/pay-rent/' + property?.slug]" class="button round large" [attr.disabled]="property ? null : true">
+				<span class="hide-for-small-only">Pay Rent Online</span>
+				<span class="show-for-small-only">Pay Rent</span>
+			</a>
+		</div>
 	</div>
 </section>
+
 <section class="background-white">
 	<div class="row container">
 		<div class="large-6 medium-8 columns margContent">
@@ -53,10 +69,10 @@
 			</p>
 		</div>
 		<div class="large-6 text-center medium-4 columns">
-			<img class="hide-for-small-only row-image" src="/images/pages/landing-pages/section3.png"/>
+			<img class="hide-for-small-only row-image" src="/images/pages/landing-pages/section3.png" />
 		</div>
 		<div class="small-12 text-center columns">
-			<img class="show-for-small-only row-image" src="/images/pages/landing-pages/section3.png"/>
+			<img class="show-for-small-only row-image" src="/images/pages/landing-pages/section3.png" />
 		</div>
 	</div>
 </section>
@@ -64,7 +80,7 @@
 	<div class="container">
 		<div class="row" id="location">
 			<div class="large-5 medium-6 columns hide-for-small-only">
-				<img class="row-image  max-lrg" src="/images/pages/landing-pages/locations_map.jpg"/>
+				<img class="row-image  max-lrg" src="/images/pages/landing-pages/locations_map.jpg" />
 			</div>
 			<div class="large-5 medium-6 columns margContent" id="fourContent">
 				<h2 class="purple">Search For Rentals</h2>
@@ -76,7 +92,7 @@
 				</p>
 			</div>
 			<div class="small-12 columns show-for-small-only text-center">
-				<img class="show-for-small-only" class="row-image" src="/images/pages/landing-pages/mobile/locations_map.jpg"/>
+				<img class="show-for-small-only" class="row-image" src="/images/pages/landing-pages/mobile/locations_map.jpg" />
 			</div>
 		</div>
 	</div>
@@ -91,17 +107,17 @@
 				you are interested in and quickly compare amenities, location, price and more. Finding an apartment has never been easier
 				for Southeast Missourians!
 			</p>
-			<img class="show-for-small-only row-image" src="/images/pages/landing-pages/simpleSearch.jpg"/>
+			<img class="show-for-small-only row-image" src="/images/pages/landing-pages/simpleSearch.jpg" />
 			<div class="hide-for-medium-only text-center">
 				<a [routerLink]="['/']" class="button large round">
 					<span class="hide-for-small-only">Start Searching Now</span>
 					<span class="show-for-small-only">Search Now</span>
 				</a>
 			</div>
-			
+
 		</div>
 		<div class="large-7 medium-6 hide-for-small-only columns">
-			<img src="/images/pages/landing-pages/simpleSearch.jpg" class="row-image"/>
+			<img src="/images/pages/landing-pages/simpleSearch.jpg" class="row-image" />
 			<div class="show-for-medium-only medBtn text-center">
 				<a [routerLink]="['/']" class="button large round">
 					<span>Start Searching Now</span>
@@ -110,10 +126,10 @@
 		</div>
 	</div>
 </section>
-<section >
+<section>
 	<div class="row container">
 		<div class="large-5 medium-6 columns hide-for-small-only padding-none">
-			<img src="/images/pages/landing-pages/review.jpg" class="row-image"/>
+			<img src="/images/pages/landing-pages/review.jpg" class="row-image" />
 		</div>
 		<div class="large-5 medium-6 columns margContent" id="sixContent">
 			<h2 class="purple">Reviews</h2>
@@ -125,19 +141,6 @@
 		</div>
 		<div class="small-12 show-for-small-only text-center columns">
 			<img class="row-image max-lrg" src="/images/pages/landing-pages/review.jpg">
-		</div>
-	</div>
-</section>
-<section class="background-white">
-	<div class="row">
-		<div class="large-6 large-offset-3 medium-8 medium-offset-2 small-12 columns margContent">
-			<h2 class="purple">Built only for</h2>
-			<h2><em>Cape Girardeau</em></h2>
-			<p class="yellborderright">
-					Through our unique public and private partnerships and specialized local focus, Roomhere is able to provide residents of
-				Cape Girardeau and surrounding areas in Southeast Missouri the best and most competitive marketplace for finding a great
-				place to live.
-			</p>
 		</div>
 	</div>
 </section>
