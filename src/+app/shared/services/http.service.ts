@@ -40,10 +40,8 @@ export class HttpService {
     // This is the only url I want to cache at this point
 
     return !skipCache && cache ? cache : this.http.post(url, JSON.stringify(obj), { headers: this.headers })
-      .do(i => console.log(1, i))
       .do(i => shouldLog && console.log(`POST: `, url))
       .map(i => rawResponse ? i : i.json())
-      .do(i => console.log(2, i))
       .do(i => !rawResponse && this.cache.set(key, i))
       .catch((err, caught) => this.handleError(err, url, rawResponse));
   }
