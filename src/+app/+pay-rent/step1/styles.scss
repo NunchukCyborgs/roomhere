@@ -1,45 +1,4 @@
-.wht{
-  background:#fff;
-  margin:20px;
-}
-.form-group{
-  padding-left:20px;
-  padding-right:20px;
-    
-    form input{
-        height: 50px !important;
-    }
-    form span{
-        height: 50px !important;
-    }
-    .welcome{
-        font-size: 26px;
-        text-align: center;
-        margin-left: 0;
-    }
-    p{
-        font-size: 13px;
-        font-weight: 200;
-    }   
-}
-.button{
-       width: 50%; 
-    }
-@media screen and (max-width: 39.9375em) {
-.pform-group  {
-        .button{
-            width: 90%;
-        } 
-    }
-.form-group{
-  padding-left:0px;
-  padding-right:0px;
-    }
-.wht{
-  background:#fff;
-  margin:20px auto 20px auto;
-}
-.button:hover{
-    color: #DAA520 !important;
-}
+.margin-top {
+    margin-top: 1em;
+    display: block;
 }

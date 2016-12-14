@@ -1,13 +1,44 @@
 <div class="container">
   <div class="row">
-    <div class="column large-6 medium-8 wht">
-      <h2>Payment Details</h2>
+    <div class="column large-6 medium-8">
 
-      <pay-rent-step1-form *ngIf="property?.id" [property]="property" [subtotal]="subtotal"></pay-rent-step1-form>
+      <div class="callout-card">
+        <div class="callout-card-content">
+          <h2>Payment Details</h2>
+          <pay-rent-step1-form *ngIf="property?.id" [property]="property" [subtotal]="subtotal"></pay-rent-step1-form>
+        </div>
+      </div>
     </div>
 
-    <div class="column large-offset-1 medium-4">
-      <property-preview *ngIf="property" [property]="property"></property-preview>
+    <div class="column large-6 medium-4">
+      <property-preview *ngIf="property" [property]="property" class="margin-top"></property-preview>
+      <h4 class="text-center" *ngIf="property?.owner?.landlord_name || property?.owner?.owner_name">Owned by <strong>{{property?.owner?.landlord_name || property?.owner?.owner_name}}</strong></h4>
+
+      <div class="callout-card">
+        <div class="callout-card-content">
+          <h3>Earn CASHBACK REWARDS</h3>
+
+          <p>
+            Paying with your credit card lets you earn cashback rewards for paying your rent! Many credit providers offer incentives
+            up to 5% cashback on purchases. Check with your credit card provider to see what rewards you are eligible for
+            by paying your rent online with Roomhere.
+          </p>
+        </div>
+      </div>
+
+      <div class="callout-card">
+        <div class="callout-card-content">
+          <h3>Payment Delivery Guaranteed</h3>
+
+          <p>
+            We will personally oversee delivery of your rent payment to {{property?.owner?.landlord_name || property?.owner?.owner_name
+            || 'your landlord'}}. We won't charge your credit card until the delivery address has been verified, and we will
+            contact you with any unexpected problems as soon as they occur.
+          </p>
+
+        </div>
+      </div>
+      
     </div>
   </div>
 </div>
