@@ -32,7 +32,7 @@ export class PropertyService {
       .flatMap(() => this.http.post(`${BASE_API_URL}/properties/filtered_results`, { facets: facet, page: pageNumber, per_page: perPage, query: query, offset: offset }))
       .filter(i => i.results && Array.isArray(i.results)) // Dirty error handling
       .do(i => this.setLastPageNumber(i.total_count, offset, perPage))
-      .map(i => i.results);
+      .map(properties => properties.results.map(i => new Property(i)));
   }
 
   public getPropertyBySlug$(slug: string): Observable<any> {
