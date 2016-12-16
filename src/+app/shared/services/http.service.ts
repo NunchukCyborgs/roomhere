@@ -6,7 +6,7 @@ import { PersistenceService } from './persistence.service';
 import { CacheService } from './cache.service';
 
 const shouldLog = false;
-const skipCache = true;
+const skipCache = false;
 
 @Injectable()
 export class HttpService {

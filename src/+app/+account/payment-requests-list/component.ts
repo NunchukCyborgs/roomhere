@@ -17,4 +17,8 @@ export class PaymentRequestsList {
   public delete(paymentRequest: PaymentRequest): void {
 
   }
+
+  public getPaidHeader(): string {
+    return this.paymentRequests.find(i => Boolean(i.completed_at)) ? 'Paid at' : '';
+  }
 }

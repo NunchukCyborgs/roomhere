@@ -5,7 +5,6 @@
       <div class="callout-card-content">
         <h2>Payments</h2>
 
-        <div class="stat" *ngIf="!(payments$ | async)">Loading Payment Requests...</div>
         <payment-requests-list *ngIf="payments$ | async" [paymentRequests]="payments$ | async"></payment-requests-list>
 
       </div>

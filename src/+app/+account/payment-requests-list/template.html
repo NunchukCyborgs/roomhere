@@ -6,24 +6,24 @@
   <thead>
     <tr>
       <th>Request Date</th>
-      <th>Paid Date</th>
       <th>Name on Check</th>
       <th>Address</th>
       <th>Unit</th>
       <th>Subtotal (rent payment)</th>
-      <th colspan="2">Total (rent payment + fees)</th>
+      <th [attr.colspan]="getPaidHeader() ? '2': '1'">Total (rent payment + fees)</th>
+      <th>{{getPaidHeader()}}</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let payment of paymentRequests">
-      <td>{{payment.payment_submitted_at}}</td>
-      <td>{{payment.completed_at}}</td>
+      <td>{{payment.payment_submitted_at | date:'mediumDate'}}</td>
       <td>{{payment.name}}</td>
       <td>{{payment.property.address1}}</td>
       <td>{{payment.unit}}</td>
       <td>{{payment.subtotal}}</td>
       <td>{{payment.total}}</td>
-      <td>
+      <td *ngIf="payment.completed_at">{{payment.completed_at | date:'mediumDate'}}</td>
+      <td *ngIf="!payment.completed_at">
         <div><a (click)="toggleEditing(payment)">Edit</a></div>
         <div><a (click)="delete(payment)">Delete</a></div>
       </td>
