@@ -5,23 +5,20 @@ import { Observable } from 'rxjs/Observable';
 import { HttpService } from './http.service';
 import { UserService } from './user.service';
 import { PropertyService } from './property.service';
-import { PaymentRequest } from '../dtos/payment-request';
-
-interface paymentRequestBlob {
-  errors: string[];
-  payment_request: PaymentRequest;
-}
+import { PaymentRequest, PaymentRequestBlob } from '../dtos/payment-request';
 
 @Injectable()
 export class PaymentService {
   constructor(private router: Router, private http: HttpService, private userService: UserService, private propertyService: PropertyService) { }
 
-  public requestPayment(request: PaymentRequest): Observable<paymentRequestBlob> {
-    return this.http.post(`${BASE_API_URL}/payments/requests`, { payment_request: request });
+  public requestPayment(request: PaymentRequest): Observable<PaymentRequestBlob> {
+    return this.http.post(`${BASE_API_URL}/payments/requests`, { payment_request: request })
+      .map(i => new PaymentRequestBlob(i));
   }
 
-  public sendStripeToken(paymentRequestToken: string, stripeToken: string): Observable<paymentRequestBlob> {
-    return this.http.post(`${BASE_API_URL}/payments`, { token: paymentRequestToken, stripe_token: stripeToken });
+  public sendStripeToken(paymentRequestToken: string, stripeToken: string): Observable<PaymentRequestBlob> {
+    return this.http.post(`${BASE_API_URL}/payments`, { token: paymentRequestToken, stripe_token: stripeToken })
+      .map(i => new PaymentRequestBlob(i));
   }
 
   public getRequestByToken(token: string): Observable<PaymentRequest> {
@@ -29,8 +26,9 @@ export class PaymentService {
       .map(payments => payments.find(i => i.token === token));
   }
 
-  public updateRequest(request: PaymentRequest): Observable<paymentRequestBlob> {
-    return this.http.patch(`${BASE_API_URL}/payments/requests/${request.token}`, request);
+  public updateRequest(request: PaymentRequest): Observable<PaymentRequestBlob> {
+    return this.http.patch(`${BASE_API_URL}/payments/requests/${request.token}`, request)
+      .map(i => new PaymentRequestBlob(i));
   }
 
   public getFees(request: PaymentRequest): Observable<{ value: number, message: string }> {
@@ -44,7 +42,7 @@ export class PaymentService {
       .flatMap(i => this.mergePropertiesBySlugs(i));
   }
 
-  private mergePropertiesBySlugs(payments: any[]): Observable<any[]> {
+  private mergePropertiesBySlugs(payments: PaymentRequest[]): Observable<PaymentRequest[]> {
     return Observable.combineLatest(payments.map((payment: PaymentRequest) =>
       this.propertyService.getPropertyBySlug$(payment.property_slug)
         .map(property => Object.assign(payment, { property: property }))

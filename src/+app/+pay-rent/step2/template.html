@@ -40,7 +40,13 @@
     <button type="submit" class="button large" [attr.disabled]="!paymentForm.valid ? true : null">Pay Rent Now!</button>
   </p>
 
-  <!--Stripe Errors-->
+  <div *ngIf="paymentRequestErrors?.length && !success" class="callout alert">
+    <h4>Uh oh! We had a problem creating your payment.</h4>
+    <span *ngFor="let error of paymentRequestErrors">{{error}}. </span>
+  </div>
 
-  <!--Server Errors-->
+  <div *ngIf="stripeError?.message && !success" class="callout alert">
+    <h4>Uh oh! We had a problem processing your card.</h4>
+    <span>{{stripeError.message}}</span>
+  </div>
 </form>

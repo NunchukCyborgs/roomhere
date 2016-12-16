@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { isBrowser } from 'angular2-universal';
@@ -8,10 +8,17 @@ import { PropertyService } from '../../shared/services/property.service';
 import { PaymentService } from '../../shared/services/payment.service';
 import { UserService } from '../../shared/services/user.service';
 import { Property } from '../../shared/dtos/property';
-import { PaymentRequest } from '../../shared/dtos/payment-request';
+import { PaymentRequest, PaymentRequestBlob } from '../../shared/dtos/payment-request';
 import { loadScript } from '../../shared/services/util';
 
 declare let Stripe: any;
+
+interface StripeError {
+  code: string;
+  message: string;
+  param: string;
+  type: string;
+}
 
 @Component({
   selector: 'pay-rent-step2',
@@ -21,8 +28,12 @@ declare let Stripe: any;
 export class PayRentStep2 {
   public paymentForm: FormGroup;
   public paymentRequest: PaymentRequest;
+  public stripeError: StripeError;
+  public paymentRequestErrors: string[];
+  public success: boolean;
 
-  constructor(private router: Router, private route: ActivatedRoute, private propertyService: PropertyService, private paymentService: PaymentService, private userService: UserService) { }
+  constructor(private router: Router, private route: ActivatedRoute, private propertyService: PropertyService, 
+  private paymentService: PaymentService, private userService: UserService, private changeDetector: ChangeDetectorRef) { }
 
   ngOnInit() {
     this.route.params
@@ -37,8 +48,14 @@ export class PayRentStep2 {
 
   public submit() {
     this.createStripeToken()
-      .filter(i => !i.response.error) // handle errors?
+      .do(i => this.stripeError = i.response.error)
+      .do(i => this.changeDetector.detectChanges())
+      .filter(i => !this.stripeError)
       .flatMap(i => this.paymentService.sendStripeToken(this.paymentRequest.token, i.response.id))
+      .do((i: PaymentRequestBlob) => this.paymentRequestErrors = i.errors)
+      .do((i: PaymentRequestBlob) => this.paymentRequest = i.payment_request)
+      .do((i: PaymentRequestBlob) => this.success = i.errors.length === 0)
+      .do(i => this.changeDetector.detectChanges())
       .subscribe();
   }
 
