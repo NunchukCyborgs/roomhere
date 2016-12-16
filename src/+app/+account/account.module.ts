@@ -11,6 +11,8 @@ import { UserDashboard } from './user-dashboard/component';
 import { Settings } from './settings/component';
 import { LandlordSettings } from './landlord-settings/component';
 import { BecomeLandlord } from './become-landlord/component';
+import { EditablePaymentRequest } from './editable-payment-request/component';
+import { PaymentRequestsList } from './payment-requests-list/component';
 
 @NgModule({
   imports: [
@@ -26,6 +28,8 @@ import { BecomeLandlord } from './become-landlord/component';
     BecomeLandlord,
     LandlordDashboard,
     UserDashboard,
+    EditablePaymentRequest,
+    PaymentRequestsList,
   ],
   providers: [
     AccountAuthGuard,

@@ -5,34 +5,8 @@
       <div class="callout-card-content">
         <h2>Payments</h2>
 
-        <div class="alert warning" *ngIf="!(payments$ | async)?.length">
-          <p>No payments found</p>
-        </div>
-
-        <table class="stack" *ngIf="(payments$ | async)?.length">
-          <thead>
-            <tr>
-              <th>Request Date</th>
-              <th>Paid Date</th>
-              <th>Name on Check</th>
-              <th>Address</th>
-              <th>Unit</th>
-              <th>Subtotal (rent payment)</th>
-              <th>Total (rent payment + fees)</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let payment of payments$ | async">
-              <td>{{payment.payment_submitted_at}}</td>
-              <td>{{payment.completed_at}}</td>
-              <td>{{payment.name}}</td>
-              <td>{{payment.property.address1}}</td>
-              <td>{{payment.unit}}</td>
-              <td>{{payment.subtotal}}</td>
-              <td>{{payment.total}}</td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="stat" *ngIf="!(payments$ | async)">Loading Payment Requests...</div>
+        <payment-requests-list *ngIf="payments$ | async" [paymentRequests]="payments$ | async"></payment-requests-list>
 
       </div>
     </div>
