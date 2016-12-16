@@ -17,6 +17,10 @@
               <input type="tel" placeholder="(573)-111-2222" formControlName="phone" class="form-control" autocomplete="tel">
               </label>
       </div>
+
+      <span data-tooltip aria-haspopup="true" class="has-tip top" data-disable-hover="false" title="In the unlikely event there is a problem with your payment, we will contact you with the number provided so you don't miss a rent payment. ">
+        Why do we ask this?
+        </span>
       <control-messages [control]="paymentForm.controls.phone" class="alert"></control-messages>
     </div>
 
