@@ -17,22 +17,22 @@
         <label>Expiration (MM)
               <input type="tel" placeholder="MM" formControlName="expMonth" class="form-control" data-stripe="exp_month" autocomplete="cc-exp-month">
               </label>
+        <control-messages [control]="paymentForm.controls.expMonth" class="alert"></control-messages>
       </div>
-      <control-messages [control]="paymentForm.controls.expMonth" class="alert"></control-messages>
       <div class="small-6  columns">
         <label>Expiration (YY)
               <input type="tel" placeholder="YY" formControlName="expYear" class="form-control" data-stripe="exp_year" autocomplete="cc-exp-year">
               </label>
+        <control-messages [control]="paymentForm.controls.expYear" class="alert"></control-messages>
       </div>
-      <control-messages [control]="paymentForm.controls.expYear" class="alert"></control-messages>
     </div>
     <div class="form-group row collapse">
       <div class="small-6 end  columns">
         <label>CVC
               <input type="tel" placeholder="CVC" formControlName="cvc" class="form-control" data-stripe="cvc" autocomplete="off">
               </label>
+        <control-messages [control]="paymentForm.controls.cvc" class="alert"></control-messages>
       </div>
-      <control-messages [control]="paymentForm.controls.cvc" class="alert"></control-messages>
     </div>
   </fieldset>
 
