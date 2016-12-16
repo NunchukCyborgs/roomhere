@@ -28,7 +28,7 @@ export class PayRentStep2 {
     this.route.params
       .flatMap(i => this.paymentService.getRequestByToken(i['token']))
       .do(i => this.paymentRequest = i)
-      .filter(() => this.paymentRequest ? true : this.router.navigate(['/pay-rent/']) && false)
+      .filter(() => this.paymentRequest ? true : this.router.navigate(['/p/pay-rent-online']) && false)
       .filter(() => !this.paymentRequest.payment_created_at ? true : this.router.navigate(['/account/dashboard/']) && false)
       .do(i => this.initForm())
       .do(() => isBrowser && this.loadStripe())

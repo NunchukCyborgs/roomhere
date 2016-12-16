@@ -21,10 +21,10 @@ export class PaymentService {
   }
 
   public sendStripeToken(paymentRequestToken: string, stripeToken: string): Observable<paymentRequestBlob> {
-    return this.http.post(`${BASE_API_URL}/payments`, {token: paymentRequestToken, stripe_token: stripeToken});
+    return this.http.post(`${BASE_API_URL}/payments`, { token: paymentRequestToken, stripe_token: stripeToken });
   }
 
-  public getRequestByToken(token: string) {
+  public getRequestByToken(token: string): Observable<PaymentRequest> {
     return this.getMyPayments()
       .map(payments => payments.find(i => i.token === token));
   }
@@ -33,7 +33,7 @@ export class PaymentService {
     return this.http.patch(`${BASE_API_URL}/payments/requests/${request.token}`, request);
   }
 
-  public getFees(request: PaymentRequest): Observable<{value: number, message: string}> {
+  public getFees(request: PaymentRequest): Observable<{ value: number, message: string }> {
     return this.http.get(`${BASE_API_URL}/payments/fees?subtotal=${request.subtotal}&property_slug=${request.property_slug}`);
   }
 
@@ -49,6 +49,6 @@ export class PaymentService {
       this.propertyService.getPropertyBySlug$(payment.property_slug)
         .map(property => Object.assign(payment, { property: property }))
     ))
-      .filter(payments => payments.every(i => i !== undefined));
+      .filter(payments => payments.every(i => i && i.property && i.property.id));
   }
 }

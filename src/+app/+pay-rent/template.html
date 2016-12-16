@@ -1,0 +1,76 @@
+<div class="container">
+  <div class="row">
+
+    <div class="column large-6 medium-8">
+      <div class="callout-card">
+        <div class="callout-card-content">
+          <router-outlet></router-outlet>
+        </div>
+      </div>
+
+      <div class="callout-card" *ngIf="subtotal && fees?.value && fees?.message">
+        <div class="callout-card-content">
+          <h3>Total Charges</h3>
+
+          <div class="stat">{{subtotal + fees.value | currency:'USD':true}}</div>
+
+          <hr>
+
+          <div>
+            Subtotal: <strong>{{subtotal | currency:'USD':true}}</strong>
+          </div>
+
+          <div>
+            Fees: <strong>{{fees.value | currency:'USD':true}}</strong> <small>({{fees.message}})</small>
+          </div>
+
+          <div class="callout success margin-top">
+            <h5>What are these processing fees?</h5>
+
+            <p>
+              It's costly to charge a credit or debit card. Roomhere here keeps these prices low so everyone can afford the concenience
+              of paying online.
+            </p>
+
+            <p>
+              Paying online makes your landlord's job a lot easier. If you think your landlord should cover these fees next time, let them
+              know!
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="column large-6 medium-4">
+      <property-preview *ngIf="property" [property]="property" class="margin-top"></property-preview>
+      <h4 class="text-center" *ngIf="property?.owner?.landlord_name || property?.owner?.owner_name">Owned by <strong>{{property?.owner?.landlord_name || property?.owner?.owner_name}}</strong></h4>
+
+      <div class="callout-card">
+        <div class="callout-card-content">
+          <h3>Earn CASHBACK REWARDS</h3>
+
+          <p>
+            Paying with your credit card lets you earn cashback rewards for paying your rent! Many credit providers offer incentives
+            up to 5% cashback on purchases. Check with your credit card provider to see what rewards you are eligible for
+            by paying your rent online with Roomhere.
+          </p>
+        </div>
+      </div>
+
+      <div class="callout-card">
+        <div class="callout-card-content">
+          <h3>Payment Delivery Guaranteed</h3>
+
+          <p>
+            We will personally oversee delivery of your rent payment to {{property?.owner?.landlord_name || property?.owner?.owner_name
+            || 'your landlord'}}. We won't charge your credit card until the delivery address has been verified, and we will
+            contact you with any unexpected problems as soon as they occur.
+          </p>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
