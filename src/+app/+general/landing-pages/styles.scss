@@ -85,6 +85,40 @@ section {
         max-height:475px;
     }
 }
+// Rent Landing Page Styles
+.hero{
+    padding-top: 80px;
+    background: url(/images/pages/landing-pages/rent_hero.jpg) no-repeat center top;
+    h1{
+        font:700 36.78px / 43px Lato;
+        color: #fff;
+        span{
+            color: #33cc66;
+        }
+    }
+}
+.showcase{
+    padding-top: 50px;
+    background:url(/images/pages/landing-pages/rent_showcase.jpg)no-repeat center top;
+    h2{
+        font-size: 50px;
+    }
+    ul{
+        margin-top: 50px;
+        list-style: none;
+    }
+    li{
+        font-size: 21px;
+        font-weight: 600;
+    }
+    .fa{
+        color: #33cc66;
+        margin-right: 10px;
+    }
+    .showcase-image{
+        margin-top: 200px;
+    }
+}
 
 @media screen and (min-width: 40em) and (max-width: 63.9375em) {
     #nav {
