@@ -32,20 +32,6 @@
 	</div>
 </section>
 
-<!--<section class="background-white">
-	<div class="row">
-		<div class="large-6 large-offset-3 medium-8 medium-offset-2 small-12 columns margContent">
-			<h2 class="purple">Where do you live?</h2>
-
-			<property-picker (propertyPicked)="property = $event"></property-picker>
-
-			<a [routerLink]="['/pay-rent/' + property?.slug]" class="button round large" [attr.disabled]="property ? null : true">
-				<span class="hide-for-small-only">Pay Rent Online</span>
-				<span class="show-for-small-only">Pay Rent</span>
-			</a>
-		</div>
-	</div>
-</section>-->
 <section class="background-white showcase">
 	<div class="showcase__stripe"></div>
 	<div class="row container">
@@ -64,89 +50,17 @@
 		</div>
 	</div>
 </section>
-<!--<section class="background-white showcase">
-	<div class="row container">
-		<div class="large-6 medium-8 columns margContent">
-			<h2 class="purple">The Amenities You Want</h2>
-			<h2><em>Without All The Hassle</em></h2>
-			<p class="yellborderright">
-				Roomhere lets you select and filter properties in Cape Girardeau by which amenities are most important to you. You filter
-				your results by which utilities are included, accessibility, central air conditioning, pet-friendliness and more!
-			</p>
-		</div>
-		<div class="large-6 text-center medium-4 columns">
-			<img class="hide-for-small-only row-image" src="/images/pages/landing-pages/section3.png" />
-		</div>
-		<div class="small-12 text-center columns">
-			<img class="show-for-small-only row-image" src="/images/pages/landing-pages/section3.png" />
-		</div>
-	</div>
-</section>-->
-<section>
-	<div class="container">
-		<div class="row" id="location">
-			<div class="large-5 medium-6 columns hide-for-small-only">
-				<img class="row-image  max-lrg" src="/images/pages/landing-pages/locations_map.jpg" />
-			</div>
-			<div class="large-5 medium-6 columns margContent" id="fourContent">
-				<h2 class="purple">Search For Rentals</h2>
-				<h2><em>Based On Nearby Locations</em></h2>
-				<p class="yellborderleft">
-					With Roomhere you can find results based on proximity to the locations that are important to you, as a resident living in
-					Southeast Missouri. Filter results by their proximity to the college, downtown, and hospitals and other Cape Girardeau
-					landmarks.
-				</p>
-			</div>
-			<div class="small-12 columns show-for-small-only text-center">
-				<img class="show-for-small-only" class="row-image" src="/images/pages/landing-pages/mobile/locations_map.jpg" />
-			</div>
-		</div>
-	</div>
-</section>
 <section class="background-white">
-	<div class="row container">
-		<div class="large-5 medium-6 end text-right columns margContent" id="fiveContent">
-			<h2 class="purple">A Simple Search</h2>
-			<h2><em>for finding the best rentals in the Cape Girardeau Area</em></h2>
-			<p class="yellborderright">
-				Our advanced search algorithms backed by decades of software development experience help you to search for the exact property
-				you are interested in and quickly compare amenities, location, price and more. Finding an apartment has never been easier
-				for Southeast Missourians!
-			</p>
-			<img class="show-for-small-only row-image" src="/images/pages/landing-pages/simpleSearch.jpg" />
-			<div class="hide-for-medium-only text-center">
-				<a [routerLink]="['/']" class="button large round">
-					<span class="hide-for-small-only">Start Searching Now</span>
-					<span class="show-for-small-only">Search Now</span>
-				</a>
-			</div>
+	<div class="row">
+		<div class="large-6 large-offset-3 medium-8 medium-offset-2 small-12 columns margContent">
+			<h2 class="purple">Where do you live?</h2>
 
-		</div>
-		<div class="large-7 medium-6 hide-for-small-only columns">
-			<img src="/images/pages/landing-pages/simpleSearch.jpg" class="row-image" />
-			<div class="show-for-medium-only medBtn text-center">
-				<a [routerLink]="['/']" class="button large round">
-					<span>Start Searching Now</span>
-				</a>
-			</div>
-		</div>
-	</div>
-</section>
-<section>
-	<div class="row container">
-		<div class="large-5 medium-6 columns hide-for-small-only padding-none">
-			<img src="/images/pages/landing-pages/review.jpg" class="row-image" />
-		</div>
-		<div class="large-5 medium-6 columns margContent" id="sixContent">
-			<h2 class="purple">Reviews</h2>
-			<h2><em>from renters like you.</em></h2>
-			<p class="yellborderleft">
-				Roomhere offers a unique review system allowing renters in the area to review their landlords. Compare properties you are
-				interested by the experience of real renters just like you!
-			</p>
-		</div>
-		<div class="small-12 show-for-small-only text-center columns">
-			<img class="row-image max-lrg" src="/images/pages/landing-pages/review.jpg">
+			<property-picker (propertyPicked)="property = $event"></property-picker>
+
+			<a [routerLink]="['/pay-rent/' + property?.slug]" class="button round large" [attr.disabled]="property ? null : true">
+				<span class="hide-for-small-only">Pay Rent Online</span>
+				<span class="show-for-small-only">Pay Rent</span>
+			</a>
 		</div>
 	</div>
 </section>
