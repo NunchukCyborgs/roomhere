@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { HttpService } from './http.service';
+import { HttpService, HttpOptions } from './http.service';
 import { UserService } from './user.service';
 import { PropertyService } from './property.service';
 import { PaymentRequest, PaymentRequestBlob } from '../dtos/payment-request';
@@ -35,11 +35,15 @@ export class PaymentService {
     return this.http.get(`${BASE_API_URL}/payments/fees?subtotal=${request.subtotal}&property_slug=${request.property_slug}`);
   }
 
-  public getMyPayments(): Observable<PaymentRequest[]> {
+  public getMyPayments(httpOptions?: HttpOptions): Observable<PaymentRequest[]> {
     return this.userService.hasAuth$
       .filter(i => i)
-      .flatMap(() => this.http.get(`${BASE_API_URL}/payments`))
+      .flatMap(() => this.http.get(`${BASE_API_URL}/payments`, httpOptions))
       .flatMap(i => this.mergePropertiesBySlugs(i));
+  }
+
+  public deletePaymentRequest(token: string): Observable<Response> {
+    return this.http.delete(`{BASE_API_URL}/payments/${token}`, {rawResponse: true});
   }
 
   private mergePropertiesBySlugs(payments: PaymentRequest[]): Observable<PaymentRequest[]> {

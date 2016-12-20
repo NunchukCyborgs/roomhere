@@ -1,6 +1,7 @@
 import { Property } from './property';
 
 export class PaymentRequest {
+  phone: string;
   name: string;
   due_on: number;
   subtotal: number;

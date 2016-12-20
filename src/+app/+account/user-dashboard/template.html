@@ -5,7 +5,8 @@
       <div class="callout-card-content">
         <h2>Payments</h2>
 
-        <payment-requests-list *ngIf="payments$ | async" [paymentRequests]="payments$ | async"></payment-requests-list>
+        <payment-requests-list *ngIf="payments$ | async" [paymentRequests]="payments$ | async" (updatePaymentRequest)="updatePaymentRequests()"
+          (deletePaymentRequest)="deletePaymentRequest($event)"></payment-requests-list>
 
       </div>
     </div>

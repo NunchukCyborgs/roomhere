@@ -9,13 +9,18 @@ import { PaymentRequest, PaymentRequestBlob } from '../../shared/dtos/payment-re
 })
 export class PaymentRequestsList {
   @Input() paymentRequests: PaymentRequest[];
+  @Output() updatePaymentRequest: EventEmitter<any> = new EventEmitter();
+  @Output() deletePaymentRequest: EventEmitter<any> = new EventEmitter();
 
-  public toggleEditing(paymentRequest: PaymentRequest): void {
+  public editingPayment: PaymentRequest;
 
+  public updatePayment(paymentRequest: PaymentRequest): void {
+    this.updatePaymentRequest.emit(paymentRequest);
+    this.editingPayment = null;
   }
 
   public delete(paymentRequest: PaymentRequest): void {
-
+    this.deletePaymentRequest.emit(paymentRequest);
   }
 
   public getPaidHeader(): string {

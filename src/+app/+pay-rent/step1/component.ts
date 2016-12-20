@@ -103,6 +103,7 @@ export class PayRentStep1 {
       name: this.paymentForm.controls['name'].value,
       subtotal: this.paymentForm.controls['subtotal'].value,
       unit: this.paymentForm.controls['unit'].value,
+      phone: this.paymentForm.controls['phone'].value,
     };
   }
 
