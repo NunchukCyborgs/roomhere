@@ -4,7 +4,7 @@ import { Property } from '../../../shared/dtos/property';
 
 @Component({
   selector: 'pay-rent-landing',
-  styleUrls: ['../styles.css'],
+  styleUrls: ['../styles.css', './styles.css'],
   templateUrl: 'template.html',
 })
 export class PayRentLanding {
@@ -15,7 +15,7 @@ export class PayRentLanding {
   ngOnInit() {
     this.seoService.addTags(
       {
-        description: `Don't write another check to your landlord. Pay your rent online with Roomhere! Use your debit or credit card and never write a check again!`,
+        description: `Don't write another check to your landlord. Pay your rent online with Roomhere! Use your debit or credit card and pay from anywhere. `,
         title: 'Pay Your Rent Online',
       }, this.renderer);
   }
