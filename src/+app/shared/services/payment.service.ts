@@ -46,6 +46,10 @@ export class PaymentService {
     return this.http.delete(`{BASE_API_URL}/payments/${token}`, {rawResponse: true});
   }
 
+  public getAllPayments(): Observable<PaymentRequest[]> {
+    return this.http.get(`${BASE_API_URL}/payments`)
+  }
+
   private mergePropertiesBySlugs(payments: PaymentRequest[]): Observable<PaymentRequest[]> {
     return Observable.combineLatest(payments.map((payment: PaymentRequest) =>
       this.propertyService.getPropertyBySlug$(payment.property_slug)

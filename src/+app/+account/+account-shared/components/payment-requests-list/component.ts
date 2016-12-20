@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { PaymentService } from '../../shared/services/payment.service';
-import { PaymentRequest, PaymentRequestBlob } from '../../shared/dtos/payment-request';
+import { PaymentService } from '../../../../shared/services/payment.service';
+import { PaymentRequest, PaymentRequestBlob } from '../../../../shared/dtos/payment-request';
 
 @Component({
   selector: 'payment-requests-list',

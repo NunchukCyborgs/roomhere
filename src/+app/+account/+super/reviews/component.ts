@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'super-user-dashboard',
+  selector: 'super-user-reviews',
   styleUrls: [],
   templateUrl: 'template.html'
 })
-export class SuperUserDashboard {
+export class SuperUserReviews {
 }

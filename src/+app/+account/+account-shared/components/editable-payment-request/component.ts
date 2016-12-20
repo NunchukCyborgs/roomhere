@@ -1,8 +1,8 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { PaymentService } from '../../shared/services/payment.service';
-import { ValidationService } from '../../shared/services/validation.service';
-import { PaymentRequest, PaymentRequestBlob } from '../../shared/dtos/payment-request';
+import { PaymentService } from '../../../../shared/services/payment.service';
+import { ValidationService } from '../../../../shared/services/validation.service';
+import { PaymentRequest, PaymentRequestBlob } from '../../../../shared/dtos/payment-request';
 
 @Component({
   selector: 'editable-payment-request',
