@@ -11,6 +11,7 @@ const skipCache = false;
 export interface HttpOptions {
   rawResponse?: boolean;
   skipCache?: boolean;
+  onlyBaseHeaders?: boolean;
 }
 
 @Injectable()
@@ -22,7 +23,7 @@ export class HttpService {
     const cache = this.getFromCache(key);
 
     return (!skipCache || !options.skipCache) && cache ? cache : this.http
-      .get(url, { headers: this.headers })
+      .get(url, { headers: options.onlyBaseHeaders ? this.baseHeaders : this.headers })
       .do(i => shouldLog && console.log(`GET: `, url))
       .map(i => options.rawResponse ? i : i.json())
       .do(i => !options.rawResponse && this.cache.set(key, i))
@@ -31,7 +32,7 @@ export class HttpService {
 
   public delete(url: string, options: HttpOptions = {}): Observable<any> {
     return this.http
-      .delete(url, { headers: this.headers })
+      .delete(url, { headers: options.onlyBaseHeaders ? this.baseHeaders : this.headers })
       .do(i => shouldLog && console.log(`DELETE: `, url))
       .map(i => options.rawResponse ? i : i.json())
       .catch((err, caught) => this.handleError(err, url, options));
@@ -44,7 +45,7 @@ export class HttpService {
     const cache = url.indexOf('filtered_results') > -1 ? this.getFromCache(key) : null;
     // This is the only url I want to cache at this point
 
-    return (!skipCache || !options.skipCache) && cache ? cache : this.http.post(url, JSON.stringify(obj), { headers: this.headers })
+    return (!skipCache || !options.skipCache) && cache ? cache : this.http.post(url, JSON.stringify(obj), { headers: options.onlyBaseHeaders ? this.baseHeaders : this.headers })
       .do(i => shouldLog && console.log(`POST: `, url))
       .map(i => options.rawResponse ? i : i.json())
       .do(i => !options.rawResponse && this.cache.set(key, i))
@@ -52,7 +53,7 @@ export class HttpService {
   }
 
   public patch(url: string, obj: any, options: HttpOptions = {}): Observable<any> {
-    return this.http.patch(url, JSON.stringify(obj), { headers: this.headers })
+    return this.http.patch(url, JSON.stringify(obj), { headers: options.onlyBaseHeaders ? this.baseHeaders : this.headers })
       .do(i => shouldLog && console.log(`PATCH: `, url))
       .map(i => options.rawResponse ? i : i.json())
       .catch((err, caught) => this.handleError(err, url, options));
@@ -73,6 +74,13 @@ export class HttpService {
     headers.set('access-token', this.persist.get('access-token'));
     headers.set('client', this.persist.get('client'));
     headers.set('uid', this.persist.get('uid'));
+    return headers;
+  }
+
+  public get baseHeaders(): Headers {
+    const headers = new Headers();
+    headers.set('Content-Type', 'application/json; charset=UTF-8');
+    headers.set('Accept', 'application/json');
     return headers;
   }
 

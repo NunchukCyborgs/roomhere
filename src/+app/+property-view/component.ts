@@ -14,6 +14,7 @@ import { ImageUploadService, PendingFile } from '../shared/services/image-upload
 import { PropertyService } from '../shared/services/property.service';
 import { PropertyActionStateService } from '../shared/services/property-action-state.service';
 import { getHoneybadger } from '../shared/services/honeybadger';
+import { AnalyticsService } from '../shared/services/analytics.service';
 
 const ZOOM_LEVEL: number = 16;
 const HEIGHT: string = '350px';
@@ -40,7 +41,8 @@ export class PropertyView {
     private renderer: Renderer,
     private socialService: SocialService,
     private http: HttpService,
-    private actionStateService: PropertyActionStateService
+    private actionStateService: PropertyActionStateService,
+    private analyticsService: AnalyticsService,
   ) { }
 
   public shareFacebook() {
@@ -80,6 +82,8 @@ export class PropertyView {
   }
 
   ngOnInit() {
+    this.analyticsService.recordAction('page-load');
+    
     getHoneybadger().setContext({ view: 'property-view' });
     // Maybe put this on the root component, let's play with it for a while first
 
