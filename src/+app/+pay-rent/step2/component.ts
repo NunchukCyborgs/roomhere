@@ -55,7 +55,9 @@ export class PayRentStep2 {
       .do((i: PaymentRequestBlob) => this.paymentRequestErrors = i.errors)
       .do((i: PaymentRequestBlob) => this.paymentRequest = i.payment_request)
       .do((i: PaymentRequestBlob) => this.success = i.errors.length === 0)
-      .do(i => this.changeDetector.detectChanges())
+      .do(() => this.changeDetector.detectChanges())
+      .filter((i: PaymentRequestBlob) => i.errors.length === 0)
+      .do(() => this.router.navigate(['/pay-rent/success']))
       .subscribe();
   }
 

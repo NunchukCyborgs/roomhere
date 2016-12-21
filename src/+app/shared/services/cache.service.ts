@@ -25,6 +25,14 @@ export class CacheService {
   }
 
   /**
+   * remove a value
+   */
+  delete(key: string | number): void {
+    let _key = this.normalizeKey(key);
+    this._cache.delete(_key);
+  }
+
+  /**
    * get our cached value
    */
   get(key: string | number): any {

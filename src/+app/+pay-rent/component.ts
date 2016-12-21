@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { PropertyService } from '../shared/services/property.service';
 import { PaymentService } from '../shared/services/payment.service';
+import { UserService } from '../shared/services/user.service';
 import { Property } from '../shared/dtos/property';
 import { PaymentRequest } from '../shared/dtos/payment-request';
 
@@ -19,9 +20,13 @@ export class PayRent {
   private slug: string;
   private token: string;
 
-  constructor(private route: ActivatedRoute, private propertyService: PropertyService, private paymentService: PaymentService) { }
+  constructor(private route: ActivatedRoute, private router: Router, private propertyService: PropertyService, private paymentService: PaymentService, private userService: UserService) { }
 
   ngOnInit() {
+    this.userService.loadMe()
+      .filter(i => i.licenses && i.licenses.length > 0)
+      .subscribe(() => this.router.navigate(['/account/dashboard']))
+
     this.route.firstChild.params
       .do(i => this.slug = i['slug'])
       .do(i => this.token = i['token'])
@@ -39,7 +44,5 @@ export class PayRent {
       .flatMap(() => this.paymentService.getFees(this.paymentRequest))
       .do((i: { value: number, message: string }) => this.fees = i)
       .subscribe();
-
-    // handle fees outside here too
   }
 }

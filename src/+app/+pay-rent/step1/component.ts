@@ -112,7 +112,6 @@ export class PayRentStep1 {
       return Observable.of(this.paymentToken);
     }
     return this.paymentService.requestPayment(this.getPaymentOptions())
-      .do(i => console.log('heyo: ', i))
       .do(i => this.paymentErrors = i.errors)
       .filter(i => !i.errors.length)
       .map(i => i.payment_request.token);
