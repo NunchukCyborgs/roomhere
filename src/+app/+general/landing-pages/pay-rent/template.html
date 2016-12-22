@@ -35,29 +35,42 @@
 <section class="background-white showcase">
 	<div class="showcase__stripe"></div>
 	<div class="row container">
-		<div class="large-6 columns">
+		<div class="large-6 medium-6 columns">
 			<h2>FAST. EASY. SECURE.</h2>
-			<p class="subheader">PAYING YOUR RENT HAS NEVER BEEN EASIER<br>USING ROOMERE'S ONLINE PAYMENT SYSTEM</p>
+			<p class="subheader">Paying your rent has never been easier using Roomhere’s Online Payment System!</p>
 			<ul>
 				<li><i class="fa fa-check"></i>Payment Delivery Gurantee</li>
 				<li><i class="fa fa-check"></i>3 Step Process</li>
-				<li><i class="fa fa-check"></i>128 bit Encryption</li>
+				<li><i class="fa fa-check"></i>256 bit Encryption</li>
 			</ul>
-			<div class="large-10 columns end"><img src="/images/pages/landing-pages/creditcards.png"></div>
+			<div class="large-10 medium-10 columns end"><img src="/images/pages/landing-pages/creditcards.png"></div>
+			<div class="large-10 medium-10 columns end hide-for-small-only" id="rent-due-image">
+				<img src="/images/pages/landing-pages/rent_due.png">
+			</div>
+			<div class="small-10 small-offset-1 columns end show-for-small-only"><img src="/images/pages/landing-pages/256bit_secure.png"></div>
 		</div>
-		<div class="large-6 columns showcase-image">
-			<img src="/images/pages/landing-pages/128bit_secure.png">
+		<div class="large-6 medium-6 columns showcase-image">
+			<div class="large-10 medium-10 columns end hide-for-small-only"><img src="/images/pages/landing-pages/256bit_secure.png"></div>
+			<div class="large-12 medium-12 columns" id="rent-due-text">
+				<h2>NEVER BE <span>LATE</span> FOR RENT AGAIN!</h2>
+					<p class="subheader">With Roomhere’s easy to use payment platform you can set-up recurring payments so that your rent is always ontime hassle free.</p>
+			</div>
+			<div class="small-10 small-offset-1 columns end show-for-small-only" id="rent-due-image">
+				<img src="/images/pages/landing-pages/rent_due.png">
+			</div>
 		</div>
 	</div>
 </section>
-<section class="background-white">
+<section class="hero">
 	<div class="row">
-		<div class="large-6 large-offset-3 medium-8 medium-offset-2 small-12 columns margContent">
-			<h2 class="purple">Where do you live?</h2>
+		<div class="large-12 text-center columns">
+			<h1>GET STARTED TODAY!</h1>
+			<h3><span>By Searching For Your Address Below.</span></h3>
+		</div>
+		<div class="large-6 large-offset-3 text-center end margContent columns">
+		<property-picker (propertyPicked)="property = $event"></property-picker>
 
-			<property-picker (propertyPicked)="property = $event"></property-picker>
-
-			<a [routerLink]="['/pay-rent/' + property?.slug]" class="button round large" [attr.disabled]="property ? null : true">
+			<a [routerLink]="['/pay-rent/' + property?.slug]" class="button round green large" [attr.disabled]="property ? null : true">
 				<span class="hide-for-small-only">Pay Rent Online</span>
 				<span class="show-for-small-only">Pay Rent</span>
 			</a>
