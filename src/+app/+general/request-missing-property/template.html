@@ -1,10 +1,9 @@
 <div class="row">
-  <div class="small-12 columns small-centered">
+  <div class="small-12 columns panel small-centered">
     <div class="callout-card small-centered">
       <div class="callout-card-content">
         <form [formGroup]="missingPropertyForm" (ngSubmit)="submit()" *ngIf="!success">
           <h1>Can't find your property?</h1>
-
           <p>
             Sometimes the property data we receive is incomplete. If you can't find your home in these listings, let us know and we'll
             get to work on it!
