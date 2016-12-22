@@ -9,10 +9,15 @@
             color: #33cc66;
         }
     }
+    h3{
+        span{
+            color: #33cc66;
+        }
+    }
 }
 .showcase{
   position: relative;
-  padding-top: 50px;
+  
   overflow: hidden;
 
   &__stripe {
@@ -20,18 +25,20 @@
     border-right: solid 400px #44254A;
     height: 200%;
     width: 100%;
-    transform: skewX(-49deg);
+    transform: skewX(-50deg);
     z-index: 0;
-    right: 60%;
+    right: 100%;
   }
 
   .container {
     position: relative;
     z-index: 1;
+    padding-top: 50px;
+
   }
 
   h2{
-      font-size: 50px;
+      font-size: 3.125 rem;
   }
   ul{
       margin-top: 50px;
@@ -46,8 +53,23 @@
       margin-right: 10px;
   }
   .showcase-image{
-      margin-top: 200px;
+      margin-top: 50px;
   }
+  #rent-due-image{
+    margin-top: 100px;
+}
+  #rent-due-text{
+    margin-top:80px;
+    span{
+            color: #33cc66;
+        }
+}
+}
+property-picker{
+    margin:0px auto;
+}
+.green{
+    background-color:#33cc66 !important;
 }
 
 @media screen and (min-width: 40em) and (max-width: 63.9375em) {
@@ -76,6 +98,24 @@
     }
 }
 @media screen and (max-width: 39.9375em) {
+    .showcase{
+        &__stripe {
+        position: absolute;
+        border-right: solid 200px #44254A;
+        height: 100%;
+        width: 100%;
+        transform: skewX(-50deg);
+        z-index: 0;
+        right: 100%;
+  }
+        
+        ul{
+            margin-top: 10px;
+        }
+        #rent-due-text{
+            margin-top: 20px;
+    }
+    }
     .margContent{
         margin-top:35px;
     }
