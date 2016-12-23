@@ -1,5 +1,5 @@
 <div class="input-group" *ngIf="isBrowser">
-  <kendo-combobox [data]="properties" [textField]="'address1'" [valueField]="'id'" [value]="property" [filterable]="true" [suggest]="true"
+  <kendo-combobox [data]="properties" [textField]="'address1'" [valueField]="'id'" [value]="property" [filterable]="true"
     (filterChange)="handleFilter($event)" (selectionChange)="propertyPicked.emit($event)">
     <template itemTemplate let-dataItem>
       <div class="property-wrapper">
