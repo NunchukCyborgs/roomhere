@@ -53,7 +53,7 @@
   </p>
 </form>
 
-<div *ngIf="errors.length && !success" class="callout alert">
+<div *ngIf="errors.length" class="callout alert">
   <h4>Uh oh! We had a problem updating your payment request.</h4>
   <span *ngFor="let error of errors">{{error}}. </span>
 </div>
