@@ -2,7 +2,7 @@
 	<div class="row container">
 		<div class="small-12 columns text-center">
 			<h1>Stop <span>Worrying About</span> Checks<br> &amp; Pay Your Rent Online!</h1>
-			<img src="/images/pages/landing-pages/rent_hero_main.png"/>
+			<img src="/images/pages/landing-pages/rent_hero_main.png" />
 		</div>
 	</div>
 </section>
@@ -53,7 +53,8 @@
 			<div class="medium-10 columns end hide-for-small-only"><img src="/images/pages/landing-pages/256bit_secure.png"></div>
 			<div class="small-12 columns" id="rent-due-text">
 				<h2>NEVER BE <span>LATE</span> FOR RENT AGAIN!</h2>
-					<p class="subheader">With Roomhere’s easy to use payment platform you can set-up recurring payments so that your rent is always ontime hassle free.</p>
+				<p class="subheader">With Roomhere’s easy to use payment platform you can set-up recurring payments so that your rent is always ontime hassle
+					free.</p>
 			</div>
 			<div class="small-10 small-offset-1 columns end show-for-small-only" id="rent-due-image">
 				<img src="/images/pages/landing-pages/rent_due.png">
@@ -64,16 +65,20 @@
 <section class="hero">
 	<div class="row">
 		<div class="small-12 text-center columns">
-			<h1>GET STARTED TODAY!</h1>
-			<h3><span>By Searching For Your Address Below.</span></h3>
+			<h1>GET STARTED TODAY</h1>
+			<h3><span>By Searching For Your Address Below</span></h3>
 		</div>
 		<div class="large-6 large-offset-3 text-center end margContent columns">
-			<property-picker (propertyPicked)="property = $event"></property-picker>
+			<div class="row">
+				<div class="column small-10 small-offset-1 medium-6 medium-offset-3">
+					<property-picker (propertyPicked)="property = $event"></property-picker>
 
-			<a [routerLink]="['/pay-rent/' + property?.slug]" class="button round green large" [attr.disabled]="property ? null : true">
-				<span class="hide-for-small-only">Pay Rent Online</span>
-				<span class="show-for-small-only">Pay Rent</span>
-			</a>
+					<a [routerLink]="['/pay-rent/' + property?.slug]" class="button round green large expanded" [attr.disabled]="property ? null : true">
+						<span class="hide-for-small-only">Pay Rent Online</span>
+						<span class="show-for-small-only">Pay Rent</span>
+					</a>
+				</div>
+			</div>
 		</div>
 	</div>
 </section>
