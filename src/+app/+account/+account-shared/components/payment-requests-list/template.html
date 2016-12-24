@@ -1,8 +1,8 @@
+<div class="row column">
 <div class="alert warning" *ngIf="paymentRequests?.length === 0">
   <p>No payments found</p>
 </div>
-
-<table class="scroll" *ngIf="paymentRequests?.length">
+<table class="stack" *ngIf="paymentRequests?.length">
   <thead>
     <tr>
       <th>Request Date</th>
@@ -38,3 +38,4 @@
     </tr>
   </tbody>
 </table>
+</div>
