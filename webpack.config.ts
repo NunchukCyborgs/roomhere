@@ -6,8 +6,17 @@ var webpackMerge = require('webpack-merge');
 const autoprefixer = require('autoprefixer');
 
 const IS_PROD = Boolean(process.env.NODE_ENV === 'production');
-const BASE_API_URL = IS_PROD ? 'https://api.roomhere.io' : 'https://test-api.roomhere.io';
-const BASE_URL = IS_PROD ? 'https://roomhere.io' : 'http://localhost:3000';
+const IS_STAGING = Boolean(process.env.NODE_ENV === 'staging');
+if(IS_PROD) {
+  const BASE_API_URL = 'https://api.roomhere.io';
+  const BASE_URL = 'https://roomhere.io';
+} else if(IS_STAGING) {
+  const BASE_API_URL = 'https://test-api.roomhere.io';
+  const BASE_URL = 'https://demo.roomhere.io';
+} else {
+  const BASE_API_URL = 'https://test-api.roomhere.io';
+  const BASE_URL = 'http://localhost:3000';
+}
 
 const htmlQuery = {
   minimize: true,
