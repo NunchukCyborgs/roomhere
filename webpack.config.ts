@@ -7,15 +7,17 @@ const autoprefixer = require('autoprefixer');
 
 const IS_PROD = Boolean(process.env.NODE_ENV === 'production');
 const IS_STAGING = Boolean(process.env.NODE_ENV === 'staging');
+let BASE_API_URL;
+let BASE_URL;
 if(IS_PROD) {
-  const BASE_API_URL = 'https://api.roomhere.io';
-  const BASE_URL = 'https://roomhere.io';
+  BASE_API_URL = 'https://api.roomhere.io';
+  BASE_URL = 'https://roomhere.io';
 } else if(IS_STAGING) {
-  const BASE_API_URL = 'https://test-api.roomhere.io';
-  const BASE_URL = 'https://demo.roomhere.io';
+  BASE_API_URL = 'https://test-api.roomhere.io';
+  BASE_URL = 'https://demo.roomhere.io';
 } else {
-  const BASE_API_URL = 'https://test-api.roomhere.io';
-  const BASE_URL = 'http://localhost:3000';
+  BASE_API_URL = 'https://test-api.roomhere.io';
+  BASE_URL = 'http://localhost:3000';
 }
 
 const htmlQuery = {
