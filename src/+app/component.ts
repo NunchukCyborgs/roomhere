@@ -1,5 +1,5 @@
 import { Component, Directive, OnInit, ViewEncapsulation, Renderer } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import { isBrowser } from 'angular2-universal'
@@ -34,8 +34,10 @@ export class AppComponent {
   ngAfterViewInit() {
     this.router.events
       .do(i => this.seoService.updateCanonTag(i.url, this.renderer))
-      .filter(() => isBrowser)
-      .do(() => $('body').foundation())
+      .filter(i => isBrowser)
+      .do(i => $('body').foundation())
+      .filter(i => i instanceof NavigationEnd)
+      .do(i => window.scroll(0, 0))
       .subscribe();
   }
 
