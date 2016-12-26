@@ -123,6 +123,7 @@
   },
   "devDependencies": {
     "nodemon": "1.10.0",
-    "imagemin-cli": "^3.0.0"
+    "imagemin-cli": "^3.0.0",
+    "webpack-bundle-size-analyzer": "^2.2.0"
   }
 }
