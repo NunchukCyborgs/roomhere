@@ -5,7 +5,6 @@ import { Dashboard } from './dashboard/component';
 import { Settings } from './settings/component';
 import { LandlordSettings } from './landlord-settings/component';
 import { BecomeLandlord } from './become-landlord/component';
-import { AccountAuthGuard } from './account.auth-guard';
 
 export function getSuperModule() {
   return System.import('./+super/super.module' + (process.env.AOT ? '.ngfactory' : ''))
@@ -18,7 +17,6 @@ export function getSuperModule() {
       {
         path: '',
         component: AccountPage,
-        canActivate: [AccountAuthGuard],
         children: [
           { path: '', redirectTo: 'dashboard' },
           { path: 'dashboard', component: Dashboard },
