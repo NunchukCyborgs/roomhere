@@ -16,8 +16,12 @@ input[type="number"] {
     color: #DAA520;
 }
 
+.fa{
+    vertical-align: middle;
+    display: inline !important;
+}
+
 input {
-    display: inline;
     border: none;
     box-shadow: none;
     background: #f5f5f5;
