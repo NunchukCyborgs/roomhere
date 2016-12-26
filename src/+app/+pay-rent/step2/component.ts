@@ -32,10 +32,29 @@ export class PayRentStep2 {
   public paymentRequestErrors: string[];
   public success: boolean;
 
-  constructor(private router: Router, private route: ActivatedRoute, private propertyService: PropertyService, 
-  private paymentService: PaymentService, private userService: UserService, private changeDetector: ChangeDetectorRef) { }
+  public months = [
+    { value: 1, text: 'January' },
+    { value: 2, text: 'February' },
+    { value: 3, text: 'March' },
+    { value: 4, text: 'April' },
+    { value: 5, text: 'May' },
+    { value: 6, text: 'June' },
+    { value: 7, text: 'July' },
+    { value: 8, text: 'August' },
+    { value: 9, text: 'September' },
+    { value: 10, text: 'October' },
+    { value: 11, text: 'November' },
+    { value: 12, text: 'December' },
+  ];
+
+  public years: Array<{ value: number, text: string }> = [];
+
+  constructor(private router: Router, private route: ActivatedRoute, private propertyService: PropertyService,
+    private paymentService: PaymentService, private userService: UserService, private changeDetector: ChangeDetectorRef) { }
 
   ngOnInit() {
+    this.setYears();
+
     this.route.params
       .flatMap(i => this.paymentService.getRequestByToken(i['token']))
       .do(i => this.paymentRequest = i)
@@ -64,14 +83,8 @@ export class PayRentStep2 {
   private initForm() {
     this.paymentForm = new FormGroup({
       card: new FormControl('', [Validators.required, ValidationService.creditCardValidator]),
-      expMonth: new FormControl('', [
-        Validators.required, Validators.maxLength(2), Validators.minLength(2), // not sure the min/max lengths work on number types
-        ValidationService.minValidator.bind(this, 1), ValidationService.maxValidator.bind(this, 12)
-      ]),
-      expYear: new FormControl('', [
-        Validators.required, Validators.maxLength(2), Validators.minLength(2),
-        ValidationService.minValidator.bind(this, new Date().getFullYear().toString().substr(2)), ValidationService.maxValidator.bind(this, 99)
-      ]),
+      expMonth: new FormControl('', Validators.required),
+      expYear: new FormControl('', Validators.required),
       cvc: new FormControl('', [Validators.required, Validators.maxLength(4), Validators.minLength(3)]),
     })
   }
@@ -82,7 +95,24 @@ export class PayRentStep2 {
 
   private createStripeToken(): Observable<{ status: any, response: any }> {
     return Observable.create(observer => {
-      Stripe.card.createToken($('#PaymentForm'), (status, response) => observer.next({ status: status, response: response }));
+      console.log({
+        exp_month: this.paymentForm.controls['expMonth'].value,
+        exp_year: this.paymentForm.controls['expYear'].value,
+      });
+
+      Stripe.card.createToken({
+        number: this.paymentForm.controls['card'].value,
+        cvc: this.paymentForm.controls['cvc'].value,
+        exp_month: this.paymentForm.controls['expMonth'].value,
+        exp_year: this.paymentForm.controls['expYear'].value,
+      }, (status, response) => observer.next({ status: status, response: response }));
     });
+  }
+
+  private setYears(): void {
+    const year = new Date().getFullYear();
+    for (let i = year; i < year + 21; i++) {
+      this.years.push({ value: i, text: i.toString() });
+    }
   }
 }
