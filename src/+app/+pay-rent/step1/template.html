@@ -84,6 +84,8 @@
     <button type="submit" class="button large" [attr.disabled]="!paymentForm.valid ? true : null">{{hasAuth ? 'Continue to Payment' : 'Create an Account'}}</button>
   </p>
 
+  <control-messages-summary [formGroup]="paymentForm"></control-messages-summary>
+
   <p class="text-center" *ngIf="!success && !hasAuth">Already have an account? <a data-open="LoginModal">Login here</a>
 </form>
 

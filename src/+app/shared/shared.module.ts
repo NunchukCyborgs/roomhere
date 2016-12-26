@@ -29,6 +29,7 @@ import { PropertyViewResolve } from '../+property-view/property-resolve.service'
 // Components
 import { Carousel } from './components/carousel/component';
 import { ControlMessages } from './components/control-messages/component';
+import { ControlMessagesSummary } from './components/control-messages-summary/component';
 import { ImageUpload } from './components/image-upload/component';
 import { NumberTicker } from './components/number-ticker/component';
 import { Slide } from './components/slide/component';
@@ -67,7 +68,7 @@ const PIPES = [
 ];
 
 const COMPONENTS = [
-  Login, Register, ForgotPassword, ResetPassword, BigFooter, MissingResource,
+  Login, Register, ForgotPassword, ResetPassword, BigFooter, MissingResource, ControlMessagesSummary,
   Slide, Logo, TopBar, WelcomeSearch, PropertyPicker, PayRentModal, BlockImage,
   Carousel, ControlMessages, ImageUpload, NumberTicker, UploadProgress, Modal, StarRating, PropertyAmenities, 
 ];
