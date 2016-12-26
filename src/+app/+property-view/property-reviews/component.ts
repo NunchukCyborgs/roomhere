@@ -37,7 +37,7 @@ export class PropertyReviews {
   public editReview() {
     this.userService.hasAuth$
       .do(i => this.isEditing = i)
-      .do(i => this.analyticsService.recordAction('click_edit_review', { hasAuth: i }))
+      .do(i => this.analyticsService.recordAction('Reviews | Click Edit', { hasAuth: i }))
       .filter(i => !i && isBrowser)
       .subscribe(i => $('#SignupLink').click());
   }

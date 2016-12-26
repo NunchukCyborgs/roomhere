@@ -7,7 +7,7 @@
     <div class="form-group row collapse">
       <div class="small-12  columns">
         <label>Credit Card Number
-              <input type="tel" placeholder="Credit Card" formControlName="card" class="form-control" autocomplete="cc-number">
+              <input type="tel" placeholder="Credit Card" formControlName="card" class="form-control" autocomplete="cc-number" (change)="interactWithForm()">
               </label>
       </div>
       <control-messages [control]="paymentForm.controls.card" class="alert"></control-messages>

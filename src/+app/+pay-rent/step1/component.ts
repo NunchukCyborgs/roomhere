@@ -8,6 +8,7 @@ import { ValidationService } from '../../shared/services/validation.service';
 import { PropertyService } from '../../shared/services/property.service';
 import { PaymentService } from '../../shared/services/payment.service';
 import { UserService } from '../../shared/services/user.service';
+import { AnalyticsService } from '../../shared/services/analytics.service';
 import { Property } from '../../shared/dtos/property';
 import { User } from '../../shared/dtos/user';
 import { PaymentRequest } from '../../shared/dtos/payment-request';
@@ -32,7 +33,10 @@ export class PayRentStep1 {
   public dueOn: number = 30;
   public subtotal: number;
 
-  constructor(private router: Router, private route: ActivatedRoute, private propertyService: PropertyService, private paymentService: PaymentService, private userService: UserService) { }
+  private hasPostedInteraction: boolean = false;
+
+  constructor(private router: Router, private route: ActivatedRoute, private propertyService: PropertyService, private paymentService: PaymentService,
+    private userService: UserService, private analytics: AnalyticsService) { }
 
   ngOnInit() {
     Observable.combineLatest(this.userService.hasAuth$, this.getProperty())
@@ -53,6 +57,7 @@ export class PayRentStep1 {
       .do(i => this.paymentToken = i)
       .flatMap(i => this.createUser(i))
       .do(i => this.success = i)
+      .do(i => i && this.analytics.recordAction('Pay Rent | Complete Step 1'))
       .filter(i => this.hasAuth)
       .do(() => this.router.navigate([`/pay-rent/step-2/${this.paymentToken}`]))
       .subscribe();
@@ -62,6 +67,13 @@ export class PayRentStep1 {
     const password = this.paymentForm.controls['password'];
     const confirm = this.paymentForm.controls['confirmPassword'];
     return password.value !== confirm.value && password.touched && confirm.touched ? 'Passwords do not match. ' : '';
+  }
+
+  public interactWithForm() {
+    if (!this.hasPostedInteraction) {
+      this.hasPostedInteraction = true;
+      this.analytics.recordAction('Pay Rent | Start Step 1');
+    }
   }
 
   private getProperty(): Observable<Property> {
@@ -81,7 +93,7 @@ export class PayRentStep1 {
   private initForm(hasAuth: boolean, property: Property) {
     let controls: any = {
       name: new FormControl('', [Validators.required, ValidationService.nameValidator]),
-      subtotal: new FormControl(this.subtotal, [Validators.required, ValidationService.minValidator.bind(this, 25), ValidationService.maxValidator.bind(this, 999999.99)]), // minimum price? 25?
+      subtotal: new FormControl(this.subtotal, [Validators.required, ValidationService.minValidator.bind(this, 25), ValidationService.maxValidator.bind(this, 999999.99)]),
       phone: new FormControl('', [Validators.required, ValidationService.phoneNumberValidator]),
       unit: new FormControl(''),
     }
@@ -130,6 +142,7 @@ export class PayRentStep1 {
 
     return this.userService.register(user, { token: paymentToken }, `pay-rent/step-2/${this.paymentToken}`)
       .do((res: Response) => this.serverErrors = ValidationService.getAuthErrors(res))
-      .map((res: Response) => res.ok);
+      .map((res: Response) => res.ok)
+      .do(i => i && this.analytics.recordAction('Pay Rent | Register New User'));
   }
 }

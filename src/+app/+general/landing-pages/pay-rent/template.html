@@ -71,12 +71,12 @@
 		<div class="large-6 large-offset-3 text-center end margContent columns">
 			<div class="row">
 				<div class="column small-10 small-offset-1 medium-6 medium-offset-3">
-					<property-picker (propertyPicked)="property = $event"></property-picker>
+					<property-picker (propertyPicked)="selectProperty($event)"></property-picker>
 
-					<a [routerLink]="['/pay-rent/' + property?.slug]" class="button round green large expanded" [attr.disabled]="property ? null : true">
+					<button type="button" (click)="submitProperty()" class="button round green large expanded" [attr.disabled]="property ? null : true">
 						<span class="hide-for-small-only">Pay Rent Online</span>
 						<span class="show-for-small-only">Pay Rent</span>
-					</a>
+					</button>
 				</div>
 			</div>
 		</div>

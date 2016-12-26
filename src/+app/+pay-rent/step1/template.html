@@ -6,7 +6,7 @@
     <div class="form-group row collapse">
       <div class="small-12  columns">
         <label>Full Name
-              <input type="text" placeholder="Johny Smith" formControlName="name" class="form-control" autocomplete="cc-name">
+              <input type="text" placeholder="Johny Smith" formControlName="name" class="form-control" autocomplete="cc-name" (change)="interactWithForm()">
               </label>
       </div>
       <control-messages [control]="paymentForm.controls.name" class="alert"></control-messages>

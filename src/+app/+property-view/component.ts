@@ -82,7 +82,7 @@ export class PropertyView {
   }
 
   ngOnInit() {
-    this.analyticsService.recordAction('page-load');
+    this.analyticsService.recordAction('Page Load');
     
     getHoneybadger().setContext({ view: 'property-view' });
     // Maybe put this on the root component, let's play with it for a while first

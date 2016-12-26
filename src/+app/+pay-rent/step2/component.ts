@@ -7,6 +7,7 @@ import { ValidationService } from '../../shared/services/validation.service';
 import { PropertyService } from '../../shared/services/property.service';
 import { PaymentService } from '../../shared/services/payment.service';
 import { UserService } from '../../shared/services/user.service';
+import { AnalyticsService } from '../../shared/services/analytics.service';
 import { Property } from '../../shared/dtos/property';
 import { PaymentRequest, PaymentRequestBlob } from '../../shared/dtos/payment-request';
 import { loadScript } from '../../shared/services/util';
@@ -31,6 +32,7 @@ export class PayRentStep2 {
   public stripeError: StripeError;
   public paymentRequestErrors: string[];
   public success: boolean;
+  public years: Array<{ value: number, text: string }> = [];
 
   public months = [
     { value: 1, text: 'January' },
@@ -47,9 +49,9 @@ export class PayRentStep2 {
     { value: 12, text: 'December' },
   ];
 
-  public years: Array<{ value: number, text: string }> = [];
+  private hasPostedInteraction: boolean = false;
 
-  constructor(private router: Router, private route: ActivatedRoute, private propertyService: PropertyService,
+  constructor(private router: Router, private route: ActivatedRoute, private propertyService: PropertyService, private analytics: AnalyticsService,
     private paymentService: PaymentService, private userService: UserService, private changeDetector: ChangeDetectorRef) { }
 
   ngOnInit() {
@@ -75,9 +77,18 @@ export class PayRentStep2 {
       .do((i: PaymentRequestBlob) => this.paymentRequest = i.payment_request)
       .do((i: PaymentRequestBlob) => this.success = i.errors.length === 0)
       .do(() => this.changeDetector.detectChanges())
+      .do((i: PaymentRequestBlob) => i.errors.length && this.analytics.recordAction('Pay Rent | Errors with Credit Card Form', { errors: i.errors }))
       .filter((i: PaymentRequestBlob) => i.errors.length === 0)
+      .do(() => this.analytics.recordAction('Pay Rent | Complete Step 2'))
       .do(() => this.router.navigate(['/pay-rent/success']))
       .subscribe();
+  }
+
+  private interactWithForm() {
+    if (!this.hasPostedInteraction) {
+      this.hasPostedInteraction = true;
+      this.analytics.recordAction('Pay Rent | Start Step 2');
+    }
   }
 
   private initForm() {
@@ -86,7 +97,7 @@ export class PayRentStep2 {
       expMonth: new FormControl('', Validators.required),
       expYear: new FormControl('', Validators.required),
       cvc: new FormControl('', [Validators.required, Validators.maxLength(4), Validators.minLength(3)]),
-    })
+    });
   }
 
   private loadStripe(): void {
@@ -95,11 +106,6 @@ export class PayRentStep2 {
 
   private createStripeToken(): Observable<{ status: any, response: any }> {
     return Observable.create(observer => {
-      console.log({
-        exp_month: this.paymentForm.controls['expMonth'].value,
-        exp_year: this.paymentForm.controls['expYear'].value,
-      });
-
       Stripe.card.createToken({
         number: this.paymentForm.controls['card'].value,
         cvc: this.paymentForm.controls['cvc'].value,
