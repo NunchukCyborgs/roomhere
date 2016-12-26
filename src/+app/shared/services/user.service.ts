@@ -43,31 +43,32 @@ export class UserService {
   }
 
   public login(user: User) {
-    return this.http.post(`${BASE_API_URL}/auth/sign_in`, user, {rawResponse: true})
+    return this.http.post(`${BASE_API_URL}/auth/sign_in`, user, { rawResponse: true })
       .do((i: Response) => this.handleLogin(i))
       .do(() => this.me$.subscribe(i => this.redirectLandlord(i)));
   }
 
   public logout() {
-    this.hasAuth$.next(false);
+    this.hasAuth$.next(this._hasAuth = false);
+    this.loadMe();
     this.http.setAuthHeaders();
     this.router.navigate(['/']);
   }
 
   public register(user: User, data: Object, redirectUrl: string = 'p/registration-success'): Observable<Response> {
     user.confirm_success_url = `${BASE_URL}/${redirectUrl}`;
-    return this.http.post(`${BASE_API_URL}/auth`, Object.assign(user, data), {rawResponse: true});
+    return this.http.post(`${BASE_API_URL}/auth`, Object.assign(user, data), { rawResponse: true });
   }
 
   public sendResetPasswordLink(user: User): Observable<Response> {
     user.redirect_url = `${BASE_URL}/p/reset-password`;
-    return this.http.post(`${BASE_API_URL}/auth/password`, user, {rawResponse: true});
+    return this.http.post(`${BASE_API_URL}/auth/password`, user, { rawResponse: true });
   }
 
   public resetPassword(user: User): Observable<Response> {
     user.redirect_url = this.getRedirectUrl();
     user.email = this.persist.get('uid');
-    return this.http.patch(`${BASE_API_URL}/auth/password`, user, {rawResponse: true});
+    return this.http.patch(`${BASE_API_URL}/auth/password`, user, { rawResponse: true });
   }
 
   public loadContactsByLicenseId(licenseId: string): Observable<Contact[]> {
@@ -77,7 +78,7 @@ export class UserService {
   }
 
   public setLicenseId(licenseId: string): Observable<Response> {
-    return this.http.post(`${BASE_API_URL}/users/licensing`, { license_id: licenseId }, {rawResponse: true});
+    return this.http.post(`${BASE_API_URL}/users/licensing`, { license_id: licenseId }, { rawResponse: true });
   }
 
   public setLicenseIds(licenseIds: string[]): Observable<Response[]> {
@@ -97,9 +98,13 @@ export class UserService {
   }
 
   public loadMe(): Observable<Me> {
+    if (!this._hasAuth) {
+      this.me$.next(this._me = {});
+      return this.me$;
+    }
+
     if (this._me.properties && this._me.contacts && this._me.licenses && this._me.licenses.length) {
       return this.me$;
-      // Just return if we already gots our things
     }
 
     return this.hasAuth$.filter(i => i)
@@ -122,7 +127,7 @@ export class UserService {
         if (params['account_confirmation_success'] === 'true' || params['reset_password'] === 'true') {
           let headers = { token: params['token'], client: params['client_id'], uid: params['uid'] };
           this.http.setAuthHeaders(headers.token, headers.client, headers.uid);
-          this.hasAuth$.next(true);
+          this.hasAuth$.next(this._hasAuth = true);
           this.identifyUser(headers.uid);
         }
       });
