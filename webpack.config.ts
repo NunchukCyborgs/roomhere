@@ -6,9 +6,20 @@ var webpackMerge = require('webpack-merge');
 const autoprefixer = require('autoprefixer');
 
 const IS_PROD = Boolean(process.env.NODE_ENV === 'production');
-const BASE_API_URL = IS_PROD ? 'https://api.roomhere.io' : 'https://test-api.roomhere.io';
-const BASE_URL = IS_PROD ? 'https://roomhere.io' : 'http://localhost:3000';
 const STRIPE_PUBLISHABLE_KEY = IS_PROD ? 'pk_live_nVt9TNvv8WjLT24KfcjS34es' : 'pk_test_Y2r38dQA6LC3s4uJxCIluX1f';
+const IS_STAGING = Boolean(process.env.NODE_ENV === 'staging');
+let BASE_API_URL;
+let BASE_URL;
+if (IS_PROD) {
+  BASE_API_URL = 'https://api.roomhere.io';
+  BASE_URL = 'https://roomhere.io';
+} else if (IS_STAGING) {
+  BASE_API_URL = 'https://test-api.roomhere.io';
+  BASE_URL = 'https://demo.roomhere.io';
+} else {
+  BASE_API_URL = 'https://test-api.roomhere.io';
+  BASE_URL = 'http://localhost:3000';
+}
 
 const htmlQuery = {
   minimize: true,
@@ -25,15 +36,15 @@ const htmlQuery = {
 
 export var commonPlugins = [
   new webpack.DefinePlugin({
-      IS_PROD: IS_PROD,
-      BASE_API_URL: JSON.stringify(BASE_API_URL),
-      BASE_URL: JSON.stringify(BASE_URL),
-      STRIPE_PUBLISHABLE_KEY: JSON.stringify(STRIPE_PUBLISHABLE_KEY),
-      DEFAULT_TENANT: JSON.stringify('cape-girardeau'),
-      DEFAULT_TENANT_PRETTY: JSON.stringify('Cape Girardeau'),
-      DEFAULT_STATE: JSON.stringify('MO'),
-      CAPE_GIRARDEU_CENTER: JSON.stringify({latitude: 37.3067429, longitude: -89.5286194}),
-    }),
+    IS_PROD: IS_PROD,
+    BASE_API_URL: JSON.stringify(BASE_API_URL),
+    BASE_URL: JSON.stringify(BASE_URL),
+    STRIPE_PUBLISHABLE_KEY: JSON.stringify(STRIPE_PUBLISHABLE_KEY),
+    DEFAULT_TENANT: JSON.stringify('cape-girardeau'),
+    DEFAULT_TENANT_PRETTY: JSON.stringify('Cape Girardeau'),
+    DEFAULT_STATE: JSON.stringify('MO'),
+    CAPE_GIRARDEU_CENTER: JSON.stringify({ latitude: 37.3067429, longitude: -89.5286194 }),
+  }),
 
   new webpack.ContextReplacementPlugin(
     // The (\\|\/) piece accounts for path separators in *nix and Windows
@@ -52,7 +63,7 @@ export var commonConfig = {
   devtool: 'source-map',
   resolve: {
     extensions: ['.ts', '.js', '.json'],
-    modules: [ root('node_modules') ]
+    modules: [root('node_modules')]
   },
   context: __dirname,
   output: {
@@ -141,7 +152,7 @@ export default [
 
 // Helpers
 export function includeClientPackages(packages, localModule?: string[]) {
-  return function(context, request, cb) {
+  return function (context, request, cb) {
     if (localModule instanceof RegExp && localModule.test(request)) {
       return cb();
     }
