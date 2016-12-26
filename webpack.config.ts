@@ -1,24 +1,26 @@
-var webpack = require('webpack');
-var path = require('path');
-var clone = require('js.clone');
-var webpackMerge = require('webpack-merge');
-
+const webpack = require('webpack');
+const path = require('path');
+const clone = require('js.clone');
+const webpackMerge = require('webpack-merge');
 const autoprefixer = require('autoprefixer');
 
-const IS_PROD = Boolean(process.env.NODE_ENV === 'production');
-const STRIPE_PUBLISHABLE_KEY = IS_PROD ? 'pk_live_nVt9TNvv8WjLT24KfcjS34es' : 'pk_test_Y2r38dQA6LC3s4uJxCIluX1f';
-const IS_STAGING = Boolean(process.env.NODE_ENV === 'staging');
-let BASE_API_URL;
-let BASE_URL;
-if (IS_PROD) {
-  BASE_API_URL = 'https://api.roomhere.io';
-  BASE_URL = 'https://roomhere.io';
-} else if (IS_STAGING) {
-  BASE_API_URL = 'https://test-api.roomhere.io';
-  BASE_URL = 'https://demo.roomhere.io';
+const KEYS: any = {};
+
+KEYS.IS_PROD = Boolean(process.env.NODE_ENV === 'production');
+KEYS.IS_STAGING = Boolean(process.env.NODE_ENV === 'staging');
+
+if (KEYS.IS_PROD) {
+  KEYS.BASE_API_URL = JSON.stringify('https://api.roomhere.io');
+  KEYS.BASE_URL = JSON.stringify('https://roomhere.io');
+  KEYS.STRIPE_PUBLISHABLE_KEY = JSON.stringify('pk_live_nVt9TNvv8WjLT24KfcjS34es');
+} else if (KEYS.IS_STAGING) {
+  KEYS.BASE_API_URL = JSON.stringify('https://test-api.roomhere.io');
+  KEYS.STRIPE_PUBLISHABLE_KEY = JSON.stringify('pk_test_Y2r38dQA6LC3s4uJxCIluX1f');
+  KEYS.BASE_URL = JSON.stringify('https://demo.roomhere.io');
 } else {
-  BASE_API_URL = 'https://test-api.roomhere.io';
-  BASE_URL = 'http://localhost:3000';
+  KEYS.BASE_API_URL = JSON.stringify('https://test-api.roomhere.io');
+  KEYS.BASE_URL = JSON.stringify('http://localhost:3000');
+  KEYS.STRIPE_PUBLISHABLE_KEY = JSON.stringify('pk_test_Y2r38dQA6LC3s4uJxCIluX1f');
 }
 
 const htmlQuery = {
@@ -31,20 +33,16 @@ const htmlQuery = {
     [/\*/, /(?:)/],
     [/\[?\(?/, /(?:)/]
   ],
-  customAttrAssign: [/\)?\]?=/]
+  customAttrAssign: [/\)?\]?=/],
 };
 
 export var commonPlugins = [
-  new webpack.DefinePlugin({
-    IS_PROD: IS_PROD,
-    BASE_API_URL: JSON.stringify(BASE_API_URL),
-    BASE_URL: JSON.stringify(BASE_URL),
-    STRIPE_PUBLISHABLE_KEY: JSON.stringify(STRIPE_PUBLISHABLE_KEY),
+  new webpack.DefinePlugin(Object.assign(KEYS, {
     DEFAULT_TENANT: JSON.stringify('cape-girardeau'),
     DEFAULT_TENANT_PRETTY: JSON.stringify('Cape Girardeau'),
     DEFAULT_STATE: JSON.stringify('MO'),
     CAPE_GIRARDEU_CENTER: JSON.stringify({ latitude: 37.3067429, longitude: -89.5286194 }),
-  }),
+  })),
 
   new webpack.ContextReplacementPlugin(
     // The (\\|\/) piece accounts for path separators in *nix and Windows
