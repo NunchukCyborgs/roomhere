@@ -11,7 +11,6 @@
  **/
 export const routes: string[] = [
   'account',
-  'cape-girardeau',
   'pay-rent',
   'p', // General Module
 ];
@@ -48,7 +47,7 @@ function ngApp(req, res) {
 
 function propertiesRoute(req, res) {
   request.head(`https://api.roomhere.io/${req.url.replace(`${DEFAULT_TENANT}/`, 'properties/')}`, function (error, response, body) {
-    response.statusCode == 404 ? missingResource(req, res) : ngApp(req, res)
+    response.statusCode == 404 ? missingResource(req, res) : ngApp(req, res);
   });
 }
 
@@ -72,7 +71,7 @@ export function watchRoutes(app) {
     app.get(`/${route}/*`, ngApp);
   });
 
-  app.get('cape-girardeau/*', propertiesRoute)
+  app.get('/cape-girardeau/*', propertiesRoute)
   app.get('*', missingResource);
 }
 
