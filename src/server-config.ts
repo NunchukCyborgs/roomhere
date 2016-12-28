@@ -46,7 +46,7 @@ function ngApp(req, res) {
 }
 
 function propertiesRoute(req, res) {
-  request.head(`https://api.roomhere.io/${req.url.replace(`${DEFAULT_TENANT}/`, 'properties/')}`, function (error, response, body) {
+  request.head(`https://api.roomhere.io/properties/${req.params.slug}`, function (error, response, body) {
     response.statusCode == 404 ? missingResource(req, res) : ngApp(req, res);
   });
 }
@@ -66,12 +66,14 @@ function missingResource(req, res) {
 
 export function watchRoutes(app) {
   app.get('/', ngApp);
+  app.get('/cape-girardeau/:slug', propertiesRoute);
+  app.get('/pay-rent/:slug', propertiesRoute);
+
   routes.forEach(route => {
     app.get(`/${route}`, ngApp);
     app.get(`/${route}/*`, ngApp);
   });
 
-  app.get('/cape-girardeau/*', propertiesRoute)
   app.get('*', missingResource);
 }
 

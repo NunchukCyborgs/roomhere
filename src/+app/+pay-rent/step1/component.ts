@@ -80,7 +80,7 @@ export class PayRentStep1 {
     return this.route.params
       .do(i => this.subtotal = Number(i['subtotal']))
       .flatMap(i => this.propertyService.getPropertyBySlug$(i['slug']))
-      .filter((property: Property) => property && !property.id ? this.router.navigate(['/p/pay-rent-online']) && false : true)
+      .do((i: Property & { status: string }) => i.status === 'Not Found' && this.router.navigate(['/p/pay-rent-online']))
       .do(i => this.property = i);
   }
 
