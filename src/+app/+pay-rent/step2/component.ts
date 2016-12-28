@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { isBrowser } from 'angular2-universal';
 import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
 import { ValidationService } from '../../shared/services/validation.service';
 import { PropertyService } from '../../shared/services/property.service';
 import { PaymentService } from '../../shared/services/payment.service';
@@ -50,12 +51,19 @@ export class PayRentStep2 {
   ];
 
   private hasPostedInteraction: boolean = false;
+  private subs: Subscription[];
 
   constructor(private router: Router, private route: ActivatedRoute, private propertyService: PropertyService, private analytics: AnalyticsService,
     private paymentService: PaymentService, private userService: UserService, private changeDetector: ChangeDetectorRef) { }
 
   ngOnInit() {
     this.setYears();
+
+    this.subs.push(
+      this.userService.hasAuth$
+        .filter(i => !i)
+        .subscribe(i => this.router.navigate['/p/pay-rent-online'])
+    );
 
     this.route.params
       .flatMap(i => this.paymentService.getRequestByToken(i['token']))
@@ -65,6 +73,10 @@ export class PayRentStep2 {
       .do(i => this.initForm())
       .do(() => isBrowser && this.loadStripe())
       .subscribe();
+  }
+
+  ngOnDestroy() {
+    this.subs.forEach(i => i.unsubscribe());
   }
 
   public submit() {
