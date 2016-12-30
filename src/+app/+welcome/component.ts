@@ -38,6 +38,7 @@ export class Welcome {
     private facetsService: FacetsService) { }
 
   ngOnInit() {
+    this.updateMapOptions(); // does this need to be in after view init?
     this.loadFilteredProperties$ = new BehaviorSubject(this.facet);
     this.showSignupAd$ = this.userService.hasAuth$
       .filter(i => !i)
@@ -56,10 +57,6 @@ export class Welcome {
       .subscribe(i => this.properties$.next(i));
 
     this.lastPage$ = this.propertyService.lastPage$;
-  }
-
-  ngAfterViewInit() {
-    this.updateMapOptions();
   }
 
   public applyFacet(facet?: PropertyFacet) {

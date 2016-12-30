@@ -3,7 +3,7 @@ import { Slide } from '../../shared/components/slide/component';
 import { Carousel }  from '../../shared/components/carousel/component';
 import { isBrowser } from 'angular2-universal';
 
-declare let $ : any;
+declare let $ : any; // todo
 
 @Component({
   selector: 'property-images',

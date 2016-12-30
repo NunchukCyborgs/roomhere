@@ -8,6 +8,7 @@ import { ValidationService } from '../../shared/services/validation.service';
 import { PropertyService } from '../../shared/services/property.service';
 import { PaymentService } from '../../shared/services/payment.service';
 import { UserService } from '../../shared/services/user.service';
+import { jQueryService } from '../../shared/services/jquery.service';
 import { AnalyticsService } from '../../shared/services/analytics.service';
 import { Property } from '../../shared/dtos/property';
 import { User } from '../../shared/dtos/user';
@@ -36,7 +37,7 @@ export class PayRentStep1 {
   private hasPostedInteraction: boolean = false;
 
   constructor(private router: Router, private route: ActivatedRoute, private propertyService: PropertyService, private paymentService: PaymentService,
-    private userService: UserService, private analytics: AnalyticsService) { }
+    private userService: UserService, private analytics: AnalyticsService, private jquery: jQueryService) { }
 
   ngOnInit() {
     Observable.combineLatest(this.userService.hasAuth$, this.getProperty())
@@ -84,10 +85,13 @@ export class PayRentStep1 {
       .do(i => this.property = i);
   }
 
-  private createStripeToken(): Observable<{ status: any, response: any }> {
-    return Observable.create(observer => {
-      Stripe.card.createToken($('#PaymentForm'), (status, response) => observer.next({ status: status, response: response }));
-    });
+  private createStripeToken(): Observable<{ status: any, response: any } & any> {
+    return this.jquery.loadJQuery()
+      .flatMap(jquery => {
+        return Observable.create(observer => {
+          Stripe.card.createToken(jquery('#PaymentForm'), (status, response) => observer.next({ status: status, response: response }));
+        });
+      })
   }
 
   private initForm(hasAuth: boolean, property: Property) {

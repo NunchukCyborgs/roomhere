@@ -74,7 +74,7 @@ interface Global extends GlobalEnvironment  {}
 
 // Custom
 
-declare let $: (string) => any;
+declare let $: (string) => any; // todo: xx
 declare let Foundation: any;
 declare let google: any;
 declare let RichMarker: any;

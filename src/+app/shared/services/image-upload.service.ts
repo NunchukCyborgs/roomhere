@@ -22,7 +22,7 @@ export class ImageUploadService {
 
   public uploaderInit(uploaderId: string, property: Property, wrapperSelector: string = 'image-upload .wrapper') {
     if (isBrowser) {
-      const fileUpload$ = $(`#${uploaderId}`);
+      const fileUpload$ = $(`#${uploaderId}`); // todo
       const URL = `${BASE_API_URL}/properties/${property.slug}/images`;
       const wrapper$ = $(wrapperSelector);
 
@@ -102,7 +102,7 @@ export class ImageUploadService {
   }
 
   private bindToDrag(wrapper$) {
-    $(document).bind('dragover', (e) => {
+    $(document).bind('dragover', (e) => { // todo
       let found = false;
       let node = e.target;
 

@@ -3,6 +3,7 @@ import { isBrowser } from 'angular2-universal';
 import { Router } from '@angular/router';
 
 import { Property } from '../../shared/dtos/property';
+import { jQueryService } from '../../shared/services/jquery.service';
 
 @Component({
   selector: 'property-accordion',
@@ -29,9 +30,9 @@ export class PropertyAccordion {
   }
 
   private initAccordion() {
-    const accord$ = $('.accordion');
-    new Foundation.Accordion(accord$);
+    this.jquery.loadFoundation()
+      .subscribe(foundation => new Foundation.Accordion(this.jquery.jquery('.accordion')));
   }
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private jquery: jQueryService) { }
 }

@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { User } from '../../../dtos/user';
 import { UserService } from '../../../services/user.service';
+import { jQueryService } from '../../../services/jquery.service';
 import { isBrowser } from 'angular2-universal';
 import { ValidationService } from '../../../services/validation.service';
 import { ControlMessages } from '../../control-messages/component';
@@ -18,11 +19,12 @@ export class Login {
   public serverErrors: string[] = [];
   public loginForm: any;
 
-  constructor(private router: Router, private userService: UserService, private formBuilder: FormBuilder) { }
+  constructor(private router: Router, private userService: UserService, private formBuilder: FormBuilder, private jquery: jQueryService) { }
 
   ngOnInit() {
     this.init();
-    isBrowser && $(document).on('closed.zf.reveal', () => this.init());
+    this.jquery.loadFoundation()
+      .subscribe(() => this.jquery.jquery(document).on('closed.zf.reveal', () => this.init()));
   }
 
   private init() {
@@ -46,7 +48,8 @@ export class Login {
   }
 
   public closeModal(res?: Response) {
-    isBrowser && $('modal .close-button').click();
+    this.jquery.loadJQuery()
+      .subscribe(jquery => jquery('.register-modal__close-button').click());
   }
 
   private redirectUser() {
