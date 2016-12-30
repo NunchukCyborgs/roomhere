@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Property } from '../../dtos/property';
 import { PropertyService } from '../../services/property.service';
+import { jQueryService } from '../../services/jquery.service';
 
 @Component({
   selector: 'property-picker',
@@ -18,7 +19,7 @@ export class PropertyPicker {
   public property: Property = new Property();
   private loadProperties$: BehaviorSubject<string> = new BehaviorSubject('');
 
-  constructor(private propertyService: PropertyService, private element: ElementRef) { }
+  constructor(private propertyService: PropertyService, private element: ElementRef, private jquery: jQueryService) { }
 
   ngOnInit() {
     this.loadProperties$
@@ -30,7 +31,8 @@ export class PropertyPicker {
   }
 
   ngAfterViewInit() {
-    isBrowser && $(this.element.nativeElement).find('input.k-input').attr('placeholder', 'Search Properties ...');
+    this.jquery.loadJQuery()
+      .subscribe(jquery => (this.element.nativeElement).find('input.k-input').attr('placeholder', 'Search Properties ...'));
   }
 
   public handleFilter(value) {

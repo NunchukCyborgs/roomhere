@@ -2,6 +2,7 @@ import { Component, AfterViewInit, Input, Output, EventEmitter } from '@angular/
 import { PropertyFacet } from '../../shared/dtos/facets';
 import { isBrowser } from 'angular2-universal';
 import { FacetsService } from '../../shared/services/facets.service';
+import { jQueryService } from '../../shared/services/jquery.service';
 
 @Component({
   selector: 'property-slider',
@@ -14,19 +15,20 @@ export class PropertySlider implements AfterViewInit {
   public minPrice: number;
   public maxPrice: number;
 
-  constructor(private facetsService: FacetsService) { }
+  constructor(private facetsService: FacetsService, private jquery: jQueryService) { }
 
   ngAfterViewInit() {
     this.facetsService.minPrice$.subscribe(i => this.updateSlider({ start: i }));
     this.facetsService.maxPrice$.subscribe(i => this.updateSlider({ end: i }));
 
-    if (isBrowser) {
-      $('body').on('changed.zf.slider', () => {
-        this.facet.min_price = Number($('input#sliderOutput1').val());
-        this.facet.max_price = Number($('input#sliderOutput2').val());
-        this.applyFacet.emit(this.facet);
+    this.jquery.loadFoundation()
+      .subscribe(() => {
+        this.jquery.jquery('body').on('changed.zf.slider', () => {
+          this.facet.min_price = Number(this.jquery.jquery('input#sliderOutput1').val());
+          this.facet.max_price = Number(this.jquery.jquery('input#sliderOutput2').val());
+          this.applyFacet.emit(this.facet);
+        });
       });
-    }
   }
 
   private updateSlider(options: { start?: number, end?: number }) {
@@ -48,15 +50,17 @@ export class PropertySlider implements AfterViewInit {
         initialEnd: Number(initialEnd),
       }
 
-      isBrowser && setTimeout(() => {
-        const slider = $('.slider');
+      this.jquery.loadFoundation().subscribe(foundation => {
+        setTimeout(() => {
+          const slider = this.jquery.jquery('.slider');
 
-        if (slider.length) {
-          // Apologies, this be shitty. No, this is not a merge conflict.
-          new Foundation.Slider(slider, options)
-          new Foundation.Slider(slider, options)
-        }
-      }, 2500);
+          if (slider.length) {
+            // Apologies, this be shitty. No, this is not a merge conflict.
+            new foundation.Slider(slider, options)
+            new foundation.Slider(slider, options)
+          }
+        }, 2500);
+      });
     }
   }
 }

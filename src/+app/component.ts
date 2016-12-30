@@ -6,6 +6,7 @@ import { isBrowser } from 'angular2-universal'
 
 import { UserService, Me } from './shared/services/user.service';
 import { SeoService } from './shared/services/seo.service';
+import { jQueryService } from './shared/services/jquery.service';
 import { getHoneybadger } from './shared/services/honeybadger';
 
 @Component({
@@ -18,10 +19,11 @@ export class AppComponent {
   public noFooter$: Observable<boolean>;
 
   constructor(private userService: UserService, private router: Router,
-    private seoService: SeoService, private renderer: Renderer) {
+    private seoService: SeoService, private renderer: Renderer, private jquery: jQueryService) {
   }
 
   ngOnInit() {
+    this.jquery.loadFoundation().subscribe();
     this.hideConsoleMessages();
     this.initHoneybadger();
     this.hasAuth$ = this.userService.hasAuth$;
@@ -34,8 +36,8 @@ export class AppComponent {
   ngAfterViewInit() {
     this.router.events
       .do(i => this.seoService.updateCanonTag(i.url, this.renderer))
-      .filter(i => isBrowser)
-      .do(i => $('body').foundation())
+      .filter(() => isBrowser)
+      .flatMap(() => this.jquery.initFoundation())
       .filter(i => i instanceof NavigationEnd)
       .do(i => window.scroll(0, 0))
       .subscribe();

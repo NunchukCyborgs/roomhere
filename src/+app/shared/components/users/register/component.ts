@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import { User } from '../../../dtos/user';
 import { UserService } from '../../../services/user.service';
 import { ValidationService } from '../../../services/validation.service';
+import { jQueryService } from '../../../services/jquery.service';
 import { isBrowser } from 'angular2-universal';
 import { ControlMessages } from '../../control-messages/component';
 
@@ -21,11 +22,12 @@ export class Register {
   public serverErrors: string[] = [];
   public registerForm: any;
 
-  constructor(private userService: UserService, private formBuilder: FormBuilder) { }
+  constructor(private userService: UserService, private formBuilder: FormBuilder, private jquery: jQueryService) { }
 
   ngOnInit() {
     this.init();
-    isBrowser && $(document).on('closed.zf.reveal', () => this.init());
+    this.jquery.loadFoundation()
+      .subscribe(() => this.jquery.jquery(document).on('closed.zf.reveal', () => this.init()));
   }
 
   private init() {
@@ -55,6 +57,7 @@ export class Register {
   }
 
   public closeModal() {
-    $('.register-modal__close-button').click();
+    this.jquery.loadJQuery()
+      .subscribe(jquery => jquery('modal .close-button').click());
   }
 }

@@ -3,6 +3,7 @@ import { isBrowser } from 'angular2-universal';
 import { ReviewsService } from '../../shared/services/reviews.service';
 import { UserService } from '../../shared/services/user.service';
 import { AnalyticsService } from '../../shared/services/analytics.service';
+import { jQueryService } from '../../shared/services/jquery.service';
 import { Property, Review } from '../../shared/dtos/property';
 
 @Component({
@@ -18,7 +19,7 @@ export class PropertyReviews {
   public isEditing: boolean = false;
   public showError: boolean = false;
 
-  constructor(private reviewsService: ReviewsService, private userService: UserService, private analyticsService: AnalyticsService) { }
+  constructor(private reviewsService: ReviewsService, private userService: UserService, private analyticsService: AnalyticsService, private jquery: jQueryService) { }
 
   ngOnChanges(changes: any) {
     this.myReview = this.reviews.find(i => i.is_owned) || new Review();
@@ -38,7 +39,8 @@ export class PropertyReviews {
     this.userService.hasAuth$
       .do(i => this.isEditing = i)
       .do(i => this.analyticsService.recordAction('Reviews | Click Edit', { hasAuth: i }))
-      .filter(i => !i && isBrowser)
-      .subscribe(i => $('#SignupLink').click());
+      .filter(i => !i)
+      .flatMap(() => this.jquery.loadJQuery())
+      .subscribe(jquery => jquery('#SignupLink').click());
   }
 }
