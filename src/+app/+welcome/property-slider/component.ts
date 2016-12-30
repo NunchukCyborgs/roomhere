@@ -21,11 +21,11 @@ export class PropertySlider implements AfterViewInit {
     this.facetsService.minPrice$.subscribe(i => this.updateSlider({ start: i }));
     this.facetsService.maxPrice$.subscribe(i => this.updateSlider({ end: i }));
 
-    this.jquery.loadJQuery()
-      .subscribe(jquery => {
-        jquery('body').on('changed.zf.slider', () => {
-          this.facet.min_price = Number(jquery('input#sliderOutput1').val());
-          this.facet.max_price = Number(jquery('input#sliderOutput2').val());
+    this.jquery.loadFoundation()
+      .subscribe(() => {
+        this.jquery.jquery('body').on('changed.zf.slider', () => {
+          this.facet.min_price = Number(this.jquery.jquery('input#sliderOutput1').val());
+          this.facet.max_price = Number(this.jquery.jquery('input#sliderOutput2').val());
           this.applyFacet.emit(this.facet);
         });
       });
