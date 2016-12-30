@@ -4,29 +4,28 @@ import { Observable } from 'rxjs/Observable';
 import { isBrowser } from 'angular2-universal';
 import { loadScript } from './util';
 
-declare let jQuery: (string) => any;
 const jQueryUrl = '//code.jquery.com/jquery-2.2.4.min.js';
 const foundationUrl = '//cdn.jsdelivr.net/foundation/6.2.3/foundation.min.js';
-
-// jquery libs
-/*
-``
-<script src="/javascript/featherlight.min.js"></script>
-  <script src="/javascript/featherlight.gallery.min.js"></script>
-
-<script src="/javascript/jquery.ui.widget.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/9.5.2/jquery.fileupload.min.js"></script>
-  */
-
+const featherlightUrl = '/javascript/featherlight.min.js';
+const featherlightGalleryUrl = '/javascript/featherlight.gallery.min.js';
+const jqueryUIUrl = '/javascript/jquery.ui.widget.min.js';
+const fileUploadUrl = '//cdnjs.cloudflare.com/ajax/libs/blueimp-file-upload/9.5.2/jquery.fileupload.min.js';
 
 @Injectable()
 export class jQueryService {
-  // todo: typings
-
   public jquery$: Observable<any>;
   public jquery: any;
+
   public foundation$: Observable<any>;
   public foundation: any;
+
+  public featherlight$: Observable<boolean>;
+  private featherlightLoaded: boolean;
+  private featherlightGalleryLoaded: boolean;
+
+  public fileUpload$: Observable<boolean>;
+  private jqueryUILoaded: boolean;
+  private fileUploadLoaded: boolean
 
   constructor() {
     if (isBrowser) {
@@ -43,11 +42,7 @@ export class jQueryService {
     return this.jquery$ = new BehaviorSubject(null)
       .filter(() => isBrowser)
       .flatMap(i => this.jquery ? Observable.of(this.jquery) : Observable.create(observer => loadScript(jQueryUrl, () => observer.next(this.jquery = window['jQuery']))))
-      .filter(jquery => Boolean(jquery))
-      .do(i => console.log('after jquery stream', i))
-
-
-    // return this.jquery$ = isBrowser ? Observable.create(observer => loadScript(jQueryUrl, () => observer.next(this.jquery = window['jQuery']))) : Observable.create(observer => undefined);
+      .filter(jquery => Boolean(jquery));
   }
 
   public loadFoundation(): Observable<any> {
@@ -59,15 +54,37 @@ export class jQueryService {
       .filter(() => isBrowser)
       .flatMap(() => this.loadJQuery())
       .flatMap(() => this.foundation ? Observable.of(this.foundation) : Observable.create(observer => loadScript(foundationUrl, () => observer.next(this.foundation = window['Foundation']))))
-      .filter(foundation => Boolean(foundation))
-      .do(i => console.log('after foundation stream', i))
+      .filter(foundation => Boolean(foundation));
   }
 
   public initFoundation(): Observable<any> {
-    return Observable.of(null)
-      .do(() => console.log('before init!', window['Foundation']))
-      .flatMap(() => this.loadFoundation())
+    return this.loadFoundation()
       .do(() => this.jquery('body').foundation())
-      .do(() => console.log('I inited foundation!', window['Foundation']))
+  }
+
+  public loadFeatherlight(): Observable<any> {
+    if (this.featherlight$) {
+      return this.featherlight$;
+    }
+
+    return this.featherlight$ = new BehaviorSubject(null)
+      .filter(() => isBrowser)
+      .flatMap(() => this.loadJQuery())
+      .flatMap(() => this.featherlightLoaded ? Observable.of(this.featherlightLoaded) : Observable.create(observer => loadScript(featherlightUrl, () => observer.next(this.featherlightLoaded = true))))
+      .flatMap(() => this.featherlightGalleryLoaded ? Observable.of(this.featherlightGalleryLoaded) : Observable.create(observer => loadScript(featherlightGalleryUrl, () => observer.next(this.featherlightGalleryLoaded = true))))
+      .filter(loaded => Boolean(loaded));
+  }
+
+  public loadImageUpload(): Observable<any> {
+    if (this.fileUpload$) {
+      return this.fileUpload$;
+    }
+
+    return this.fileUpload$ = new BehaviorSubject(null)
+      .filter(() => isBrowser)
+      .flatMap(() => this.loadJQuery())
+      .flatMap(() => this.jqueryUILoaded ? Observable.of(this.jqueryUILoaded) : Observable.create(observer => loadScript(jqueryUIUrl, () => observer.next(this.jqueryUILoaded = true))))
+      .flatMap(() => this.fileUploadLoaded ? Observable.of(this.fileUploadLoaded) : Observable.create(observer => loadScript(fileUploadUrl, () => observer.next(this.fileUploadLoaded = true))))
+      .filter(loaded => Boolean(loaded));
   }
 }

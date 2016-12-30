@@ -53,6 +53,6 @@ export class ResetPassword {
 
   public closeModal() {
     this.jquery.loadJQuery()
-      .subscribe(jquery => jquery('.register-modal__close-button').click());
+      .subscribe(jquery => jquery('modal .close-button').click());
   }
 }

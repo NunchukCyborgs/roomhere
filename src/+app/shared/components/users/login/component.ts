@@ -49,7 +49,7 @@ export class Login {
 
   public closeModal(res?: Response) {
     this.jquery.loadJQuery()
-      .subscribe(jquery => jquery('.register-modal__close-button').click());
+      .subscribe(jquery => jquery('modal .close-button').click());
   }
 
   private redirectUser() {

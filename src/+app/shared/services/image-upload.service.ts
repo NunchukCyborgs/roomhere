@@ -4,6 +4,7 @@ import { isBrowser } from 'angular2-universal';
 import { HttpService } from './http.service';
 import { Property } from '../../shared/dtos/property';
 import { PropertyService } from './property.service';
+import { jQueryService } from './jquery.service';
 
 export interface PendingFile {
   fileName: string,
@@ -15,16 +16,16 @@ export class ImageUploadService {
   public pendingFiles$: BehaviorSubject<PendingFile[]>;
   private _pendingFiles: PendingFile[] = [];
 
-  constructor(private http: HttpService, private propertyService: PropertyService) {
+  constructor(private http: HttpService, private propertyService: PropertyService, private jquery: jQueryService) {
     this.pendingFiles$ = new BehaviorSubject(this._pendingFiles);
     this.pendingFiles$.subscribe();
   }
 
   public uploaderInit(uploaderId: string, property: Property, wrapperSelector: string = 'image-upload .wrapper') {
-    if (isBrowser) {
-      const fileUpload$ = $(`#${uploaderId}`); // todo
+    this.jquery.loadImageUpload().subscribe(() => {
+      const fileUpload$ = this.jquery.jquery(`#${uploaderId}`);
       const URL = `${BASE_API_URL}/properties/${property.slug}/images`;
-      const wrapper$ = $(wrapperSelector);
+      const wrapper$ = this.jquery.jquery(wrapperSelector);
 
       fileUpload$.fileupload({
         withCredentials: true,
@@ -47,8 +48,8 @@ export class ImageUploadService {
         )
       );
 
-      this.bindToDrag(wrapper$);
-    };
+      this.bindToDrag(wrapper$, this.jquery.jquery);
+    });
   }
 
   public get pendingFiles(): PendingFile[] {
@@ -101,8 +102,8 @@ export class ImageUploadService {
     this.pendingFiles$.next(this._pendingFiles);
   }
 
-  private bindToDrag(wrapper$) {
-    $(document).bind('dragover', (e) => { // todo
+  private bindToDrag(wrapper$, jquery) {
+    jquery(document).bind('dragover', (e) => {
       let found = false;
       let node = e.target;
 
