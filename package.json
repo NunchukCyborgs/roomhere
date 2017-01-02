@@ -98,6 +98,7 @@
     "morgan": "1.7.0",
     "motion-ui": "1.2.2",
     "node-sass": "3.12.5",
+    "postcss": "^5.2.8",
     "postcss-loader": "1.1.1",
     "preboot": "4.5.2",
     "progressbar.js": "1.0.1",

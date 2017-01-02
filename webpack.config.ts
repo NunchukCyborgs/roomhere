@@ -2,7 +2,6 @@ const webpack = require('webpack');
 const path = require('path');
 const clone = require('js.clone');
 const webpackMerge = require('webpack-merge');
-const autoprefixer = require('autoprefixer');
 
 const KEYS: any = {};
 
