@@ -32,7 +32,7 @@ export class PropertyPicker {
 
   ngAfterViewInit() {
     this.jquery.loadJQuery()
-      .subscribe(jquery => (this.element.nativeElement).find('input.k-input').attr('placeholder', 'Search Properties ...'));
+      .subscribe(jquery => jquery(this.element.nativeElement).find('input.k-input').attr('placeholder', 'Search Properties ...'));
   }
 
   public handleFilter(value) {
