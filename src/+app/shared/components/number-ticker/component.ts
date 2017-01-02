@@ -11,7 +11,8 @@ export class NumberTicker {
   @Input() number: number;
   @Output() numberChange: EventEmitter<any> = new EventEmitter();
 
-  public increment(x: number) {
+  public increment(event, x: number) {
+    event.stopPropagation();
     this.number = Math.min(Math.max(Number(this.number) + Number(x), this.min), this.max);
     this.numberChange.emit(this.number);
   }

@@ -44,11 +44,6 @@ input:focus {
     outline: none;
 }
 
-button {
-    height: 100%;
-    width: 100%;
-}
-
 .purp {
     background: #44254a;
     color: #fff;
@@ -62,5 +57,17 @@ button {
 @media (max-width: 480px) {
     .number-ticker {
         border: 1px solid #EEE !important;
+    }
+}
+
+.button-wrapper {
+    position: relative;
+
+    button {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
     }
 }
