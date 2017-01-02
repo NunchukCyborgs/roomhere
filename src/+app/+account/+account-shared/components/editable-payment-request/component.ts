@@ -33,7 +33,7 @@ export class EditablePaymentRequest {
   }
 
   ngOnInit() {
-    this.paymentRequest.phone = this.paymentRequest.phone || '1231231234';
+    this.paymentRequest.phone = this.paymentRequest.phone;
     console.log(this.paymentRequest);
 
     let controls: any = {
