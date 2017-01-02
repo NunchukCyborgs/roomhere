@@ -17,6 +17,7 @@
 # property set. Specify the username and a domain or IP for the server.
 # Don't use `:all`, it's a meta role.
 
+set :branch, 'staging'
 role :app, %w{deploy@104.197.251.152}
 role :web, %w{deploy@104.197.251.152}
 
