@@ -1,4 +1,4 @@
-<a [routerLink]="[property.propertyUrl]" [title]="property?.address1" [attr.target]="target">
+<a [routerLink]="options?.noLink ? [baseLink] : [property.propertyUrl]" [title]="property?.address1" [attr.target]="target">
   <block-image [image]="property?.images[0]?.url" [alt]="'Rent from ' + property?.address1">
     <div class="block-image__footer">
       <h6 class="address margin-none">{{property.address1}}</h6>

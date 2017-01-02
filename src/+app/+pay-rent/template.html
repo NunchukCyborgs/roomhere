@@ -42,7 +42,7 @@
     </div>
 
     <div class="column large-6 medium-4">
-      <property-preview *ngIf="property" [property]="property" class="margin-top"></property-preview>
+      <property-preview *ngIf="property" [property]="property" [options]="{noLink: true}" class="margin-top"></property-preview>
       <h4 class="text-center" *ngIf="property?.owner?.landlord_name || property?.owner?.owner_name">Owned by <strong>{{property?.owner?.landlord_name || property?.owner?.owner_name}}</strong></h4>
 
       <div class="callout-card">
