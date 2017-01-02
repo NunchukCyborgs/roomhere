@@ -51,7 +51,7 @@ export class PayRentStep2 {
   ];
 
   private hasPostedInteraction: boolean = false;
-  private subs: Subscription[];
+  private subs: Subscription[] = [];
 
   constructor(private router: Router, private route: ActivatedRoute, private propertyService: PropertyService, private analytics: AnalyticsService,
     private paymentService: PaymentService, private userService: UserService, private changeDetector: ChangeDetectorRef) { }
