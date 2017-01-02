@@ -31,7 +31,7 @@ export class PayRentStep1 {
 
   public property: Property;
   public paymentForm: FormGroup;
-  public dueOn: number = 30;
+  public dueOn: number = 1;
   public subtotal: number;
 
   private hasPostedInteraction: boolean = false;
