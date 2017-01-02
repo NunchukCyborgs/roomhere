@@ -36,10 +36,9 @@ export class AppComponent {
   ngAfterViewInit() {
     this.router.events
       .do(i => this.seoService.updateCanonTag(i.url, this.renderer))
-      .filter(() => isBrowser)
+      .filter(i => i instanceof NavigationEnd && isBrowser)
       .flatMap(() => this.jquery.initFoundation())
-      .filter(i => i instanceof NavigationEnd)
-      .do(i => window.scroll(0, 0))
+      .do(() => window.scroll(0, 0))
       .subscribe();
   }
 
