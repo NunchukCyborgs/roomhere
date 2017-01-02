@@ -4,12 +4,8 @@ import { ValidationService } from '../../services/validation.service';
 
 @Component({
   selector: 'control-messages-summary',
-  styles: [`
-  .wrapper {
-    color: red;
-  }
-  `],
-  template: '<div class="wrapper"><ng-content></ng-content><div *ngIf="formGroup"><span *ngFor="let error of errors">{{error}}. </span></div></div>',
+  styleUrls: ['styles.css'],
+  templateUrl: 'template.html',
 })
 export class ControlMessagesSummary {
   @Input() formGroup: FormGroup;
@@ -20,22 +16,28 @@ export class ControlMessagesSummary {
     for (let propertyName in this.formGroup.controls) {
       if (this.formGroup.controls.hasOwnProperty(propertyName)) {
         let control = <FormControl>this.formGroup.controls[propertyName];
-        errors = errors.concat(this.getErrors(control));
+        let error = this.getError(control);
+        if (error) {
+          errors.push(this.formatErrors(propertyName, error));
+        }
       }
     }
 
     return errors;
   }
 
-  private getErrors(control: FormControl): string[] {
-    let errors = [];
-
+  private getError(control: FormControl): string {
     for (let propertyName in control.errors) {
       if (control.errors.hasOwnProperty(propertyName) && control.touched) {
-        errors.push(ValidationService.getValidatorErrorMessage(propertyName, control.errors[propertyName]));
+        return ValidationService.getValidatorErrorMessage(propertyName, control.errors[propertyName]);
       }
     }
+  }
 
-    return errors;
+  private formatErrors(controlName: string, error: string): string {
+    let formattedControlName = controlName.substr(0, 1).toUpperCase() + controlName.substr(1);
+    let formattedError = error.substr(0, 1).toLowerCase() + error.substr(1);
+
+    return `${formattedControlName} ${formattedError}`;
   }
 }
