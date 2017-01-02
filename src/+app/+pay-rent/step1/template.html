@@ -18,10 +18,10 @@
               </label>
       </div>
 
+      <control-messages [control]="paymentForm.controls.phone" class="alert"></control-messages>
       <span data-tooltip aria-haspopup="true" class="has-tip top" data-disable-hover="false" title="In the unlikely event there is a problem with your payment, we will contact you with the number provided so you don't miss a rent payment. ">
         Why do we ask this?
         </span>
-      <control-messages [control]="paymentForm.controls.phone" class="alert"></control-messages>
     </div>
 
     <section *ngIf="hasAuth === false">
