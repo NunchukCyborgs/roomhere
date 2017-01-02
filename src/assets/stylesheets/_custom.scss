@@ -6,6 +6,9 @@ $grey: #f2f2f2;
 .flex-row {
   display: flex;
   flex-flow: row wrap;
+  &::after, &::before {
+    display: initial !important;
+  }
 }
 
 .vertical-align {

@@ -6,7 +6,7 @@
     <input type="number" pattern="[0-9]*" inputmode="numeric" value="{{number}}" min="{{min}}" max="{{max}}" (change)="number = $event.target.value; increment(0)"
     />
   </div>
-  <div class="small-2 text-center columns">
+  <div class="small-2 text-center columns last">
     <button type="button" (click)="increment(1)"><i class="fa fa-plus"></i></button>
   </div>
 </div>

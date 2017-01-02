@@ -2,6 +2,10 @@ input[type="number"] {
     -moz-appearance: textfield;
 }
 
+.last {
+    float: right !important;
+}
+
 .fa-minus,
 .fa-plus {
     font-size: .8rem;
