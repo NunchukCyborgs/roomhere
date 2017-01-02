@@ -13,6 +13,7 @@ import { jQueryService } from '../../services/jquery.service';
 })
 export class PropertyPicker {
   @Output() propertyPicked: EventEmitter<any> = new EventEmitter();
+  @Output() submit: EventEmitter<any> = new EventEmitter();
 
   public isBrowser = isBrowser;
   public properties: Property[] = [];
@@ -32,7 +33,9 @@ export class PropertyPicker {
 
   ngAfterViewInit() {
     this.jquery.loadJQuery()
-      .subscribe(jquery => jquery(this.element.nativeElement).find('input.k-input').attr('placeholder', 'Search Properties ...'));
+      .map(jquery => jquery(this.element.nativeElement))
+      .do(i => i.find('input.k-input').attr('placeholder', 'Search Properties ...'))
+      .subscribe();
   }
 
   public handleFilter(value) {
