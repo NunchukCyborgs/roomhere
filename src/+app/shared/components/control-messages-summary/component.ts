@@ -9,6 +9,7 @@ import { ValidationService } from '../../services/validation.service';
 })
 export class ControlMessagesSummary {
   @Input() formGroup: FormGroup;
+  public projection: any;
 
   public get errors(): string[] {
     let errors: string[] = [];

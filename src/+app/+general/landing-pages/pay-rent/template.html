@@ -71,7 +71,7 @@
 		<div class="large-6 large-offset-3 text-center end margContent columns">
 			<div class="row">
 				<div class="column small-10 small-offset-1 medium-6 medium-offset-3">
-					<property-picker (propertyPicked)="selectProperty($event)"></property-picker>
+					<property-picker (propertyPicked)="selectProperty($event)" (submit)="selectProperty($event); submitProperty()"></property-picker>
 
 					<button type="button" (click)="submitProperty()" class="button round green large expanded" [attr.disabled]="property ? null : true">
 						<span class="hide-for-small-only">Pay Rent Online</span>

@@ -1,19 +1,21 @@
 <div class="input-group" *ngIf="isBrowser">
-  <kendo-combobox [data]="properties" [textField]="'address1'" [valueField]="'id'" [value]="property" [filterable]="true"
-    (filterChange)="handleFilter($event)" (selectionChange)="propertyPicked.emit($event)">
+  <kendo-combobox [data]="properties" [textField]="'address1'" [valueField]="'id'" [value]="property" [filterable]="true" (filterChange)="handleFilter($event)"
+    (selectionChange)="property = $event; propertyPicked.emit($event)">
+
     <template itemTemplate let-dataItem>
       <div class="property-wrapper">
         <img [src]="dataItem.images[0].url" alt="" class="image" />
         <h5 class="address">{{ dataItem.address1 }}</h5>
       </div>
     </template>
+
     <template footerTemplate>
       <h3>Can't find your home?</h3>
-      
+
       <a [routerLink]="['/p/request-missing-property']">Report a Missing Property</a>
     </template>
   </kendo-combobox>
   <div class="input-group-button">
-    <button type="submit" class="fa fa-search"></button>
+    <button type="button" class="fa fa-search" (click)="property?.id && submit.emit(property)"></button>
   </div>
 </div>
