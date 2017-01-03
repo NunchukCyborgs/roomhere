@@ -1,4 +1,5 @@
 import { Response } from '@angular/http';
+import { Validators } from '@angular/forms';
 
 export class ValidationService {
   static getAuthErrors(res: Response): string[] {
@@ -12,6 +13,7 @@ export class ValidationService {
 
   static getValidatorErrorMessage(validatorName: string, validatorValue?: any) {
     let config = {
+      'invalid': 'Invalid',
       'required': 'Required',
       'maxlength': `Maximum length ${validatorValue.requiredLength}`,
       'invalidCreditCard': 'Invalid credit card number',
@@ -112,6 +114,15 @@ export class ValidationService {
       return null;
     } else {
       return { 'invalidPassword': true };
+    }
+  }
+
+  static moneyValidator(control) {
+    const money = control.value && control.value.toString();
+    if (!money || !money.length || money.match(/^[$]?[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$/)) {
+      return null;
+    } else {
+      return { 'invalid': true };
     }
   }
 }

@@ -39,6 +39,6 @@ export class ControlMessagesSummary {
     let formattedControlName = controlName.substr(0, 1).toUpperCase() + controlName.substr(1);
     let formattedError = error.substr(0, 1).toLowerCase() + error.substr(1);
 
-    return `${formattedControlName} ${formattedError}`;
+    return `${formattedControlName} is ${formattedError}`;
   }
 }

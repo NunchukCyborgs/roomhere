@@ -2,6 +2,7 @@ import { Component, Renderer } from '@angular/core';
 import { Router } from '@angular/router';
 import { SeoService } from '../../../shared/services/seo.service';
 import { AnalyticsService } from '../../../shared/services/analytics.service';
+import { jQueryService } from '../../../shared/services/jquery.service';
 import { Property } from '../../../shared/dtos/property';
 
 @Component({
@@ -12,7 +13,8 @@ import { Property } from '../../../shared/dtos/property';
 export class PayRentLanding {
   public property: Property;
 
-  constructor(private analyticsService: AnalyticsService, private seoService: SeoService, private renderer: Renderer, private router: Router) { }
+  constructor(private analyticsService: AnalyticsService, private seoService: SeoService, private renderer: Renderer, private router: Router,
+  private jquery: jQueryService) { }
 
   ngOnInit() {
     this.analyticsService.recordAction('Pay Rent | Land on Pay Rent Landing Page');
@@ -22,6 +24,11 @@ export class PayRentLanding {
         description: `Don't write another check to your landlord. Pay your rent online with Roomhere! Use your debit or credit card and pay from anywhere. `,
         title: 'Pay Your Rent Online',
       }, this.renderer);
+  }
+
+  ngAfterViewInit() {
+    this.jquery.loadJQuery()
+      .subscribe(jquery => jquery('input.j-input').blur());
   }
 
   public selectProperty(property: Property): void {

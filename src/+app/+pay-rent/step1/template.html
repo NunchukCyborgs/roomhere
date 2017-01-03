@@ -28,13 +28,13 @@
       <div class="form-group row collapse">
         <div class="small-12  columns">
           <label>Email Address
-              <input type="text" placeholder="name@email.com" formControlName="email" class="form-control" autocomplete="email">
+              <input type="email" placeholder="name@email.com" formControlName="email" class="form-control" autocomplete="email">
               </label>
         </div>
         <control-messages [control]="paymentForm.controls.email" class="alert"></control-messages>
       </div>
       <div class="form-group row collapse">
-        <div class="small-12  columns">
+        <div class="small-12 columns">
           <label>Password
               <input type="password" formControlName="password" class="form-control" autocomplete="new-password">
               </label>
@@ -44,10 +44,10 @@
       <div class="form-group row collapse">
         <div class="small-12  columns">
           <label>Confirm Password
-              <input type="password" formControlName="confirmPassword" class="form-control" autocomplete="new-password">
+              <input type="password" formControlName="Confirm Password" class="form-control" autocomplete="new-password">
               </label>
         </div>
-        <control-messages [control]="paymentForm.controls.confirmPassword" class="alert">{{getConfirmPasswordMatchMessage()}}</control-messages>
+        <control-messages [control]="paymentForm.controls['Confirm Password']" class="alert">{{getConfirmPasswordMatchMessage()}}</control-messages>
       </div>
     </section>
 
@@ -65,10 +65,10 @@
     <div class="form-group row collapse">
       <div class="small-12  columns">
         <label>Rent Price
-              <input type="number" placeholder="975.00" formControlName="subtotal" class="form-control" min="25" max="999999999.99" step="any">
+              <input type="number" placeholder="975.00" formControlName="Rent Price" class="form-control" min="25" max="999999999.99" step="any">
               </label>
       </div>
-      <control-messages [control]="paymentForm.controls.subtotal" class="alert"></control-messages>
+      <control-messages [control]="paymentForm.controls['Rent Price']" class="alert"></control-messages>
     </div>
     <div class="form-group row collapse">
       <div class="small-12  columns">

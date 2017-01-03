@@ -66,7 +66,7 @@ export class PayRentStep1 {
 
   public getConfirmPasswordMatchMessage() {
     const password = this.paymentForm.controls['password'];
-    const confirm = this.paymentForm.controls['confirmPassword'];
+    const confirm = this.paymentForm.controls['Confirm Password'];
     return password.value !== confirm.value && password.touched && confirm.touched ? 'Passwords do not match. ' : '';
   }
 
@@ -97,7 +97,7 @@ export class PayRentStep1 {
   private initForm(hasAuth: boolean, property: Property) {
     let controls: any = {
       name: new FormControl('', [Validators.required, ValidationService.nameValidator]),
-      subtotal: new FormControl(this.subtotal, [Validators.required, ValidationService.minValidator.bind(this, 25), ValidationService.maxValidator.bind(this, 999999.99)]),
+      'Rent Price': new FormControl(this.subtotal, [Validators.required, ValidationService.moneyValidator]),
       phone: new FormControl('', [Validators.required, ValidationService.phoneNumberValidator]),
       unit: new FormControl(''),
     }
@@ -105,7 +105,7 @@ export class PayRentStep1 {
     if (!hasAuth) {
       controls.email = new FormControl('', [Validators.required, ValidationService.emailValidator]);
       controls.password = new FormControl('', [Validators.required, Validators.minLength(8)]);
-      controls.confirmPassword = new FormControl('', [Validators.required, Validators.minLength(8)]);
+      controls['Confirm Password'] = new FormControl('', [Validators.required, Validators.minLength(8)]);
     }
 
     this.paymentForm = new FormGroup(controls);
@@ -117,7 +117,7 @@ export class PayRentStep1 {
       property_slug: this.property.slug,
       due_on: this.dueOn,
       name: this.paymentForm.controls['name'].value,
-      subtotal: this.paymentForm.controls['subtotal'].value,
+      subtotal: this.paymentForm.controls['Rent Price'].value,
       unit: this.paymentForm.controls['unit'].value,
       phone: this.paymentForm.controls['phone'].value,
     };
@@ -141,7 +141,7 @@ export class PayRentStep1 {
     const user = new User({
       email: this.paymentForm.controls['email'].value,
       password: this.paymentForm.controls['password'].value,
-      password_confirmation: this.paymentForm.controls['confirmPassword'].value,
+      password_confirmation: this.paymentForm.controls['Confirm Password'].value,
     });
 
     return this.userService.register(user, { token: paymentToken }, `pay-rent/step-2/${this.paymentToken}`)
