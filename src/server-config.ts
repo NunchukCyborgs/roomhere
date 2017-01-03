@@ -15,6 +15,7 @@ export const routes: string[] = [
   'p', // General Module
 ];
 
+import { PrebootOptions } from 'preboot';
 import * as bodyParser from 'body-parser';
 import * as cookieParser from 'cookie-parser';
 const request = require('request');
@@ -31,14 +32,14 @@ export function serveStaticFiles(app, express, path, ROOT) {
   app.use(cacheControl, express.static(path.join(ROOT, 'dist/client'), {index: false}));
 }
 
-// export const prebootOptions: PrebootOptions = { appRoot: ['app'], uglify: true, buffer: true }; // todo
+export const prebootOptions: PrebootOptions = { appRoot: ['app'], uglify: true, buffer: true }; // todo
 
 function ngApp(req, res) {
   res.render('index', {
     req,
     res,
     // time: true, // use this to determine what part of your app is slow only in development
-    preboot: false,
+    preboot: prebootOptions,
     baseUrl: '/',
     requestUrl: req.originalUrl,
     originUrl: `https://roomhere.io`,
