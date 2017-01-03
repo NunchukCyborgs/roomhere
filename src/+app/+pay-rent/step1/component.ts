@@ -97,7 +97,7 @@ export class PayRentStep1 {
   private initForm(hasAuth: boolean, property: Property) {
     let controls: any = {
       name: new FormControl('', [Validators.required, ValidationService.nameValidator]),
-      'Rent Price': new FormControl(this.subtotal, [Validators.required, ValidationService.moneyValidator]),
+      'Rent Price': new FormControl(this.subtotal, [Validators.required, ValidationService.moneyValidator, ValidationService.minValidator.bind(this, 25), ValidationService.maxValidator.bind(this, 999999.99)]),
       phone: new FormControl('', [Validators.required, ValidationService.phoneNumberValidator]),
       unit: new FormControl(''),
     }

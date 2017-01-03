@@ -81,7 +81,7 @@ export class ValidationService {
   }
 
   static minValidator(min: number, control) {
-    const value = control && control.value;
+    const value = control && control.value.toString().replace(/[^0-9]/, '');
     if (!Number.isNaN(value) && Number(value) >= min) {
       return null;
     } else {
@@ -90,7 +90,7 @@ export class ValidationService {
   }
 
   static maxValidator(max: number, control) {
-    const value = control && control.value;
+    const value = control && control.value.toString().replace(/[^0-9]/, '');
     if (!Number.isNaN(value) && Number(value) <= max) {
       return null;
     } else {
