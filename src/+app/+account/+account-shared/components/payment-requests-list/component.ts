@@ -4,7 +4,7 @@ import { PaymentRequest, PaymentRequestBlob } from '../../../../shared/dtos/paym
 
 @Component({
   selector: 'payment-requests-list',
-  styleUrls: [],
+  styleUrls: ['./styles.css'],
   templateUrl: 'template.html'
 })
 export class PaymentRequestsList {

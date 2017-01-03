@@ -23,7 +23,8 @@
     </tr>
 
     <tr *ngFor="let payment of paymentRequests">
-      <td>{{payment.payment_submitted_at | date:'mediumDate'}}</td>
+      <td *ngIf="payment.payment_submitted_at">{{payment.payment_submitted_at | date:'mediumDate'}}</td>
+      <td *ngIf="!payment.payment_submitted_at"><a class="button small hollow margin" [routerLink]="['/pay-rent/step-2/', payment.token]">COMPLETE PAYMENT REQUEST</a></td>
       <td>{{payment.name}}</td>
       <td>{{payment.property.address1}}</td>
       <td>{{payment.unit}}</td>
