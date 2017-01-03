@@ -21,6 +21,8 @@ set :branch, 'staging'
 role :app, %w{deploy@104.197.251.152}
 role :web, %w{deploy@104.197.251.152}
 
+set :honeybadger_env, "staging"
+
 # Configuration
 # =============
 # You can set any configuration variable like in config/deploy.rb
