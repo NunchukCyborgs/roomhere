@@ -1,11 +1,12 @@
 import { Component, Directive, OnInit, ViewEncapsulation, Renderer } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import { isBrowser } from 'angular2-universal'
 
 import { UserService, Me } from './shared/services/user.service';
 import { SeoService } from './shared/services/seo.service';
+import { jQueryService } from './shared/services/jquery.service';
 import { getHoneybadger } from './shared/services/honeybadger';
 
 @Component({
@@ -18,10 +19,11 @@ export class AppComponent {
   public noFooter$: Observable<boolean>;
 
   constructor(private userService: UserService, private router: Router,
-    private seoService: SeoService, private renderer: Renderer) {
+    private seoService: SeoService, private renderer: Renderer, private jquery: jQueryService) {
   }
 
   ngOnInit() {
+    this.jquery.loadFoundation().subscribe();
     this.hideConsoleMessages();
     this.initHoneybadger();
     this.hasAuth$ = this.userService.hasAuth$;
@@ -34,8 +36,9 @@ export class AppComponent {
   ngAfterViewInit() {
     this.router.events
       .do(i => this.seoService.updateCanonTag(i.url, this.renderer))
-      .filter(() => isBrowser)
-      .do(() => $('body').foundation())
+      .filter(i => i instanceof NavigationEnd && isBrowser)
+      .flatMap(() => this.jquery.initFoundation())
+      .do(() => window.scroll(0, 0))
       .subscribe();
   }
 

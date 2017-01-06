@@ -1,0 +1,84 @@
+<section id="main-header" class="hero">
+	<div class="row container">
+		<div class="small-12 columns text-center">
+			<h1>Stop <span>Worrying About</span> Checks<br> &amp; Pay Your Rent Online!</h1>
+			<img src="/images/pages/landing-pages/rent_hero_main.png" />
+		</div>
+	</div>
+</section>
+<section id="feature-list">
+	<div class="container">
+		<div class="row">
+			<div class="medium-10 medium-offset-1 small-12 columns text-center">
+				<ul class="menu vertical medium-horizontal expanded">
+					<li>
+						<i class="fa fa-check"></i> Safe
+					</li>
+					<li>
+						<i class="fa fa-check"></i> Secure
+					</li>
+					<li>
+						<i class="fa fa-check"></i> Easy
+					</li>
+					<li>
+						<i class="fa fa-check"></i> Guaranteed
+					</li>
+					<li>
+						<i class="fa fa-check"></i> Credit or Debit
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section class="background-white showcase">
+	<div class="showcase__stripe"></div>
+	<div class="row container">
+		<div class="medium-6 columns">
+			<h2>FAST. EASY. SECURE.</h2>
+			<p class="subheader">Paying your rent has never been easier using Roomhere’s Online Payment System!</p>
+			<ul>
+				<li><i class="fa fa-check"></i>Payment Delivery Gurantee</li>
+				<li><i class="fa fa-check"></i>3 Step Process</li>
+				<li><i class="fa fa-check"></i>256 bit Encryption</li>
+			</ul>
+			<div class="medium-10 columns end"><img src="/images/pages/landing-pages/creditcards.png"></div>
+			<div class="medium-10 columns end hide-for-small-only" id="rent-due-image">
+				<img src="/images/pages/landing-pages/rent_due.png">
+			</div>
+			<div class="small-10 small-offset-1 columns end show-for-small-only"><img src="/images/pages/landing-pages/256bit_secure.png"></div>
+		</div>
+		<div class="medium-6 columns showcase-image">
+			<div class="medium-10 columns end hide-for-small-only"><img src="/images/pages/landing-pages/256bit_secure.png"></div>
+			<div class="small-12 columns" id="rent-due-text">
+				<h2>NEVER BE <span>LATE</span> FOR RENT AGAIN!</h2>
+				<p class="subheader">With Roomhere’s easy to use payment platform you can set-up recurring payments so that your rent is always ontime hassle
+					free.</p>
+			</div>
+			<div class="small-10 small-offset-1 columns end show-for-small-only" id="rent-due-image">
+				<img src="/images/pages/landing-pages/rent_due.png">
+			</div>
+		</div>
+	</div>
+</section>
+<section class="hero">
+	<div class="row">
+		<div class="small-12 text-center columns">
+			<h1>GET STARTED TODAY</h1>
+			<h3><span>By Searching For Your Address Below</span></h3>
+		</div>
+		<div class="large-6 large-offset-3 text-center end margContent columns">
+			<div class="row">
+				<div class="column small-10 small-offset-1 medium-6 medium-offset-3">
+					<property-picker (propertyPicked)="selectProperty($event)" (submit)="selectProperty($event); submitProperty()"></property-picker>
+
+					<button type="button" (click)="submitProperty()" class="button round green large expanded" [attr.disabled]="property ? null : true">
+						<span class="hide-for-small-only">Pay Rent Online</span>
+						<span class="show-for-small-only">Pay Rent</span>
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

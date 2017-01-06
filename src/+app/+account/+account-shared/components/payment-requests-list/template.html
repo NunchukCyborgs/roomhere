@@ -1,0 +1,42 @@
+<div class="row column">
+<div class="alert warning" *ngIf="paymentRequests?.length === 0">
+  <p>No payments found</p>
+</div>
+<table class="stack" *ngIf="paymentRequests?.length">
+  <thead>
+    <tr>
+      <th>Request Date</th>
+      <th>Name on Check</th>
+      <th>Address</th>
+      <th>Unit</th>
+      <th>Due On</th>
+      <th>Subtotal (rent payment)</th>
+      <th [attr.colspan]="getPaidHeader() ? '2': '1'">Total (rent payment + fees)</th>
+      <th>{{getPaidHeader()}}</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngIf="editingPayment">
+      <td colspan="8">
+        <editable-payment-request [paymentRequest]="editingPayment" (save)="updatePayment($event)" (cancel)="editingPayment = null"></editable-payment-request>
+      </td>
+    </tr>
+
+    <tr *ngFor="let payment of paymentRequests">
+      <td *ngIf="payment.payment_submitted_at">{{payment.payment_submitted_at | date:'mediumDate'}}</td>
+      <td *ngIf="!payment.payment_submitted_at"><a class="button small hollow margin" [routerLink]="['/pay-rent/step-2/', payment.token]">COMPLETE PAYMENT REQUEST</a></td>
+      <td>{{payment.name}}</td>
+      <td>{{payment.property.address1}}</td>
+      <td>{{payment.unit}}</td>
+      <td>{{payment.due_on}}</td>
+      <td>{{payment.subtotal | currency:'USD':true}}</td>
+      <td>{{payment.total | currency:'USD':true}}</td>
+      <td *ngIf="payment.completed_at">{{payment.completed_at | date:'mediumDate'}}</td>
+      <td *ngIf="!payment.completed_at">
+        <div><a (click)="editingPayment = payment">Edit</a></div>
+        <div><a (click)="delete(payment)">Delete</a></div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+</div>

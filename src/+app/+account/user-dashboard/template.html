@@ -1,0 +1,55 @@
+<div class="row">
+    <section class="callout-card">
+      <div class="callout-card-content">
+        <h2>Hello, {{username}}</h2>
+
+        <p>
+          Welcome to your dashboard. You can view your rent payments here anytime. 
+        </p>
+      </div>
+    </section>
+
+    <section class="callout-card" *ngIf="(payments$ | async)?.length > 0">
+      <div class="callout-card-content">
+        <h2>Payments</h2>
+        <payment-requests-list [paymentRequests]="payments$ | async" (updatePaymentRequest)="updatePaymentRequests()" (deletePaymentRequest)="deletePaymentRequest($event)"></payment-requests-list>
+      </div>
+    </section>
+
+
+    <section class="row">
+      <div class="column medium-6" *ngIf="(payments$ | async)?.length === 0">
+        <div class="callout-card">
+          <div class="callout-card-content">
+            <h3>Stop worrying about writing checks. Pay your rent online!</h3>
+
+            <h4>It's fast, easy, secure, and you can use your credit or debit card.</h4>
+
+            <h3 class="text-center margin"><a [routerLink]="['/p/pay-rent-online']" class="button">PAY RENT ONLINE</a></h3>
+          </div>
+        </div>
+      </div>
+
+      <div class="column medium-6" *ngIf="(reviews$ | async)?.length === 0">
+        <div class="callout-card">
+          <div class="callout-card-content">
+            <h3>Share your experience as a renter in Cape Girardeau. </h3>
+
+            <ol>
+              <li>Reviews help renters like you find a better home</li>
+              <li>Review comments offer huge insights into the quality of a residence</li>
+              <li>Properties and Landlords with higher ratings show first in search results</li>
+              <li>Unhelpful or derogatory reviews will not be shown on Roomhere</li>
+            </ol>
+
+            <div class="text-center margin">
+              <h5>Find a Cape Girardeau Property</h5>
+              <property-picker (propertyPicked)="property = $event"></property-picker>
+              <button type="button" (click)="navigateToProperty()" [disabled]="!property" class="button">Review Property</button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+</div>

@@ -21,12 +21,16 @@ import { SocialService } from './services/social.service';
 import { ValidationService } from './services/validation.service';
 import { PersistenceService } from './services/persistence.service';
 import { CacheService } from './services/cache.service';
+import { PaymentService } from './services/payment.service';
+import { AnalyticsService } from './services/analytics.service';
+import { jQueryService } from './services/jquery.service';
 
 import { PropertyViewResolve } from '../+property-view/property-resolve.service';
 
 // Components
 import { Carousel } from './components/carousel/component';
 import { ControlMessages } from './components/control-messages/component';
+import { ControlMessagesSummary } from './components/control-messages-summary/component';
 import { ImageUpload } from './components/image-upload/component';
 import { NumberTicker } from './components/number-ticker/component';
 import { Slide } from './components/slide/component';
@@ -38,19 +42,26 @@ import { StarRating } from './components/star-rating/component';
 import { PropertyAmenities } from './components/property-amenities/component';
 import { WelcomeSearch } from './components/welcome-search/component';
 import { MissingResource } from './components/missing-resource/component';
+import { PropertyPicker } from './components/property-picker/component';
 
 import { Login } from './components/users/login/component';
 import { Register } from './components/users/register/component';
 import { ForgotPassword } from './components/users/forgot-password/component';
 import { ResetPassword } from './components/users/reset-password/component';
 import { BigFooter } from './components/big-footer/component';
+import { PayRentModal } from './components/pay-rent-modal/component';
+import { BlockImage } from './components/block-image/component';
+
+import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
   CommonModule,
   RouterModule,
   FormsModule,
-  ReactiveFormsModule
+  ReactiveFormsModule,
+
+  DropDownsModule,
 ];
 
 const PIPES = [
@@ -58,14 +69,15 @@ const PIPES = [
 ];
 
 const COMPONENTS = [
-  Login, Register, ForgotPassword, ResetPassword, BigFooter, MissingResource,
-  Slide, Logo, TopBar, WelcomeSearch,
+  Login, Register, ForgotPassword, ResetPassword, BigFooter, MissingResource, ControlMessagesSummary,
+  Slide, Logo, TopBar, WelcomeSearch, PropertyPicker, PayRentModal, BlockImage,
   Carousel, ControlMessages, ImageUpload, NumberTicker, UploadProgress, Modal, StarRating, PropertyAmenities, 
 ];
 
 const PROVIDERS = [
   UserService, PropertyService, FacetsService, GoogleApiService, HttpService, ImageUploadService, SeoService, PropertySeoService,
-  SocialService, ValidationService, PersistenceService, PropertyActionStateService, ReviewsService, CacheService,
+  SocialService, ValidationService, PersistenceService, PropertyActionStateService, ReviewsService, CacheService, PaymentService,
+  AnalyticsService, jQueryService,
 
   PropertyViewResolve,
 ]

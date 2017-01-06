@@ -1,6 +1,7 @@
 Sitemap: https://roomhere.io/sitemap.xml.gz
 
 User-Agent: *
-Disallow: 
-Disallow: /account/
 Disallow: /p/reset-password
+Disallow: /pay-rent/step-2/
+Disallow: /pay-rent/success
+Disallow: /account/

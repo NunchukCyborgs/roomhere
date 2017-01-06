@@ -1,19 +1,26 @@
-import { Component } from '@angular/core';
+import { Component, Renderer } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { UserService } from '../shared/services/user.service';
+import { SeoService } from '../shared/services/seo.service';
 
 @Component({
   selector: 'account-page',
-  templateUrl: 'template.html' 
+  template: '<router-outlet></router-outlet>' 
 })
 export class AccountPage {
-  public hasAuth$: Observable<boolean>;
-  public superuser$: Observable<boolean>;
-  constructor(private userService: UserService) { }
+  constructor(private router: Router, private userService: UserService, private seo: SeoService) { }
 
   ngOnInit() {
-    this.hasAuth$ = this.userService.hasAuth$;
-    this.superuser$ = this.userService.me$.map(i => i.superuser);
-    this.userService.loadMe().subscribe();    
+    this.seo.setTitle('Dashboard');
+
+    this.userService.hasAuth$
+      .do(hasAuth => !hasAuth && this.router.navigate(['/']))
+      .subscribe();
+
+    this.userService.loadMe()
+      .map(i => i.superuser)
+      .do(isSuper => isSuper && this.router.navigate(['/account/super']))
+      .subscribe();
   }
 }

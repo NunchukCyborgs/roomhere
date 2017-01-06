@@ -1,14 +1,16 @@
-export function loadScript(url): void {
+export function loadScript(url, callback = (...params: any[]) => { console.log(`Done loading ${url}`) }): void {
   let scriptIndex = Array.prototype.slice
     .call(document.head.getElementsByTagName('script'))
     .map(i => i.src)
     .indexOf(url)
 
   if (scriptIndex === -1) {
-    let script = document.createElement('script');
-    script.src = url;
-    script.type = 'text/javascript';
-    document.getElementsByTagName('head')[0].appendChild(script);
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o['src'] = url;
+    if (callback) { o.addEventListener('load', function (e) { callback(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
   }
 }
 

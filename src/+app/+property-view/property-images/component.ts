@@ -1,9 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Slide } from '../../shared/components/slide/component';
-import { Carousel }  from '../../shared/components/carousel/component';
-import { isBrowser } from 'angular2-universal';
-
-declare let $ : any;
+import { Carousel } from '../../shared/components/carousel/component';
+import { jQueryService } from '../../shared/services/jquery.service';
 
 @Component({
   selector: 'property-images',
@@ -11,26 +9,27 @@ declare let $ : any;
   templateUrl: 'template.html'
 })
 export class PropertyImages {
-  @Input() images: Array<{id: number, url: string}>;
+  @Input() images: Array<{ id: number, url: string }>;
   @Input() interval: number;
   @Input() noLoop: boolean;
+
   public BASE_API_URL: string = BASE_API_URL;
-  public slides: Array<{image: string, text: string}>
+  public slides: Array<{ image: string, text: string }>
+
+  constructor(private jquery: jQueryService) { }
 
   ngOnChanges(changes: any) {
-    this.slides = this.images.map(i => {
-        return {image: i.url, text: ''};
-      });
-    if(isBrowser) {
-      $('property-images div.gallery').featherlightGallery({
-        type: 'image'
-      });
-    }
+    this.slides = this.images.map(i => ({ image: i.url, text: '' }));
+
+    this.jquery.loadFeatherlight()
+      .map(() => this.jquery.jquery('property-images div.gallery'))
+      .do(gallery => gallery.featherlightGallery({ type: 'image' }))
+      .subscribe();
   }
 
-  openGallery() {
-    if(isBrowser) {
-      $('.gallery-selector').click();
-    }
+  public openGallery() {
+    this.jquery.loadFeatherlight()
+      .do(() => this.jquery.jquery('.gallery-selector').click())
+      .subscribe();
   }
 }

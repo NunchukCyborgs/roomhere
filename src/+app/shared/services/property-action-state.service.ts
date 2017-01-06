@@ -3,6 +3,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import { isBrowser } from 'angular2-universal';
 
+import { jQueryService } from '../../shared/services/jquery.service';
 import { Property } from '../../shared/dtos/property';
 import { User } from '../../shared/dtos/user';
 
@@ -37,7 +38,7 @@ export class PropertyActionStateService {
   public actionState$: BehaviorSubject<PropertyActionState>;
   private _actionState: PropertyActionState = new PropertyActionState();
 
-  constructor() {
+  constructor(private jquery: jQueryService) {
     this.isEditing$ = new BehaviorSubject(this._isEditing);
     this.actionState$ = new BehaviorSubject(this._actionState);
   }
@@ -60,7 +61,8 @@ export class PropertyActionStateService {
     } else if (this._actionState.mode === PropertyActionMode.Authorized) {
       this.isEditing$.next(this._isEditing = true);
     } else {
-      isBrowser && $('#RentNowModal').foundation() && $('#RentNowModal').foundation('open');
+      this.jquery.loadFoundation()
+        .subscribe(() => this.jquery.jquery('#RentNowModal').foundation() && this.jquery.jquery('#RentNowModal').foundation('open'));
     }
 
     this.setState(property);

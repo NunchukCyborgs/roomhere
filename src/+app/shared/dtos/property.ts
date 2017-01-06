@@ -56,6 +56,10 @@ export class Property {
   //   const now = new Date().getTime();
   //   return time < now;
   // }
+
+  public get propertyUrl(): string {
+    return `/${DEFAULT_TENANT}/${this.slug}`
+  }
 }
 
 export class Owner {

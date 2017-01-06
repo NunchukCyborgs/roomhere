@@ -6,6 +6,9 @@ $grey: #f2f2f2;
 .flex-row {
   display: flex;
   flex-flow: row wrap;
+  &::after, &::before {
+    display: initial !important;
+  }
 }
 
 .vertical-align {
@@ -45,10 +48,6 @@ div[class$="-centered"] {
 
 button[disabled], button[disabled]:hover {
   opacity: 0.65;
-}
-
-.top-bar-right {
-  margin-top: 8px;
 }
 
 .head-room {
@@ -127,11 +126,6 @@ button[disabled], button[disabled]:hover {
 
 #welcome-map > div:first-child {
   height: 100%;
-}
-
-/* Alerts Control-Messages */
-control-messages{
-    color:red;
 }
 
 .sticky {

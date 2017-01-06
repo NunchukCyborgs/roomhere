@@ -6,7 +6,7 @@ import { Welcome } from './component';
 import { WelcomeFilters } from './filters/component';
 import { PropertySlider } from './property-slider/component';
 import { PropertyFilters } from './property-filters/component';
-import { PropertyPreview } from './property-preview/component';
+import { PayRentAd } from './pay-rent-ad/component';
 import { WelcomeRoutingModule } from './welcome-routing.module';
 
 @NgModule({
@@ -20,7 +20,7 @@ import { WelcomeRoutingModule } from './welcome-routing.module';
     WelcomeFilters,
     PropertySlider, 
     PropertyFilters,
-    PropertyPreview,
+    PayRentAd,
   ]
 })
 export class WelcomeModule { }

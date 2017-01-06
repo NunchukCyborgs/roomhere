@@ -74,7 +74,6 @@ interface Global extends GlobalEnvironment  {}
 
 // Custom
 
-declare let $: (string) => any;
 declare let Foundation: any;
 declare let google: any;
 declare let RichMarker: any;
@@ -88,3 +87,4 @@ declare let DEFAULT_TENANT: string;
 declare let DEFAULT_TENANT_PRETTY: string;
 declare let DEFAULT_STATE: string;
 declare let CAPE_GIRARDEU_CENTER: string;
+declare let STRIPE_PUBLISHABLE_KEY: string;

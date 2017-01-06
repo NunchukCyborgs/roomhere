@@ -2,6 +2,8 @@ const purify = require('purify-css');
 const nodeSass = require('node-sass');
 const path = require('path');
 const fs = require('fs');
+const autoprefixer = require('autoprefixer');
+const postcss = require('postcss');
 
 const content = ['**/+app/**/template.html'];
 const includePaths = ['node_modules/foundation-sites/scss', 'node_modules/motion-ui/src'];
@@ -27,21 +29,34 @@ const options = {
 };
 
 purify(content, critical.css.toString(), options, function (resultCss) {
-  fs.writeFile('src/assets/critical.css', resultCss, function (err) {
-    if (!err) {
-      console.log('yeee, we be winners');
-    } else {
-      console.log('Oh Nose!');
-    }
+  postcss([autoprefixer({remove: false, browsers: 'last 2 versions' })]).process(resultCss).then(function (result) {
+    result.warnings().forEach(function (warn) {
+      console.warn(warn.toString());
+    });
+
+    fs.writeFile('src/assets/critical.css', result.css, function (err) {
+      if (!err) {
+        console.log('yeee, we be winners');
+      } else {
+        console.log('Oh Nose!');
+      }
+    });
   });
 });
+
 purify(content, deferred.css.toString(), options, function (resultCss) {
-  fs.writeFile('src/assets/deferred.css', resultCss, function (err) {
-    if (!err) {
-      console.log('yeee, we be winners');
-    } else {
-      console.log('Oh Nose!');
-    }
+  postcss([autoprefixer({remove: false, browsers: 'last 2 versions' })]).process(resultCss).then(function (result) {
+    result.warnings().forEach(function (warn) {
+      console.warn(warn.toString());
+    });
+
+    fs.writeFile('src/assets/deferred.css', result.css, function (err) {
+      if (!err) {
+        console.log('yeee, we be winners');
+      } else {
+        console.log('Oh Nose!');
+      }
+    });
   });
 });
 

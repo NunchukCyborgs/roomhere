@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Response } from '@angular/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import { User } from '../../../dtos/user';
 import { UserService } from '../../../services/user.service';
 import { ValidationService } from '../../../services/validation.service';
+import { jQueryService } from '../../../services/jquery.service';
 import { isBrowser } from 'angular2-universal';
 import { ControlMessages } from '../../control-messages/component';
 
@@ -14,15 +15,19 @@ import { ControlMessages } from '../../control-messages/component';
   templateUrl: 'template.html',
 })
 export class Register {
+  @Input() data: Object;
+  @Input() redirectUrl: string;
+
   public success: boolean = false;
   public serverErrors: string[] = [];
   public registerForm: any;
 
-  constructor(private userService: UserService, private formBuilder: FormBuilder) { }
+  constructor(private userService: UserService, private formBuilder: FormBuilder, private jquery: jQueryService) { }
 
   ngOnInit() {
     this.init();
-    isBrowser && $(document).on('closed.zf.reveal', () => this.init());
+    this.jquery.loadFoundation()
+      .subscribe(() => this.jquery.jquery(document).on('closed.zf.reveal', () => this.init()));
   }
 
   private init() {
@@ -46,12 +51,13 @@ export class Register {
       password_confirmation: this.registerForm.controls.confirmPassword.value,
     });
 
-    this.userService.register(user)
+    this.userService.register(user, this.data, this.redirectUrl || undefined)
       .do((res: Response) => this.serverErrors = ValidationService.getAuthErrors(res))
       .subscribe((res: Response) => this.success = res.ok);
   }
 
   public closeModal() {
-    $('.register-modal__close-button').click();
+    this.jquery.loadJQuery()
+      .subscribe(jquery => jquery('modal .close-button').click());
   }
 }

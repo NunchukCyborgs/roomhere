@@ -12,17 +12,8 @@ export class WelcomeResolve implements Resolve<any> {
   constructor(private propertyService: PropertyService, private facetsService: FacetsService) { }
 
   public resolve(route: ActivatedRouteSnapshot) {
-    // let query = route.params['q'] || '';
-    // let facet: PropertyFacet = new PropertyFaceßt();
-
-    // return this.facetsService.loadFacets()
-    //   .flatMap(() => this.facetsService.minPrice$)
-    //   .do(i => facet.min_price = i)
-    //   .flatMap(() => this.facetsService.maxPrice$)
-    //   .do(i => facet.max_price = i)
-    //   .flatMap(() => this.propertyService.getFilteredProperties$(facet, query))
-    //   .map(i => ({ properties: i, query: query }))
-    //   .do(i => console.log('I resolved!'));
-    return false;
+    let query = route.params['q'] || '';
+    return this.propertyService.getFilteredProperties$(new PropertyFacet(), query, 1, 7)
+      .map(i => ({ properties: i, query: query }));
   }
 }

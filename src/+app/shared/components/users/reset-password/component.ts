@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import { User } from '../../../dtos/user';
 import { UserService } from '../../../services/user.service';
+import { jQueryService } from '../../../services/jquery.service';
 import { ValidationService } from '../../../services/validation.service';
 import { isBrowser } from 'angular2-universal';
 import { ControlMessages } from '../../control-messages/component';
@@ -18,11 +19,12 @@ export class ResetPassword {
   public serverErrors: string[] = [];
   public resetPasswordForm: any;
 
-  constructor(private userService: UserService, private formBuilder: FormBuilder) { }
+  constructor(private userService: UserService, private formBuilder: FormBuilder, private jquery: jQueryService) { }
 
   ngOnInit() {
     this.init();
-    isBrowser && $(document).on('closed.zf.reveal', () => this.init());
+    this.jquery.loadFoundation()
+      .subscribe(() => this.jquery.jquery(document).on('closed.zf.reveal', () => this.init()));
   }
 
   private init() {
@@ -47,5 +49,10 @@ export class ResetPassword {
     this.userService.resetPassword(user)
       .do((res: Response) => this.serverErrors = ValidationService.getAuthErrors(res))
       .subscribe((res: Response) => this.success = res.ok);
+  }
+
+  public closeModal() {
+    this.jquery.loadJQuery()
+      .subscribe(jquery => jquery('modal .close-button').click());
   }
 }

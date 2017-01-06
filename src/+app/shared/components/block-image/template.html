@@ -1,0 +1,14 @@
+<div class="preview-div">
+  <div class="responsive-image">
+    <img *ngIf="image" class="property-image object-fit_fill" [src]="image" [alt]="alt">
+    <div class="overlay">
+      <ng-content select=".block-image__overlay"></ng-content>
+    </div>
+  </div>
+
+  <div class="row collapse">
+    <div class="small-12 text-left columns">
+      <ng-content select=".block-image__footer"></ng-content>
+    </div>
+  </div>
+</div>

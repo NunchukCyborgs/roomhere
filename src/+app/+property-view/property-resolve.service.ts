@@ -11,6 +11,8 @@ export class PropertyViewResolve implements Resolve<Property[]> {
 
   public resolve(route: ActivatedRouteSnapshot): Observable<Property> {
     let slug = String(route.params['slug']);
-    return this.propertyService.getPropertyBySlug$(slug);
+    return this.propertyService.getPropertyBySlug$(slug)
+      .do((i: Property & { status: string }) => i.status === 'Not Found' && this.router.navigate(['/']));
+
   }
 }

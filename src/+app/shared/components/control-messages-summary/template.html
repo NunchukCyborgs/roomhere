@@ -1,0 +1,4 @@
+<div class="wrapper callout alert" *ngIf="projection?.childNodes?.length > 0 || errors?.length">
+  <div #projection><ng-content></ng-content></div>
+  <div *ngIf="formGroup"><span *ngFor="let error of errors">{{error}}. </span></div>
+</div>

@@ -1,0 +1,54 @@
+<div class="row">
+  <div class="small-12 columns panel small-centered">
+    <div class="callout-card small-centered">
+      <div class="callout-card-content">
+        <form [formGroup]="missingPropertyForm" (ngSubmit)="submit()" *ngIf="!success">
+          <h1>Can't find your property?</h1>
+          <p>
+            Sometimes the property data we receive is incomplete. If you can't find your home in these listings, let us know and we'll
+            get to work on it!
+          </p>
+
+          <div class="form-group row collapse">
+            <div class="small-2 columns">
+              <span class="prefix"><i class="fa fa-envelope"></i></span>
+            </div>
+            <div class="small-10  columns">
+              <input type="email" placeholder="email" formControlName="email" class="form-control">
+            </div>
+            <control-messages [control]="missingPropertyForm.controls.email" class="alert"></control-messages>
+          </div>
+          <div class="form-group row collapse">
+            <div class="small-2 columns">
+              <span class="prefix"><i class="fa fa-phone"></i></span>
+            </div>
+            <div class="small-10  columns">
+              <input type="text" placeholder="address" formControlName="address" class="form-control">
+            </div>
+            <control-messages [control]="missingPropertyForm.controls.address" class="alert"></control-messages>
+          </div>
+
+
+          <p class="text-center">
+            <button type="submit" class="button large" [attr.disabled]="missingPropertyForm.valid ? null : true">Request Missing Property</button>
+          </p>
+
+          <div class="callout alert" *ngIf="success === false">
+            <h4>Uh oh! We had a problem processing your request.</h4>
+
+            <p>Please submit again. If you're still have trouble, contact us and we'll get on it right away!</p>
+          </div>
+        </form>
+
+        <div class="callout alert" *ngIf="success">
+          <h4>Thanks so much!</h4>
+
+          <p>We will check out this property and get back to you as soon as we can. It's users like you that make Roomhere the
+            best place to find home.</p>
+
+          <div class="text-center"> <a [routerLink]="['/']">Return Home</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

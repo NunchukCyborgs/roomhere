@@ -1,0 +1,58 @@
+<h2>
+  Payment Details</h2>
+<form [formGroup]="paymentForm" *ngIf="paymentForm" (ngSubmit)="submit()" autocomplete="on">
+
+  <fieldset class="fieldset">
+    <legend><strong>Step #3:</strong> Payment Information</legend>
+    <div class="form-group row collapse">
+      <div class="small-12  columns">
+        <label>Credit Card Number
+              <input type="tel" placeholder="Credit Card" formControlName="card" class="form-control" autocomplete="cc-number" (change)="interactWithForm()">
+              </label>
+      </div>
+      <control-messages [control]="paymentForm.controls.card" class="alert"></control-messages>
+    </div>
+    <div class="form-group row">
+      <div class="small-6  columns">
+        <label>Expiration
+          <select formControlName="expMonth" autocomplete="cc-exp-month">
+            <option *ngFor="let month of months" [value]="month.value">{{month.value}} - {{month.text}}</option>
+          </select>
+        </label>
+        <control-messages [control]="paymentForm.controls.expMonth" class="alert"></control-messages>
+      </div>
+      <div class="small-6  columns">
+        <label>Expiration
+          <select formControlName="expYear" autocomplete="cc-exp-year">
+            <option *ngFor="let year of years" [value]="year.value">{{year.text}}</option>
+          </select>
+        </label>
+        <control-messages [control]="paymentForm.controls.expYear" class="alert"></control-messages>
+      </div>
+    </div>
+    <div class="form-group row collapse">
+      <div class="small-6 end  columns">
+        <label>CVC
+              <input type="tel" placeholder="CVC" formControlName="cvc" class="form-control" autocomplete="off">
+              </label>
+        <control-messages [control]="paymentForm.controls.cvc" class="alert"></control-messages>
+      </div>
+    </div>
+  </fieldset>
+
+  <p class="text-center">
+    <button type="submit" class="button large" [attr.disabled]="!paymentForm.valid ? true : null">Pay Rent Now!</button>
+  </p>
+
+  <control-messages-summary [formGroup]="paymentForm"></control-messages-summary>
+
+  <div *ngIf="paymentRequestErrors?.length && !success" class="callout alert">
+    <h4>Uh oh! We had a problem creating your payment.</h4>
+    <span *ngFor="let error of paymentRequestErrors">{{error}}. </span>
+  </div>
+
+  <div *ngIf="stripeError?.message && !success" class="callout alert">
+    <h4>Uh oh! We had a problem processing your card.</h4>
+    <span>{{stripeError.message}}</span>
+  </div>
+</form>
