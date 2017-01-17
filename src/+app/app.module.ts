@@ -17,7 +17,7 @@ import { AppComponent } from './component';
   declarations: [ AppComponent ],
   imports: [
     SharedModule,
-    AppRoutingModule
+    AppRoutingModule,
   ]
 })
 export class AppModule {

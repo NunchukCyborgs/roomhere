@@ -101,6 +101,7 @@
     "postcss": "^5.2.8",
     "postcss-loader": "1.1.1",
     "preboot": "4.5.2",
+    "primeng": "1.1.4",
     "progressbar.js": "1.0.1",
     "purify-css": "1.1.9",
     "raw-loader": "0.5.1",

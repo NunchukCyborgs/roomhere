@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { SharedModule } from '../shared/shared.module';
 import { PropertyModule } from '../+property/property.module';
+// import { SliderModule } from 'primeng/components/slider/slider';
 
 import { Welcome } from './component';
 import { WelcomeFilters } from './filters/component';
@@ -14,6 +15,7 @@ import { WelcomeRoutingModule } from './welcome-routing.module';
     SharedModule,
     WelcomeRoutingModule,
     PropertyModule,
+    // SliderModule,
   ],
   declarations: [
     Welcome,

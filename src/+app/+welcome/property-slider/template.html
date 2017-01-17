@@ -1,13 +1,13 @@
+
 <div class="small-12 columns">
-  <div class="slider round" data-slider> 
-    <span class="slider-handle round" data-slider-handle role="slider" tabindex="1" aria-controls="sliderOutput1"></span>
-    <span class="slider-fill" data-slider-fill></span>
-    <span class="slider-handle round" data-slider-handle role="slider" tabindex="1" aria-controls="sliderOutput2"></span>
-  </div>
+  <!--options?.selectedMin, options?.selectedMax-->
+  <p-slider [(ngModel)]="5" ngIf="isBrowser"></p-slider>
+  <!--<p-slider [(ngModel)]="5" [range]="false" [min]="options.absoluteMin" [max]="options.absoluteMax" (onSlideEnd)="submit()"></p-slider>-->
 </div>
-<div class="small-6 columns text-left">
-  <input type="number" class="slider-output" disabled id="sliderOutput1">
+<!--<div class="small-6 columns text-left">
+  <input type="number" class="slider-output" disabled [value]="rangeValues[0]">
 </div>
 <div class="small-6 columns text-right right-output">
-  <input type="number" class="slider-output text-right" disabled id="sliderOutput2">
-</div>
+  <input type="number" class="slider-output text-right" disabled [value]="rangeValues[0]">
+</div>-->
+

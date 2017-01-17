@@ -53,6 +53,7 @@ import { PayRentModal } from './components/pay-rent-modal/component';
 import { BlockImage } from './components/block-image/component';
 
 import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
+import { SliderModule } from 'primeng/primeng';
 
 const MODULES = [
   // Do NOT include UniversalModule, HttpModule, or JsonpModule here
@@ -62,6 +63,7 @@ const MODULES = [
   ReactiveFormsModule,
 
   DropDownsModule,
+  SliderModule,
 ];
 
 const PIPES = [
