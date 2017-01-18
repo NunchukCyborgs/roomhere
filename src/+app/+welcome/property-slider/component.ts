@@ -30,7 +30,6 @@ export class PropertySlider implements AfterViewInit {
         this.facet.min_price = Number(this.jquery.jquery('input#sliderOutput1').val());
         this.facet.max_price = Number(this.jquery.jquery('input#sliderOutput2').val());
         this.applyFacet.emit(this.facet);
-        console.log('emit facet1', this.facet.min_price, this.facet.max_price);
       })
       .subscribe();
   }
@@ -56,8 +55,6 @@ export class PropertySlider implements AfterViewInit {
     this.facet.min_price = initialStart;
     this.facet.max_price = initialEnd;
     this.applyFacet.emit(this.facet);
-
-    console.log('emit facet2', this.facet.min_price, this.facet.max_price, this.absoluteMin, this.absoluteMax);
   }
 
   private setSlider(sliderOptions: { start: number, end: number, initialStart: number, initialEnd: number }) {
