@@ -42,8 +42,8 @@ export class PropertySlider implements AfterViewInit {
       return;
     }
 
-    const initialStart = this.absoluteMin > 450 ? this.absoluteMin : 450;
-    const initialEnd = this.absoluteMax < 950 ? this.absoluteMax : 950;
+    const initialStart = this.absoluteMin > 700 ? this.absoluteMin : 700;
+    const initialEnd = this.absoluteMax < 1850 ? this.absoluteMax : 1850;
 
     this.setSlider({
       start: Number(this.absoluteMin),
