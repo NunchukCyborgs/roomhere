@@ -26,7 +26,7 @@ export class PropertyService {
       .get(`${BASE_API_URL}/properties/search?q=${query}&page=${page}&per_page=${perPage}`);
   }
 
-  public getFilteredProperties$(facet: PropertyFacet, query: string = '', pageNumber: number = 1, perPage: number = 8, offset: number = 0): Observable<Property[]> {
+  public getFilteredProperties$(facet: PropertyFacet, query: string = '', pageNumber: number = 1, perPage: number = 16, offset: number = 0): Observable<Property[]> {
     return Observable.of([])
       .filter(() => facet.min_price >= 0 && facet.max_price >= 0)
       .flatMap(() => this.http.post(`${BASE_API_URL}/properties/filtered_results`, { facets: facet, page: pageNumber, per_page: perPage, query: query, offset: offset }))
