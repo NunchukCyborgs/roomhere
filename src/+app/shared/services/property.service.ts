@@ -21,17 +21,17 @@ export class PropertyService {
   public lastPage$: BehaviorSubject<number> = new BehaviorSubject(Number.MAX_SAFE_INTEGER)
   private viewCaches: string[] = [];
 
-  public searchProperties({query, perPage = 15, page = 1}: { query: string, perPage?: number, page?: number }) {
-    return this.http
-      .get(`${BASE_API_URL}/properties/search?q=${query}&page=${page}&per_page=${perPage}`);
-  }
+  public searchProperties(options: { query: string, perPage?: number, page?: number, offset?: number, facet?: PropertyFacet }): Observable<Property[]> {
+    let defaultedOptions = Object.assign({}, { query: '', perPage: 15, page: 1, offset: 0 }, options);
+    defaultedOptions.facet = Object.assign({}, new PropertyFacet(), options.facet)
+    defaultedOptions.facet.min_bedrooms = defaultedOptions.facet.min_bedrooms > 1 ? defaultedOptions.facet.min_bedrooms : 0;
+    defaultedOptions.facet.min_bathrooms = defaultedOptions.facet.min_bathrooms > 1 ? defaultedOptions.facet.min_bathrooms : 0;
+    const queryOptions = `query=${defaultedOptions.query}&page=${defaultedOptions.page}&per_page=${defaultedOptions.perPage}&offset=${defaultedOptions.offset}${this.formatObj(defaultedOptions.facet)}`;
 
-  public getFilteredProperties$(facet: PropertyFacet, query: string = '', pageNumber: number = 1, perPage: number = 16, offset: number = 0): Observable<Property[]> {
-    return Observable.of([])
-      .filter(() => facet.min_price >= 0 && facet.max_price >= 0)
-      .flatMap(() => this.http.post(`${BASE_API_URL}/properties/filtered_results`, { facets: facet, page: pageNumber, per_page: perPage, query: query, offset: offset }))
+    return this.http
+      .get(`${BASE_API_URL}/properties/filtered_results?${queryOptions}`)
       .filter(i => i.results && Array.isArray(i.results)) // Dirty error handling
-      .do(i => this.setLastPageNumber(i.total_count, offset, perPage))
+      .do(i => this.setLastPageNumber(i.total_count, i.offset, i.perPage))
       .map(properties => properties.results.map(i => new Property(i)));
   }
 
@@ -102,6 +102,18 @@ export class PropertyService {
 
   private setLastPageNumber(totalCount: number, offset: number, perPage: number) {
     this.lastPage$.next(Math.ceil((totalCount - 1) / perPage));
+  }
+
+  private formatObj(facets: Object): string {
+    let formatted = '';
+
+    for (let propertyName in facets) {
+      if (facets.hasOwnProperty(propertyName)) {
+        formatted += typeof facets[propertyName] === 'object' ? this.formatObj(facets[propertyName]) : `&facets[${propertyName}]=${facets[propertyName]}`;
+      }
+    }
+
+    return formatted;
   }
 
   constructor(private http: HttpService) {

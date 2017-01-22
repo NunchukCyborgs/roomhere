@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 import { Http, Headers, Response, ResponseOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { isBrowser } from 'angular2-universal';
@@ -6,7 +6,7 @@ import { PersistenceService } from './persistence.service';
 import { CacheService } from './cache.service';
 
 const shouldLog = false;
-const skipCache = true;
+const skipCache = false;
 
 export interface HttpOptions {
   rawResponse?: boolean;
@@ -22,7 +22,7 @@ export class HttpService {
     const key = url;
     const cache = this.getFromCache(key);
 
-    return (!skipCache || !options.skipCache) && cache ? cache : this.http
+    return (!skipCache && !options.skipCache) && cache ? cache : this.http
       .get(url, { headers: options.onlyBaseHeaders ? this.baseHeaders : this.headers })
       .do(i => shouldLog && console.log(`GET: `, url))
       .map(i => options.rawResponse ? i : i.json())
@@ -45,7 +45,7 @@ export class HttpService {
     const cache = url.indexOf('filtered_results') > -1 ? this.getFromCache(key) : null;
     // This is the only url I want to cache at this point
 
-    return (!skipCache || !options.skipCache) && cache ? cache : this.http.post(url, JSON.stringify(obj), { headers: options.onlyBaseHeaders ? this.baseHeaders : this.headers })
+    return (!skipCache && !options.skipCache) && cache ? cache : this.http.post(url, JSON.stringify(obj), { headers: options.onlyBaseHeaders ? this.baseHeaders : this.headers })
       .do(i => shouldLog && console.log(`POST: `, url))
       .map(i => options.rawResponse ? i : i.json())
       .do(i => !options.rawResponse && this.cache.set(key, i))
@@ -92,4 +92,12 @@ export class HttpService {
   private getFromCache(key: string): any {
     return this.cache.has(key) ? Observable.of(this.cache.get(key)) : undefined;
   }
+
+  // private serializeQueryObject(url: string, obj: Object): string {
+  //   if (!obj) {
+  //     return '';
+  //   }
+
+
+  // }
 }
