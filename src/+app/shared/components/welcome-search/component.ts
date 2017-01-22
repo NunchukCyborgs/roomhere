@@ -16,7 +16,7 @@ export class WelcomeSearch {
 
   onSubmit() {
     const query = this.searchForm.controls['query'].value;
-    this.router.navigate(['/search', { q: query }]);
+    this.router.navigate(['/search', { query: query }]);
   }
 
   ngOnInit() {

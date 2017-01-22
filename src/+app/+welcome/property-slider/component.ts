@@ -45,12 +45,12 @@ export class PropertySlider implements AfterViewInit {
     this.setSlider({
       start: Number(this.absoluteMin),
       end: Number(this.absoluteMax),
-      initialStart: Number(this.absoluteMin),
-      initialEnd: Number(this.absoluteMax),
+      initialStart: Number(this.facet.min_price || this.absoluteMin),
+      initialEnd: Number(this.facet.max_price || this.absoluteMax),
     });
 
-    this.facet.min_price = this.absoluteMin;
-    this.facet.max_price = this.absoluteMax;
+    this.facet.min_price = this.facet.min_price ? this.facet.min_price : this.absoluteMin;
+    this.facet.max_price = this.facet.max_price ? this.facet.max_price : this.absoluteMax;
     this.applyFacet.emit(this.facet);
   }
 

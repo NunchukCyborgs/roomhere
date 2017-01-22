@@ -10,6 +10,7 @@
  * ];
  **/
 export const routes: string[] = [
+  'search',
   'account',
   'pay-rent',
   'p', // General Module

@@ -84,7 +84,7 @@ export class Amenity {
     const iconSet = {
       'Pet Friendly': 'fa fa-paw',
       'Wheelchair Accessible': 'fa fa-wheelchair-alt',
-      'Washer/Dryer': 'icon-washer-dryer-2',
+      'Washer Dryer': 'icon-washer-dryer-2',
       'Electricity Included': 'icon-electricity',
       'Gas Included': 'icon-gas',
       'Water Included': 'icon-tint',

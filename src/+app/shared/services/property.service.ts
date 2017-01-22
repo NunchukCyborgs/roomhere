@@ -1,6 +1,7 @@
 import { Renderer, Inject, Injectable } from '@angular/core';
 import { Response } from '@angular/http';
 import { HttpService } from './http.service';
+import { FacetsService } from './facets.service';
 
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
@@ -8,6 +9,14 @@ import { Property } from '../../shared/dtos/property';
 import { PropertyFacet } from '../../shared/dtos/facets';
 
 import { getHoneybadger } from './honeybadger';
+
+export interface PropertySearchParams {
+  query: string;
+  perPage?: number;
+  page?: number;
+  offset?: number;
+  facet?: PropertyFacet;
+}
 
 @Injectable()
 export class PropertyService {
@@ -21,15 +30,22 @@ export class PropertyService {
   public lastPage$: BehaviorSubject<number> = new BehaviorSubject(Number.MAX_SAFE_INTEGER)
   private viewCaches: string[] = [];
 
-  public searchProperties(options: { query: string, perPage?: number, page?: number, offset?: number, facet?: PropertyFacet }): Observable<Property[]> {
+  public searchProperties(options: PropertySearchParams): Observable<Property[]> {
     let defaultedOptions = Object.assign({}, { query: '', perPage: 15, page: 1, offset: 0 }, options);
     defaultedOptions.facet = Object.assign({}, new PropertyFacet(), options.facet)
     defaultedOptions.facet.min_bedrooms = defaultedOptions.facet.min_bedrooms > 1 ? defaultedOptions.facet.min_bedrooms : 0;
     defaultedOptions.facet.min_bathrooms = defaultedOptions.facet.min_bathrooms > 1 ? defaultedOptions.facet.min_bathrooms : 0;
-    const queryOptions = `query=${defaultedOptions.query}&page=${defaultedOptions.page}&per_page=${defaultedOptions.perPage}&offset=${defaultedOptions.offset}${this.formatObj(defaultedOptions.facet)}`;
 
-    return this.http
-      .get(`${BASE_API_URL}/properties/filtered_results?${queryOptions}`)
+    return this.facetsService.loadFacets()
+      .flatMap(() => Observable.combineLatest(this.facetsService.minPrice$, this.facetsService.maxPrice$))
+      .filter(i => typeof i[0] === 'number' && typeof i[1] === 'number')
+      .do((i: [number, number]) => {
+        // This be shitty
+        defaultedOptions.facet.min_price = defaultedOptions.facet.min_price > i[0] ? defaultedOptions.facet.min_price : i[0];
+        defaultedOptions.facet.max_price = defaultedOptions.facet.max_price < i[1] && defaultedOptions.facet.max_price !== 0 ? defaultedOptions.facet.max_price : i[1];
+      })
+      .map(() => `query=${defaultedOptions.query}&page=${defaultedOptions.page}&per_page=${defaultedOptions.perPage}&offset=${defaultedOptions.offset}${this.formatObj(defaultedOptions.facet, 'facets')}`)
+      .flatMap(queryOptions => this.http.get(`${BASE_API_URL}/properties/filtered_results?${queryOptions}`))
       .filter(i => i.results && Array.isArray(i.results)) // Dirty error handling
       .do(i => this.setLastPageNumber(i.total_count, i.offset, i.perPage))
       .map(properties => properties.results.map(i => new Property(i)));
@@ -104,19 +120,25 @@ export class PropertyService {
     this.lastPage$.next(Math.ceil((totalCount - 1) / perPage));
   }
 
-  private formatObj(facets: Object): string {
+  private formatObj(facets: Object, prefix = ''): string {
     let formatted = '';
 
     for (let propertyName in facets) {
       if (facets.hasOwnProperty(propertyName)) {
-        formatted += typeof facets[propertyName] === 'object' ? this.formatObj(facets[propertyName]) : `&facets[${propertyName}]=${facets[propertyName]}`;
+        if (Array.isArray(facets[propertyName])) {
+          formatted += facets[propertyName].map(i => this.formatObj(i, `${prefix}[${propertyName}][]`)).join('');
+        } else if (typeof facets[propertyName] === 'object') {
+          formatted += this.formatObj(facets[propertyName], `${prefix}[${propertyName}]`);
+        } else {
+          formatted += `&${prefix}[${propertyName}]=${facets[propertyName]}`;
+        }
       }
     }
 
     return formatted;
   }
 
-  constructor(private http: HttpService) {
+  constructor(private http: HttpService, private facetsService: FacetsService) {
     this.myProperties$ = new BehaviorSubject(this._myProperties);
     this.superProperties$ = new BehaviorSubject(this._superProperties);
     this.propertyBySlug$ = new BehaviorSubject(this._propertyBySlug);

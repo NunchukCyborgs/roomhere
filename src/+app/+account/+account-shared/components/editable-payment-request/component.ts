@@ -34,7 +34,6 @@ export class EditablePaymentRequest {
 
   ngOnInit() {
     this.paymentRequest.phone = this.paymentRequest.phone;
-    console.log(this.paymentRequest);
 
     let controls: any = {
       name: new FormControl(this.paymentRequest.name, [Validators.required, ValidationService.nameValidator]),
