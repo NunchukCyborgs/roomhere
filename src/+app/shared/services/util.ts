@@ -37,3 +37,46 @@ const names = [
 export function generateAnonymousName(): string {
   return names[Math.floor(Math.random() * (names.length))];
 }
+
+export function formatObjCurl(facets: Object, prefix = ''): string {
+  let formatted = '';
+
+  for (let propertyName in facets) {
+    if (facets.hasOwnProperty(propertyName)) {
+      if (Array.isArray(facets[propertyName])) {
+        formatted += facets[propertyName].map(i => formatObjCurl(i, `${prefix}[${propertyName}][]`)).join('');
+      } else if (typeof facets[propertyName] === 'object') {
+        formatted += formatObjCurl(facets[propertyName], `${prefix}[${propertyName}]`);
+      } else {
+        formatted += `&${prefix}[${propertyName}]=${facets[propertyName]}`;
+      }
+    }
+  }
+
+  return formatted;
+}
+
+export function createUrlParam(key: string | number, value: string | number, unsafeChars: RegExp = /[ ]/ig): string {
+  return `${key}=${value};`.replace(unsafeChars, '_');
+}
+
+export function createUrlRangeParam(key: string | number, values: [string | number, string | number], unsafeChars: RegExp = /[ ]/ig): string {
+  return `${key}=${values[0]}-${values[1]};`.replace(unsafeChars, '_');
+}
+
+export function createUrlListParam(key: string | number, values: Array<string | number>, delimitter: string = '.', unsafeChars: RegExp = /[ ]/ig): string {
+  return `${key}=${values.join(delimitter)};`.replace(unsafeChars, '_');
+}
+
+export function parseUrlRange(queryString: string): [number, number] {
+  let min = parseInt(queryString, 10);
+
+  return [
+    min, // Relying on parseInts parsing of alphanumerics
+    parseInt(queryString.substring(min.toString().length + 1), 10),
+  ]
+}
+
+export function parseUrlList(queryString: string, delimitter = '.'): string[] {
+  return queryString.replace(/[_]/gi, ' ').split(delimitter);
+}

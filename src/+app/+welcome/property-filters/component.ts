@@ -2,7 +2,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { NgClass } from '@angular/common';
 import { Observable } from 'rxjs/Observable';
 import { PropertyFacet } from '../../shared/dtos/facets';
-import { Location, Amenity } from '../../shared/dtos/property';
+import { Amenity } from '../../shared/dtos/property';
 import { FacetsService } from '../../shared/services/facets.service';
 
 @Component({
@@ -16,7 +16,7 @@ export class PropertyFilters {
   @Input() showFilters: boolean;
   @Output() showFiltersChange: EventEmitter<any> = new EventEmitter();
 
-  public locations$: Observable<Location[]>;
+  public locations$: Observable<string[]>;
   public amenities: Amenity[];
   public types$: Observable<string[]>;
 

@@ -106,16 +106,17 @@ export class Amenity {
   }
 }
 
-export interface Location {
-  id: number;
-  full_name: string;
-  facet_name: string;
-  data_name: string;
-  latitude: number;
-  longitude: number;
-  created_at: Date;
-  updated_at: Date;
-}
+// No idea where this came from. They are just a string[]
+// export interface Location {
+//   id: number;
+//   full_name: string;
+//   facet_name: string;
+//   data_name: string;
+//   latitude: number;
+//   longitude: number;
+//   created_at: Date;
+//   updated_at: Date;
+// }
 
 export interface Type {
   name: string;

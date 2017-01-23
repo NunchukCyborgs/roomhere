@@ -3,15 +3,15 @@ import { Observable } from 'rxjs/Observable';
 import { HttpService } from '../services/http.service';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { generateGUID } from './util';
-import { Amenity, Location } from '../dtos/property';
+import { Amenity } from '../dtos/property';
 
 @Injectable()
 export class FacetsService {
   private hasInit: boolean = false;
   public amenities$: BehaviorSubject<Amenity[]>;
   public _amenities: Amenity[] = [];
-  public locations$: BehaviorSubject<Location[]>;
-  public _locations: Location[] = [];
+  public locations$: BehaviorSubject<string[]>;
+  public _locations: string[] = [];
   public minPrice$: BehaviorSubject<number> = new BehaviorSubject(-1);
   public maxPrice$: BehaviorSubject<number> = new BehaviorSubject(-1);
   public types$: BehaviorSubject<string[]> = new BehaviorSubject([]);

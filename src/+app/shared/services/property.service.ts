@@ -1,5 +1,6 @@
 import { Renderer, Inject, Injectable } from '@angular/core';
 import { Response } from '@angular/http';
+import { formatObjCurl } from './util';
 import { HttpService } from './http.service';
 import { FacetsService } from './facets.service';
 
@@ -44,7 +45,7 @@ export class PropertyService {
         defaultedOptions.facet.min_price = defaultedOptions.facet.min_price > i[0] ? defaultedOptions.facet.min_price : i[0];
         defaultedOptions.facet.max_price = defaultedOptions.facet.max_price < i[1] && defaultedOptions.facet.max_price !== 0 ? defaultedOptions.facet.max_price : i[1];
       })
-      .map(() => `query=${defaultedOptions.query}&page=${defaultedOptions.page}&per_page=${defaultedOptions.perPage}&offset=${defaultedOptions.offset}${this.formatObj(defaultedOptions.facet, 'facets')}`)
+      .map(() => `query=${defaultedOptions.query}&page=${defaultedOptions.page}&per_page=${defaultedOptions.perPage}&offset=${defaultedOptions.offset}${formatObjCurl(defaultedOptions.facet, 'facets')}`)
       .flatMap(queryOptions => this.http.get(`${BASE_API_URL}/properties/filtered_results?${queryOptions}`))
       .filter(i => i.results && Array.isArray(i.results)) // Dirty error handling
       .do(i => this.setLastPageNumber(i.total_count, i.offset, i.perPage))
@@ -118,24 +119,6 @@ export class PropertyService {
 
   private setLastPageNumber(totalCount: number, offset: number, perPage: number) {
     this.lastPage$.next(Math.ceil((totalCount - 1) / perPage));
-  }
-
-  private formatObj(facets: Object, prefix = ''): string {
-    let formatted = '';
-
-    for (let propertyName in facets) {
-      if (facets.hasOwnProperty(propertyName)) {
-        if (Array.isArray(facets[propertyName])) {
-          formatted += facets[propertyName].map(i => this.formatObj(i, `${prefix}[${propertyName}][]`)).join('');
-        } else if (typeof facets[propertyName] === 'object') {
-          formatted += this.formatObj(facets[propertyName], `${prefix}[${propertyName}]`);
-        } else {
-          formatted += `&${prefix}[${propertyName}]=${facets[propertyName]}`;
-        }
-      }
-    }
-
-    return formatted;
   }
 
   constructor(private http: HttpService, private facetsService: FacetsService) {

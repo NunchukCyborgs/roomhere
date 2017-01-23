@@ -1,4 +1,4 @@
-import { Amenity, Location } from './property';
+import { Amenity } from './property';
 
 export class PropertyFacet {
   public min_price: number = 0;
@@ -6,7 +6,7 @@ export class PropertyFacet {
   public min_bedrooms: number = 1;
   public min_bathrooms: number = 1;
   public max_lease_length: number = null;
-  public locations: Location[] = [];
+  public locations: string[] = [];
   public amenities: Amenity[] = [];
   public types: string[] = [];
 }

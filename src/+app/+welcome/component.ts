@@ -3,7 +3,7 @@ import { ActivatedRoute, Router, Params } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
-import { Property } from '../shared/dtos/property';
+import { Property, Amenity } from '../shared/dtos/property';
 import { PropertyFacet } from '../shared/dtos/facets';
 import { PropertyService, PropertySearchParams } from '../shared/services/property.service';
 import { FacetsService } from '../shared/services/facets.service';
@@ -12,6 +12,7 @@ import { PersistenceService } from '../shared/services/persistence.service';
 import { MapOptions } from '../+property/property-map/component';
 import { User } from '../shared/dtos/user';
 import { UserService } from '../shared/services/user.service';
+import { parseUrlRange, parseUrlList, createUrlParam, createUrlRangeParam, createUrlListParam } from '../shared/services/util';
 
 const MAP_HEIGHT = '100%';
 const MAP_ZOOM_LEVEL = 13;
@@ -99,18 +100,29 @@ export class Welcome {
   }
 
   private makeSearchParams(params: PropertySearchParams): string {
-    let queryString = `query=${params.query};page=${params.page}`;
-    queryString += `;bath=${params.facet.min_bathrooms};bed=${params.facet.min_bedrooms};price=${params.facet.min_price}-${params.facet.max_price}`;
+    let queryString = createUrlRangeParam('price', [params.facet.min_price, params.facet.max_price]);
+
+    if (params.facet.min_bedrooms > 1) {
+      queryString += createUrlParam('bed', params.facet.min_bedrooms);
+    }
+
+    if (params.facet.min_bathrooms > 1) {
+      queryString += createUrlParam('bath', params.facet.min_bathrooms);
+    }
+
+    if (params.page > 1) {
+      queryString += createUrlParam('page', params.page);
+    }
 
     if (params.facet.amenities.filter(i => i.active).length) {
-      queryString += `;amenities=${params.facet.amenities.filter(i => i.active).map(i => i.name).join('.')}`;
+      queryString += createUrlListParam('amenities', params.facet.amenities.filter(i => i.active).map(i => i.name));
     }
     if (params.facet.types.length) {
-      queryString += `;types=${params.facet.types.join('.')}`;
+      queryString += createUrlListParam('types', params.facet.types);
     }
 
     if (params.facet.locations.length) {
-      queryString += `;locations=${params.facet.locations.join('.')}`;
+      queryString += createUrlListParam('locations', params.facet.locations);
     }
 
     return queryString;
@@ -123,24 +135,24 @@ export class Welcome {
   private setSearchParams(queryParams: Params): void {
     this.facet = new PropertyFacet();
     this.query = queryParams['query'] || '';
+    this.pageNumber = Number(queryParams['page']) || 1;
     this.facet.min_bathrooms = queryParams['bath'] ? Number(queryParams['bath']) : this.facet.min_bathrooms;
     this.facet.min_bedrooms = queryParams['bed'] ? Number(queryParams['bed']) : this.facet.min_bedrooms;
 
     if (queryParams['price']) {
-      this.facet.min_price = parseInt(queryParams['price'], 10) // Relying on parseInts parsing of alphanumerics
-      this.facet.max_price = parseInt(queryParams['price'].substring(this.facet.min_price.toString().length + 1), 10);
+      [this.facet.min_price, this.facet.max_price] = parseUrlRange(queryParams['price']);
     }
 
     if (queryParams['amenities']) {
-      this.facet.amenities = queryParams['amenities'].split('.').map(name => ({ name: name }));
+      this.facet.amenities = parseUrlList(queryParams['amenities']).map(name => new Amenity({ name: name }));
     }
 
     if (queryParams['types']) {
-      this.facet.types = queryParams['types'].split('.');
+      this.facet.types = parseUrlList(queryParams['types']);
     }
 
     if (queryParams['locations']) {
-      this.facet.locations = queryParams['locations'].split('.');
+      this.facet.locations = parseUrlList(queryParams['locations']);
     }
   }
 }
