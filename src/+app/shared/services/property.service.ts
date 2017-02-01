@@ -1,6 +1,7 @@
 import { Renderer, Inject, Injectable } from '@angular/core';
 import { Response } from '@angular/http';
-import { formatObjCurl } from './util';
+import { isBrowser } from 'angular2-universal';
+import { formatObjCurl, loadScript } from './util';
 import { HttpService } from './http.service';
 import { FacetsService } from './facets.service';
 
@@ -48,7 +49,7 @@ export class PropertyService {
       .map(() => `query=${defaultedOptions.query}&page=${defaultedOptions.page}&per_page=${defaultedOptions.perPage}&offset=${defaultedOptions.offset}${formatObjCurl(defaultedOptions.facet, 'facets')}`)
       .flatMap(queryOptions => this.http.get(`${BASE_API_URL}/properties/filtered_results?${queryOptions}`))
       .filter(i => i.results && Array.isArray(i.results)) // Dirty error handling
-      .do(i => this.setLastPageNumber(i.total_count, i.offset, i.perPage))
+      .do(i => this.setLastPageNumber(i.total_count, defaultedOptions.offset, defaultedOptions.perPage))
       .map(properties => properties.results.map(i => new Property(i)));
   }
 
@@ -121,18 +122,28 @@ export class PropertyService {
     this.lastPage$.next(Math.ceil((totalCount - 1) / perPage));
   }
 
-  constructor(private http: HttpService, private facetsService: FacetsService) {
-    this.myProperties$ = new BehaviorSubject(this._myProperties);
-    this.superProperties$ = new BehaviorSubject(this._superProperties);
-    this.propertyBySlug$ = new BehaviorSubject(this._propertyBySlug);
-
+  private setHoneyContext() {
     Observable.combineLatest(this.myProperties$, this.superProperties$, this.propertyBySlug$)
-      .subscribe(i => getHoneybadger(true)
+      .filter((i: [any, any, any]) => i[0] && i[1] && i[2])
+      .do(i => getHoneybadger(true)
         .setContext({
           myProperties: i[0],
           superProperties: i[1],
           propertyBySlug: i[2],
         })
-      );
+      )
+      .subscribe();
+  }
+
+  constructor(private http: HttpService, private facetsService: FacetsService) {
+    this.myProperties$ = new BehaviorSubject(this._myProperties);
+    this.superProperties$ = new BehaviorSubject(this._superProperties);
+    this.propertyBySlug$ = new BehaviorSubject(this._propertyBySlug);
+
+    this.setHoneyContext();
+    
+    if (isBrowser) {
+      loadScript('/javascript/webanim.min.js');
+    }
   }
 }

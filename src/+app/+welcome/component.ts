@@ -13,6 +13,7 @@ import { MapOptions } from '../+property/property-map/component';
 import { User } from '../shared/dtos/user';
 import { UserService } from '../shared/services/user.service';
 import { parseUrlRange, parseUrlList, createUrlParam, createUrlRangeParam, createUrlListParam } from '../shared/services/util';
+import { flyInOut } from '../shared/services/animations';
 
 const MAP_HEIGHT = '100%';
 const MAP_ZOOM_LEVEL = 13;
@@ -20,7 +21,10 @@ const MAP_ZOOM_LEVEL = 13;
 @Component({
   selector: 'welcome',
   styleUrls: ['./styles.css'],
-  templateUrl: 'template.html'
+  templateUrl: 'template.html',
+  animations: [
+    flyInOut
+  ],
 })
 export class Welcome {
   public properties$: BehaviorSubject<Property[]> = new BehaviorSubject([]);

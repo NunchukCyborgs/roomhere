@@ -7,11 +7,13 @@
 				<section [class.hide]="showFilters">
 					<div class="row">
 						<div class="small-12 columns">
-							<div class="row flex-row">
-								<div *ngFor="let property of (properties$ | async)" class="small-12 medium-6">
+							<div class="row flex-row properties">
+								<div *ngFor="let property of (properties$ | async)" class="small-12 medium-6" [@flyInOut]="'in'">
 									<property-preview [property]="property"></property-preview>
 								</div>
-								<pay-rent-ad class="small-12 medium-6" *ngIf="pageNumber === 1"></pay-rent-ad>
+								<div class="small-12 medium-6" [@flyInOut]="'in'" *ngIf="pageNumber === 1">
+									<pay-rent-ad></pay-rent-ad>
+								</div>
 							</div>
 						</div>
 					</div>
