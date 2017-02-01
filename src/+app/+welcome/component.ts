@@ -133,7 +133,7 @@ export class Welcome {
   }
 
   private getSearchParams(): PropertySearchParams {
-    return { query: this.query, facet: this.facet, page: this.pageNumber, perPage: this.pageNumber === 1 ? 15 : 16, offset: this.pageNumber === 1 ? 0 : 1 };
+    return { query: this.query, facet: this.facet, page: this.pageNumber, perPage: this.pageNumber === 1 ? 3 : 4, offset: this.pageNumber === 1 ? 0 : 1 };
   }
 
   private setSearchParams(queryParams: Params): void {
