@@ -51,6 +51,7 @@ export class Welcome {
 
     Observable.combineLatest(this.loadFilteredProperties$, this.route.params)
       .do((i: [PropertyFacet, Params]) => this.setSearchParams(i[1]))
+      // tslint:disable-next-line:no-magic-numbers
       .debounceTime(500)
       .flatMap(() => this.facetsService.loadFacets())
       .flatMap(() => this.facetsService.minPrice$)
