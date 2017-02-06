@@ -78,7 +78,7 @@ export class PropertyView {
         latitude: property.latitude,
         longitude: property.longitude
       },
-    }
+    };
   }
 
   ngOnInit() {

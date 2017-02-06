@@ -80,7 +80,7 @@ const PROVIDERS = [
   AnalyticsService, jQueryService,
 
   PropertyViewResolve,
-]
+];
 
 @NgModule({
   imports: [

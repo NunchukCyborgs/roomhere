@@ -148,7 +148,7 @@ export class Welcome {
     }
 
     if (queryParams['amenities']) {
-      this.facet.amenities = parseUrlList(queryParams['amenities']).map(name => new Amenity({ name: name }));
+      this.facet.amenities = parseUrlList(queryParams['amenities']).map(name => new Amenity({ name }));
     }
 
     if (queryParams['types']) {

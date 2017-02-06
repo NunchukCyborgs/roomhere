@@ -20,12 +20,13 @@ export class PayRent {
   private slug: string;
   private token: string;
 
-  constructor(private route: ActivatedRoute, private router: Router, private propertyService: PropertyService, private paymentService: PaymentService, private userService: UserService) { }
+  constructor(private route: ActivatedRoute, private router: Router, private propertyService: PropertyService, 
+  private paymentService: PaymentService, private userService: UserService) { }
 
   ngOnInit() {
     this.userService.loadMe()
       .filter(i => i.licenses && i.licenses.length > 0)
-      .subscribe(() => this.router.navigate(['/account/dashboard']))
+      .subscribe(() => this.router.navigate(['/account/dashboard']));
 
     this.route.firstChild.params
       .do(i => this.slug = i['slug'])

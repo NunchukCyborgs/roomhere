@@ -7,6 +7,7 @@
     "url": "https://github.com/NunchukCyborgs/roomhere.git"
   },
   "scripts": {
+    "lint": "tslint src/+app/**/*.ts --force",
     "minify-images": "node node_modules/imagemin-cli/cli src/assets/images/* --out-dir=src/assets/images/",
     "build:scss": "node node_modules/node-sass/bin/node-sass src/+app -r -o src/+app",
     "watch:scss": "node node_modules/node-sass/bin/node-sass -w src/+app -r -o src/+app",
