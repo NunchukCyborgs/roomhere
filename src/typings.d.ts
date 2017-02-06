@@ -88,3 +88,4 @@ declare let DEFAULT_TENANT_PRETTY: string;
 declare let DEFAULT_STATE: string;
 declare let CAPE_GIRARDEU_CENTER: string;
 declare let STRIPE_PUBLISHABLE_KEY: string;
+declare let WELCOME_PAGE_RESULTS: number;

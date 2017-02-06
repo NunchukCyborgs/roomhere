@@ -35,8 +35,9 @@ const htmlQuery = {
   customAttrAssign: [/\)?\]?=/],
 };
 
-export var commonPlugins = [
+export const commonPlugins = [
   new webpack.DefinePlugin(Object.assign(KEYS, {
+    WELCOME_PAGE_RESULTS: 16,
     DEFAULT_TENANT: JSON.stringify('cape-girardeau'),
     DEFAULT_TENANT_PRETTY: JSON.stringify('Cape Girardeau'),
     DEFAULT_STATE: JSON.stringify('MO'),
@@ -55,7 +56,7 @@ export var commonPlugins = [
   new webpack.LoaderOptionsPlugin({
   }),
 ];
-export var commonConfig = {
+export const commonConfig = {
   // https://webpack.github.io/docs/configuration.html#devtool
   devtool: 'source-map',
   resolve: {
@@ -86,10 +87,10 @@ export var commonConfig = {
 };
 
 // Client.
-export var clientPlugins = [
+export const clientPlugins = [
 
 ];
-export var clientConfig = {
+export const clientConfig = {
   target: 'web',
   entry: './src/client',
   output: {
@@ -107,10 +108,10 @@ export var clientConfig = {
 
 
 // Server.
-export var serverPlugins = [
+export const serverPlugins = [
 
 ];
-export var serverConfig = {
+export const serverConfig = {
   target: 'node',
   entry: './src/server', // use the entry file of the node server if everything is ts rather than es5
   output: {
@@ -149,7 +150,7 @@ export default [
 
 // Helpers
 export function includeClientPackages(packages, localModule?: string[]) {
-  return function (context, request, cb) {
+  return (context, request, cb) => {
     if (localModule instanceof RegExp && localModule.test(request)) {
       return cb();
     }
