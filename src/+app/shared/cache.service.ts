@@ -12,7 +12,7 @@ export class CacheService {
    * check if there is a value in our store
    */
   has(key: string | number): boolean {
-    let _key = this.normalizeKey(key);
+    const _key = this.normalizeKey(key);
     return this._cache.has(_key);
   }
 
@@ -20,7 +20,7 @@ export class CacheService {
    * store our state
    */
   set(key: string | number, value: any): void {
-    let _key = this.normalizeKey(key);
+    const _key = this.normalizeKey(key);
     this._cache.set(_key, value);
   }
 
@@ -28,7 +28,7 @@ export class CacheService {
    * get our cached value
    */
   get(key: string | number): any {
-    let _key = this.normalizeKey(key);
+    const _key = this.normalizeKey(key);
     return this._cache.get(_key);
   }
 
@@ -43,7 +43,7 @@ export class CacheService {
    * convert to json for the client
    */
   dehydrate(): any {
-    let json = {};
+    const json = {};
     this._cache.forEach((value: any, key: string) => json[key] = value);
     return json;
   }
@@ -53,8 +53,8 @@ export class CacheService {
    */
   rehydrate(json: any): void {
     Object.keys(json).forEach((key: string) => {
-      let _key = this.normalizeKey(key);
-      let value = json[_key];
+      const _key = this.normalizeKey(key);
+      const value = json[_key];
       this._cache.set(_key, value);
     });
   }
