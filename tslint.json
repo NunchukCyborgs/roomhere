@@ -43,7 +43,7 @@
     "cyclomatic-complexity": [true, 20],
     "max-classes-per-file": [true, 1],
     "max-file-line-count": [true, 200],
-    "max-line-length": [true, 160],
+    "max-line-length": [true, 190],
     "prefer-const": true
   }
 }
