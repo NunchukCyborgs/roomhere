@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { HttpService } from '../services/http.service';
+import { PropertySearchParams } from '../services/property.service';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { generateGUID } from './util';
 import { Amenity } from '../dtos/property';
@@ -15,6 +16,8 @@ export class FacetsService {
   public minPrice$: BehaviorSubject<number> = new BehaviorSubject(-1);
   public maxPrice$: BehaviorSubject<number> = new BehaviorSubject(-1);
   public types$: BehaviorSubject<string[]> = new BehaviorSubject([]);
+  public query$: BehaviorSubject<PropertySearchParams>;
+  private _query: PropertySearchParams = { query: '' };
 
   constructor(private http: HttpService) {
     this.amenities$ = new BehaviorSubject(this._amenities);
@@ -22,6 +25,7 @@ export class FacetsService {
     this.locations$ = new BehaviorSubject(this._locations);
     this.locations$.subscribe();
     this.loadFacets().subscribe();
+    this.query$ = new BehaviorSubject(this._query);
   }
 
   get amenities(): Amenity[] {
@@ -32,18 +36,22 @@ export class FacetsService {
     return Object.assign([], this._locations);
   }
 
+  public updateQuery(params: PropertySearchParams): void {
+    this.query$.next(Object.assign(this._query, params));
+  }
+
   public loadFacets(): Observable<any> {
     return this.hasInit ? Observable.of(null) : this.http
       .get(`${BASE_API_URL}/properties/facets`)
       .do(i => {
         this.hasInit = true;
-        
+
         this._amenities = this._amenities || [];
         this._locations = this._locations || [];
-        for (let amenity of i.amenities) {
+        for (const amenity of i.amenities) {
           this._amenities.push(new Amenity(amenity));
         }
-        for (let location of i.locations) {
+        for (const location of i.locations) {
           this._locations.push(location);
         }
 
